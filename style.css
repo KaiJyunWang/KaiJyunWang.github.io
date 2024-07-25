@@ -5,7 +5,7 @@
 }
 /* Header */
 header {
-    background-color: #250909;
+    background-color: #250909; 
     height: 80px;
     width: 100%;
 }
@@ -57,13 +57,37 @@ p {
 
 /* For narrow screen */
 
-/* @media screen and (max-width: 800px) {
+@media only screen and (max-width: 600px) {
     h1 {
         text-align: center;
+        left: 0;
+        right: 0;
+        height: 50px;
+    }
+    h1::after {
+        content: "";
+        display: block;
+        width: 80%; /* Adjust this value to control the line width */
+        max-width: 600px; /* Adjust this value to control the maximum line width */
+        height: 1px;
+        background-color: white;
+        margin: 0 auto;
+        margin-top: 0; /* Optional: to add some space between the text and the line */
+    }
+    header {
+        height: 215px;
     }
     header ul {
+        position: relative;
+        top: 85px;
+        right: 0;
+    }
+    header li {
         display: block;
         text-align: center;
-        line-height: 1.5;
+        line-height: 30px;
     } 
-} */
+    p {
+        margin-right: 4vw;
+    }
+} 
