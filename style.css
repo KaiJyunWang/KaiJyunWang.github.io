@@ -17,10 +17,10 @@ h1 {
     line-height: 80px;
 }
 header li {
+    display: inline;
     margin-right: 2vw;
 }
 header ul {
-    display: inline;
     position: absolute;
     right: 2vw;
     top: 0;
