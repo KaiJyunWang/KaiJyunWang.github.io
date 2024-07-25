@@ -54,5 +54,54 @@ p {
 .container a:hover {
     text-decoration: underline;
 }
+/* 
+For narrow screen
 
-
+@media screen and (max-width: 900px) {
+    header ul {
+        display: none;
+    }
+    header {
+        height: 200px;
+    }
+    h1 {
+        text-align: center;
+    }
+    header li {
+        display: block;
+        margin-right: 0;
+        text-align: center;
+    }
+    header ul {
+        position: relative;
+        top: 20px;
+        line-height: 20px;
+        font-size: 20px;
+    }
+    header a {
+        color: white;
+        text-decoration: none;
+    }
+    header a:hover {
+        text-decoration: underline;
+    }
+    h2 {
+        text-align: center;
+        margin-top: 4vw;
+        margin-left: 0;
+    }
+    p {
+        font-size: large;
+        text-align: left;
+        margin-top: 2vw;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .container a {
+        color: rgb(8, 148, 173);
+        text-decoration: none;
+    }
+    .container a:hover {
+        text-decoration: underline;
+    }
+} */
