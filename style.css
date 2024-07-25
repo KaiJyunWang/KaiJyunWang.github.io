@@ -57,7 +57,7 @@ p {
 
 /* For narrow screen */
 
-@media screen and (max-width: 800px) {
+/* @media screen and (max-width: 800px) {
     h1 {
         text-align: center;
     }
@@ -66,4 +66,4 @@ p {
         text-align: center;
         line-height: 1.5;
     } 
-}
+} */
