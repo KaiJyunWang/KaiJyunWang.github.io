@@ -1,0 +1,176 @@
+\begin{definition}
+    $\ell^p = \Set{\set{x_i}_{i\in\I}}{\norm{x}_p < \infty}$, where 
+    $\I$ is an countable index set and $\norm{x}_p = 
+    \pth{\sum_i \abs{x_i}^p}^{1/p}$, $1\leq p <\infty$,  
+    is called the \textbf{$\ell^p$ space}. For $p=\infty$, 
+    the norm is defined as $\norm{x}_\infty = \sup_i\abs{x_i}$.
+\end{definition}
+
+\begin{definition}
+    $f:X\to Y$ is called a \textbf{homomophism} if it preserves 
+    the algebraic structure. In particular, for $X,Y$ being 
+    vector spaces, $f$ is a homomorphism if $f(cx+y) = cf(x)+f(y)$.
+\end{definition}
+
+\begin{definition}
+    $f:X\to Y$ is called an \textbf{isomorphism} if it is a 
+    bijective homomorphism.
+\end{definition}
+
+\begin{definition}
+    $f:X\to Y$ is called an \textbf{isometry} if $\norm{f(x)}_Y 
+    = \norm{x}_X$ for all $x\in X$.
+\end{definition}
+
+\begin{example}
+    A rightward shift operator $S_R:\ell^p(\N)\to\ell^p(\N)$ is 
+    not an isomorphism, but $S_R:\ell^p(\Z)\to\ell^p(\Z)$ is.
+\end{example}
+
+\begin{lemma}[Young's Inequality]
+    Let $1< p,p'<\infty$ with $\frac{1}{p}+\frac{1}{p'}=1$. 
+    Then for all $a,b\geq 0$, 
+    \begin{equation*}
+        ab \leq \frac{a^p}{p} + \frac{b^{p'}}{p'}.
+    \end{equation*}
+    Furthermore, the equality holds if and only if $a^p = b^{p'}$.
+\end{lemma}
+\begin{proof}
+    If $a = 0$ or $b = 0$, the inequality is trivial. Suppose 
+    $a,b>0$. Let $t = 1/p$ and we can write 
+    \begin{equation*}
+        \log(ab) = \log(a) + \log(b) = t\log(a^p) + (1-t)\log(b^{p'}) 
+        \leq \log\pth{ta^p + (1-t)b^{p'}}
+    \end{equation*} 
+    by the concavity of logarithm and Jensen's inequality.
+    Exponentiating both sides yields the desired inequality. 
+    The equality holds if and only if $a^p = b^{p'}$ by the 
+    Jensen's inequality.
+\end{proof}
+
+\begin{theorem}[H\"older's Inequality in $\ell^p$]
+    Let $1\leq p,p'\leq\infty$ with $\frac{1}{p}+\frac{1}{p'}=1$. 
+    Then for all $f\in\ell^p$ and $g\in\ell^{p'}$, 
+    \begin{equation*}
+        \norm{fg}_1 \leq \norm{f}_p\norm{g}_{p'}.
+    \end{equation*}
+    Moreover, the equality holds if and only if $f = cg$ for some 
+    constant $c$.
+\end{theorem}
+\begin{proof}
+    If one of $f$ or $g$ is zero, the inequality is trivial.
+    If $p = 1$ and $p' = \infty$, $\abs{f_ig_i} \leq \norm{g}_{\infty}\abs{f_i}$. 
+    Summing over $i$ yields the desired inequality. For the case 
+    $p = \infty$ and $p' = 1$ the proof is similar. Now suppose
+    $1<p<\infty$ and $1<p'<\infty$. Without loss of generality, 
+    we may assume that $\norm{f}_p = \norm{g}_{p'} = 1$.
+    By Young's inequality, 
+    \begin{equation*}
+        \abs{f_ig_i} \leq \frac{\abs{f_i}^p}{p} + \frac{\abs{g_i}^{p'}}{p'}.
+    \end{equation*}
+    Thus 
+    \begin{equation*}
+        \norm{fg}_1 = \sum_i \abs{f_ig_i} \leq \sum_i \frac{\abs{f_i}^p}{p} + \sum_i\frac{\abs{g_i}^{p'}}{p'} 
+        = \frac{1}{p}\norm{f}_p^p + \frac{1}{p'}\norm{g}_{p'}^{p'} = 1.
+    \end{equation*}
+    Hence we obtain the desired inequality. The equality holds if 
+    and only if $\abs{f_i}^p = \abs{g_i}^{p'}$ for all $i$ by the 
+    Young's inequality. In general, the equality holds if and 
+    only if $f = cg$ for some constant $c$ after scaling the 
+    both sides of the inequality by $c$. 
+\end{proof}
+\begin{remark}
+    We call $p'$ the \textbf{conjugate exponent} of $p$ for 
+    $1/p + 1/p' = 1$.
+\end{remark}
+
+\begin{theorem}[Minkowski's Inequality in $\ell^p$]
+    Let $1\leq p\leq\infty$. Then for all $f,g\in\ell^p$, 
+    \begin{equation*}
+        \norm{f+g}_p \leq \norm{f}_p + \norm{g}_p.
+    \end{equation*}
+\end{theorem}
+\begin{proof}
+    If $p = 1$, the inequality comes from the triangle inequality. 
+    For $1<p<\infty$, 
+    \begin{equation*}
+        \begin{split}
+            \norm{f+g}_p^p &= \sum_i \abs{f_i+g_i}\abs{f_i+g_i}^{p-1} \\
+            &\leq \sum_i \abs{f_i}\abs{f_i+g_i}^{p-1} + \sum_i \abs{g_i}\abs{f_i+g_i}^{p-1} \\
+            &\leq \norm{f}_p\pth{\sum_i \abs{f_i+g_i}^{(p-1)p'}}^{1/p'} + \norm{g}_p\pth{\sum_i \abs{f_i+g_i}^{(p-1)p'}}^{1/p'} \\ 
+            &= \norm{f}_p\norm{f+g}_p^{p/p'} + \norm{g}_p\norm{f+g}_p^{p/p'}
+        \end{split}
+    \end{equation*}
+    by the H\"older's inequality. Rearranging the inequality yields 
+    \begin{equation*}
+        \norm{f+g}_p = \norm{f+g}_p^{p-p/p'} \leq \norm{f}_p + \norm{g}_p.
+    \end{equation*}
+    For $p = \infty$, 
+    \begin{equation*}
+        \norm{f+g}_\infty = \sup_i\abs{f_i+g_i} \leq \sup_i\abs{f_i} + \sup_i\abs{g_i} = \norm{f}_\infty + \norm{g}_\infty.
+    \end{equation*}
+    The proof is complete.
+\end{proof}
+\begin{remark}
+    The Minkowski's inequality is exactly the triangle inequality 
+    in $\ell^p$ spaces. We can thus confirm that $\ell^p$ norms 
+    are indeed norms.
+\end{remark}
+
+\begin{theorem}[Dualities of $\ell^p$ Spaces]
+    Let $1< p < \infty$. Then $(\ell^p)' \cong \ell^{p'}$, where 
+    $p'$ is the conjugate exponent of $p$.
+\end{theorem}
+\begin{proof}
+    We need to prove that there exists an isometric isomorphism 
+    $\psi:\ell^{p'}\to\pth{\ell^{p}}'$ such that $\psi gf = \sum_i f_ig_i$ 
+    for all $g\in\ell^{p'}$ and $f\in\ell^p$. We show that $\psi$ 
+    is well-defined, linear, bounded, bijective, and isometric. 
+
+    First, we show that $\psi$ is well-defined. For $f\in\ell^p$ and 
+    $g\in\ell^{p'}$, 
+    \begin{equation*}
+        \abs{\psi gf} \leq \sum_i \abs{f_ig_i} \leq \norm{f}_p\norm{g}_{p'} < \infty
+    \end{equation*}
+    by the H\"older's inequality. Thus $\psi g\in\pth{\ell^{p}}'$ is 
+    well-defined. 
+
+    Next, $\psi$ is linear since for $g_1,g_2\in\ell^{p'}$ and $c\in\R$, 
+    \begin{equation*}
+        \psi(cg_1 + g_2)(f) = \sum_i f_i(cg_{1i}+g_{2i}) = c\sum_i f_ig_{1i} + \sum_i f_ig_{2i} = c\psi g_1(f) + \psi g_2(f)
+    \end{equation*}
+    for all $f\in\ell^p$. Hence $\psi(cg_1 + g_2) = c\psi g_1 + \psi g_2$. 
+
+    Now, to show that $\psi$ is bounded,
+    \begin{equation*}
+        \begin{split}
+            \norm{\psi g} &= \sup\Set{\abs{\psi gf}}{\norm{f}_p = 1} 
+            = \sup\Set{\abs{\sum_i f_ig_i}}{\norm{f}_p = 1} \\
+            &\leq \sup_{\norm{f}_p = 1}\set{\norm{g}_{p'}} \leq \norm{g}_{p'}.
+        \end{split}
+    \end{equation*}
+    We see that $\norm{\psi}\leq 1$. Next, let 
+    $h\in\pth{\ell^p}'$ and define $g$ by $g_i = h(e_i)$. Then 
+    \begin{equation*}
+        \begin{split}
+            \norm{g}_{p'} &= \pth{\sum_i \abs{g_i}^{p'}}^{1/p'} 
+            = \pth{\sum_i \abs{h(e_i)}^{p'}}^{1/p'} 
+            \leq \pth{\sum_i \norm{h}^{p'}}^{1/p'} 
+            = \norm{h}.
+        \end{split}
+    \end{equation*}
+    Then $g\in\ell^{p'}$. Furthermore, for such $g$,
+    \begin{equation*}
+        \psi g(f) = \sum_i f_ig_i = \sum_i f_ih(e_i) = h\pth{\sum_i f_ie_i} = h(f)
+    \end{equation*} 
+    for every $f\in\ell^p$. Hence $\psi$ is surjective and $\norm{\psi g} 
+    = \norm{h}$. The isometry of $\psi$ is immediate from that 
+    \begin{equation*}
+        \norm{\psi g} \leq \norm{g}_{p'} \leq \norm{h} = \norm{\psi g}.
+    \end{equation*} 
+    Finally, $\psi$ is injective since otherwise there exists 
+    $g\neq 0$ such that $\psi g = 0$. Then $\norm{g}_{p'} = 0$ 
+    by the isometry of $\psi$, which implies that $g = 0$, 
+    a contradiction. We conclude that $\psi$ is an isometric 
+    isomorphism and the proof is complete.
+\end{proof}

@@ -1,0 +1,734 @@
+\begin{definition}
+    Let $(X,\A,\mu)$ be a measure space and $1\leq p < \infty$. 
+    The space $\L^p(X)$ consists of all equivalence classes of 
+    measurable functions $f:X\to\R$ such that 
+    \begin{equation*}
+        \norm{f}_{\L^p} = \pth{\int_X \abs{f}^pd\mu}^{1/p} < \infty,
+    \end{equation*} 
+    where $f\sim g$ if $f = g$ a.e. and the norm is defined 
+    on a representative of the equivalence class.
+\end{definition}
+
+\begin{definition}
+    $f:X\to\R$ is measurable. The \textbf{essential supremum} of 
+    $f$ on $X$ is defined as 
+    \begin{equation*}
+        \esssup_X f = \inf\Set{\sup_X g}{g = f \mu\text{-a.e.}}
+        = \inf\Set{c\in\R}{\mu\pth{\Set{x}{f(x)>c}} = 0}.
+    \end{equation*}
+    We called $f$ \textbf{essentially bounded} if $\esssup_X f < \infty$.
+    The space $\L^\infty(X)$ consists of all equivalence classes 
+    of essentially bounded measurable functions with the norm 
+    \begin{equation*}
+        \norm{f}_{\L^\infty} = \esssup_X\abs{f}.
+    \end{equation*}
+\end{definition} 
+
+\begin{theorem}[H\"older's Inequality in $\L^p$]
+    Let $1\leq p,p'\leq\infty$ with $\frac{1}{p}+\frac{1}{p'}=1$. 
+    Then for all $f\in\L^p$ and $g\in\L^{p'}$, 
+    \begin{equation*}
+        \norm{fg}_1 \leq \norm{f}_p\norm{g}_{p'}.
+    \end{equation*}
+    Moreover, the equality holds if and only if $f = cg$ for some 
+    constant $c$.
+\end{theorem}
+\begin{proof}
+    For the case $p = 1$ and $p' = \infty$, notice that
+    \begin{equation*}
+        \abs{fg} \leq \abs{f}\esssup \abs{g} \implies 
+        \norm{fg}_1 = \int \abs{fg}d\mu \leq \int \abs{f}\esssup\abs{g}d\mu = \norm{f}_1\norm{g}_\infty.
+    \end{equation*}
+    For the case $p = \infty$ and $p' = 1$, the proof is similar. 
+    Now suppose $1<p<\infty$ and $1<p'<\infty$. If one of $f$ or 
+    $g$ is zero, the inequality is trivial. Without loss of 
+    generality, we may assume that $\norm{f}_p = \norm{g}_{p'} = 1$. 
+    By the Young's inequality, 
+    \begin{equation*}
+        \abs{fg} \leq \frac{\abs{f}^p}{p} + \frac{\abs{g}^{p'}}{p'}.
+    \end{equation*}
+    Integrating both sides yields
+    \begin{equation*}
+        \norm{fg}_1 = \int \abs{fg}d\mu \leq \int \frac{\abs{f}^p}{p}d\mu + \int \frac{\abs{g}^{p'}}{p'}d\mu 
+        = \frac{1}{p} + \frac{1}{p'} = 1.
+    \end{equation*}
+    Hence we obtain the desired inequality. The equality holds if 
+    and only if $\abs{f}^p = \abs{g}^{p'}$ a.e.\ by the Young's inequality. 
+    In general, the equality holds if and only if $f = cg$ a.e.\ for some 
+    constant $c$ after scaling the both sides of the inequality by $c$.
+\end{proof}
+
+\begin{theorem}[Minkowski's Inequality in $\L^p$]
+    Let $1\leq p\leq\infty$. Then for all $f,g\in\L^p$, 
+    \begin{equation*}
+        \norm{f+g}_p \leq \norm{f}_p + \norm{g}_p.
+    \end{equation*}
+\end{theorem}
+\begin{proof}
+    If $p = 1$, the inequality comes from the triangle inequality. 
+    For $1<p<\infty$, 
+    \begin{equation*}
+        \begin{split}
+            \norm{f+g}_p^p &= \int \abs{f+g}^pd\mu 
+            = \int \abs{f+g}\abs{f+g}^{p-1}d\mu \\
+            &\leq \int \abs{f}\abs{f+g}^{p-1}d\mu + \int \abs{g}\abs{f+g}^{p-1}d\mu \\
+            &\leq \norm{f}_p\pth{\int \abs{f+g}^{(p-1)p'}d\mu}^{1/p'} + \norm{g}_p\pth{\int \abs{f+g}^{(p-1)p'}d\mu}^{1/p'} \\
+            &= \norm{f}_p\norm{f+g}_p^{p/p'} + \norm{g}_p\norm{f+g}_p^{p/p'}.
+        \end{split}
+    \end{equation*}
+    Rearranging the inequality yields 
+    \begin{equation*}
+        \norm{f+g}_p = \norm{f+g}_p^{p-p/p'} \leq \norm{f}_p + \norm{g}_p.
+    \end{equation*}
+    For $p = \infty$, 
+    \begin{equation*}
+        \norm{f+g}_\infty = \esssup \abs{f+g} \leq \esssup \abs{f} + \esssup \abs{g} = \norm{f}_\infty + \norm{g}_\infty.
+    \end{equation*}
+    The proof is complete.
+\end{proof}
+
+\begin{theorem}
+    $1\leq p\leq \infty$. Simple functions are dense in $\L^p$.
+\end{theorem}
+\begin{proof}
+    For $p<\infty$, consider $f\geq 0$ and $f\in\L^1$. There exists a 
+    sequence of simple functions $f_n\nearrow f$ a.e. Note that 
+    $\abs{f-f_n}^p\leq\abs{f}^p\in\L^1$. By Lebesgue's dominated 
+    convergence theorem, $\norm{f_n-f}_p\to 0$ as $n\to\infty$. 
+    For $p=\infty$, pick an $f$ in the $f$-equivalent class 
+    such that $f$ is bounded. Then since the approximation of 
+    simple functions can be done uniformly, the result follows.
+\end{proof}
+\begin{remark}
+    A simple function $s = \sum_{i=1}^n c_i\chi_{A_i}\in\L^p$ must have 
+    $\mu(A_i)<\infty$ for every $i$ such that $c_i > 0$. Since 
+    contiuous functions can approximate simple functions, 
+    they are dense in $\L^p$ as well.
+\end{remark}
+
+\begin{lemma}\label{lem:r-f_sum}
+    $1\leq p<\infty$. $g_k\in\L^p$ and $\sum_k \norm{g_k}_p < \infty$. 
+    Then there exists $f\in\L^p$ such that $\sum_k g_k = f$ pointwise 
+    a.e. and in $\L^p$.
+\end{lemma}
+\begin{proof}
+    Define $h_n$ and $h$ by $h_n = \sum_{k=1}^n\abs{g_k}$ and 
+    $h = \sum_k \abs{g_k}$. Then $h_n\nearrow h$. By Lebesgue's 
+    monotone convergence theorem, 
+    \begin{equation*}
+        \lim_{n\to\infty} \int h_n^pd\mu = \int h^pd\mu.
+    \end{equation*} 
+    By Minkowski's inequality, 
+    \begin{equation*}
+        \pth{\int h_n^pd\mu}^{1/p} = \pth{\int \pth{\sum_{k=1}^n\abs{g_k}}^pd\mu}^{1/p} 
+        \leq \sum_{k=1}^n \pth{\int \abs{g_k}^pd\mu}^{1/p} 
+        \leq \sum_{k=1}^n \norm{g_k}_p < \infty
+    \end{equation*}
+    for every $n$, so $h\in\L^p$ and $\norm{h}_p \leq M$ for some $M$ bounding 
+    $\sum_k \norm{g_k}_p$. Now since $\sum_k g_k$ converges absolutely to some 
+    $f$ pointwisely a.e.\ and $\abs{f}\leq h$, 
+    \begin{equation*}
+        \abs{f - \sum_{k=1}^{n} g_k}^p \leq \pth{\abs{f} + \sum_{k=1}^{n}\abs{g_k}}^p 
+        \leq \pth{2h}^p \in \L^1.
+    \end{equation*}
+    By Lebesgue's dominated convergence theorem, $\norm{f-\sum_{k=1}^{n} g_k}_p\to 0$ 
+    as $n\to\infty$. Thus the proof is complete.
+\end{proof}
+
+\begin{theorem}[Riesz-Fischer]
+    $\L^p$ spaces are complete. 
+\end{theorem}
+\begin{proof}
+    First, we focus on the case where $1\leq p<\infty$. Let $f_k$ be a 
+    Cauchy sequence in $\L^p$. Take a subsequence $f_{k_j}$ such that 
+    $\norm{f_{k_{j+1}}-f_{k_j}} \leq 2^{-j}$. Let 
+    $g_j = f_{k_{j+1}}-f_{k_j}\in\L^p$ and we have 
+    $\sum_j \norm{g_j}_p < \infty$. By the \cref{lem:r-f_sum}, there exists 
+    $f\in\L^p$ such that $f = \sum_j g_j$ a.e.\ and 
+    \begin{equation*}
+        \lim_{j\to\infty} f_{k_j} = \lim_{j\to\infty} f_{k_1} + \sum_{i=1}^{j-1} g_i 
+        = f_{k_1} + f\in\L^p.
+    \end{equation*}
+    Since $f_k$ is Cauchy and a subsequence converges, the original 
+    sequence $f_k$ converges to $f_{k_1} + f\in\L^p$ as well. 
+    We now consider the case where $p=\infty$. Let $f_k$ be a Cauchy 
+    sequence in $\L^\infty$. Then for almost every $x$, $\set{f_k(x)}$ 
+    is a Cauchy sequence in $\R$. Thus we can define $f(x)$ as the 
+    limit of $f_k(x)$ as $k\to\infty$. On the set where $f_k(x)$ does 
+    not converge, we let $f(x)$ be zero. Then $f\in\L^\infty$ since 
+    $\set{f_k}$ is Cauchy and has an uniform bound except on a measure 
+    zero set. Also, for any $\epsilon>0$, we can find $N$ such that 
+    $\norm{f_k - f_j}_\infty < \epsilon$ for all $k,j\geq N$. Hence 
+    $\norm{f_k-f}_\infty < \epsilon$ for all $k\geq N$. Thus $f_k\to f$ 
+    in $\L^\infty$. We conclude that $\L^p$ spaces are complete.
+\end{proof}
+
+\begin{proposition}\label{prop:dual_isometry}
+    $1\leq p<\infty$. $1/p + 1/p' = 1$. Let $g\in\L^{p'}(X,\mu)$. Then the 
+    mapping $Tg:\L^p(X,\mu)\to\R$ defined by 
+    \begin{equation*}
+        Tg(f) = \int_X fg d\mu
+    \end{equation*}
+    is a bounded linear functional. Furthermore, $\norm{Tg}_{\L^p\to\R} 
+    = \norm{g}_{p'}$.
+\end{proposition}
+\begin{proof}
+    We start by checking that $Tg$ is well-defined. For $f\in\L^p$, 
+    \begin{equation*}
+        \abs{Tg(f)} = \abs{\int fgd\mu} \leq \int \abs{fg}d\mu \leq \norm{f}_p\norm{g}_{p'}
+    \end{equation*}
+    by H\"older's inequality. Thus $Tg(f)\in\R$. Also, we obtain that 
+    $\norm{Tg}_{\L^p\to\R}\leq\norm{g}_{p'}$. For the linearity, let $c\in\R$ 
+    and $f_1,f_2\in\L^p$.
+    \begin{equation*}
+        Tg(cf_1+f_2) = \int (cf_1+f_2)gd\mu = c\int f_1gd\mu + \int f_2gd\mu 
+        = cTg(f_1) + Tg(f_2).
+    \end{equation*}
+    Lastly, to furnish the isometry, let $g\neq 0$ and define 
+    \begin{equation*}
+        f = \sgn(g)\pth{\frac{\abs{g}}{\norm{g}_{p'}}}^{p'/p}
+        \implies \int \abs{f}^pd\mu 
+        = \int \pth{\frac{\abs{g}}{\norm{g}_{p'}}}^{p'}d\mu<\infty.
+    \end{equation*}
+    Then $f\in\L^p$ and $\norm{f}_p = 1$. Also, 
+    \begin{equation*}
+        Tg(f) = \int \sgn(g)\pth{\frac{\abs{g}}{\norm{g}_{p'}}}^{p'/p}gd\mu 
+        = \norm{g}_{p'}.
+    \end{equation*}
+    It follows that $\norm{Tg}_{\L^p\to\R} = \norm{g}_{p'}$.
+\end{proof}
+
+\begin{theorem}[Riesz Representation]
+    Let $(X,\A\mu)$ be a $\sigma$-finite measure space and $1\leq p<\infty$. 
+    Then the mapping $T:\L^{p'}(X,\mu)\to(\L^p(X,\mu))'$ defined by 
+    $Tg\in\L^p(X,\mu)$, 
+    \begin{equation*}
+        Tg(f) = \int fg d\mu,
+    \end{equation*}
+    is an isometric isomorphism.
+\end{theorem}
+\begin{proof}
+    By \cref{prop:dual_isometry}, $Tg$ is a bounded linear functional. 
+    Besides, let $c\in\R$ and $g_1,g_2\in\L^{p'}$,
+    \begin{equation*}
+        T(cg_1+g_2)(f) = \int (cg_1+g_2)fd\mu = c\int g_1fd\mu + \int g_2fd\mu 
+        = cTg_1(f) + Tg_2(f) = (cTg_1+Tg_2)(f)
+    \end{equation*}
+    for all $f\in\L^p$. Thus $T$ is linear. It remains to show 
+    that $T$ is a bijection. We first verify that $T$ is surjective. 
+
+    Consider the case where $p>1$ and $\mu(X)<\infty$. Let $h\in(\L^p)'$. 
+    Define $\nu:\A\to\R$ by $\nu(A) = h(\chi_A)$. We claim that $\nu$ 
+    is a finite measure and $\nu\ll\mu$. Since 
+    \begin{equation*}
+        \abs{\nu(A)} = \abs{h(\chi(A))} \leq \norm{h}_{\L^p\to\R}\norm{\chi_A}_p 
+        = \norm{h}_{\L^p\to\R}\mu(A)^{1/p},
+    \end{equation*}
+    we see that $\nu$ is finite since so is $\mu$. Also, if $\mu(A) = 0$, 
+    then $\abs{\nu(A)} = 0$ and hence $\nu(A) = 0$. Thus $\nu\ll\mu$. 
+    For finite additivity, let $A_1,A_2\in\A$ be disjoint. 
+    \begin{equation*}
+        \nu(A_1\cup A_2) = h(\chi_{A_1\cup A_2}) = h(\chi_{A_1}+\chi_{A_2}) 
+        = h(\chi_{A_1}) + h(\chi_{A_2}) = \nu(A_1) + \nu(A_2).
+    \end{equation*}
+    To show the $\sigma$-additivity, let $A_j\in\A$ be countably many 
+    disjoint sets. Put $A = \cup_j A_j$, $A = B_n + C_n$ where 
+    $B_n = \cup_{j=1}^{n} A_j$ and $C_n = \cup_{j=n+1}^{\infty} A_j$. 
+    Then since $B_n\cap C_n = \varnothing$, 
+    \begin{equation*}
+        \nu(A) = \nu(B_n + C_n) = \nu(B_n) + \nu(C_n) 
+        = \sum_{j=1}^{n}\nu(A_j) + \nu(C_n)
+    \end{equation*}
+    for all $n$. Since $\mu(X)<\infty$, $\sum_j \mu(A_j)<\infty$ and 
+    $\mu(C_n)\to 0$ as $n\to\infty$. Thus 
+    \begin{equation*}
+        \abs{\nu(C_n)} = \abs{h(C_n)} 
+        \leq \norm{h}_{\L^p\to\R}\mu(C_n)^{1/p}\to\infty.
+    \end{equation*} 
+    We conclude that $\nu(A) = \sum_j \nu(A_j)$ and $\nu$ is a measure. 
+
+    Next, since $\nu\ll\lambda$, by the Radon-Nikodym theorem, 
+    there exists a unique $g\in\L^1(X,\mu)$ such that 
+    \begin{equation*}
+        h(\chi_A) = \nu(A) = \int_A gd\mu = \int_X \chi_A gd\mu 
+        = Tg(\chi_A).
+    \end{equation*} 
+    for arbitrary $A\in\A$. Extend by linearity to $p$-integrable 
+    simple functions, say $s = \sum_{i=1}^n c_i\chi_{A_i}$. 
+    \begin{equation*}
+        h(s) = \sum_{i=1}^n c_ih(\chi_{A_i}) 
+        = \sum_{i=1}^n c_i\int_X \chi_{A_i}gd\mu 
+        = \int_X \sum_{i=1}^n c_i\chi_{A_i}gd\mu 
+        = \int_X sgd\mu = Tg(s).
+    \end{equation*}
+    For a general $f\in\L^p$, by separating $f = f^+ - f^-$ 
+    if necessary, we may assume that $f\geq 0$. By 
+    \cref{lem:simple_approx}, there exists a sequence of simple 
+    functions $s_n\nearrow f$. Then by Lebesgue's monotone 
+    convergence theorem, $\norm{f-s_n}_p\to 0$. Since $h$ is 
+    a bounded linear functional, it is continuous, and hence 
+    $h(s_n)\to h(f)$ as $n\to\infty$. We obtain that 
+    \begin{equation*}
+        h(f) = \lim_{n\to\infty} h(s_n) = \lim_{n\to\infty} \int_X s_ngd\mu 
+        = \int_X fgd\mu = Tg(f)
+    \end{equation*}
+    for all $f\in\L^p$. Thus $Tg = h$. It remains to check 
+    that $g\in\L^{p'}$. Let 
+    \begin{equation*}
+        f_n = \begin{cases}
+            \abs{g}^{p'-1}\sgn(g) & \text{if } \abs{g(x)}^{p'-1} \leq n, \\
+            n\sgn(g) & \text{otherwise}.
+        \end{cases}
+    \end{equation*}
+    Then $f_n\in\L^p$ and $f_ng\nearrow\abs{g}^{p'}$. 
+    \begin{equation*}
+        \abs{Tg(f_n)} = \abs{\int f_ngd\mu} \leq \norm{Tg}_{\L^p\to\R}\norm{f_n}_p.
+    \end{equation*}
+    Also, $f_ng = \abs{f_n}\abs{g} \geq \abs{f_n}\abs{f_n}^{1/(p'-1)} = \abs{f_n}^p$ and 
+    \begin{equation*}
+        \norm{f_n}_p^p = \int \abs{f_n}^pd\mu \leq \int f_ngd\mu \leq \norm{Tg}_{\L^p\to\R}\norm{f_n}_p.
+    \end{equation*}
+    As a result, 
+    \begin{equation*}
+        \norm{g}_{p'}^{p'} = \int \abs{g}^{p'}d\mu = \lim_{n\to\infty} \int f_ngd\mu 
+        \leq \norm{Tg}_{\L^p\to\R}\norm{f_n}_p < \infty.
+    \end{equation*}
+    Hence $g\in\L^{p'}$ and $T$ is indeed surjective. Furthermore, 
+    such $g$ is unique by the uniqueness of the Radon-Nikodym 
+    derivative. We also conclude that $T$ is injective. 
+
+    For the case where $p=1$ and $\mu(X)<\infty$, $p'=\infty$. 
+    We consider the same mapping $T$ with $Tg(f) = \int fg d\mu$. 
+    We claim that $g\in\L^\infty$. Suppose $g\not\in\L^\infty$. 
+    Then for every $K$, the set $A_K = \Set{x\in X}{\abs{g(x)}>K}$ 
+    has positive measure. Define $f_K = \sgn(g)\chi_{A_K}/\mu(A_K)$. 
+    Note that $\norm{f_K}_1 = 1$. If $g\geq 0$, then 
+    \begin{equation*}
+        \abs{Tg(f_K)} = \int f_Kgd\mu > K
+    \end{equation*}
+    for all $K$. But $Tg$ is a bounded linear functional, 
+    which is a contradiction. Thus $g\in\L^\infty$. 
+
+    Finally, we prove the case where $X$ is $\sigma$-finite. 
+    Write $X = \cup_n X_n$ where $\mu(X_n)<\infty$ and $X_n\subset 
+    X_{n+1}$. For every $f\in\L^p(X_k,\mu)$, consider 
+    $\hat{f}\in\L^p(X,\mu)$ defined by $\hat{f} = f$ on $X_k$ 
+    and $\hat{f} = 0$ on $X-X_k$. Then $\norm{f}_{\L^p(X_k)} 
+    = \norm{f}_{\L^p(X)}$. Let $h\in(\L^p(X))'$ and consider 
+    $h_k\in (\L^p(X_k))'$ by $h_k(f) = h(\hat{f})$. Then 
+    $\norm{h_k}\leq\norm{h}$. By the previous result, we can 
+    find a unique $g_k\in\L^{p'}(X_k,\mu)$ such that 
+    \begin{equation*}
+        h_k(f) = \int f g_k d\mu, \norm{g_k}_{\L^{p'}(X_k)} 
+        \leq \norm{h_k} \leq \norm{h}.
+    \end{equation*}
+    Since $X_n\subset X_{n+1}$, for $f\in\L^p(X_k)$, we have 
+    $h_k(f) = h(\hat{f}) = h_{k+1}(f)$ and $g_k = g_{k+1}$ 
+    $\mu$-a.e.\ in $X_k$. Define $g = g_k$ on $X_k$ with 
+    $\norm{g}_{\L^{p'}(X)}\leq \norm{h}$. Let $f\in\L^p(X,\mu)$. 
+    H\"older's inequality implies that $fg\in\L^1(X,\mu)$ and 
+    \begin{equation*}
+        h(f\chi_{X_k}) = h_k(f) = \int f\chi_{X_k}g_kd\mu
+    \end{equation*}
+    Since $f\chi_{X_k}\leq \abs{f}$, $f\chi_k\to f\in \L^p(X,\mu)$ 
+    by Lebesgue's dominated convergence theorem. Also, 
+    \begin{equation*}
+        h_k(f) = \int f\chi_{X_k}g_kd\mu \to \int fgd\mu = Tg(f)
+    \end{equation*}
+    by Lebesgue's dominated convergence theorem. Thus $T$ is 
+    indeed the desired isometric isomorphism.
+\end{proof}
+\begin{remark}
+    $\L^\infty\not\cong\L^1$. Consider $C^\infty([-1,1])$, 
+    a subspace of $\L^\infty$. Define a linear functional 
+    $\delta:\C^\infty([-1,1])\to\R$ by $\delta(f) = f(0)$. 
+    Clearly $\delta\in(\L^\infty)'$. Now suppose there exists 
+    $g\in\L^1$ such that $\delta(f) = \int_{-1}^{1} fgdx$. 
+    Let $f = \chi_A$ where $A = [-1,1]-[-\epsilon,\epsilon]$ 
+    for some small $\epsilon>0$. Then $f\in\L^\infty$ and 
+    by definition, 
+    \begin{equation*}
+        0 = f(0) = \delta(f) = \int_{-1}^{1} fgdx = \int_A gdx.
+    \end{equation*}
+    Thus $g = 0$ a.e.\ and $\delta = 0$, a contradiction.
+\end{remark}
+
+\begin{definition}
+    $M(X)$ is a space consisting of all finite signed measures. 
+    For $\nu\in M(X)$, the total variation norm of $\nu$ is 
+    defined by $\norm{\nu} = \nu^+(X) + \nu^-(X)$, where $\nu^+$ 
+    and $\nu^-$ are the Hahn-Jordan decompositions of $\nu$. 
+\end{definition}
+
+\begin{proposition}
+    $M(X)$ with the total variation norm forms a Banach space.
+\end{proposition}
+\begin{proof}
+    Clearly, $M(X)$ forms a vector space. We check that $\norm{\cdot}$ 
+    is indeed a norm. For $\nu\in M(X)$, clearly $\norm{\nu}\geq 0$. If 
+    $\norm{\nu} = 0$, then $\nu^+(X) = \nu^-(X) = 0$, $\nu^+(A)$ and 
+    $\nu^-(A)$ are zero for all $A\in\A$, and hence $\nu = 0$. Conversely, 
+    if $\nu = 0$, then so are $\nu^+$ and $\nu^-$ and hence $\norm{\nu} = 0$. 
+    For $c\in\R$, 
+    \begin{equation*}
+        \norm{c\nu} = \abs{c}\nu^+(X) + \abs{c}\nu^-(X) 
+        = \abs{c}(\nu^+(X) + \nu^-(X)) = \abs{c}\norm{\nu}.
+    \end{equation*}
+    Lastly, let $\nu,\mu\in M(X)$. Notice that $(\nu+\mu)^+\leq \nu^+ + \mu^+$ 
+    and $(\nu+\mu)^-\leq \nu^- + \mu^-$. Thus 
+    \begin{equation*}
+        \norm{\nu+\mu} = (\nu+\mu)^+(X) + (\nu+\mu)^-(X) 
+        \leq \nu^+(X) + \mu^+(X) + \nu^-(X) + \mu^-(X) 
+        = \norm{\nu} + \norm{\mu},
+    \end{equation*}
+    proving that $\norm{\cdot}$ is indeed a norm. 
+
+    For the completeness, let $\nu_n$ be a Cauchy sequence in $M(X)$. We 
+    define a measure $\nu$ by $\nu(A) = \lim_{n\to\infty} \nu_n(A)$ for 
+    all $A\in\A$. We claim that the limit exists and $\nu$ is indeed a 
+    finite signed measure. Since the sequence is Cauchy, for every 
+    $\epsilon>0$, there exists $N$ such that
+    \begin{equation*}
+        (\nu_m-\nu_n)^+(X) + (\nu_m-\nu_n)^-(X) = \norm{\nu_m-\nu_n} \leq \epsilon
+    \end{equation*}
+    for all $m,n\geq N$. Since both $(\nu_m-\nu_n)^+$ and $(\nu_m-\nu_n)^-$ 
+    are positive measures, we have 
+    \begin{equation*}
+        (\nu_m-\nu_n)^+(A) \leq (\nu_m-\nu_n)^+(X) \leq \epsilon, 
+        \quad \text{and} \quad 
+        (\nu_m-\nu_n)^-(A) \leq (\nu_m-\nu_n)^-(X) \leq \epsilon
+    \end{equation*}
+    for every $A\in\A$. Thus 
+    \begin{equation*}
+        \abs{\nu_m(A)-\nu_n(A)} = \abs{(\nu_m-\nu_n)^+(A)-(\nu_m-\nu_n)^-(A)} \leq \epsilon.
+    \end{equation*}
+    It follows that for any fixed $A\in\A$, $\nu_n(A)$ is a Cauchy 
+    sequence in $\R$ and hence the limit exists. Also, taking 
+    $A = X$, we see that $\nu(X)$ is finite. To show that $\nu$ is 
+    a measure, first note that $\nu(\varnothing) = 0$. For finite 
+    additivity, let $A_1,A_2\in\A$ be disjoint. Then 
+    \begin{equation*}
+        \nu(A_1\cup A_2) = \lim_{n\to\infty} \nu_n(A_1\cup A_2) 
+        = \lim_{n\to\infty} \nu_n(A_1) + \nu_n(A_2) = \nu(A_1) + \nu(A_2).
+    \end{equation*}
+    For the $\sigma$-additivity, let $A_n\in\A$ be countably many 
+    disjoint sets. Put $A = \cup_n A_n$, $A = B_n\cup C_n$ where 
+    $B_n = \cup_{j=1}^{n} A_j$ and $C_n = \cup_{j=n+1}^{\infty} A_j$. 
+    Since $\nu(X)<\infty$, $\sum_j \nu(A_j)<\infty$ and hence 
+    $\nu(C_n)\to 0$ as $n\to\infty$. Thus 
+    \begin{equation*}
+        \nu(A) = \nu(B_n) + \nu(C_n) = \sum_{j=1}^{n}\nu(A_j) + \nu(C_n) 
+    \end{equation*}
+    for every $n$ and by letting $n\to\infty$, we obtain
+    $\nu(A) = \sum_j \nu(A_j)$. Finally, fix $n$ and let $m\to\infty$, 
+    \begin{equation*}
+        \norm{\nu-\nu_n} = \lim_{m\to\infty} \norm{\nu_m-\nu_n} 
+        = \lim_{m\to\infty} \abs{\nu_m(X) - \nu_n(X)} = \abs{\nu(X) - \nu_n(X)} 
+        \leq \epsilon
+    \end{equation*}
+    for all $n\geq N$. Thus $\nu_n\to\nu$ in norm and $M(X)$ is complete.
+\end{proof}
+
+\begin{definition}
+    Let $f:[a,b]\to\R$. The \textbf{variation} of $f$ is defined by 
+    \begin{equation*}
+        V_{\mathcal{P}}(f) = \sum_{i=0}^{n-1} \abs{f(t_{i+1})-f(t_i)},
+    \end{equation*}
+    where $\mathcal{P} = \set{a=t_0<t_1<\cdots<t_n=b}$ is a partition 
+    of $[a,b]$. The \textbf{total variation} of $f$ on $[a,b]$ is defined by 
+    \begin{equation*}
+        V(f) = \sup_{\mathcal{P}} V_{\mathcal{P}}(f).
+    \end{equation*}
+\end{definition}
+
+\begin{definition}
+    The \textbf{bounded variation space} $BV([a,b])$ consists of all 
+    functions $f:[a,b]\to\R$ such that $V(f)<\infty$. For $f\in BV([a,b])$, 
+    the \textbf{total variation norm} is defined by $\norm{f}_{TV} 
+    = \abs{f(a)} + V(f)$.
+\end{definition}
+
+\begin{proposition}
+    $BV([a,b])$ with the total variation norm forms a Banach space.
+\end{proposition}
+\begin{proof}
+    It clearly forms a vector space. We check that $\norm{\cdot}_{TV}$ 
+    is indeed a norm. First, clearly $\norm{f}_{TV}\geq 0$. If 
+    $\norm{f}_{TV} = 0$, then $f(a) = 0$ and $f(t) = f(t')$ for all 
+    $t,t'\in[a,b]$. Hence $f = 0$; if $f = 0$, then $V(f) = 0$ and 
+    $f(a) = 0$ and $\norm{f}_{TV} = 0$. Next, for $c\in\R$, 
+    \begin{equation*}
+        \norm{cf}_{TV} = \abs{cf(a)} + \sum_{i=0}^{n-1} \abs{cf(t_{i+1})-cf(t_i)} 
+        = \abs{c}\pth{\abs{f(a)} + \sum_{i=0}^{n-1} \abs{f(t_{i+1})-f(t_i)}}
+        = \abs{c}\norm{f}_{TV}.
+    \end{equation*}
+    Lastly, let $f,g\in BV([a,b])$. Then 
+    \begin{equation*}
+        \begin{split}
+            \norm{f+g}_{TV} 
+            &= \sup_{\mathcal{P}} \abs{(f+g)(a)} + \sum_{i=0}^{n-1} \abs{(f+g)(t_{i+1})-(f+g)(t_i)} \\ 
+            &\leq \sup_{\mathcal{P}} \abs{f(a)} + \abs{g(a)} + \sum_{i=0}^{n-1} \abs{f(t_{i+1})-f(t_i)} + \sum_{i=0}^{n-1} \abs{g(t_{i+1})-g(t_i)} \\
+            &\leq \sup_{\mathcal{P}} \abs{f(a)} + \sum_{i=0}^{n-1} \abs{f(t_{i+1})-f(t_i)} + \sup_{\mathcal{P}} \abs{g(a)} + \sum_{i=0}^{n-1} \abs{g(t_{i+1})-g(t_i)}  
+            = \norm{f}_{TV} + \norm{g}_{TV}.
+        \end{split}
+    \end{equation*}
+    Thus $\norm{\cdot}_{TV}$ is indeed a norm. 
+
+    For the completeness, let $f_n$ be a Cauchy sequence in 
+    $BV([a,b])$. For $\epsilon>0$, there exists $N$ such that 
+    $\norm{f_m-f_n}_{TV}<\epsilon$ for all $m,n\geq N$. Given 
+    any $x\in[a,b]$, consider the partition $\mathcal{P} 
+    = \set{a<x<b}$. 
+    \begin{equation*}
+        \begin{split}
+            \abs{f_m(x)-f_n(x)} 
+            &= \abs{f_m(x)-f_m(a)+f_m(a)-f_n(a)+f_n(a)-f_n(x)} \\ 
+            &\leq \abs{(\pth{f_m(x)-f_n(x)}) - (f_m(a) - f_n(a))} + \abs{f_m(a)-f_n(a)} \\
+            &\leq V(f_m-f_n) + \abs{f_m(a)-f_n(a)} = \epsilon.
+        \end{split}
+    \end{equation*}
+    Thus $\set{f_n(x)}$ is a Cauchy sequence in $\R$ and hence 
+    converges pointwisely to, say $f(x)$. Furthermore, observe that 
+    the choice of $N$ does not depend on $x$, and thus the convergence 
+    is uniform. We claim that $f\in BV([a,b])$. Indeed, for any 
+    partition $\mathcal{P} = \set{a = t_0<\cdots<t_n = b}$, 
+    \begin{equation*}
+        \sum_{i=0}^{n-1} \abs{f(t_{i+1})-f(t_i)} 
+        \leq \sum_{i=0}^{n-1} \abs{f(t_{i+1})-f_N(t_{i+1})} + \sum_{i=0}^{n-1} \abs{f(t_i)-f_N(t_i)} + V(f_N).
+    \end{equation*}
+    Since the convergence is uniform, we can choose $N$ such that 
+    $\abs{f(t)-f_N(t)}\leq \epsilon/(2n)$. Thus
+    \begin{equation*}
+        \sum_{i=0}^{n-1} \abs{f(t_{i+1})-f(t_i)} \leq \epsilon + V(f_N).
+    \end{equation*}
+    Since $f_N$ is of bounded variation, we see that $f\in BV([a,b])$ 
+    as well. Lastly, to show that $\norm{f-f_n}_{TV}\to 0$, 
+    first note that by definition we have $\abs{f_n(a)-f(a)}\to 0$. 
+    It remains to show that $V(f_n-f)\to 0$. For any $\epsilon>0$, 
+    there exists $N$ such that $V_{\mathcal{P}}(f_m-f_n)<\epsilon$ 
+    for all $m,n\geq N$ and some partition $\mathcal{P}$. Taking 
+    $m\to\infty$, we obtain $V_{\mathcal{P}}(f-f_n)<\epsilon$ for 
+    all $n\geq N$. Since the partition is arbitrary, we have 
+    $V(f-f_n)<\epsilon$ for all $n\geq N$. Thus $f_n\to f$ in 
+    $BV([a,b])$ and $BV([a,b])$ is complete.
+\end{proof}
+
+\begin{theorem}\label{thm:M_BV}
+    $M([a,b])$ is isometrically isomorphic to $BV([a,b])$. 
+\end{theorem}
+\begin{proof}
+    We define the mapping $\phi:M([a,b])\to BV([a,b])$ by 
+    \begin{equation*}
+        \rho(t) = \phi\nu(t) = \nu([a,t]).
+    \end{equation*}
+    First, we show that $\rho\in BV([a,b])$. For any partition 
+    $\mathcal{P} = \set{a=t_0<\cdots<t_n=b}$, 
+    \begin{equation*}
+        \begin{split}
+            \sum_{i=0}^{n-1} \abs{\rho(t_{i+1})-\rho(t_i)} + \abs{\rho(a)} 
+            &= \sum_{i=0}^{n-1} \abs{\nu([a,t_{i+1}])-\nu([a,t_i])} + \abs{\nu(\set{a})} \\
+            &= \sum_{i=0}^{n-1} \abs{\nu((t_i,t_{i+1}])} + \abs{\nu(\set{a})} \\
+            &= \sum_{i=0}^{n-1} \abs{\nu}((t_i,t_{i+1}]) + \abs{\nu}(\set{a}) 
+            = \abs{\nu}([a,b]) = \norm{\nu}.
+        \end{split}
+    \end{equation*}
+    Since $\nu$ is a finite signed measure, $\rho\in BV([a,b])$. 
+    Furthermore, taking supremum over all partitions, we obtain 
+    that $\norm{\rho}_{TV} = \norm{\nu}$. It remains to show that 
+    $\phi$ is an isomorphism. Suppose $\nu,\mu\in M([a,b])$ and 
+    $\phi\nu = \phi\mu$. Then $\nu([a,t]) = \mu([a,t])$ for all 
+    $t\in[a,b]$. Since $[a,t]$ generates the Borel $\sigma$-algebra 
+    on $[a,b]$, we have $\nu = \mu$. Thus $\phi$ is injective. 
+    For surjectivity, let $\rho\in BV([a,b])$. Consider the 
+    signed measure $\nu$ defined by $\nu([a,t]) = \rho(t)$ and 
+    $\nu(\varnothing) = 0$. Then $\nu$ is a finite signed measure 
+    and $\phi\nu = \rho$. The proof is complete.
+\end{proof}
+
+\begin{lemma}\label{lem:h_b}
+    Let $X$ be a normed vector space and $M\subset X$ be a 
+    proper subspace. Suppose $S:M\to\R$ is a bounded linear 
+    functional. Then for every $x\in X\setminus M$, there 
+    exists a linear $U:M'\to\R$ such that $\norm{U}_{M'\to\R} 
+    = \norm{S}_{M\to\R}$, where $M' = M + \R x$.
+\end{lemma}
+\begin{proof}
+    Clearly $M'$ is a subspace; furthermore, $M' = M\bigoplus\R x$ 
+    since if $v = w + cx = w' + c'x$ for some $w,w'\in M$ and 
+    $c,c'\in\R$, then $(c-c')x = w-w' \in M$. Since $x\not\in M$, 
+    this implies that $c = c'$, $w = w'$ and hence the 
+    representation is unique. 
+
+    Now we can define $U$ on $M'$ by $U(w+cx) = Sw + c\lambda$ 
+    for any $w+cx\in M'$ and some $\lambda\in\R$ to be determined. 
+    To make $U$ have the same norm as $U$, we need to find $\lambda$ 
+    such that $\abs{Sw+c\lambda}\leq\norm{S}\norm{w+cx}$ holds for all 
+    $w\in M$ and $c\in\R$. Clearly if $c=0$, the inequality is 
+    already satisfied. For $c\neq 0$, by deviding both sides by 
+    $\abs{c}$, we see that the condition is equivalent to 
+    $\abs{Sw + \lambda}\leq\norm{S}\norm{w+x}$ for all $w\in M$. Now 
+    for any $w,v\in M$, 
+    \begin{equation*}
+        Sw - Sv = S(w-v) \leq \abs{S(w-v)} \leq \norm{S}\norm{w-v} 
+        = \norm{S}\norm{w+x-(v+x)} \leq \norm{S}(\norm{w+x}+\norm{v+x}).
+    \end{equation*}
+    Thus 
+    \begin{equation*}
+        Sw - \norm{S}\norm{w+x} \leq Sv + \norm{S}\norm{v+x}.
+    \end{equation*} 
+    Fix $v$ and taking supremum over all $w\in M$ on the left, 
+    \begin{equation*}
+        \sup_{w\in M} Sw - \norm{S}\norm{w+x} \leq Sv + \norm{S}\norm{v+x}.
+    \end{equation*}
+    Taking infimum over all $v\in M$ on the right, 
+    \begin{equation*}
+        \sup_{w\in M} Sw - \norm{S}\norm{w+x} \leq \inf_{v\in M} Sv + \norm{S}\norm{v+x}.
+    \end{equation*}
+    Hence there exists $\lambda\in\R$ such that 
+    \begin{equation*}
+        S(w) - \norm{S}\norm{w+x} \leq -\lambda \leq S(w) + \norm{S}\norm{w+x}
+    \end{equation*}
+    for all $w\in M$. Picking this $\lambda$, we see that 
+    \begin{equation*}
+        \abs{Sw + \lambda} \leq \norm{S}\norm{w+x}
+    \end{equation*}
+    as desired. Thus $U$ is a bounded linear functional on $M'$ 
+    with $\norm{U}_{M'\to\R} = \norm{S}_{M\to\R}$. Also, on $M$, 
+    $U = S$ and hence $U$ is an extension of $S$.  
+\end{proof}
+
+\begin{theorem}[Hahn-Banach]
+    Let $X$ be a normed vector space and $M\subset X$ be a 
+    subspace. Suppose $S:M\to\R$ is a bounded linear 
+    functional on $M$. Then there exists a bounded linear 
+    functional $T:X\to\R$ such that $T|_M = S$ and 
+    $\norm{T}_{X\to\R} = \norm{S}_{M\to\R}$.
+\end{theorem}
+\begin{proof}
+    The proof relies on Zorn's lemma.\footnote{Zorn's lemma 
+    states that if every chain in a partially ordered set has an 
+    upper bound, then the set has a maximal element. It is a 
+    direct consequence of the axiom of choice.} We start by 
+    constructing a partial order space. Let $(P,\preceq)$ be a 
+    partial order space with 
+    \begin{equation*}
+        P = \Set{(U,Y)}{M\subset Y\subset X, 
+        Y\text{ is a subspace of }X, 
+        U\text{ is a bounded extension of }S\text{ on }V}
+    \end{equation*}
+    and the partial order: $(U_1,Y_1)\preceq (U_2,Y_2)$ if 
+    $Y_1\subset Y_2$ and $U_2$ is a bounded extension of 
+    $U_1$ on $Y_2$. Clearly the pair indeed forms a partial 
+    order space. We now check the assumptions of Zorn's lemma. 
+    Let $C = \Set{(U_\alpha,Y_\alpha)}{\alpha\in A}$ with an 
+    arbitrary index set $A$ be a chain in $P$. Put $Y = 
+    \cup_{\alpha\in A}Y_\alpha$. We claim that $Y$ is a subspace 
+    of $X$. Indeed, for $y_1,y_2\in Y$ and $c_1,c_2\in\R$, there exist
+    $\alpha_1,\alpha_2\in A$ such that $y_1\in Y_{\alpha_1}$ and 
+    $y_2\in Y_{\alpha_2}$. Since $Y$ is a chain, one of them is 
+    a subspace of the other, say $Y_{\alpha_1}$ is a subspace of 
+    $Y_{\alpha_2}$. Then $y_1,y_2\in Y_{\alpha_2}$ and hence 
+    $c_1y_1+c_2y_2\in Y_2\subset Y$. Thus $Y$ is a subspace. 
+
+    Next we need to define a bounded linear functional $U$ on $Y$ 
+    so that $U$ is a bounded extension of $S$ on $Y$. For $y\in Y$, 
+    we can find an $\alpha\in A$ such that $y\in Y_\alpha$ and set 
+    $U(y) = U_\alpha(y)$. Such $U$ is well-defined since if $\alpha_1$ 
+    and $\alpha_2$ are two indices satisfying $y\in Y_{\alpha_1}\cap 
+    Y_{\alpha_2}$, then $U_{\alpha_1}(y) = U_{\alpha_2}(y)$ since 
+    one of them is an extension of the other. Also, $U$ is linear 
+    since $U_\alpha$ is linear for every $\alpha\in A$. Lastly, $U$ 
+    is a bounded extension of $U_\alpha$ on $Y$ for any $\alpha\in A$ 
+    because every $U_{\alpha'}$ with $(U_{\alpha},Y_{\alpha})\preceq 
+    (U_{\alpha'},Y_{\alpha'})$ is a bounded extension of $U_\alpha$. 
+    We conclude that $(U,Y)\in P$ is an upper bound of $C$. 
+
+    By Zorn's lemma, there exists a maximal element $(T,Z)\in P$. 
+    We claim that $Z = X$. Suppose $Z\subsetneq X$. Then there exists 
+    $x\in X\setminus Z$ and also a bounded extension $T'$ of $T$ 
+    on $Z+\R x\supsetneq Z$ by \cref{lem:h_b}. But then $(T',Z+\R x)\in P$ 
+    and $(T,Z)\preceq (T',Z+\R x)$, contradicting the maximality of 
+    $(T,Z)$. Thus $Z = X$ and $T$ is a bounded extension of $S$ on $X$.
+\end{proof}
+
+\begin{theorem}[Riesz Representation of {$C([a,b])$}]
+    $C([a,b])'\cong BV([a,b])\cong M([a,b])$ isometrically.
+\end{theorem}
+\begin{proof}
+    In \cref{thm:M_BV}, we have shown that $M([a,b])\cong BV([a,b])$. 
+    We are going to show this by constructing an isometric 
+    isomorphism between $C([a,b])'$ and $BV([a,b])$. 
+
+    Let $X = C([a,b])$ and $\ell\in X'$. $\ell:X\to\R$ is a bounded 
+    linear functional. We need to find a $\nu\in M([a,b])$ such that 
+    \begin{equation*}
+        \ell(f) = \int_{[a,b]} f d\nu
+    \end{equation*}
+    for $f\in C([a,b])$. Let $Y = B([a,b]) = 
+    \Set{f:[a,b]\to\R}{\text{$f$ is bounded}}$. By Hahn-Banach theorem, 
+    there exists a bounded linear extension $L:Y\to\R$ of $\ell$. Now if 
+    $f = \chi_{[a,t]}\in Y$, then 
+    \begin{equation*}
+        L(f) = \int_{[a,b]} \chi_{[a,t]} d\nu = \nu([a,t]) = \rho(t).
+    \end{equation*}
+    We claim that $\rho\in BV([a,b])$. For any partition $\mathcal{P} 
+    = \set{a = t_0 < \cdots < t_n = b}$, 
+    \begin{equation*}
+        \begin{split}
+            V_{\mathcal{P}}(\rho) &= \sum_{i=0}^{n-1} \abs{\rho(t_{i+1})-\rho(t_i)} 
+            = \sum_{i=0}^{n-1} \abs{L(\chi_{[a,t_{i+1}]})-L(\chi_{[a,t_i]})} \\
+            &= \sum_{i=0}^{n-1} L(\chi_{(t_i,t_{i+1}]})s_i = L\pth{\sum_{i=0}^{n-1} \chi_{(t_i,t_{i+1}]}s_i} 
+            \leq \norm{L}\norm{\sum_{i=0}^{n-1} \chi_{(t_i,t_{i+1}]}s_i}_{\infty} \leq \norm{L}
+        \end{split}
+    \end{equation*}
+    by letting $s_i = \sgn(\rho(t_{i+1})-\rho(t_i))$. Thus $\rho\in BV([a,b])$ 
+    and $\norm{\rho}_{TV}\leq\norm{L} = \norm{\ell}$. To extend to $f\in C([a,b])$ 
+    so that 
+    \begin{equation*}
+        \ell(f) = L(f) = \int_{[a,b]} f d\nu,
+    \end{equation*}
+    we first note that by our established result, $f = \chi_{[a,t]}\in Y$ 
+    holds. By linearity so does simple functions. For $f\in C([a,b])$, 
+    consider 
+    \begin{equation*}
+        h_{\mathcal{P}}(t) = f(a) + \sum_{i=0}^{n-1} f(t_i)\chi_{(t_i,t_{i+1}]}(t).
+    \end{equation*}
+    Since $L$ is continuous and $h_{\mathcal{P}}\to f$ uniformly as 
+    $\norm{\mathcal{P}}\to 0$, we have 
+    \begin{equation*}
+        L(f) = \lim_{\norm{\mathcal{P}}\to 0} L(h_{\mathcal{P}}) 
+        = \int_{a}^{b} fd\rho.
+    \end{equation*} 
+    $L$ is an extension of $\ell$ and hence  
+    \begin{equation*}
+        \ell(f) = \int_{a}^{b} fd\rho = f(a)\rho(a) + \int_{a}^{b} fd\rho.
+    \end{equation*}
+    Finally, we claim that $\norm{\ell}\leq\norm{\rho}_{TV}\leq\norm{L}
+    =\norm{\ell}$. Take $f\in X$. 
+    \begin{equation*}
+        \abs{\ell(f)} = \abs{\int_{a}^{b} fd\rho} \leq \norm{f}_{\infty}\norm{\rho}_{TV} 
+        \leq \norm{f}_{\infty}\norm{L} = \norm{\ell}\norm{f}_{\infty}.
+    \end{equation*}
+    Hence $\norm{\ell}\leq\norm{\rho}_{TV}\leq\norm{L} = \norm{\ell}$. 
+    It follows that the mapping $\ell\mapsto\rho$ is isometric. Conversely, 
+    if $\rho\in BV([a,b])$, define 
+    \begin{equation*}
+        \ell_{\rho}(f) = f(a)\rho(a) + \int_{a}^{b} fd\rho.
+    \end{equation*} 
+    We need to check that $\ell_{\rho}$ is linear and 
+    $\norm{\rho}_{TV}\leq\norm{\ell}\leq\norm{\rho}_{TV}$. $\ell_\rho$ 
+    has an extension $L_\rho:Y\to\R$. Define 
+    $\lambda(t) = L_\rho(\chi_{[a,t]})$. Then $\norm{\rho}_{TV}=\norm{\lambda}
+    \leq\norm{L_{\rho}}=\norm{\ell_\rho}$.
+\end{proof}
+\begin{remark}
+    If $\ell\in C([a,b])'$, there exists $\rho\in BV([a,b])$ such that 
+    \begin{equation*}
+        \ell(f) = \int_{a}^{b} fd\rho;
+    \end{equation*}
+    if $\rho\in BV([a,b])$, 
+    \begin{equation*}
+        \ell_{\rho}(f) = f(a)\rho(a) + \int_{a}^{b} fd\rho
+    \end{equation*}
+    and $\norm{\ell_\rho} = \norm{\rho}_{TV}$.
+\end{remark}

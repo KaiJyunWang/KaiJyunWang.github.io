@@ -1,0 +1,387 @@
+\begin{definition}
+    Let $(X,\A)$ be a measurable space. A \textbf{signed measure} 
+    is a function $\mu:\A\to [-\infty,\infty]$ such that
+    \begin{thmenum}
+        \item $\mu(\varnothing) = 0$.
+        \item For any countable disjoint collection $\set{A_i}_{i\in\N}$, 
+        \begin{equation*}
+            \mu\pth{\bigcup_{i\in\N} A_i} = \sum_{i\in\N} \mu(A_i).
+        \end{equation*}
+    \end{thmenum}
+\end{definition}
+\begin{remark}
+    The range of $\mu$ can only include one of $\pm\infty$.
+\end{remark}
+
+\begin{definition}
+    Let $(X,\A,\mu)$ be a measure space. $\mu$ is called 
+    \textbf{$\sigma$-finite} if $X$ can be covered by countably many 
+    $A_n\in\A$ such that $\mu(A_n)<\infty$ for all $n$. In this case,
+    we also call $X$ \textbf{$\sigma$-finite}.
+\end{definition}
+
+\begin{definition}
+    Let $\nu,\lambda$ be two measures defined on a measurable space. $\nu$ 
+    is said to be \textbf{absolutely continuous} with respect to $\lambda$ 
+    if $\lambda(A) = 0$ implies that $\nu(A) = 0$ for all measurable $A$, 
+    denoted as $\nu\ll\lambda$. 
+\end{definition} 
+
+\begin{example}
+    Let 
+    \begin{equation*}
+        \nu(A) = \int_A fd\lambda
+    \end{equation*}
+    where $f\geq 0$ is measurable. Then $\lambda(A) = 0$ implies $\nu(A) = 0$. 
+    $\nu\ll\lambda$. 
+\end{example}
+
+\begin{definition}
+    Let $\nu,\lambda$ be two measures defined on a measurable space. $\nu$ 
+    is said to be \textbf{singular} with respect to $\lambda$ if there exists 
+    a measurable set $A$ such that $\lambda(A) = 0$ and $\nu(A^c) = 0$, 
+    denoted as $\nu\perp\lambda$.
+\end{definition}
+
+\begin{example}
+    Let $\lambda$ be the Lebesgue measure on $[0,1]$ and 
+    \begin{equation*}
+        \nu(A) = \sum_i c_i\delta_{q_i}(A), \quad \text{with}\quad 
+        \sum_i c_i < \infty, \quad \delta_{q_i}(A) = \indicator\set{q_i\in A},
+    \end{equation*}
+    where $q_i$ enumerates the rationals in $[0,1]$ and $\indicator$ is the 
+    indicator function. Then $\nu\perp\lambda$.
+\end{example} 
+
+\begin{definition}
+    $\nu$ and $\lambda$ are said to be \textbf{equivalent} if $\nu\ll\lambda$ 
+    and $\lambda\ll\nu$.
+\end{definition}
+
+\begin{definition}
+    Let $(X,\A,\mu)$ be a measure space. A set $P\in\A$ is said to be 
+    \textbf{positive} if $\mu(A)\geq 0$ for all measurable $A\subset P$; 
+    a set $N\in\A$ is said to be \textbf{negative} if $\mu(A)\leq 0$ for 
+    all measurable $A\subset N$.
+\end{definition}
+
+\begin{theorem}[Hahn Decomposition]
+    Let $\mu$ be a signed measure on a measurable space $(X,\A)$. Then 
+    $X$ can be partitioned into a positive set $P$ and a negative set $N$. 
+    Furthermore, if $P'$, $N'$ form another such partition, then 
+    $P\triangle P'$ and $N\triangle N'$ are measure zero.
+\end{theorem}
+\begin{proof}
+    We may consider the case where $\mu(A)\neq -\infty$ for all $A\in\A$. 
+    The other case is similar. We first claim that every measurable set 
+    $A$ contains a postive set $P$ such that $\mu(P)\geq\mu(A)$. 
+
+    To prove the claim, we first show that for every $\epsilon>0$, 
+    there exists $A_\epsilon\subset A$ such that $\mu(A_\epsilon)
+    \geq\mu(A)$ and $B\subset A_\epsilon$ implies $\mu(B)>-\epsilon$. 
+    Otherwise, we can pick a sequence of set $B_k$ inductively, 
+    such that $B_1\subset A$, \ldots, 
+    $B_k\subset A-(B_1\cup\cdots\cup B_{k-1})$, \ldots with 
+    $\mu(B_k)\leq -\epsilon$. Put $B = \cup_k B_k$. Since $B_k$ 
+    are disjoint, $\mu(B) = -\infty$. Also, $\mu(A-B) = \mu(A)-\mu(B) 
+    = \infty$, contradicting to the remark that $\mu$ cannot 
+    take both $\pm\infty$. Now choose $\epsilon_n\to 0$ and let 
+    $P = \cap_n A_{\epsilon_n}$. $A_{\epsilon_n}\searrow P$ and then 
+    $\mu(A_{\epsilon_n})\to\mu(P)$ by \cref{prop:measure_limit}. 
+    Thus $\mu(P)\geq\mu(A)$.
+
+    Next, let $s = \sup\Set{\mu(A)}{A\in\A}$. There is a sequence 
+    $P_n$ such that $\mu(P_n)\to s$. Note that $s\geq 0$ since 
+    $\varnothing\in\A$. By the claim, we may assume that $P_n$ are 
+    positive. Putting $P = \cup_n P_n$, we have $\mu(P) = s$ 
+    and $P$ is positive. Now let $N = X-P$. $N$ is negative; 
+    otherwise if $E\subset N$ and $\mu(E)>0$, then $\mu(P\cup E) 
+    = \mu(P) + \mu(E) > s$, which contradicts to the definition 
+    of $s$. 
+
+    Finally, suppose $P'$ and $N'$ are another such partition. 
+    Then $P\cap N'$ and $N\cap P'$ are both negative and positive, 
+    implying that they are measure zero. $\mu(P\triangle P') 
+    = \mu(P\cap N') + \mu(N\cap P') = 0$. This furnishes the 
+    proof.
+\end{proof}
+
+\begin{corollary}[Hahn-Jordan Decomposition]
+    If $\nu$ is a signed measure on a measurable space $(X,\A)$, 
+    then there exists a unique pair of positive measures $\nu^+$ 
+    and $\nu^-$ such that $\nu = \nu^+ - \nu^-$.
+\end{corollary}
+\begin{proof}
+    By the Hahn decomposition, $X$ can be partitioned into a positive 
+    set $P$ and a negative set $N$. Define $\nu^+(A) = \nu(A\cap P)$ 
+    and $\nu^-(A) = -\nu(A\cap N)$. Then $\nu^+$ and $\nu^-$ are 
+    positive measures and $\nu = \nu^+ - \nu^-$. The uniqueness 
+    follows from the uniqueness of the Hahn decomposition.
+\end{proof}
+
+\begin{theorem}[Radon-Nikodym]
+    Let $(X,\A)$ be a measurable space and $\nu$, $\lambda$ are 
+    $\sigma$-finite measures on $(X,\A)$. If $\nu\ll\lambda$, then 
+    there exists an $\A$-measurable function $f:X\to[0,\infty)$ 
+    such that for every $A\in\A$,
+    \begin{equation*}
+        \nu(A) = \int_A fd\lambda.
+    \end{equation*}
+    Furthermore, if $f$ and $f'$ are two such functions, then 
+    $f = f'$ a.e.
+\end{theorem}
+\begin{proof}
+    We first consider the case where $\nu$ and $\lambda$ are finite.
+    Let 
+    \begin{equation*}
+        F = \Set{f:X\to[0,\infty]}{\int_A fd\lambda \leq \nu(A) \text{ for all } A\in\A}.
+    \end{equation*}
+    $F\neq\varnothing$ since $f = 0$ is in $F$. Now let $f_1,f_2\in F$ 
+    and $A\in\A$ and define 
+    \begin{equation*}
+        A_1 = \Set{x\in A}{f_1(x) > f_2(x)}, \quad 
+        A_2 = \Set{x\in A}{f_1(x) \leq f_2(x)}.
+    \end{equation*} 
+    Then 
+    \begin{equation*}
+        \int_A \max\set{f_1,f_2}d\lambda = \int_{A_1} f_1d\lambda + \int_{A_2} f_2d\lambda 
+        \leq \nu(A_1) + \nu(A_2) = \nu(A).
+    \end{equation*}
+    Thus $\max\set{f_1,f_2}\in F$. Next, for any sequence of 
+    functions $f_n\in F$ such that 
+    \begin{equation*}
+        \lim_{n\to\infty}\int_X f_nd\lambda = \sup_{f\in F}\int_X fd\lambda,
+    \end{equation*}
+    we may assume that $f_n\nearrow$ by replacing $f_n$ with 
+    the maximum among $f_1,\ldots,f_n$. Let $g$ be the pointwise 
+    limit of $f_n$. By Lebesgue's monotone convergence theorem, 
+    \begin{equation*}
+        \int_A gd\lambda = \lim_{n\to\infty}\int_A f_nd\lambda \leq \nu(A),
+    \end{equation*}
+    so $g\in F$. Also, by construction, 
+    \begin{equation*}
+        \int_X gd\lambda = \sup_{f\in F}\int_X fd\lambda.
+    \end{equation*}
+    Now define 
+    \begin{equation*}
+        \nu_0(A) = \nu(A) - \int_A gd\lambda.
+    \end{equation*}
+    Since $g\in F$, $\nu_0$ is a nonnegative measure. To prove 
+    the equality, we need to show that $\nu_0(A) = 0$ for all 
+    $A\in\A$. Suppose $\nu_0 > 0$. Then there exists $\epsilon>0$ 
+    such that $\nu_0(X)>\epsilon\lambda(X)$. By the Hahn decomposition 
+    theorem, we can find a positive set $P$ such that 
+    $\nu_0(A)\geq\epsilon\lambda(A)$ for each $A\subset P$. Thus 
+    \begin{equation*}
+        \nu(A) = \int_A gd\lambda + \nu_0(A) 
+        \geq \int_A gd\lambda + \nu_0(P\cap A) 
+        \geq \int_A gd\lambda + \epsilon\lambda(P\cap A) 
+        = \int_A (g+\epsilon\chi_P)d\lambda.
+    \end{equation*}
+    Note that $\lambda(P)>0$, for otherwise $\lambda(P) = 0$ 
+    and $\nu_0(P)\leq\nu(P) = 0\implies\nu(P) = 0$ by the 
+    absolute continuity and hence 
+    \begin{equation*}
+        \nu_0(X) - \epsilon\lambda(X) = (\nu_0-\epsilon\lambda)(N) \leq 0,
+    \end{equation*}
+    posing a contradiction. Meanwhile, 
+    \begin{equation*}
+        \int_X (g+\epsilon\chi_P)d\lambda \leq \nu(X) < \infty 
+        \implies g+\epsilon\chi_P\in F,
+    \end{equation*}
+    and 
+    \begin{equation*}
+        \int_X (g+\epsilon\chi_P)d\lambda > \int_X gd\lambda 
+        = \sup_{f\in F}\int_X fd\lambda.
+    \end{equation*}
+    This violates the definition of the supremum. Thus $\nu_0 = 0$ 
+    and we obtain that 
+    \begin{equation*}
+        \nu(A) = \int_A gd\lambda.
+    \end{equation*}
+    Finally, if we define 
+    \begin{equation*}
+        f(x) = \begin{cases}
+            g(x) & \text{if } g(x) < \infty, \\
+            0 & \text{if } g(x) = \infty,
+        \end{cases}
+    \end{equation*}
+    since $g$ is $\lambda$-integrable, $f = g$ $\lambda$-a.e.\
+    and $f$ is the desired function. 
+
+    For the uniqueness, suppose $f$ and $f'$ are two such functions. 
+    Then 
+    \begin{equation*}
+        \nu(A) = \int_A fd\lambda = \int_A f'd\lambda \implies 
+        \int_A (f-f')d\lambda = 0
+    \end{equation*}
+    for every $A$. In particular, letting $A = \Set{x\in X}{f(x)\leq f'(x)}$ 
+    or $A = \Set{x\in X}{f(x)\geq f'(x)}$ gives 
+    \begin{equation*}
+        \int_X (f-f')^+d\lambda = \int_X (f-f')^-d\lambda = 0.
+    \end{equation*}
+    Thus $f = f'$ $\lambda$-a.e. 
+
+    For the general case where $\nu$ and $\lambda$ are $\sigma$-finite, 
+    we can write $X = \cup_n X_n$ such that $\lambda(X_n)<\infty$ 
+    and $X_n$ are disjoint. For each $n$ we can find $f_n$ such that 
+    \begin{equation*}
+        \nu(A) = \int_{A} f_nd\lambda.
+    \end{equation*}
+    for every $\A$-measurable $A\subset X_n$. Let $f = \sum_n f_n\chi_{X_n}$. 
+    \begin{equation*}
+        \int_A fd\lambda = \sum_n \int_{A\cap X_n} f_nd\lambda 
+        = \sum_n \nu(A\cap X_n) = \nu(A),
+    \end{equation*}
+    for every $A\in\A$. The uniqueness follows from the uniqueness 
+    of $f_n$.
+\end{proof}
+\begin{remark}
+    The function $f$ can be chosen in $\L^1(X,\lambda)$ if 
+    $\nu$ is finite.
+\end{remark}
+
+\begin{definition}
+    The function $f$ in the Radon-Nikodym theorem is called the 
+    \textbf{Radon-Nikodym derivative} of $\nu$ with respect to $\lambda$, 
+    denoted as $f = \frac{d\nu}{d\lambda}$.
+\end{definition}
+
+\begin{proposition}\label{prop:r-n_derivative}
+    Let $\nu$, $\mu$ and $\lambda$ be $\sigma$-finite measures defined 
+    on measurable space $(X,\A)$. If $\nu\ll\lambda$ and $\mu\ll\lambda$, 
+    then 
+    \begin{thmenum}
+        \item $\od{(\nu+\mu)}{\lambda} = \od{\nu}{\lambda} + \od{\mu}{\lambda}$ 
+        $\lambda$-a.e.
+        \item If $\nu\ll\mu\ll\lambda$, then $\od{\nu}{\lambda} 
+        = \od{\nu}{\mu}\od{\mu}{\lambda}$ $\lambda$-a.e. 
+        \item If $\nu$ and $\mu$ are equivalent, then $\od{\nu}{\mu} 
+        = \pth{\od{\mu}{\nu}}^{-1}$ $\mu$-a.e. 
+        \item If $g$ is $\nu$-integrable, then 
+        \begin{equation*}
+            \int_X gd\nu = \int_X g\od{\nu}{\lambda}d\lambda.
+        \end{equation*}
+    \end{thmenum}
+\end{proposition}
+\begin{proof}
+    For (a), note that $\nu+\mu\ll\lambda$ as well. Let 
+    $f = \od{\nu}{\lambda}$ and $g = \od{\mu}{\lambda}$. 
+    Then 
+    \begin{equation*}
+        \int_A (f+g)d\lambda = \int_A fd\lambda + \int_A gd\lambda 
+        = \nu(A) + \mu(A) = (\nu+\mu)(A) 
+        = \int_A \od{(\nu+\mu)}{\lambda}d\lambda
+        \quad \text{for all } A\in\A.
+    \end{equation*}
+    Thus $\od{\nu}{\lambda} + \od{\mu}{\lambda} 
+    = f+g = \od{(\nu+\mu)}{\lambda}$ $\lambda$-a.e. 
+
+    Next, we jump to (d). We start by considering the case where $g = \chi_A$ 
+    with $A\in\A$. By the Radon-Nikodym theorem, 
+    \begin{equation*}
+        \int_X gd\nu = \int_X \chi_Ad\nu = \nu(A) = \int_A \od{\nu}{\lambda}d\lambda 
+        = \int_X \chi_A\od{\nu}{\lambda}d\lambda = \int_X g\od{\nu}{\lambda}d\lambda.
+    \end{equation*}
+    By linearity, the result holds for simple functions. For a nonnegative 
+    $g\in\L^1(\nu)$, we can find a sequence of simple functions $g_n\nearrow g$ 
+    so that 
+    \begin{equation*}
+        \int_X gd\nu = \lim_{n\to\infty}\int_X g_nd\nu = \lim_{n\to\infty}\int_X g_n\od{\nu}{\lambda}d\lambda 
+        = \int_X g\od{\nu}{\lambda}d\lambda
+    \end{equation*}
+    by Lebesgue's monotone convergence theorem. For general $g\in\L^1(\nu)$, 
+    we can write $g = g^+ - g^-$ and apply the result to $g^+$ and $g^-$.
+    \begin{equation*}
+        \int_X gd\nu = \int_X g^+d\nu - \int_X g^-d\nu 
+        = \int_X g^+\od{\nu}{\lambda}d\lambda - \int_X g^-\od{\nu}{\lambda}d\lambda 
+        = \int_X gd\nu.
+    \end{equation*} 
+
+    With (d) established, we can now prove (b). By the Radon-Nikodym theorem,
+    \begin{equation*}
+        \int_A \od{\nu}{\mu}\od{\mu}{\lambda}d\lambda 
+        = \int_A \od{\nu}{\mu}d\mu = \int_A d\nu = \nu(A) 
+        = \int_A \od{\nu}{\lambda}d\lambda. 
+    \end{equation*} 
+
+    Finally, for (c), letting $\lambda = \nu$ and applying (b) gives 
+    $1 = \od{\nu}{\nu} = \od{\nu}{\mu}\od{\mu}{\nu}$ $\nu$-a.e.\ and 
+    thus $\mu$-a.e.\ by the equivalence of $\nu$ and $\mu$. Hence 
+    $\od{\nu}{\mu} = \pth{\od{\mu}{\nu}}^{-1}$ $\mu$-a.e.
+\end{proof}
+
+\begin{theorem}[Lebesgue Decomposition]
+    Let $\nu,\lambda$ be two $\sigma$-finite measures defined on a measurable 
+    space $(X,\A)$. Then $\nu$ can be decomposed uniquely into 
+    $\nu = \nu_a + \nu_s$ where $\nu_a\ll\lambda$ and $\nu_s\perp\lambda$.
+\end{theorem}
+\begin{proof}
+    We first assume that $\nu,\lambda$ are finite measures. 
+    Let $\mu = \nu + \lambda$. Then clearly $\lambda\ll\mu$ and $\mu$ is 
+    $\sigma$-finite. By the Radon-Nikodym theorem, there exists a 
+    Radon-Nikodym derivative $f$ such that 
+    \begin{equation*}
+        \lambda(A) = \int_A fd\mu.
+    \end{equation*}
+    Denote $\Set{x\in X}{f(x) = 0}$ by $E$. Define 
+    \begin{equation*}
+        \nu_a(A) = \nu(A\cap E^c), \quad \nu_s(A) = \nu(A\cap E)
+    \end{equation*}
+    for each $A\in\A$. Then clearly $\nu_a(A) + \nu_s(A) 
+    = \nu(A\cap E^c) + \nu(A\cap E) = \nu(A)$ for all $A\in\A$. 
+    Also, suppose $\lambda(A) = 0$. Then by \cref{prop:r-n_derivative},
+    \begin{equation*}
+        0 = \lambda(A) = \int_A fd\mu = \int_A fd\lambda + \int_A fd\nu 
+        = \int_A fd\nu.
+    \end{equation*}
+    Hence $f(x) = 0$ $\nu$-a.e.\ on $A$. This implies that $\nu(A) 
+    = \nu(A\cap E)$ and thus $\nu_a(A) = \nu(A\cap E^c) = \nu(A) 
+    - \nu(A\cap E) = 0$, so $\nu_a\ll\lambda$. Also, since $\lambda(E) 
+    = 0$ and $\nu_s(E^c) = \nu(\varnothing) = 0$, $\nu_s\perp\lambda$. 
+    For the uniqueness, suppose $\nu = \nu_a + \nu_s = \nu_a' + \nu_s'$ 
+    both satisfy the conditions. Since $\nu_a\ll\lambda$ and 
+    $\nu_a'\ll\lambda$, by the uniqueness of the Radon-Nikodym 
+    derivative, $\nu_a = \nu_a'$ and hence $\nu_s = \nu_s'$ as well. 
+
+    Finally, for the general case where $\nu,\lambda$ are $\sigma$-finite, 
+    write $X = \cup_n X_n$ where $\lambda(X_n)<\infty$ and $X_n$ are 
+    disjoint. For each $n$ we can find the corresponding decomposition 
+    $\nu_a^n$ and $\nu_s^n$. Let $\nu_a = \sum_n \nu_a^n$ and $\nu_s = 
+    \sum_n \nu_s^n$. Then $\nu_a\ll\lambda$ and $\nu_s\perp\lambda$. 
+    The uniqueness follows from the uniqueness of the decompositions 
+    in each $X_n$. This establishes the proof.
+\end{proof}
+\begin{corollary}
+    Let $\nu$ be a signed measure and $\lambda$ be a measure defined on 
+    a measurable space $(X,\A)$. Suppose both $\nu$ and $\lambda$ are 
+    finite and $\nu\ll\lambda$. Then there exists a unique 
+    $f\in\L^1(X,\lambda)$ such that 
+    \begin{equation*}
+        \nu(A) = \int_A fd\lambda.
+    \end{equation*}
+\end{corollary}
+\begin{proof}
+    By Hahn decomposition, there exists a positive set $P$ and 
+    a negative set $N$ such that $P\cup N = X$. Define 
+    \begin{equation*}
+        \nu_P(A) = \nu(A\cap P), \quad \nu_N(A) = -\nu(A\cap N).
+    \end{equation*}
+    Then clearly $\nu_P - \nu_N = \nu$ and $\abs{\nu} = \nu_P + \nu_N$. 
+    Note that $\nu_P$ and $\nu_N$ are both positive measures. 
+    Also, by assumption, if $\lambda(A) = 0$ then $\nu(A) = 0$ 
+    and hence so are $\nu_P$ and $\nu_N$. Thus $\nu_P\ll\lambda$ 
+    and $\nu_N\ll\lambda$. By the Radon-Nikodym theorem, there 
+    exists $f_P,f_N\in\L^1(X,\lambda)$ such that 
+    \begin{equation*}
+        \nu_P(A) = \int_A f_Pd\lambda, \quad \nu_N(A) = \int_A f_Nd\lambda.
+    \end{equation*}
+    Hence 
+    \begin{equation*}
+        \nu(A) = \nu_P(A) - \nu_N(A) = \int_A f_Pd\lambda - \int_A f_Nd\lambda 
+        = \int_A (f_P-f_N)d\lambda.
+    \end{equation*}
+    By setting $f = f_P-f_N$, we obtain the desired function. 
+    Uniqueness follows from the uniqueness of the Radon-Nikodym 
+    derivative.
+\end{proof}

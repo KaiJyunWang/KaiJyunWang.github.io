@@ -1,0 +1,39 @@
+\begin{proposition}\label{prop:Baire}
+    If $X$ is a Baire space and $F_n$ is a sequence of closed sets in $X$ such that 
+    $\bigcup_{n=1}^\infty F_n = X$, then there exists some $n$ and a nonempty open 
+    set $G$ such that $G \subseteq F_n$.
+\end{proposition}
+\begin{proof}
+    Let $G_n = F_n^c$ be open sets in $X$. Then $\bigcap_{n=1}^\infty G_n 
+    = \bigcap_{n=1}^\infty F_n^c = \pth{\bigcup_{n=1}^\infty F_n}^c = \varnothing$. 
+    By the Baire category theorem, at least one of the $G_n$ is not dense in $X$. 
+    Thus there is some $x\in G^c$ and an open neighborhood $U$ of $x$ such that 
+    $U\bigcap G_n = \varnothing$. This implies $U\subseteq F_n$.
+\end{proof}
+
+\begin{theorem}[Open Mapping Theorem]
+    Let $X$ and $Y$ be Banach spaces and $T:X\to Y$ be a bounded surjective linear 
+    map. Then for any open set $U\subseteq X$, $T(U)$ is open in $Y$.
+\end{theorem}
+\begin{proof}
+    We first claim that for any open ball $B$ centered at $0$ in $X$, $\overline{T(B)}$ 
+    contains an open neighborhood of zero in $Y$. By the surjectivity, $Y\subset T(X) 
+    = T(\bigcup_n nB) = \bigcup_n T(nB)\subset \bigcup_n \overline{T(nB)}$. By 
+    \cref{prop:Baire}, there is some $n$ such that $\overline{T(nB)}$ contains an 
+    interior point, say $y$, and some open ball $B_r(y)\subset \overline{T(nB)}$. 
+    Then for every $z\in Y$ with $\norm{z}<r$, $z-y\in B_r(-y)\subset \overline{T(-nB)} 
+    = \overline{T(nB)}$ and
+    \begin{equation*}
+        z = y + (z-y) \in y + B_r(-y) \subset \overline{T(nB)} + \overline{T(nB)} 
+        \subset \overline{T(2nB)}.
+    \end{equation*}
+    Deviding $z$ by $2n$ gives that $z/2n\in \overline{T(B)}$ and $B_{r/2n}(0)\subset
+    \overline{T(B)}$. 
+
+    Next, to shorten the notation, denote $r/2n$ by $\delta$ and $B_{r/2n}(0)$ 
+    by $B_\delta$. Let $y\in B_\delta$ and $c_n>0$ be a sequence. Since $B_\delta
+    \subset \overline{T(B)}$, $\overline{B_\delta}\subset \overline{T(B)}$. Thus 
+    for every nonzero $z\in Y$ and $\epsilon>0$, we can find some $x\in X$ such that 
+    $\norm{x}<\delta^{-1}\norm{z}$ and $z\in B_\epsilon(T(x))$. Then 
+\end{proof}
+

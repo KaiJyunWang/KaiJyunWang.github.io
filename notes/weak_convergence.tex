@@ -1,0 +1,535 @@
+\begin{definition}
+    Let $(X,\norm{\cdot})$ be a normed space. A sequence $\set{x_n}$ 
+    in $X$ is said to \textbf{converge weakly} to $x\in X$, denoted 
+    by $x_n\rightharpoonup x$, if for every $L\in X'$, $L(x_n)\to 
+    L(x)$ as $n\to\infty$.
+\end{definition}
+\begin{remark}
+    Strong convergence implies weak convergence. If $x_n\to x$, 
+    \begin{equation*}
+        \abs{L(x_n)-L(x)} = \abs{L(x_n-x)}\leq\norm{L}\norm{x_n-x}\to 0
+    \end{equation*}
+    as $n\to\infty$. Thus $x_n\rightharpoonup x$. However, the 
+    converse is not true in general.
+\end{remark}
+
+\begin{example}
+    Consider $\ell^2$. Note that $(\ell^2)'\cong\ell^2$. For all 
+    $L\in(\ell^2)'$, there exists $y\in\ell^2$ such that $L(x) = 
+    \sum_{n=1}^\infty x_ny_n$. Let $x_n = e^n$ be the sequence 
+    with $1$ at the $n$-th position and $0$ elsewhere. Then 
+    $x_n\rightharpoonup 0$ since for every $L\in(\ell^2)'$, 
+    \begin{equation*}
+        L(x_n) = \sum_{i} e^n_iy_i = y_n\to 0
+    \end{equation*} 
+    for $y\in\ell^2$. However, $\norm{x_n}_{\ell^2} = 1$ for 
+    every $n$ and thus $x_n\not\to 0$. 
+\end{example}
+
+\begin{example}
+    Consider $X = C([0,1])$ with the supremum norm. Let 
+    \begin{equation*}
+        x_n(t) = \begin{cases}
+            nt & \text{if } 0\leq t\leq 1/n,\\
+            2-nt & \text{if } 1/n\leq t\leq 2/n,\\
+            0 & \text{if } 2/n\leq t\leq 1.
+        \end{cases}
+    \end{equation*}
+    Then $\norm{x_n}_\infty = 1$ and thus $x_n\not\to 0$. Instead, 
+    we have $x_n\rightharpoonup 0$. Assume not, then we can find 
+    $T\in X'$ and a subsequence $\set{x_{n_k}}$ such that 
+    $\abs{T(x_{n_k})} \geq \delta > 0$. For simplicity, we consider 
+    the case $T(x_{n_k})\geq\delta$, but the other case is similar. 
+    Since $T\in X'$, $\abs{T(x_{n_k})}\leq \norm{T}_{X\to\R}
+    \norm{x_{n_k}}_{\infty}$. Let $y_{K} = \sum_{k=1}^{K}x_{n_k}$. 
+    Then $T(y_K) = \sum_{k=1}^{K}T(x_{n_k})\geq K\delta$ and 
+    $T(y_K)\leq \norm{T}_{X\to\R}\norm{y_K}_\infty$. This implies 
+    that $y_K$ cannot be bounded. Now consider $x_{n_k}$ with 
+    $n_{k+1}\geq 2n_k$. For $t\in[0,1/n_K]$, $x_{n_k}(t) = n_kt$. 
+    \begin{equation*}
+        y_K(t) = \sum_{k=1}^{K} n_kt \leq \sum_{k=1}^{K} n_k/n_K 
+        \leq 1 + \sum_{k=1}^{K} 2^{K-k} \leq 1 + \sum_k 2^{-k} = 2.
+    \end{equation*}
+    For $t\in[1/n_K,1/n_{K-1}]$, 
+    \begin{equation*}
+        y_K(t) = \sum_{k=1}^{K} x_{n_k}(t) 
+        \leq 1 + \sum_{k=1}^{K-1} n_kt 
+        \leq 1 + \frac{1}{n_{K-1}}\sum_{k=1}^{K-1} n_k 
+        \leq 1 + 1 + \sum_k 2^{-k} = 3. 
+    \end{equation*}
+    On $[1/n_K,1/n_{K-1}]$, we have $\norm{y_K}\leq 3$. 
+    Thus $\delta K\leq\norm{T}_{X\to\R}\norm{y_K}_\infty
+    \leq 3\norm{T}_{X\to\R}$, which is impossible for 
+    sufficiently large $K$. Hence $x_n\rightharpoonup 0$.
+\end{example}
+
+\begin{proposition}
+    $(X,\norm{\cdot}_X)$ is a normed space and $x_n\in X$. If 
+    $\norm{x_n}_X\leq C$ for all $n\in\N$ and $L(x_n)\to L(x)$ 
+    for all $L\in A\subset X'$, where $A$ is dense in $X'$, then 
+    $x_n\rightharpoonup x$ in $X$.
+\end{proposition}
+\begin{proof}
+    Let $\epsilon>0$ be given. $A$ is dense in $X'$. For $T\in X'$, 
+    there is an $L\in A$ such that $\norm{T-L}_{X'\to\R}\leq\epsilon$. 
+    Also, there exists $N$ such that $\abs{L(x_n)-L(x)}\leq\epsilon$ 
+    for all $n\geq N$. Then
+    \begin{equation*}
+        \begin{split}
+            \abs{T(x_n) - T(x)} &\leq \abs{T(x_n) - L(x_n)} + \abs{L(x_n) - L(x)} + \abs{L(x) - T(x)} \\
+            &\leq \norm{T-L}_{X'\to\R}(\norm{x_n}_X + \norm{x}_X) + \abs{L(x_n) - L(x)}
+            \leq 2C\epsilon + \epsilon
+        \end{split}
+    \end{equation*}
+    for all $n\leq N$. Since $\epsilon$ is arbitrary, $x_n\rightharpoonup x$.
+\end{proof}
+
+\begin{definition}
+    A space $X$ is called a \textbf{Baire space} if for any 
+    sequence of open dense subsets $\set{E_n}$, $\cap_n E_n$ 
+    is dense in $X$.
+\end{definition}
+
+\begin{theorem}[Baire Category Theorem]
+    A complete metric space is a Baire space.
+\end{theorem}
+\begin{proof}
+    Let $X$ be a complete metric space and $\set{E_n}$ be a 
+    sequence of open dense subsets in $X$. Put $E = \cap_n E_n$. 
+    We want to show that any nonempty open set $G\subset X$ 
+    intersects $E$. 
+
+    $E_1$ is dense in $X$ so $G\cap E_1$ is nonempty. Then 
+    there exists $x_1\in E_1\cap G$. Note that $E_1\cap G$ 
+    is open; there exists $1>\delta_1>0$ such that 
+    $B_{\delta_1}(x_1)\subset E_1\cap G$. By shrinking $\delta_1$, 
+    we can have $\overline{B_{\delta_1}(x_1)}\subset E_1\cap G$. 
+    Now since $E_2$ is dense in $X$, there exists $x_2\in E_2\cap 
+    B_{\delta_1}(x_1)$ and also a $1/2>\delta_2>0$ such that 
+    $\overline{B_{\delta_2}(x_2)}\subset E_2\cap B_{\delta_1}(x_1)$. 
+    Continue this process, we obtain a sequence $\set{x_n}$ and 
+    $\delta_n\leq 1/n$ such that $\overline{B_{\delta_n}(x_n)}\subset 
+    E_n\cap B_{\delta_{n-1}}(x_{n-1})$.
+
+    For every $m,n\geq N$, we have $x_n\in B_{\delta_n}(x_n)\subset 
+    \cdots\subset B_{\delta_N}(x_N)$ and $x_m\in B_{\delta_m}(x_m) 
+    \subset \cdots\subset B_{\delta_N}(x_N)$ by construction. Hence 
+    $d(x_n,x_m)\leq 2\delta_N\leq 2/N$ and $\set{x_n}$ is a Cauchy 
+    sequence. Since $X$ is complete, $\set{x_n}$ converges to some 
+    $x\in X$. We claim that $x\in E\cap G$. Clearly $x\in G$. By 
+    construction $x_m\in \overline{B_{\delta_n}(x_n)}$ for all 
+    $m\geq n$. Thus $x\in B_{\delta_n}(x_m)\subset E_N$ for $m\geq 
+    n\geq N$. We see that $x\in\cap_n E_n$. Notice that $G$ is 
+    arbitrary, so $E$ is dense in $X$, proving that $X$ is a Baire 
+    space.
+\end{proof}
+
+\begin{theorem}[Uniform Boundedness Principle \rom{1}]\label{thm:ubp1}
+    $X$ is a complete metric space. $f_\alpha:X\to\R$ is continuous 
+    for every $\alpha\in A$, where $A$ is an index set. If for every 
+    $x\in X$, there exists $M(x)<\infty$ such that 
+    \begin{equation*}
+        \sup_{\alpha\in A}\abs{f_\alpha(x)}\leq M(x),
+    \end{equation*}
+    then there exists an open $G$ and a constant $C<\infty$ such that 
+    \begin{equation*}
+        \sup_{\alpha\in A}\abs{f_\alpha(x)}\leq C
+    \end{equation*}
+    for all $x\in G$.
+\end{theorem}
+\begin{proof}
+    By Baire Category Theorem, $X$ is a Baire space. For each $n$, 
+    let 
+    \begin{equation*}
+        F_n = \Set{x\in X}{\sup_{\alpha\in A}\abs{f_\alpha(x)}\leq n}.
+    \end{equation*}
+    We claim that $F_n$ is closed and $X = \cup_n F_n$. Indeed, 
+    set $x_k\to x\in X$, where $x_k\in F_n$ for all $k$. For any 
+    $\alpha\in A$, $\abs{f_\alpha(x_k)}\leq n$ for all $k$ and 
+    by continuity of $f_\alpha$, 
+    \begin{equation*}
+        \abs{f_\alpha(x)} = \lim_{k\to\infty}\abs{f_\alpha(x_k)}\leq n.
+    \end{equation*}
+    Hence $x\in F_n$ and $F_n$ is closed. Next, for any $x\in X$, 
+    take $N \geq M(x)$. Then $x\in F_N\subset\cup_n F_n$. This 
+    shows that $X = \cup_n F_n$. 
+
+    Finally, observe that $F_n$ cannot have empty interiors for 
+    all $n$. Otherwise, $\varnothing = X^c = \pth{\cup_n F_n}^c
+    = \cap F_n^c \neq \varnothing$ since $F_n^c$ are open dense 
+    subsets of $X$, which is absurd. Hence there is some $n$ such 
+    that $F_n$ has nonempty interior, say $G\subset F_n$. Then 
+    $\sup_{\alpha\in A}\abs{f_\alpha(x)}\leq n$ for all $x\in G$ 
+    as desired.
+\end{proof}
+
+\begin{definition}
+    A function $f:X\to\R$ is said to be \textbf{sub-additive} if 
+    $f(x+y)\leq f(x)+f(y)$ for all $x,y\in X$.
+\end{definition}
+
+\begin{theorem}[Uniform Boundedness Principle \rom{2}]\label{thm:ubp2}
+    $X$ is a Banach space. $\alpha\in A$ is an arbitrary index set. 
+    $f_\alpha:X\to\R$ are continuous, sub-additive and satisfy 
+    $f_\alpha(cx) = \abs{c}f_\alpha(x)$ for all $x\in X$ and $c\in\R$. 
+    If for every $x\in X$, there exists $M(x)<\infty$ such that 
+    \begin{equation*}
+        \sup_{\alpha\in A}\abs{f_\alpha(x)}\leq M(x),
+    \end{equation*}
+    then there exists a constant $C<\infty$ such that
+    \begin{equation*}
+        \sup_{\alpha\in A}\abs{f_\alpha(x)}\leq C\norm{x}_X
+    \end{equation*}
+    for all $x\in X$.
+\end{theorem}
+\begin{proof}
+    By \cref{thm:ubp1}, there exists an open $G$ and a constant 
+    $C<\infty$ such that 
+    \begin{equation*}
+        \sup_{\alpha\in A}\abs{f_\alpha(x)}\leq C
+    \end{equation*}
+    for all $x\in G$. The proof will be complete if we can 
+    extend $G$ to $X$. Since $G$ is open, there exists $r>0$ 
+    such that $B_r(z)\subset G$ for all $z\in G$. For any 
+    $x\in B_r(z)$, $\sup_{\alpha\in A} \abs{f_\alpha(x)}
+    \leq C$ and hence $\sup_{\alpha\in A} \abs{f_\alpha(z+y)} 
+    \leq C$ for all $y\in B_r(0)$. Take $y$ with $\norm{y}
+    \leq r/2$. Then 
+    \begin{equation*}
+        -2C \leq f_\alpha(y+z) - f_\alpha(z) \leq f_\alpha(y) 
+        \leq f_\alpha(y+z) + f_\alpha(-z) 
+        = f_\alpha(y+z) + f_\alpha(z) \leq 2C.
+    \end{equation*}
+    Hence $\abs{f_\alpha(y)}\leq 2C$ for all $y$ with $\norm{y}
+    \leq r/2$. Take $x\in X$. 
+    \begin{equation*}
+        \abs{f_\alpha(x)} 
+        = \abs{f_\alpha\pth{\frac{x}{\norm{x}}\frac{r}{2}\frac{2}{r}\norm{x}}} 
+        = \frac{2}{r}\norm{x}\abs{f_\alpha(y)} \leq \frac{4C}{r}\norm{x}.
+    \end{equation*}
+    Thus 
+    \begin{equation*}
+        \sup_{\alpha\in A}\abs{f_\alpha(x)}\leq \frac{4C}{r}\norm{x}
+    \end{equation*}
+    for all $x\in X$.
+\end{proof}
+
+\begin{corollary}
+    $X$ is a Banach space. $L_\alpha\in X'$ and $\alpha\in A$. 
+    If for every $x\in X$, there exists $M(x)<\infty$ such that 
+    $\sup_{\alpha\in A}\abs{L_\alpha(x)}\leq M(x)$, then there 
+    exists a constant $C<\infty$ such that $\sup_{\alpha\in A}
+    \norm{L_\alpha}\leq C$.
+\end{corollary}
+\begin{proof}
+    Apply \cref{thm:ubp2} to $f_\alpha(x) = \abs{L_\alpha(x)}$. First,
+    $L_\alpha$ is linear and the sub-linearity follows from the triangle 
+    inequality. Next, $\abs{L_\alpha(cx)} = \abs{c}\abs{L_\alpha(x)}$ for 
+    all $c\in\R$. Also, $L_\alpha\in X'$ implies that $f_\alpha$ is 
+    continuous. The conclusion follows from \cref{thm:ubp2}.
+\end{proof}
+
+\begin{corollary}\label{cor:ubp}
+    $X$ is a normed space. $x_\alpha\in X$ for all $\alpha\in A$ with 
+    the property that for every $L\in X'$, there is $M(L)<\infty$ 
+    such that $\sup_\alpha \abs{L(x_\alpha)}\leq M(L)$ and 
+    $(X',\norm{\cdot}_{X\to\R})$ is a Banach space. Then there exists 
+    $C<\infty$ such that $\norm{x_\alpha}_X\leq C$ for all $\alpha\in A$.
+\end{corollary}
+\begin{proof}
+    Apply the \cref{thm:ubp2} to $f_\alpha(L) = \abs{L(x_\alpha)}$. First, 
+    for $L,T\in X'$, 
+    \begin{equation*}
+        f_\alpha(L+T) = \abs{L(x_\alpha)+T(x_\alpha)} 
+        \leq \abs{L(x_\alpha)} + \abs{T(x_\alpha)} 
+        = f_\alpha(L) + f_\alpha(T).
+    \end{equation*}
+    Next, for $c\in\R$, 
+    \begin{equation*}
+        f_\alpha(cL) = \abs{cL(x_\alpha)} = \abs{c}\abs{L(x_\alpha)} 
+        = \abs{c}f_\alpha(L).
+    \end{equation*}
+    Finally, to verify that $f_\alpha$ is continuous, note that for 
+    $L_n\to L$ in $X'$, 
+    \begin{equation*}
+        \abs{f_\alpha(L_n) - f_\alpha(L)} = \abs{L_n(x_\alpha) - L(x_\alpha)} 
+        \leq \norm{L_n-L}_{X'\to\R}\norm{x_\alpha}_X\to 0
+    \end{equation*}
+    for each $\alpha\in A$. The conclusion follows from \cref{thm:ubp2}.
+\end{proof}
+
+\begin{corollary}\label{cor:ubp2}
+    $X$ is a normed space and $x_n\in X$ with $x_n\rightharpoonup x$ in $X$. 
+    Then there exists $C<\infty$ such that $\norm{x_n}_X\leq C$ for all $n$. 
+\end{corollary}
+\begin{proof}
+    This is a direct consequence of \cref{cor:ubp} with $A = \N$.
+\end{proof}
+
+\begin{proposition}
+    Let $f_n\in\L^p(X,\mu)$ and $1\leq p<\infty$. Then $f_n\rightharpoonup f\in\L^p$ if 
+    \begin{equation*}
+        \lim_{n\to\infty} \int f_ngd\mu = \int fgd\mu
+    \end{equation*}
+    for all $g\in\L^{p'}(X,\mu)$ and some $f$ in $\L^p$ where $p'$ is the 
+    conjugate exponent of $p$.
+\end{proposition}
+\begin{proof}
+    By the assumption and Riesz representation theorem, for every 
+    $T\in\pth{\L^p}'$, there exists a unique $g\in\L^{p'}$ such that 
+    \begin{equation*}
+        T(f_n) = \int f_ngd\mu \to \int fgd\mu = T(f).
+    \end{equation*}
+    Hence $f_n\rightharpoonup f$.
+\end{proof}
+
+\begin{proposition}\label{prop:weak_conv_bd}
+    $f_n\in\L^p(X,\mu)$ and $1\leq p<\infty$. If $f_n\rightharpoonup f$ in $\L^p$, 
+    then $f_n$ is bounded and 
+    \begin{equation*}
+        \norm{f_n}_p\leq \liminf_{n\to\infty}\norm{f_n}_p.
+    \end{equation*}
+\end{proposition}
+\begin{proof}
+    Consider the function 
+    \begin{equation*}
+        g = \frac{\abs{f}^{p/p'}}{\norm{f}_p^{p/p'}}.
+    \end{equation*}
+    Note that 
+    \begin{equation*}
+        \norm{g}_{p'}^{p'} = \int \abs{g}^{p'}d\mu 
+        = \int \frac{\abs{f}^p}{\norm{f}_p^p}d\mu = 1.
+    \end{equation*}
+    Hence $g\in\L^{p'}$ with $\norm{g}_{p'} = 1$. Also notice 
+    that $\abs{g} = \abs{f}^{p/p'}/\norm{f}_p^{p/p'} 
+    = \abs{f}^{p-1}/\norm{f}_p^{p-1}$. By the weak convergence 
+    and Riesz representation theorem, 
+    \begin{equation*}
+        \begin{split}
+            \norm{f}_p = \int \frac{\abs{f}^p}{\norm{f}_p^{p-1}}d\mu 
+            = \int \abs{fg}d\mu = \lim_{n\to\infty}\int \abs{f_ng}d\mu
+            \leq \liminf_{n\to\infty}\norm{f_n}_p\norm{g}_{p'} 
+            = \liminf_{n\to\infty}\norm{f_n}_p
+        \end{split}
+    \end{equation*}
+    by the H\"older inequality. Note that by \cref{cor:ubp2}, $f_n$ 
+    is bounded uniformly in $n$.
+\end{proof}
+
+\begin{proposition}
+    $1\leq p<\infty$ and $1/p+1/p'=1$. Suppose $f_n\to f$ in $\L^p$ 
+    and $g_n\to g$ in $\L^{p'}$. Then 
+    \begin{equation*}
+        \lim_{n\to\infty}\int f_ng_nd\mu = \int fg d\mu.
+    \end{equation*}
+\end{proposition}
+\begin{proof}
+    By the H\"older inequality, 
+    \begin{equation*}
+        \begin{split}
+            \abs{\int f_ng_nd\mu - \int fgd\mu} 
+            &\leq \abs{\int f_n(g_n-g)d\mu} + \abs{\int (f_n-f)gd\mu} \\
+            &\leq \norm{f_n}_p\norm{g_n-g}_{p'} + \norm{f_n-f}_p\norm{g}_{p'}.
+        \end{split}
+    \end{equation*}
+    Note that by \cref{prop:weak_conv_bd}, $f_n$ converges 
+    to $f$ strongly and hence weakly. It follows that $\norm{f_n}$ 
+    is bounded by some $C<\infty$. Since $g_n$ converges to $g$ 
+    and $f_n$ converges to $f$ in their respective norms, the 
+    right hand side of the inequality converges to $0$ as $n\to\infty$.
+\end{proof}
+\begin{remark}
+    If we loosen the condition to $f_n\rightharpoonup f$ in $\L^p$ 
+    and $g_n\rightharpoonup g$ in $\L^{p'}$, then the conclusion 
+    fails.
+\end{remark}
+\begin{example}
+    Suppose $p=p'=2$ and $f_n(x) = \sqrt{2/\pi}\sin(nx)$ for 
+    $x\in[0,\pi]$. Then $f_n\in\L^2([0,\pi])$ and 
+    \begin{equation*}
+        \int_0^\pi f_n^2dx = \frac{2}{\pi}\int_0^\pi \sin^2(nx)dx = 1.
+    \end{equation*}
+    To see that $f_n \rightharpoonup 0$, let $g\in\L^2([0,\pi])$. 
+    For every $\epsilon>0$, there is a step function $\phi$ such 
+    that $\norm{g-\phi}_2<\epsilon$. Note that every step function 
+    is a finite linear combination of characteristic functions of 
+    intervals. Hence it suffices to show that $f_n\chi_I$ can be 
+    arbitrary small for $n$ sufficiently large. On every interval, 
+    \begin{equation*}
+        \abs{\int_I \sin(nx)dx} \leq \int_{0}^{\pi/n}\sin(nx)dx 
+        = \frac{2}{n}\to 0
+    \end{equation*}
+    as $n\to\infty$. Thus $f_n\rightharpoonup 0$ in $\L^2([0,\pi])$. 
+    However, $f_n$ does not converge to $0$ strongly in $\L^2([0,\pi])$ 
+    since $\norm{f_n}_2 = 1\neq 0$ for all $n$.
+\end{example}
+
+\begin{proposition}\label{prop:weak_conv_on_set}
+    $1\leq p<\infty$. Let $f_n\in\L^p(X,\mu)$ be a bounded sequence 
+    of functions. Then $f_n\rightharpoonup f$ in $\L^p$ if and only if 
+    \begin{equation*}
+        \lim_{n\to\infty}\int_A f_nd\mu = \int_A fd\mu
+    \end{equation*}
+    for all $A\in\mathcal{A}$ when $p=1$ and for $A$ with finite 
+    measure when $p>1$.
+\end{proposition}
+\begin{proof}
+    \begin{equation*}
+        \begin{split}
+            f_n\rightharpoonup f 
+            &\iff \int f_ngd\mu \to \int fgd\mu \text{ for all } g\in\L^{p'} \\
+            &\iff \int_A f_nsd\mu \to \int_A fsd\mu \text{ for all simple } s\in\L^{p'} \\ 
+            &\iff \int_A f_nd\mu = \int f_n\chi_Ad\mu \to \int f\chi_Ad\mu = \int_A fd\mu
+        \end{split}
+    \end{equation*}
+    for $A\in\A$ such that $\chi_A\in\L^{p'}$. If $p=1$, then $A$ can be taken 
+    to be any $A\in\A$; if $p>1$, then $A$ must have finite measure.
+\end{proof}
+
+\begin{proposition}
+    $1<p<\infty$. Let $f_n\in\L^p(X,\mu)$ be a sequence with 
+    $\norm{f_n}_p\leq M$ and $f_n\to f$ pointwise a.e. Then 
+    $f_n\rightharpoonup f$ in $\L^p$.
+\end{proposition}
+\begin{proof}
+    Since $\norm{f_n}_p\leq M$, 
+    \begin{equation*}
+        \int \abs{f}^pd\mu = \int \liminf_{n\to\infty}\abs{f_n}^pd\mu 
+        \leq \liminf_{n\to\infty}\int \abs{f_n}^pd\mu = M^p
+    \end{equation*}
+    by Fatou's lemma. Hence $f\in\L^p$. It remains to show that 
+    the convergence is weak. By \cref{prop:weak_conv_on_set}, it is equivalent 
+    to show that
+    \begin{equation*}
+        \lim_{n\to\infty}\int_A f_nd\mu = \int_A fd\mu
+    \end{equation*}
+    for all $A\in\mathcal{A}$ with $\mu(A)<\infty$. Indeed, by Egorov's
+    theorem, for every $\epsilon>0$, there exists $F_\epsilon\subset A$ with 
+    $\mu(A-F_\epsilon)\leq\epsilon$ and $f_n\to f$ uniformly on $F_\epsilon$. 
+    Furthermore, by \cref{prop:int_abs_conti}, we can choose $F_\epsilon$ so 
+    that 
+    \begin{equation*}
+        \int_{A-F_\epsilon} \abs{f_n-f}^pd\mu \leq \epsilon
+    \end{equation*}
+    since $f_n,f\in\L^p$ and so does $\abs{f_n-f}^p$. Also, let 
+    $E = \Set{x\in A-F_\epsilon}{\abs{f_n-f}>1}$. Then for $n$ 
+    sufficiently large,
+    \begin{equation*}
+        \begin{split}
+            \int_A \abs{f_n-f}d\mu 
+            &\leq \int_{F_\epsilon} \abs{f_n-f}d\mu + \int_{A-F_\epsilon} \abs{f_n-f}d\mu \\
+            &\leq \int_A \epsilon d\mu + \int_{A-F_\epsilon-E} \abs{f_n-f}d\mu + \int_E \abs{f_n-f}d\mu \\
+            &\leq \epsilon\mu(A) + \mu(A-F_\epsilon) + \int_{A-F_\epsilon} \abs{f_n-f}^pd\mu 
+            \leq \epsilon\mu(A) + \epsilon + \epsilon.
+        \end{split}
+    \end{equation*}
+    Hence $f_n\rightharpoonup f$.
+\end{proof}
+
+\begin{remark}
+    The proposition fails for $p=1$. Consider $f_n = n\chi_{[0,1/n]}$. 
+    Then $\norm{f_n}_1 = 1$ and $f_n\to 0$ pointwise a.e. However, 
+    \begin{equation*}
+        \int_0^1 f_n(x)dx = 1 \neq 0 = \int_0^1 0dx.
+    \end{equation*}
+    Thus $f_n$ does not converge weakly to $0$ in $\L^1$.
+\end{remark}
+
+\begin{theorem}[Radon-Riesz]
+    $1<p<\infty$. Then $f_n\to f$ in $\L^p$ if and only if 
+    $\lim_{n\to\infty} \norm{f_n}_p = \norm{f}_p$ and 
+    $f_n\rightharpoonup f$ in $\L^p$.
+\end{theorem}
+\begin{proof}
+    Suppose $f_n\to f$ in $\L^p$. Then the strong convergence 
+    immediately implies the weak convergence. Also, note that 
+    $\norm{f_n}_p\leq\norm{f_n-f}_p+\norm{f}_p$ and thus 
+    \begin{equation*}
+        \abs{\norm{f_n}_p-\norm{f}_p} \leq \norm{f_n-f}_p\to 0
+    \end{equation*}
+    by the strong convergence. Conversely, suppose that 
+    $\norm{f_n}_p\to\norm{f}_p$ and $f_n\rightharpoonup f$ in 
+    $\L^p$. 
+    
+    Assume $p\geq 2$. For any $y\in\R$, notice that $\abs{1+y}^p 
+    \geq 1 + py + c\abs{y}^p$ for some $c\in(0,1)$. Let 
+    $E = \Set{x\in X}{f(x) = 0}$ and apply $y = (f_n-f)/f$ 
+    on $E^c$. Then on $E^c$,
+    \begin{equation*}
+        \abs{\frac{f_n}{f}}^p
+        \geq 1 + p\pth{\frac{f_n-f}{f}} + c\abs{\frac{f_n-f}{f}}^p
+    \end{equation*}
+    Thus 
+    \begin{equation*}
+        \abs{f_n}^p\geq \abs{f}^p + p(f_n-f)\abs{f}^{p-1}\sgn(f) + c\abs{f_n-f}^p.
+    \end{equation*}
+    Rearranging the inequality and integrating both sides on 
+    $E^c$ gives 
+    \begin{equation*}
+        c\int_{E^c} \abs{f_n-f}^pd\mu 
+        \leq \int_{E^c}\abs{f_n}^p-\abs{f}^pd\mu - p\int_{E^c}\abs{f}^{p-1}\sgn(f)(f_n-f)d\mu
+    \end{equation*}
+    Note that as shown in the proof of \cref{prop:weak_conv_bd}, 
+    $\abs{f}^{p-1}\sgn(f)\in\L^{p'}$. By the assumptions we see 
+    that 
+    \begin{equation*}
+        \int_{E^c} \abs{f_n-f}^pd\mu\to 0
+    \end{equation*}
+    as $n\to\infty$. On $E$, we have $f = 0$ and 
+    \begin{equation*}
+        \int_E \abs{f_n-f}^pd\mu = \int_E \abs{f_n}^pd\mu \to 0
+    \end{equation*}
+    as $n\to\infty$. Hence $f_n\to f$ in $\L^p$.
+
+    Assume $1<p<2$. Then we have the same inequality for $\abs{z}\geq 1$, i.e., 
+    \begin{equation*}
+        \abs{1+z}^p \geq 1 + p\abs{z} + c\abs{z}^p
+    \end{equation*}
+    Also, for $\abs{z}\leq 1$, 
+    \begin{equation*}
+        \frac{\abs{1+z}^p-1-pz}{z^2}
+    \end{equation*}
+    is strictly positive. Now let $E_n = \Set{x\in X}{\abs{f_n(x)-f(x)}\leq \abs{f(x)}}$. Then 
+    by applying the same argument above on $E_n^c$, we have 
+    \begin{equation*}
+        \int_{E_n^c} \abs{f_n-f}^pd\mu \leq \frac{1}{c}\int_{E_n^c}\abs{f_n}^p-\abs{f}^pd\mu - \frac{p}{c}\int_{E_n^c}\abs{f}^{p-1}\sgn(f)(f_n-f)d\mu
+    \end{equation*} 
+    as $n\to\infty$. On $E_n$, replacing $z$ by $(f_n-f)/f$,
+    \begin{equation*}
+        \abs{\frac{f_n}{f}}^p \geq 1 + p\frac{f_n-f}{f} + c'\pth{\frac{f_n-f}{f}}^2 
+        \implies \abs{f_n}^p \geq \abs{f}^p + p(f_n-f)\abs{f}^{p-1}\sgn(f) + c'\abs{f_n-f}^2\abs{f}^{p-2}
+    \end{equation*}
+    for some $c'>0$. Thus
+    \begin{equation*}
+        \int_{E_n} \abs{f_n-f}^2\abs{f}^{p-2}d\mu \leq \frac{1}{c'}\int_{E_n}\abs{f_n}^p-\abs{f}^pd\mu - \frac{p}{c'}\int_{E_n}\abs{f}^{p-1}\sgn(f)(f_n-f)d\mu.
+    \end{equation*}
+    Adding up the two inequalities, we have 
+    \begin{equation*}
+        \int_{E_n^c} \abs{f_n-f}^pd\mu + \int_{E_n} \abs{f_n-f}^2\abs{f}^{p-2}d\mu \to 0
+    \end{equation*}
+    as $n\to\infty$ by the assumptions. Note that on $E_n$, $\abs{f}\geq \abs{f_n-f}$ and 
+    \begin{equation*}
+        \begin{split}
+            \int_{E_n} \abs{f_n-f}^pd\mu \leq \int_{E_n} \abs{f_n-f}\abs{f}^{p-1}d\mu 
+            &\leq \pth{\int_{E_n} \abs{f_n-f}^2\abs{f}^{p-2}d\mu}^{1/2}\pth{\int_{E_n}\abs{f}^pd\mu}^{1/2} \\
+            &\leq \pth{\int_{E_n} \abs{f_n-f}^2\abs{f}^{p-2}d\mu}^{1/2}\norm{f}_p^{p/2}\to 0.
+        \end{split}
+    \end{equation*}
+    Hence $f_n\to f$ in $\L^p$. We conclude that $f_n\to f$ strongly in $\L^p$ if and only if
+    $f_n\rightharpoonup f$ in $\L^p$ and $\norm{f_n}_p\to\norm{f}_p$.
+\end{proof}
+\begin{remark}
+    Radon-Riesz theorem fails for $p=1$. Consider $f_n(x) = 1+\sin(nx)$ on $X=[-\pi,\pi]$. 
+    Then for every $g\in\L^\infty$, 
+    \begin{equation*}
+        \int (f_n - 1)gd\mu \leq \int \sin(nx)gd\mu \to 0
+    \end{equation*}
+    by the step function approximation argument. Also, $\norm{f_n}_1 = 2\pi$ for all $n$ and 
+    hence converges to $\norm{1}_1 = 2\pi$. However, $f_n$ does not converge to $1$ in $\L^1$ 
+    since 
+    \begin{equation*}
+        \int_{-\pi}^{\pi} \abs{f_n-1}d\mu = \int_{-\pi}^{\pi} \abs{\sin(nx)}d\mu  
+        = 2n\int_{0}^{\frac{\pi}{2n}} \sin(nx)dx = 2
+    \end{equation*}
+    for all $n$.
+\end{remark}

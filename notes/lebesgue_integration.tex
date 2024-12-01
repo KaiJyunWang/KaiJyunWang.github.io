@@ -1,0 +1,334 @@
+\begin{definition}
+    For a simple function $s = \sum_{i=1}^n c_i\chi_{E_i}$, its 
+    \textbf{Lebesgue integral} is defined as
+    \begin{equation*}
+        \int sd\mu = \sum_{i=1}^n c_i\mu(E_i).
+    \end{equation*}
+\end{definition}
+
+\begin{definition}
+    For a non-negative measurable function $f$, its \textbf{Lebesgue integral} 
+    is defined as
+    \begin{equation*}
+        \int fd\mu = \sup\Set{\int sd\mu}{s\text{ is simple and }0\leq s\leq f}.
+    \end{equation*}
+\end{definition}
+
+\begin{definition}
+    For a measurable function $f:X\to[-\infty,\infty]$, its \textbf{Lebesgue integral} 
+    is defined as
+    \begin{equation*}
+        \int fd\mu = \int f^+d\mu - \int f^-d\mu,
+    \end{equation*}
+    where $f^+ = \max\set{f,0}$ and $f^- = \max\set{-f,0}$ provided that 
+    \begin{equation*}
+        \int \abs{f}d\mu = \int f^+d\mu + \int f^-d\mu < \infty.
+    \end{equation*}
+    In such a case, we say that $f$ is \textbf{integrable}.
+\end{definition}
+
+\begin{proposition}
+    For $f,g$ integrable and $c\in\R$,
+    \begin{thmenum}
+        \item $\int cf+gd\mu = c\int fd\mu + \int gd\mu$.
+        \item If $f\leq g$ a.e., then $\int fd\mu \leq \int gd\mu$.
+    \end{thmenum}
+\end{proposition}
+\begin{proof}
+    Omitted.
+\end{proof}
+
+\begin{theorem}[Lebesgue Monotone Convergence Theorem]
+    Let $f_n:X\to[0,\infty]$ be a sequence of measurable functions with 
+    $f_n\nearrow f$ a.e. Then
+    \begin{equation*}
+        \int fd\mu = \lim_{n\to\infty}\int f_nd\mu.
+    \end{equation*}
+\end{theorem}
+\begin{proof}
+    By the monotonicity we have 
+    \begin{equation*}
+        \int f_nd\mu \leq \int fd\mu
+    \end{equation*}
+    for all $n$ and hence 
+    \begin{equation*}
+        \lim_{n\to\infty}\int f_nd\mu \leq \int fd\mu.
+    \end{equation*}
+    To obtain the reverse inequality, note that for any $c\in(0,1)$, 
+    there exists $N$ such that $f_n\geq cf$ a.e. for all $n\geq N$. 
+    Then 
+    \begin{equation*}
+        \int f_nd\mu \geq c\int fd\mu
+    \end{equation*}
+    for all $n\geq N$. Letting $n\to\infty$, 
+    \begin{equation*}
+        \lim_{n\to\infty}\int f_nd\mu \geq c\int fd\mu.
+    \end{equation*}
+    Taking $c\to 1^-$ then 
+    \begin{equation*}
+        \lim_{n\to\infty}\int f_nd\mu \geq \int fd\mu.
+    \end{equation*}
+    Hence 
+    \begin{equation*}
+        \lim_{n\to\infty}\int f_nd\mu = \int fd\mu.
+    \end{equation*}
+\end{proof}
+\begin{remark}
+    As a consequence,
+    \begin{equation*}
+        \int \sum_n f_nd\mu = \sum_n \int f_nd\mu.
+    \end{equation*}
+\end{remark}
+
+\begin{theorem}[Bounded Covergence Theorem]
+    Suppose $\mu(X)<\infty$. Let $f_n:X\to\R_+$ be a sequence 
+    measurable functions such that $f_n\leq M$ a.e. for some 
+    $M\in\R$. If $f_n\to f$ a.e., then $f$ is integrable and 
+    \begin{equation*}
+        \int fd\mu = \lim_{n\to\infty}\int f_nd\mu.
+    \end{equation*}
+\end{theorem}
+\begin{proof}
+    For any $\epsilon>0$, by Egorov's theorem, there exists 
+    $F\subset X$ such that $\mu(X-F)<\epsilon$ and $f_n\to f$ 
+    uniformly on $F$. Then there exists $N$ such that 
+    $\abs{f_n-f}<\epsilon$ on $F$ for all $n\geq N$. We have 
+    \begin{equation*}
+        \begin{split}
+            \abs{\int f_nd\mu - \int fd\mu} &\leq \int_X \abs{f_n-f}d\mu \\
+            &= \int_{F} \abs{f_n-f}d\mu + \int_{X-F}\abs{f_n-f}d\mu \\
+            &\leq \epsilon\mu(F)+2M\mu(X-F) = \epsilon(\mu(F)+2M\epsilon).
+        \end{split}
+    \end{equation*}
+    Since $\mu(X)<\infty$ and $\epsilon$ is arbitrary, 
+    we may conclude that 
+    \begin{equation*}
+        \int fd\mu = \lim_{n\to\infty}\int f_nd\mu.
+    \end{equation*}
+\end{proof}
+
+\begin{lemma}[Fatou]
+    $f_n:X\to[0,\infty]$ are measurable. Then
+    \begin{equation*}
+        \int \liminf_n f_nd\mu \leq \liminf_n \int f_nd\mu.
+    \end{equation*}
+\end{lemma}
+\begin{proof}
+    Let $g_n = \inf_{k\geq n} f_k$. Then $g_n\nearrow g = 
+    \liminf_n f_n$. By LMCT, 
+    \begin{equation*}
+        \int g_nd\mu\to \int gd\mu = \int \liminf_n f_nd\mu.
+    \end{equation*}
+    Note that $f_n\geq g_n$ and thus $\int f_nd\mu\geq\int g_nd\mu$. 
+    Hence 
+    \begin{equation*}
+        \liminf_n \int f_nd\mu \geq\liminf_n\int g_nd\mu 
+        = \int gd\mu = \int \liminf_n f_nd\mu.
+    \end{equation*}
+\end{proof}
+
+\begin{theorem}[Lebesgue Dominated Convergence Theorem]
+    Let $f_n:X\to[-\infty,\infty]$ be a sequence of measurable 
+    functions such that $f_n\to f$ a.e. and there exists an integrable 
+    function $g$ such that $\abs{f_n}\leq g$ a.e. for all $n$. 
+    Then
+    \begin{equation*}
+        \int fd\mu = \lim_{n\to\infty}\int f_nd\mu.
+    \end{equation*} 
+\end{theorem}
+\begin{proof}
+    Since $\abs{f_n}\leq g$ a.e., $\abs{f}\leq g$ a.e. Now 
+    $\abs{f_n-f}\leq \abs{f_n}+\abs{f}\leq 2g$ a.e. Let $h_n 
+    = 2g - \abs{f_n-f}\geq 0$ a.e. By Fatou's lemma,
+    \begin{equation*}
+        \begin{split}
+            \int 2gd\mu &= \int \liminf_n h_nd\mu \leq \liminf_n \int h_nd\mu 
+            = \liminf_n \int 2g-\abs{f_n-f}d\mu \\
+            &= \int 2gd\mu - \limsup_n \int \abs{f_n-f}d\mu.
+        \end{split}
+    \end{equation*}
+    It follows that 
+    \begin{equation*}
+        0 \leq \liminf_n \int \abs{f_n-f}d\mu \leq \limsup_n \int \abs{f_n-f}d\mu \leq 0.
+    \end{equation*}
+    Hence 
+    \begin{equation*}
+        \lim_{n\to\infty}\int \abs{f_n-f}d\mu = 0.
+    \end{equation*}
+    By the triangle inequality,
+    \begin{equation*}
+        \abs{\int fd\mu - \int f_nd\mu} \leq \int \abs{f-f_n}d\mu \to 0.
+    \end{equation*}
+    So 
+    \begin{equation*}
+        \int fd\mu = \lim_{n\to\infty}\int f_nd\mu.
+    \end{equation*}
+\end{proof}
+\begin{remark}
+    If $\supp{f}$ has finite measure and $f$ is bounded, then 
+    \begin{equation*}
+        \int f = \inf_{s\geq f} \int sd\mu, 
+    \end{equation*}
+    where $s$ is simple.
+\end{remark}
+
+\begin{definition}
+    $\L^1 = \Set{f:X\to\R}{f\text{ is integrable}}$ with the 
+    norm $\norm{f}_{\L^1} = \int \abs{f}d\mu$ is called 
+    the \textbf{$\L^1$ space}.
+\end{definition}
+\begin{remark}
+    The elements in $\L^1$ are in fact equivalence classes 
+    of functions that are equal a.e.
+\end{remark}
+
+\begin{proposition}\label{prop:int_abs_conti}
+    Let $f\in\L^1$ be a nonegative function. Then for every 
+    $\epsilon>0$, there is some $\delta>0$ such that for 
+    any measurable $E$ with $\mu(E)\leq\delta$, 
+    \begin{equation*}
+        \int_E fd\mu \leq \epsilon.
+    \end{equation*} 
+\end{proposition}
+\begin{proof}
+    Let $E_n = \Set{x\in X}{f(x)>n}$. Then by Lebesgue 
+    dominated convergence theorem, since $f\chi_{E_n}\leq f$,
+    \begin{equation*}
+        \int_{E_n}fd\mu \to 0.
+    \end{equation*}
+    For any $\epsilon>0$, there exists $n$ such that 
+    \begin{equation*}
+        \int_{E_n}fd\mu \leq \frac{\epsilon}{2}.
+    \end{equation*}
+    Pick $\delta\leq \epsilon/(2n)$. Then for any measurable 
+    $E$ with $\mu(E)\leq\delta$, 
+    \begin{equation*}
+        \int_E fd\mu = \int_{E\cap E_n}fd\mu + \int_{E\cap E_n^c}fd\mu 
+        \leq \int_{E_n}fd\mu + n\mu(E) \leq \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon
+    \end{equation*}
+    since $f\leq n$ on $E_n^c$. This completes the proof.
+\end{proof}
+
+\begin{theorem}[Lebesgue-Vitali]
+    $f:X\to\R$ is Riemann integrable if and only if the discontinuity 
+    set of $f$ has Lebesgue measure zero. Furthermore, if $f$ is Riemann 
+    integrable, then the Riemann integral and the Lebesgue integral agrees.
+\end{theorem}
+\begin{proof}
+    Define the oscillation of $f$ at $x$ as 
+    \begin{equation*}
+        \osc{f}{x} = \inf_{U:x\in U} \diam{f(U)},
+    \end{equation*}
+    where $U$ is open. 
+    
+    We first claim that $f$ is continuous at $x$ if and only 
+    if $\osc{f}{x}=0$. Indeed, if $f$ is continuous at $x$, 
+    then $\forany\epsilon>0$, $\exist\delta>0$ such that 
+    $\abs{f(x)-f(y)}<\epsilon$ for all $y\in B_\delta(x)$. 
+    Then $\diam{f(B_\delta(x))}\leq 2\epsilon$. Since 
+    $\epsilon$ is arbitrary, $\osc{f}{x}=0$. Conversely, if 
+    $\osc{f}{x}=0$, then $\forany\epsilon>0$, $\exist$ open 
+    $U$ containing $x$ such that $\diam{f(U)}<\epsilon$. 
+    This implies that $\abs{f(x)-f(y)}<\epsilon$ for all 
+    $y\in U$ and hence $f$ is continuous at $x$. 
+
+    Next, let $D_\epsilon$ collect all points $x$ such that 
+    $\osc{f}{x}\geq\epsilon>0$. We claim that $D_\epsilon$ 
+    is closed. For any convergent sequence $x_k\in D_\epsilon$, 
+    let $x_k\to x$. For any open $U$ containing $x$, $\exist N$ 
+    such that $x_k\in U$ for all $k\geq N$. Then $\exist$ an 
+    open neighborhood of $x_N$, $U'$, such that $U'\subset U$ 
+    and $\diam{f(U')}\geq\epsilon$. Hence $\osc{f}{x}\geq
+    \epsilon$ and $x\in D_\epsilon$, showing that $D_\epsilon$ 
+    is closed. Observe that $D = \bigcup_{n=1}^{\infty}D_{1/n}$.
+    
+    Now suppose that $f$ is Riemann integrable. Then for any 
+    $\epsilon>0$, $\exist\mathcal{P}$ such that $\mathrm{U}
+    (f,\mathcal{P})-\mathrm{L}(f,\mathcal{P})<\frac{1}{n}$ and 
+    $\norm{\mathcal{P}}<\frac{1}{n}$. Then 
+    \begin{equation*}
+        \begin{split}
+            &\quad\sum_{\substack{Q\in\mathcal{P},\\ Q\bigcap 
+            D_\frac{1}{n}\neq\varnothing}} (\sup_Q f -\inf_Q f)\abs{Q} 
+            + \sum_{\substack{Q\in\mathcal{P}, \\ Q\bigcap 
+            D_\frac{1}{n} = \varnothing}} (\sup_Q f -\inf_Q f)\abs{Q}\\
+            &= \sum_{Q\in\mathcal{P}}(\sup_Q f -\inf_Q f)\abs{Q} 
+            = \mathrm{U}(f,\mathcal{P})-\mathrm{L}(f,\mathcal{P}) 
+            < \epsilon.
+        \end{split}
+    \end{equation*}
+    Note that $\sup_Q f -\inf_Q f = \diam{f(Q)}$. This gives 
+    that $2M\mu^*(D_\frac{1}{n})<\epsilon$ for every $n$. Since 
+    $\epsilon$ is arbitrary, we conclude that $\mu^*(D_\frac{1}{n}) 
+    = 0$ for each $n$. Thus $D$ is an union of sets of measure 
+    zero and hence also has measure zero. 
+
+    For the converse, suppose that $m(D)=0$. Then $D_\epsilon$ 
+    also has measure zero. Let $\mathcal{P}$ be a partition 
+    on $E$ with $\norm{\mathcal{P}}<\delta$ for some 
+    $\delta>0$, which will be determined later. Then 
+    \begin{equation*}
+        \begin{split}
+            \mathrm{U}(f,\mathcal{P})-\mathrm{L}(f,\mathcal{P}) 
+            &= \sum_{Q\in\mathcal{P}}(\sup_Q f -\inf_Q f)\abs{Q}\\ 
+            &= \sum_{\substack{Q\in\mathcal{P},\\ Q\bigcap 
+            D_\epsilon = \varnothing}}(\sup_Q f -\inf_Q f)\abs{Q} 
+            + \sum_{\substack{Q\in\mathcal{P},\\ Q\bigcap 
+            D_\epsilon\neq\varnothing}}(\sup_Q f -\inf_Q f)\abs{Q}
+        \end{split}
+    \end{equation*}
+    For the first term, $\sup_Q f -\inf_Q f < \epsilon$ for 
+    $\norm{\mathcal{P}}<\delta_1$ for some $\delta_1>0$. And 
+    thus the first term is bounded by $\epsilon m(E)$. For the 
+    second term, $\sup_Q f -\inf_Q f < 2M$ and since 
+    $D_\epsilon$ has measure zero, $\exist Q_k$ cubic cover 
+    of $D_\epsilon$ such that $\sum_k \abs{Q_k}<\epsilon$. 
+    Now if $\diam{Q}<\delta_2$ for some $\delta_2>0$, then 
+    those $Q$ intersecting $D_\epsilon$ nonempty are subset 
+    of $\bigcup_k Q_k$. Thus the second term is bounded by 
+    $2M\epsilon$. Choosing $\delta = \min\set{\delta_1, 
+    \delta_2}$ yields that 
+    \begin{equation*}
+        \mathrm{U}(f,\mathcal{P})-\mathrm{L}(f,\mathcal{P}) 
+        < \epsilon m(E) + 2M\epsilon
+    \end{equation*}
+    whenever $\norm{\mathcal{P}}<\delta$. Since $\epsilon$ is 
+    arbitrary, $f$ is Riemann integrable.
+\end{proof}
+
+\begin{proposition}\label{prop:conti_approx}\ \vspace{-1em}
+    \begin{thmenum}
+        \item Step functions are dense in $\L^1$.
+        \item Continuous functions with compact support are dense 
+        in $\L^1$.
+    \end{thmenum}
+\end{proposition}
+\begin{proof}
+    Let $f\in\L^1$. By \cref{lem:simple_approx}, we already know that 
+    simple functions are dense in $\L^1$. It now remains to 
+    show that step functions can approximate simple functions. 
+    Since simple functions are linear combinations of finitely 
+    many characteristic functions, it suffices to show that 
+    characteristic functions can be approximated by step functions. 
+    Now for any measurable $E$, there is a family of almost disjoint 
+    cubes $Q_i$ such that $\mu(E\triangle \cup_{i=1}^MQ_i)\leq 
+    2\epsilon$, and thus we may set the step function to be 
+    $\phi = \sum_{i=1}^M\chi_{Q_i}$, with $\norm{\chi_E-\phi}_{\L^1}
+    \leq 2\epsilon$. 
+
+    For the second part, let it now suffices to show that 
+    continuous functions with compact support can approximate
+    characteristic functions of a rectangle, say $[a,b]$. 
+    Then set 
+    \begin{equation*}
+        g(x) = \begin{cases}
+            0 & x\leq a-\epsilon, \\
+            \frac{x-a+\epsilon}{\epsilon} & a-\epsilon\leq x\leq a, \\ 
+            1 & a\leq x\leq b, \\
+            1-\frac{x-b}{\epsilon} & b\leq x\leq b+\epsilon, \\
+            0 & x\geq b+\epsilon.
+        \end{cases}
+    \end{equation*}
+    Then $g$ is continuous with compact support and $\norm{\chi_{[a,b]}-g}_{\L^1} 
+    \leq \epsilon/2 + \epsilon/2 = \epsilon$.
+\end{proof}

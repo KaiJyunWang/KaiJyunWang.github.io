@@ -1,0 +1,290 @@
+\begin{definition}
+    The \textbf{length} of an open interval $(a,b) = I$ is $b-a$ in the 
+    extended sense, denoted by $\ell(I)$.
+\end{definition}
+\begin{remark}
+    We define $(a,a) = \varnothing$.
+\end{remark}
+
+\begin{definition}
+    The \textbf{Lebesgue outer measure} (or in brief, \textbf{outer measure}) 
+    of a set $E\subset\R$ is 
+    \begin{equation*}
+        \mu^*(E) = \inf\Set{\sum_n \ell(I_n)}{I_n\text{ are countable open intervals covering } E}.
+    \end{equation*}
+\end{definition}
+
+\begin{proposition}\ \vspace{-1em}
+    \begin{thmenum}
+        \item Countable sets are of outer measure zero.
+        \item If $A\subset B$, then $\mu^*(A)\leq \mu^*(B)$.
+        \item For $x\in\R$ and $A\subset\R$, $\mu^*(A+x) = \mu^*(A)$.
+        \item For countable $A_n\subset\R$, $\mu^*(\bigcup_n A_n) \leq \sum_n \mu^*(A_n)$. 
+    \end{thmenum}
+\end{proposition}
+\begin{proof}
+    For (a), let $x_n$ denumerate a countable set $A$. Then consider 
+    $I_n = (x_n-2^{-n}\epsilon, x_n+2^{-n}\epsilon)$ for $n\in\N$. 
+    Then $A\subset \cup_n I_n$ and $\mu^*(A)\leq \sum_n 2\cdot 2^{-n}\epsilon = 2\epsilon$. 
+    Since $\epsilon$ is arbitrary, $\mu^*(A) = 0$. 
+
+    For (b), note that any cover of $B$ must cover $A$. The result follows. 
+
+    For (c), note that the translations of open intervals preserve their lengths. 
+
+    For (d), let $\set{I_j^n}$ cover $A_n$ for each $n$ such that 
+    $\sum_j \ell(I_j^n) < \mu^*(A_n) + 2^{-n}\epsilon$. We have 
+    $\cup_n\cup_j I_j^n$ covering $\cup_n A_n$ and 
+    \begin{equation*}
+        \sum_n\sum_j \ell(I_j^n) < \sum_n \mu^*(A_n) + 2^{-n}\epsilon 
+        = \epsilon + \sum_n \mu^*(A_n).
+    \end{equation*}
+    Since $\epsilon$ is arbitrary, it follows that $\mu^*(\cup_n A_n) \leq \sum_n \mu^*(A_n)$.
+\end{proof}
+
+\begin{definition}
+    A family of sets $\M$ is called a \textbf{$\sigma$-algebra} if 
+    \begin{thmenum}
+        \item $\varnothing\in\M$.
+        \item $A\in\M$ implies $A^c\in\M$.
+        \item For countably many $A_n\in\M$ we have $\cup_n A_n\in\M$.
+    \end{thmenum}
+    The space $(X,\M)$ is called a \textbf{measurable space} and 
+    the sets in $\M$ are called \textbf{measurable sets}.
+\end{definition} 
+
+\begin{proposition}
+    $\M$ is a $\sigma$-algebra if and only if the following hold: 
+    \begin{thmenum}
+        \item $X\in\M$.
+        \item $A,B\in\M$ implies $A\cap B, A\cup B, A-B\in\M$.
+        \item For countably many $A_n\in\M$ we have $\cap_n A_n\in\M$.
+    \end{thmenum}
+\end{proposition}
+\begin{proof}
+    Omitted.
+\end{proof}
+
+\begin{proposition}
+    Let $\F$ be a family of sets in $X$. Then there exists a unique 
+    smallest $\sigma$-algebra containing $\F$.
+\end{proposition}
+\begin{proof}
+    Let $\M$ be the intersection of all $\sigma$-algebras containing 
+    $\F$. Since $\mathcal{P}(X)$ must be such a $\sigma$-algebra, 
+    $\M$ is non-empty. Now we verify that $\M$ is a $\sigma$-algebra. 
+    First, $\varnothing\in\M$ since $\varnothing$ is in every 
+    $\sigma$-algebra. Second, if $A\in\F$ then $A$ must belong to 
+    every $\sigma$-algebra containing $\F$ and so does $A^c$. Hence 
+    $A^c\in\M$. The closure under countable unions follows from 
+    a similar argument. We conclude that $\M$ is the desired 
+    $\sigma$-algebra.
+\end{proof}
+
+\begin{definition}
+    For a family of sets $\F$, we denote the smallest $\sigma$-algebra 
+    containing $\F$ by $\sigma(\F)$.
+\end{definition}
+
+\begin{definition}
+    Let $\T$ be the family of all open sets. The \textbf{Borel $\sigma$-algebra} 
+    is defined as $\B = \sigma(\T)$. The sets in $\B$ are called 
+    \textbf{Borel sets}.
+\end{definition}
+
+\begin{definition}
+    A set $E$ is called \textbf{Lebesgue measurable} if for $\epsilon>0$, 
+    there exists an open set $V$ such that $E\subset V$ and 
+    $\mu^*(V-E)\leq\epsilon$. 
+\end{definition}
+\begin{remark}
+    The Lebesgue measurable sets form a $\sigma$-algebra.
+\end{remark}
+\begin{remark}
+    The Borel sets are Lebesgue measurable.
+\end{remark}
+\begin{remark}
+    Not all subsets in $\R$ are Lebesgue measurable. Consider the 
+    Vitali set. For a Lebesgue measurable set that is not Borel, 
+    consider the preimage of a Vitali set of Cantor-Lebesgue function.
+\end{remark}
+
+\begin{definition}
+    A function $f:(X,\M)\to(\R,\B)$ is called \textbf{$\M$-measurable} if 
+    $f^{-1}(B)\in\M$ for all $B\in\B$.
+\end{definition}
+
+\begin{proposition}
+    Let $f:X\to Y$ and $A$ be an index set. Then 
+    \begin{thmenum}
+        \item $f^{-1}(B^c) = f^{-1}(B)^c$. 
+        \item $f^{-1}(\cup_{a\in A} B_a) = \cup_{a\in A} f^{-1}(B_a)$. 
+        \item $f^{-1}(\cap_{a\in A} B_a) = \cap_{a\in A} f^{-1}(B_a)$
+    \end{thmenum}
+\end{proposition}
+\begin{proof}
+    Omitted.
+\end{proof}
+
+\begin{proposition}
+    $f:(X,\M)\to(\R,\B)$ is $\M$-measurable if $f^{-1}((a,\infty))\in\M$.
+\end{proposition}
+\begin{proof}
+    Observe that $\Set{A\subset\R}{f^{-1}(A)\in\F}$ is a $\sigma$-algebra. 
+    By assumption, $[a,b]$, $(a,b]$, $[a,b)$ and $(a,b)$ are in this 
+    $\sigma$-algebra for $a,b\in\overline{\R}$.
+\end{proof}
+
+\begin{proposition}
+    $f_n$ are measurable. Then $\sup_n f_n$, $\inf_n f_n$, $\limsup f_n$ 
+    and $\liminf f_n$ are measurable.
+\end{proposition}
+\begin{proof}
+    Note that $\set{\sup_n f_n > a} = \cup_n \set{f_n > a}$ and 
+    $\set{\inf_n f_n < a} = \cup_n \set{f_n < a}$ are measurable. 
+    $\limsup_n f_n = \inf_k\sup_{n\geq k} f_n$ and $\liminf_n f_n 
+    = \sup_k\inf_{n\geq k} f_n$ are measurable as well.
+\end{proof}
+\begin{remark}
+    $\lim_n f_n = \limsup_n f_n = \liminf_n f_n$ is measurable. 
+\end{remark}
+
+\begin{definition}
+    Let $(X,\M)$ be a measurable space. A \textbf{measure} on $X$ is a 
+    function $\mu:\M\to[0,\infty]$ satisfying
+    \begin{thmenum}
+        \item $\mu(\varnothing) = 0$.
+        \item $\mu(\cup_n A_n) = \sum_n \mu(A_n)$ for disjoint $A_n$.
+    \end{thmenum}
+    The triple $(X,\M,\mu)$ is called a \textbf{measure space}.
+\end{definition}
+
+\begin{proposition}
+    Let $(X,\M,\mu)$ be a measure space and $A,B\in\M$. Then
+    \begin{thmenum}
+        \item $A\subset B$ implies $\mu(A)\leq \mu(B)$.
+        \item $\mu(A-B) = \mu(A) - \mu(B)$ if $B\subset A$ and $\mu(B)<\infty$.
+    \end{thmenum}
+\end{proposition}
+\begin{proof}
+    Omitted.
+\end{proof}
+
+\begin{proposition}\label{prop:measure_limit}
+    Let $(X,\M,\mu)$ be a measure space and $E_n$ be a sequence of 
+    measurable sets. Then 
+    \begin{thmenum}
+        \item If $E_n\nearrow E$, then $\mu(E_n)\to\mu(E)$ as $n\to\infty$. 
+        \item If $E_n\searrow E$ and $\mu(E_1)<\infty$, then $\mu(E_n)\to\mu(E)$ as $n\to\infty$.
+    \end{thmenum}
+\end{proposition}
+\begin{proof}
+    Suppose $\mu(E_n)<\infty$ for all $n$. Consider $S_n = E_n - E_{n-1}$ with 
+    $E_0 = \varnothing$. Then $S_n$ are disjoint and $\cup_n S_n = E$. Then 
+    \begin{equation*}
+        \mu(E) = \mu(\cup_n S_n) = \sum_n \mu(S_n) = \sum_n \mu(E_n) - \mu(E_{n-1}) = \lim_n \mu(E_n).
+    \end{equation*}
+    If $\mu(E_n) = \infty$ for some $n$, then $\mu(E) = \infty$ and the result 
+    follows.
+
+    For the second part, note that $E_1-E_n\nearrow E_1-E$. Then 
+    \begin{equation*}
+        \mu(E_1) - \mu(E_n) = \mu(E_1-E_n) \to \mu(E_1-E) = \mu(E_1) - \mu(E).
+    \end{equation*}
+    Rearranging gives the desired result.
+\end{proof}
+
+\begin{theorem}[Egorov]
+    Let $E$ be a measurable set with $\mu(E)<\infty$ and $f_n:E\to\R$ are 
+    measurable functions. If $f_n\to f$ a.e. on $E$, then for all 
+    $\epsilon>0$, there exists a closed set $A_\epsilon\subset E$ such 
+    that $\mu(E-A_\epsilon)<\epsilon$ and $f_n\to f$ uniformly on $A_\epsilon$.
+\end{theorem}
+\begin{proof}
+    Consider the case where $f_n\to f$ everywhere on $E$ since 
+    $\Set{x\in E}{f_n(x)\not\to f(x)}$ is of measure zero. For each 
+    $n,k\in\N$, let $E_k^n = \Set{x\in E}{\abs{f_j(x)-f(x)}<1/n \text{ for all }j>k}$. 
+    Then fix $n$ and note that $E_k^n\nearrow E$ as $k\to\infty$. By 
+    \cref{prop:measure_limit}, there exists $k_n$ such that $\mu(E-E_{k_n}^n)<2^{-n}$. 
+    Then we have $\abs{f_j(x)-f(x)}<1/n$ for every $j>k_n$ and $x\in E_{k_n}^n$. 
+    Choose $N$ such that $\sum_{n\geq N}2^{-n}<\epsilon/2$ and let 
+    $\hat{A}_\epsilon = \cap_{n\geq N} E^n_{k_n}$. Then 
+    $\mu(E-\hat{A}_\epsilon)\leq \sum_{n\geq N}\mu(E-E^n_{k_n})<\epsilon/2$. 
+    Also, for any $\delta>0$, we may pick $n>N$ with $1/n<\delta$ and 
+    for $x\in\hat{A}_\epsilon$, $\abs{f_j(x)-f(x)}<\delta$ whenever $j>k_n$. 
+    Hence $f_n\to f$ uniformly on $\hat{A}_\epsilon$. We may further 
+    find a closed $A_\epsilon\subset\hat{A}_\epsilon$ such that 
+    $\mu(\hat{A}_\epsilon-A_\epsilon)<\epsilon/2$. Then $A_\epsilon$ 
+    is the desired set.
+\end{proof}
+
+\begin{definition}
+    A function $s:X\to Y$ is called \textbf{simple} if it only takes 
+    finitely many values.
+\end{definition}
+
+\begin{lemma}\label{lem:simple_approx}
+    $f:E\to[0,\infty]$ is measurable. Then there exists a sequence 
+    of simple functions $s_n\nearrow f$; furthermore, if $f$ is bounded, 
+    then $s_n\to f$ uniformly.
+\end{lemma}
+\begin{proof}
+    Consider $s_n = \sum_{k=0}^{n2^n-1} k2^{-n}\chi_{f^{-1}([k2^{-n},(k+1)2^{-n}))} 
+    + n\chi_{f^{-1}([n,\infty])}$. Then $s_n$ are simple and $s_n\nearrow f$. 
+    If $f$ is bounded, then $f^{-1}([n,\infty])=\varnothing$ for some $n$ 
+    large enough and $s_n\to f$ uniformly.
+\end{proof}
+
+\begin{theorem}[Lusin]
+    Let $E\subset\R$ be a set of finite measure and $f:E\to\R$ be a measurable, 
+    finite-valued function. Then for all $\epsilon>0$, there exists a 
+    closed set $F_\epsilon\subset E$ such that $\mu(E-F_\epsilon)<\epsilon$ 
+    and $f\restrict{F_\epsilon}$ is continuous.
+\end{theorem}
+\begin{proof}
+    First we may partition $E$ into $E = \cup_{i\in\N} E_i$ where $E_i = E\cap[-i,i]$. 
+    We first prove the result for simple functions. Let $f = \sum_{j=1}^{N}c_j\chi_{A_j}$ 
+    be a simple function with the stated properties. Then for each $j$, 
+    we may find a closed set $F_j\subset A_j$ such that $\mu(A_j-F_j)<\epsilon/N$. 
+    Now since $E_i$ are bounded, $F_j\cap E_i$ are compact and hence 
+    $f$ being constant on each $F_j\cap E_i$ is continuous. Note that 
+    $F_\epsilon = \cup_{i,j=1}^{N} F_j\cap E_i$ satisfies the desired 
+    properties. Next, for a general measurable function $f$, we may find 
+    a sequence of simple functions $s_n\nearrow f$ by \cref{lem:simple_approx}. 
+    Now by Egorov's theorem, we may find a closed set $F_\epsilon\subset E$ such 
+    that $\mu(E-F_\epsilon)<\epsilon$ and $s_n\to f$ uniformly on $F_\epsilon$. 
+    Since $s_n$ are continuous on $F_\epsilon$, $f$ is continuous on $F_\epsilon$.
+\end{proof}
+\begin{remark}
+    By Tietze's extension theorem, $f$ can be extended to a continuous 
+    function on all of $\R$.
+\end{remark}
+
+\begin{proposition}
+    $E$ is Lebesgue measurable if and only if $\mu(E\triangle B)=0$ for some 
+    Borel set $B$.
+\end{proposition}
+\begin{proof}
+    Suppose $E$ is Lebesgue measurable. Then for each $n$, there exists
+    an open set $V_n$ such that $E\subset V_n$ and $\mu(V_n-E)<1/n$. 
+    Let $B = \cap_n V_n$. Then $B$ is a Borel set and $\mu(E\triangle B) = 0$. 
+    Conversely, if $\mu(E\triangle B) = 0$ for some Borel set $B$, 
+    since $B$ is measurable, there exists an open $V\supset B$ such that 
+    $\mu(V-B)<\epsilon$. Then $B = (E\cap B) \cup (B-E)$ and since the 
+    later set has outer measure zero, $E\cap B$ is measurable. And since 
+    $E-B$ is outer measure zero, $E\cap B = E$ is measurable.
+\end{proof}
+
+\begin{proposition}
+    If $f$ is Lebesgue measurable, then there exists a Borel measurable 
+    function $g$ such that $f=g$ a.e.
+\end{proposition}
+\begin{proof}
+    Let $s_k\nearrow f$ be a sequence of simple functions with 
+    $s_k = \sum_{i=1}^{n_k}c_i\chi_{E_i}$ where $E_i$ are measurable. 
+    Then for each $E_i$ we may find a Borel set $B_i\subset E_i$ 
+    such that $\mu(E_i-B_i) = 0$ by the previous proposition. 
+    Then $t_k = \sum_{i=1}^{n_k}c_i\chi_{B_i}$ is a Borel measurable 
+    function. Let $g = \lim_{k\to\infty} t_k$. Then $g$ is Borel measurable 
+    and $f=g$ a.e. since $\mu(E_i-B_i)=0$ for countably many $i$.
+\end{proof}

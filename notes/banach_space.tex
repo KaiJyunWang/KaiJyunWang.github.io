@@ -1,0 +1,173 @@
+\begin{definition}
+    A space $X$ is called a \textbf{Banach space} if it is a 
+    complete normed vector space.
+\end{definition}
+\begin{remark}
+    $\L^1$ is a Banach space with the norm 
+    \begin{equation*}
+        \norm{f}_{\L^1} = \int \abs{f}d\mu.
+    \end{equation*}
+    We treat $f = g$ a.e.\ as the same element in $\L^1$.
+\end{remark}
+
+\begin{definition}
+    Let $V,W$ be vector spaces. A map $T:V\to W$ is \textbf{linear} 
+    if for every $c\in\R$, $f,g\in V$, $T(cf+g) = cT(f)+T(g)$.
+\end{definition} 
+
+\begin{definition}
+    A linear map $T:V\to W$ has \textbf{operator norm} defined 
+    by 
+    \begin{equation*}
+        \norm{T} = \sup_{\norm{f}_V=1}\norm{T(f)}_W.
+    \end{equation*} 
+    $T$ is \textbf{bounded} if $\norm{T}<\infty$. We denote the 
+    set of all bounded linear operators from $V$ to $W$ by 
+    $B(V,W)$. 
+\end{definition}
+
+\begin{proposition}
+    Suppose $W$ is a Bnach space. Then $B(V,W)$ is a Banach 
+    space with the operator norm.
+\end{proposition}
+\begin{proof}
+    It suffices to show that $B(V,W)$ is complete. Let 
+    $\set{T_i}\subset B(V,W)$ be a Cauchy sequence. Then for 
+    $f\in V$, 
+    \begin{equation*}
+        \norm{T_i(f)-T_j(f)}_W \leq \norm{T_i-T_j}\norm{f}_V.
+    \end{equation*} 
+    Hence $\set{T_i(f)}$ is a Cauchy sequence in $W$. By the 
+    completeness of $W$, we may define $Tf$ as the limit of 
+    $T_i(f)$ as $i\to\infty$. Now, 
+    \begin{equation*}
+        \norm{Tf} \leq \sup_i\norm{T_i(f)} \leq \sup_i \norm{T_i}\norm{f}.
+    \end{equation*}
+    Since Cauchy sequences are bounded, $\norm{Tf} < \infty$ for 
+    all $f\in V$ and $T\in B(V,W)$. It remains to show that 
+    $T_i$ converges to $T$ in the operator norm. For any $f\in V$, 
+    pick $N$ such that $\norm{T_i(f)-T_j(f)}\leq\epsilon$ for all 
+    $i,j\geq N$. Then for fixed $i$, 
+    \begin{equation*}
+        \norm{(T_i-T_j)f} \leq \norm{T_i-T_j}\norm{f} \leq \epsilon\norm{f} 
+    \end{equation*}
+    for every $f\in V$ and $j\geq N$. Hence $\norm{T_i - T}\leq\epsilon$ 
+    for all $i\geq N$ and the proof is complete.
+\end{proof} 
+
+\begin{definition}
+    $T$ is continuous if $f_i\to f$ in $V$ implies that 
+    $T(f_i)\to T(f)$ in $W$.
+\end{definition} 
+
+\begin{proposition}
+    Suppose $T:V\to W$ is linear. Then $T$ is continuous if and 
+    only if $T$ is bounded.
+\end{proposition}
+\begin{proof}
+    Suppose $T$ is not bounded. Then there exists $f_i\in V$ with 
+    $\norm{f_i} \leq 1$ for all $i$ and $\norm{Tf_i}\to\infty$. 
+    Thus 
+    \begin{equation*}
+        \frac{f_i}{\norm{Tf_i}}\to 0, \quad \text{but}\quad 
+        T\pth{\frac{f_i}{\norm{Tf_i}}} = \frac{Tf_i}{\norm{Tf_i}} \not\to 0 
+        \quad \text{as}\quad \frac{\norm{Tf_i}}{\norm{Tf_i}} = 1. 
+    \end{equation*}
+    Hence $T$ is not continuous. 
+
+    Conversely, suppose $T$ is bounded. Let $f_i\to f$ in $V$. 
+    Then 
+    \begin{equation*}
+        \norm{Tf_i-Tf} = \norm{T(f_i-f)} \leq \norm{T}\norm{f_i-f}\to 0.
+    \end{equation*}
+    Hence $T$ is continuous.
+\end{proof}
+
+\begin{definition}
+    A \textbf{linear functional} $T$ is a linear map $T:V\to\mathbb{F}$, 
+    where $\mathbb{F} = \R$ or $C$ is the scalar field of $V$.
+\end{definition} 
+
+\begin{definition}
+    Let $V$, $W$ be vector spaces. $T:V\to W$ is linear. 
+    The \textbf{kernel} of $T$ is defined as 
+    \begin{equation*}
+        \ker(T) = \Set{f\in V}{T(f)=0}.
+    \end{equation*}
+\end{definition}
+
+\begin{proposition}
+    Let $X$ be a normed vector space and $T\in X'$. Then 
+    \begin{thmenum}
+        \item $\ker(T)$ is a closed subspace of $X$. 
+        \item If $T\neq 0$, there exists $x\in X$ such that 
+        $T(x)\neq 0$. Then for any $y\in X$, there exists 
+        $c\in\R$ and $z\in\ker(T)$ such that $y = cx+z$.
+    \end{thmenum}
+\end{proposition}
+\begin{proof}
+    For (a), let $x,y\in\ker(T)$ and $c\in\R$. 
+    \begin{equation*}
+        T(cx+y) = cT(x)+T(y) = 0. \implies cx+y\in\ker(T).
+    \end{equation*}
+    Also, let $x_i\to x$ in $X$. Then since $T$ is continuous,  
+    \begin{equation*}
+        T(x) = \lim_{n\to\infty} T(x_n) = 0. \implies x\in\ker(T).
+    \end{equation*}
+    Hence $\ker(T)$ is a closed subspace of $X$. 
+
+    For the rest part, fix $x\in X$ and $f(x)\neq 0$. For each 
+    $y\in X$, let $\alpha = T(y)/T(x)$ and $z = y - T(y)x/T(x)$. 
+    Then 
+    \begin{equation*}
+        \alpha x + z = \frac{T(y)}{T(x)}x + y - \frac{T(y)}{T(x)}x 
+        = y - \frac{T(y)}{T(x)}x = y.
+    \end{equation*}
+\end{proof}
+
+\begin{definition}
+    The \textbf{dual space} of $V$ is defined as $V' = B(V,\mathbb{F})$, 
+    where $\mathbb{F} = \R$ or $C$.
+\end{definition}
+\begin{remark}
+    The dual space is a Banach space.
+\end{remark}
+\begin{remark}
+    $T:X\to Y$ is bounded and linear. Then 
+    \begin{equation*}
+        \norm{T} = \inf\Set{c\in [0,\infty)}{\norm{Tx}_Y \leq c\norm{x}_X \text{ for all } x\in X}.
+    \end{equation*}
+\end{remark}
+
+\begin{example}
+    Let $X = C([0,1])$ with the supremum norm and $Y = \R$ with 
+    the usual norm. For $g\in X$, $g(t)\neq 0$ on $[0,1]$,
+    define $Tg:X\to\R$ by 
+    \begin{equation*}
+        Tg(f) = \int_0^1 f(t)g(t)dt.
+    \end{equation*}
+    Now for $\norm{f}_\infty \leq 1$, 
+    \begin{equation*}
+        \begin{split}
+            \abs{Tg(f)} &= \abs{\int_{0}^{1}f(t)g(t)dt} 
+            \leq \int_{0}^{1}\abs{f(t)g(t)}dt 
+            \leq \int_{0}^{1}\abs{g(t)}\sup_{[0,1]}\abs{f(t)}dt \\
+            &= \norm{f}_\infty\int_{0}^{1}\abs{g(t)}dt 
+            \leq \int_{0}^{1}\abs{g(t)}dt.
+        \end{split}
+    \end{equation*}
+    Take $f = g/\abs{g}$, 
+    \begin{equation*}
+        \abs{Tgf} = \abs{\int_{0}^{1}\frac{g^2(t)}{\abs{g(t)}}dt} 
+        = \int_{0}^{1}\abs{g(t)}dt. 
+        \implies \norm{Tg} = \int_{0}^{1}\abs{g(t)}dt.
+    \end{equation*}
+\end{example}
+
+\begin{example}
+    Consider $X = Y = C([0,1])$ with the supremum norm. Define 
+    $T:C^1([0,1])\to Y$ by $Tf = f'$. Then consider the sequnce 
+    $f_n(x) = e^{-n(x-1/2)^2}$, $f_n'(x) = e^{-n(x-1/2)^2}\pth{-2n(x-1/2)}$. 
+    Hence $\norm{Tf_n}/\norm{f_n} = \sqrt{2n}e^{-1/2}\to\infty$ 
+    as $n\to\infty$. Thus $T$ is not bounded.  
+\end{example} 

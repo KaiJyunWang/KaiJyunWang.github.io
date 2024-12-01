@@ -1,0 +1,167 @@
+\begin{definition}
+    Let $f\in\L^1(\R^d)$. The \textbf{Hardy-Littlewood maximal function} 
+    is defined as 
+    \begin{equation*}
+        f^*(x) = \sup_{B:x\in B} \frac{1}{\mu(B)}\int_B \abs{f(y)}dy,
+    \end{equation*}
+    where the supremum is taken over all balls containing $x$.
+\end{definition}
+\begin{proposition}
+    $f^*$ is measurable. 
+\end{proposition}
+\begin{proof}
+    Let $E_\alpha = \Set{x}{f^*(x)>\alpha}$. We claim that it is 
+    an open set. Indeed, if $p\in E_\alpha$, there exists a ball 
+    $B$ containing $p$ such that 
+    \begin{equation*}
+        \frac{1}{\mu(B)}\int_B \abs{f(y)}dy > \alpha.
+    \end{equation*}
+    Now any $x$ close enough to $p$ will be contained in $B$ and 
+    hence in $E_\alpha$. Thus $E_\alpha$ is open. Hence $f^*$ is
+    measurable.
+\end{proof}
+
+\begin{lemma}\label{prop:vitali_cover}[Vitali Covering Lemma]
+    Suppose $\set{B_1,\ldots,B_N}$ is a finite collection of open 
+    balls in $\R^d$. Then there exists a disjoint subcollection 
+    $\set{B_{i_1},\ldots,B_{i_k}}$ such that
+    \begin{equation*}
+        \mu\pth{\bigcup_{j=1}^N B_j} \leq 3^d\sum_{j=1}^k \mu(B_{i_j}).
+    \end{equation*}
+\end{lemma}
+\begin{proof}
+    First we make an observation that if $B$ and $B'$ are balls 
+    intersecting with, say, the radius of $B$ is greater than 
+    the radius of $B'$, then $B'$ is contained in the ball $\tilde{B}$ 
+    that is concentric with $B$ but with $3$ times the radius. 
+
+    The construction of the subcollection is proceeded as follows. 
+    First, pick a ball $B_{i_1}$ with the largest radius. Then 
+    remove all balls intersecting with $\tilde{B}_{i_1}$, the ball 
+    concentric with $B_{i_1}$ but with $3$ times the radius. 
+    Among the remaining balls, we repeat the process and pick $B_{i_2}$. 
+    The process terminates when no more balls can be picked, 
+    after at most $N$ steps and we obtain a disjoint subcollection 
+    of balls $\set{B_{i_1},\ldots,B_{i_k}}$. 
+
+    Lastly, we verify the inequality. By the construction, 
+    we know that $\cup_{j=1}^N B_j\subset \cup_{j=1}^k\tilde{B}_{i_j}$
+    and thus
+    \begin{equation*}
+        \mu\pth{\bigcup_{j=1}^N B_j} \leq \mu\pth{\bigcup_{j=1}^k\tilde{B}_{i_j}} 
+        \leq \sum_{j=1}^{k} \mu(\tilde{B}_{i_j})
+        = \sum_{j=1}^{k} 3^d\mu(B_{i_j}).
+    \end{equation*}
+\end{proof}
+
+\begin{theorem}[Weak-Type Inequality]
+    Let $f\in\L^1(\R^d)$. Then for all $\alpha>0$, 
+    \begin{equation*}
+        \mu\pth{\Set{x\in\R^d}{f^*(x)>\alpha}} 
+        \leq \frac{A}{\alpha}\norm{f}_{\L^1(\R^d)},
+    \end{equation*}
+    where $A=3^d$.
+\end{theorem}
+\begin{proof}
+    Let $E_\alpha = \Set{x}{f^*(x)>\alpha}$. For each $x\in E_\alpha$ 
+    there exists a ball $B_x$ containing $x$ such that 
+    \begin{equation*}
+        \frac{1}{\mu(B_x)}\int_{B_x}\abs{f(y)}dy > \alpha
+        \quad\Rightarrow\quad 
+        \mu(B_x) < \frac{1}{\alpha}\int_{B_x}\abs{f(y)}dy.
+    \end{equation*}
+    Now for any fixed compact $K\subset E_\alpha$, $K$ is 
+    covered by $\bigcup_{x\in E_\alpha} B_x$, and hence there 
+    exists a finite subcover $\set{B_1,\ldots,B_N}$ of $K$. 
+    By the Vitali covering lemma, there exists a disjoint 
+    subcollection $\set{B_{i_1},\ldots,B_{i_k}}$ with 
+    \begin{equation*}
+        \mu\pth{\bigcup_{j=1}^N B_j} \leq 3^d\sum_{j=1}^k \mu(B_{i_j}).
+    \end{equation*} 
+    As a result,
+    \begin{equation*}
+        \begin{split}
+            \mu(K) &\leq \mu\pth{\bigcup_{j=1}^N B_j} 
+            \leq 3^d\sum_{j=1}^k \mu(B_{i_j})
+            \leq \frac{3^d}{\alpha}\sum_{j=1}^{k}\int_{B_{i_j}}\abs{f(y)}dy \\
+            &\leq \frac{3^d}{\alpha}\int_{\cup_{j=1}^kB_{i_j}}\abs{f(y)}dy
+            \leq \frac{3^d}{\alpha}\int_{\R^d}\abs{f(y)}dy.
+        \end{split}
+    \end{equation*}
+    Since the inequality holds for all compact subset $K$ of 
+    $E_\alpha$, the proof is complete.
+\end{proof}
+\begin{remark}
+    Note that $\Set{x}{f^*(x)=\infty}\subset\Set{x}{f^*(x)>\alpha}$ for 
+    every $\alpha>0$. Taking $\alpha\to\infty$ yields 
+    \begin{equation*}
+        \mu\pth{\Set{x}{f^*(x)=\infty}}=0.
+    \end{equation*}
+    Hence $f^*(x)<\infty$ a.e.
+\end{remark}
+
+\begin{theorem}[Lebesgue Differentiation Theorem]
+    Let $f\in\L^1(\R^d)$. Then for almost every $x\in\R^d$, 
+    \begin{equation*}
+        \lim_{m(B)\to 0, x\in B} \frac{1}{m(B)}\int_B f(y)dy = f(x).
+    \end{equation*}
+\end{theorem}
+\begin{proof}
+    Since continuous functions are dense in $\L^1$, we may find 
+    a continuous $g$ such that $\norm{f-g}_{\L^1}<\epsilon$. For 
+    such $g$, by the continuity, there exists a ball such that 
+    $\abs{g(y)-g(x)}<\epsilon$ for all $x,y\in B$. Thus 
+    \begin{equation*}
+        \begin{split}
+            \abs{\frac{1}{m(B)}\int_B f(y)dy - f(x)} 
+            &= \abs{\frac{1}{m(B)}\int_B (f(y)-g(y))dy + \frac{1}{m(B)}\int_B g(y)- g(x)dy + g(x) - f(x)} \\ 
+            &\leq \frac{1}{m(B)}\int_B \abs{(f(y)-g(y))}dy + \frac{1}{m(B)}\int_B \abs{g(y)- g(x)}dy + \abs{g(x) - f(x)} \\ 
+            &\leq (f-g)^*(x) + \epsilon + \abs{g(x) - f(x)}.
+        \end{split}
+    \end{equation*}
+    Since $\epsilon$ can be arbitrary small, we have 
+    \begin{equation*}
+        \abs{\frac{1}{m(B)}\int_B f(y)dy - f(x)} \leq (f-g)^*(x) + \abs{g(x) - f(x)}.
+    \end{equation*}
+    Now we let 
+    \begin{equation*}
+        E_\alpha = \Set{x}{\limsup_{m(B)\to 0, x\in B} \abs{\frac{1}{m(B)}\int_B f(y)dy-f(x)} > 2\alpha}.
+    \end{equation*}
+    We claim that $E_\alpha$ has measure zero. Set 
+    \begin{equation*}
+        F_\alpha = \Set{x}{(f-g)^*(x)>\alpha} 
+        \quad\text{and}\quad 
+        G_\alpha = \Set{x}{\abs{g(x)-f(x)}>\alpha}.
+    \end{equation*}
+    Then we have $E_\alpha\subset F_\alpha\cup G_\alpha$. By the 
+    weak-type inequality and Tchebyshev's inequality, 
+    \begin{equation*}
+        \mu(F_\alpha) \leq \frac{A}{\alpha}\norm{f-g}_{\L^1}<\frac{A}{\alpha}\epsilon
+        \quad\text{and}\quad
+        \mu(G_\alpha) \leq \frac{1}{\alpha}\norm{f-g}_{\L^1}<\frac{1}{\alpha}\epsilon.
+    \end{equation*}
+    Thus $\mu(E_\alpha)\leq \mu(F_\alpha\cup G_\alpha)<\frac{A+1}{\alpha}\epsilon$. 
+    Since $\epsilon$ is arbitrary, we have $\mu(E_\alpha)=0$ and 
+    the proof is complete.
+\end{proof}
+\begin{remark}
+    For $f\in\L^1(\R)$, and $F(x) = \int_{-\infty}^x f(y)dy$, we 
+    have $F'(x) = f(x)$ a.e. Indeed, 
+    \begin{equation*}
+        \begin{split}
+            \abs{\frac{F(x+h)-F(x)}{h}-f(x)} 
+            &= \frac{1}{h}\abs{\int_{x}^{x+h}f(y)-f(x)dy} 
+            \leq \frac{1}{h}\int_{x}^{x+h}\abs{f(y)-f(x)}dy \\ 
+            &\leq \frac{1}{h}\int_{x-h}^{x+h}\abs{f(y)-f(x)}dy 
+            \leq 2\frac{1}{2h}\int_{x-h}^{x+h}\abs{f(y)-f(x)}dy \to 0
+        \end{split}
+    \end{equation*}
+    as $h\to 0$ a.e.\ x.
+\end{remark}
+\begin{remark}
+    In fact, the requirement that $f\in\L^1$ can be relaxed to 
+    $f\in\L^1_{loc}$, which is defined as the set of all locally 
+    integrable functions, i.e., $f\chi_B\in\L^1$ for all finite 
+    balls $B$ since the proof only requires $B$ to be a ball 
+    near $x$. 
+\end{remark} 
