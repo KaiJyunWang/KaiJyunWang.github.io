@@ -13,7 +13,7 @@
 
 \begin{theorem}[Open Mapping Theorem]
     Let $X$ and $Y$ be Banach spaces and $T:X\to Y$ be a bounded surjective linear 
-    map. Then for any open set $U\subseteq X$, $T(U)$ is open in $Y$.
+    map. Then for any open set $U\subset X$, $T(U)$ is open in $Y$.
 \end{theorem}
 \begin{proof}
     We first claim that for any open ball $B$ centered at $0$ in $X$, $\overline{T(B)}$ 
@@ -30,10 +30,158 @@
     Deviding $z$ by $2n$ gives that $z/2n\in \overline{T(B)}$ and $B_{r/2n}(0)\subset
     \overline{T(B)}$. 
 
-    Next, to shorten the notation, denote $r/2n$ by $\delta$ and $B_{r/2n}(0)$ 
-    by $B_\delta$. Let $y\in B_\delta$ and $c_n>0$ be a sequence. Since $B_\delta
-    \subset \overline{T(B)}$, $\overline{B_\delta}\subset \overline{T(B)}$. Thus 
-    for every nonzero $z\in Y$ and $\epsilon>0$, we can find some $x\in X$ such that 
-    $\norm{x}<\delta^{-1}\norm{z}$ and $z\in B_\epsilon(T(x))$. Then 
+    Next, let $B$ be an unit ball. To shorten the notation, denote $r/2n$ by 
+    $\delta$ and $B_{r/2n}(0)$ by $B_\delta$. Let $y\in B_\delta$ and $c_n>0$ be 
+    a sequence. Since $B_\delta\subset \overline{T(B)}$, $\overline{B_\delta}
+    \subset \overline{T(B)}$. Thus for every $z\in Y$ and $\epsilon>0$, we can 
+    find some $x\in X$ such that $\norm{x}<\delta^{-1}\norm{z}$ and 
+    $z\in B_\epsilon(T(x))$. Now taking $z = y$ and $\epsilon = c_1$, we can 
+    find an $x_1$ such that $\norm{x_1}<\delta^{-1}\norm{y}$ and $\norm{y-Tx_1}<c_1$. 
+    Similarly, we can take $z = y-Tx_1$ and $\epsilon = c_2$ to find an $x_2$ such 
+    $\norm{x_2}<\delta^{-1}\norm{y-Tx_1}<\delta^{-1}c_1$ and $\norm{y-Tx_1-Tx_2}<c_2$. 
+    Iductively, we find a sequence $\set{x_n}$ such that $\norm{x_n}<\delta^{-1}c_{n-1}$ 
+    and $\norm{y-T\pth{\sum_{k=1}^n x_k}}<c_n$. Now we choose $c_n = 2^{-n}c$ for 
+    arbitrary $c>0$. Then 
+    \begin{equation*}
+        \norm{\sum_{k=1}^n x_k} \leq \sum_{k=1}^n \norm{x_k} 
+        \leq \frac{\norm{y}}{\delta} + \sum_{k=2}^n \frac{c_{k-1}}{\delta} 
+        \leq \frac{\norm{y}}{\delta} + \frac{c}{\delta}\sum_{k=1}^\infty 2^{-k} 
+        = \frac{\norm{y}}{\delta} + \frac{c}{\delta}.
+    \end{equation*}
+    Hence $\sum_n x_n$ converges in $X$ to some $x$ with $\norm{x}< 1$ by making 
+    $c$ arbitrarily small. Also, 
+    \begin{equation*}
+        \norm{y-T\pth{\sum_{k=1}^n x_k}} \leq c_n = 2^{-n}c \to 0.
+    \end{equation*}
+    Thus $Tx = y$ and $y\in T(B)$, which implies $B_\delta\subset T(B)$. 
+
+    Finally, let $U$ be an open set in $X$. Then for any $y\in T(U)$, there is 
+    some $x\in U$ such that $y = Tx$. Since $U$ is open, there is some $\epsilon>0$ 
+    such that $B_\epsilon(x)\subset U$. By the previous claim, there is some $s>0$ 
+    such that $B_s(0)\subset T(B_1(0))$. Multiplying both sides by $\epsilon$ gives
+    $B_{s\epsilon}(0)\subset T(B_\epsilon(0))$. Then 
+    \begin{equation*}
+        B_{s\epsilon}(y) = y + B_{s\epsilon}(0) \subset y + T(B_\epsilon(0)) 
+        = Tx + T(B_\epsilon(0)) = T(x + B_\epsilon(0))
+        = T(B_\epsilon(x)) \subset T(U).
+    \end{equation*}
+    Thus $T(U)$ is open. This completes the proof.
 \end{proof}
 
+\begin{theorem}[Bounded Inverse Theorem]
+    Let $X$ and $Y$ be Banach spaces and $T:X\to Y$ be a bounded linear map. If 
+    $T$ is bijective, then $T^{-1}$ is bounded.
+\end{theorem}
+\begin{proof}
+    By the open mapping theorem, there is $r>0$ such that $B_r(0)\subset T(B_r(0))$. 
+    For any $y\in Y$ with $\norm{y} = r/2$, there exists $x\in B_1(0)$ such that 
+    $y = Tx$. For $z\in Y$, write 
+    \begin{equation*}
+        z = \frac{rz}{2\norm{z}}\frac{2}{r}\norm{z}.
+    \end{equation*}
+    Then since $\norm{\frac{rz}{2\norm{z}}} = r/2$, there is some $x\in B_1(0)$ 
+    such that $\frac{rz}{2\norm{z}} = Tx$. Thus $z = \frac{2}{r}\norm{z}Tx$, 
+    \begin{equation*}
+        T^{-1}z = \frac{2}{r}\norm{z}x\implies \norm{T^{-1}z} \leq \frac{2}{r}\norm{z}\norm{x}.
+    \end{equation*}
+    Note that $\norm{x}\leq 1$. We see that $\norm{T^{-1}}$ is bounded by $2/r$.
+\end{proof}
+\begin{remark}
+    The completeness in the open mapping theorem is essential. For counterexample, 
+    consider $X$ as the space of all sequences with finitely many nonzero terms 
+    equipped with the supremum norm. Define $T:X\to X$ by 
+    \begin{equation*}
+        T(x_1,x_2,\ldots) = \pth{x_1, \frac{x_2}{2}, \frac{x_3}{3}, \ldots}.
+    \end{equation*}
+    Note that $X$ is not complete since the sequence $x^{(n)} = 
+    (1,1/2,\ldots,1/n,0,0,\ldots)$ converges to $(1,1/2,\ldots)$, which does not 
+    belong to $X$. In this case $T^{-1}$ exists but is not bounded.
+\end{remark}
+
+\begin{definition}
+    $X,Y$ are Banach spaces. $T:X\to Y$ is a bounded linear map. The set 
+    \begin{equation*}
+        \Gamma(T) = \Set{\pth{x,Tx}\in X\times Y}{x\in X}
+    \end{equation*}
+    is called the \textbf{graph} of $T$. We define the norm of $x$ on the graph by
+    \begin{equation*}
+        \norm{(x,Tx)}_\Gamma = \norm{x}_X + \norm{Tx}_Y.
+    \end{equation*}
+    Note that $\pth{\Gamma(T), \norm{\cdot}_\Gamma}$ forms a normed space.
+\end{definition}
+
+\begin{definition}
+    A linear map $T:X\to Y$ is called \textbf{closed} if its graph is a closed, 
+    i.e., for any sequence $x_n\in X$, if $x_n\to x\in X$ and $Tx_n\to y\in Y$, 
+    then $Tx = y$ and $(x,y)\in \Gamma(T)$.
+\end{definition}
+\begin{remark}
+    If $T$ is bounded, it is closed. To see this, note that if $x_n\to x\in X$, 
+    by the continuity we have $Tx_n\to Tx\in Y$. 
+\end{remark}
+
+\begin{theorem}[Closed Graph Theorem]
+    Let $X$ and $Y$ be Banach spaces and $T:X\to Y$ be a linear map. If $T$ is 
+    closed, then $T$ is bounded.
+\end{theorem}
+\begin{proof}
+    Observe that $\Gamma(T)$ is a Banach space with the norm $\norm{\cdot}$ on 
+    $\Gamma(T)$. This follows from the closedness of $T$. Now define $S:\Gamma(T) 
+    \to X$ by $S(x,Tx) = x$. We claim that $S$ is bounded, linear and bijective. 
+    For linearity, let $(x_1,Tx_1), (x_2,Tx_2)\in \Gamma(T)$ and $c\in\R$. 
+    \begin{equation*}
+        S\pth{c(x_1,Tx_1) + (x_2,Tx_2)} = S\pth{cx_1 + x_2, cTx_1 + Tx_2} 
+        = cx_1 + x_2 = cS(x_1,Tx_1) + S(x_2,Tx_2).
+    \end{equation*}
+    For boundedness, 
+    \begin{equation*}
+        \norm{S(x,Tx)}_X = \norm{x}_X \leq \norm{x}_X + \norm{Tx}_Y = \norm{(x,Tx)}_\Gamma. 
+    \end{equation*}
+    Thus $\norm{S} \leq 1$. For bijectivity, notice that 
+    \begin{equation*}
+        S(x_1,Tx_1) = S(x_2,Tx_2) \implies x_1 = S(x_1,Tx_1) = S(x_2,Tx_2) = x_2.
+    \end{equation*}
+    and for any $x\in X$, $(x,Tx)\in\Gamma(T)$ and $S(x,Tx) = x$. Thus $S$ is 
+    bounded, linear and bijective.
+
+    By the bounded inverse theorem, $S^{-1}:X\to\Gamma(T)$ is bounded as well. For 
+    any $x\in X$, 
+    \begin{equation*}
+        \norm{Tx}_Y = \norm{(x,Tx)}_\Gamma - \norm{x}_X 
+        = \norm{S^{-1}x}_\Gamma - \norm{x}_X 
+        \leq C\norm{x}_X - \norm{x}_X = (C-1)\norm{x}_X
+    \end{equation*}
+    for some constant $C<\infty$. Thus $T$ is bounded.
+\end{proof}
+
+\begin{definition}
+    Suppose $X$ is a vector space with norms $\norm{\cdot}_1$ and $\norm{\cdot}_2$. 
+    The norms are said to be \textbf{compatible} if $x_n\to x$ in $\norm{\cdot}_1$ 
+    and $x_n\to y$ in $\norm{\cdot}_2$ implies $x=y$.
+\end{definition}
+
+\begin{definition}
+    Let $X$ be a vector space with norms $\norm{\cdot}_1$ and $\norm{\cdot}_2$. The 
+    norms are said to be \textbf{equivalent} if there are constants $c_1,c_2>0$ such 
+    \begin{equation*}
+        c_1\norm{x}_1 \leq \norm{x}_2 \leq c_2\norm{x}_1
+    \end{equation*}
+    for all $x\in X$.
+\end{definition}
+
+\begin{proposition}
+    If $(X,\norm{\cdot}_1)$ and $(X,\norm{\cdot}_2)$ are Banach spaces. Then 
+    the norms are equivalent.
+\end{proposition}
+\begin{proof}
+    By the closed graph theorem, the identity map $I:(X,\norm{\cdot}_1)\to(X,\norm{\cdot}_2)$ 
+    is a closed linear map and thus bounded. Suppose $x_n\to x$ in $\norm{\cdot}_1$. 
+    Then $x_n = Ix_n\to Ix = x$ in $\norm{\cdot}_2$ by the continuity of $I$. Since 
+    $I$ is bounded, $\norm{x}_2 = \norm{Ix}_2 \leq c_1\norm{x}_1$ for some $c_1>0$. 
+    Applying the same argument exchanging the roles of $\norm{\cdot}_1$ and $\norm{\cdot}_2$ 
+    gives $\norm{x}_1 \leq c_2\norm{x}_2$ for some $c_2>0$. Hence 
+    \begin{equation*}
+        \frac{1}{c_2}\norm{x}_1 \leq \norm{x}_2 \leq c_1\norm{x}_1
+    \end{equation*}
+    and the norms are equivalent.
+\end{proof}

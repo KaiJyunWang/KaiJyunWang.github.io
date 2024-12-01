@@ -23,9 +23,12 @@
     \end{thmenum}
 \end{proposition}
 \begin{proof}
-    For (a), let $x_n$ denumerate a countable set $A$. Then consider 
-    $I_n = (x_n-2^{-n}\epsilon, x_n+2^{-n}\epsilon)$ for $n\in\N$. 
-    Then $A\subset \cup_n I_n$ and $\mu^*(A)\leq \sum_n 2\cdot 2^{-n}\epsilon = 2\epsilon$. 
+    For (a), let $x_n$ denumerate a countable set $A$. Then consider
+    \begin{equation*}
+        I_n = (x_n-2^{-n}\epsilon, x_n+2^{-n}\epsilon)
+    \end{equation*} 
+    for $n\in\N$. Then $A\subset \bigcup_n I_n$ and $\mu^*(A)
+    \leq \sum_n 2\cdot 2^{-n}\epsilon = 2\epsilon$. 
     Since $\epsilon$ is arbitrary, $\mu^*(A) = 0$. 
 
     For (b), note that any cover of $B$ must cover $A$. The result follows. 
@@ -33,13 +36,13 @@
     For (c), note that the translations of open intervals preserve their lengths. 
 
     For (d), let $\set{I_j^n}$ cover $A_n$ for each $n$ such that 
-    $\sum_j \ell(I_j^n) < \mu^*(A_n) + 2^{-n}\epsilon$. We have 
-    $\cup_n\cup_j I_j^n$ covering $\cup_n A_n$ and 
+    $\sum_j \ell(I_j^n) < \mu^*(A_n) + 2^{-n}\epsilon$. Then we have 
+    that $\bigcup_n\bigcup_j I_j^n$ covers $\bigcup_n A_n$ and 
     \begin{equation*}
         \sum_n\sum_j \ell(I_j^n) < \sum_n \mu^*(A_n) + 2^{-n}\epsilon 
         = \epsilon + \sum_n \mu^*(A_n).
     \end{equation*}
-    Since $\epsilon$ is arbitrary, it follows that $\mu^*(\cup_n A_n) \leq \sum_n \mu^*(A_n)$.
+    Since $\epsilon$ is arbitrary, it follows that $\mu^*(\bigcup_n A_n) \leq \sum_n \mu^*(A_n)$.
 \end{proof}
 
 \begin{definition}
@@ -47,7 +50,7 @@
     \begin{thmenum}
         \item $\varnothing\in\M$.
         \item $A\in\M$ implies $A^c\in\M$.
-        \item For countably many $A_n\in\M$ we have $\cup_n A_n\in\M$.
+        \item For countably many $A_n\in\M$ we have $\bigcup_n A_n\in\M$.
     \end{thmenum}
     The space $(X,\M)$ is called a \textbf{measurable space} and 
     the sets in $\M$ are called \textbf{measurable sets}.
@@ -57,8 +60,8 @@
     $\M$ is a $\sigma$-algebra if and only if the following hold: 
     \begin{thmenum}
         \item $X\in\M$.
-        \item $A,B\in\M$ implies $A\cap B, A\cup B, A-B\in\M$.
-        \item For countably many $A_n\in\M$ we have $\cap_n A_n\in\M$.
+        \item $A,B\in\M$ implies $A\bigcap B, A\bigcup B, A-B\in\M$.
+        \item For countably many $A_n\in\M$ we have $\bigcap_n A_n\in\M$.
     \end{thmenum}
 \end{proposition}
 \begin{proof}
@@ -118,8 +121,8 @@
     Let $f:X\to Y$ and $A$ be an index set. Then 
     \begin{thmenum}
         \item $f^{-1}(B^c) = f^{-1}(B)^c$. 
-        \item $f^{-1}(\cup_{a\in A} B_a) = \cup_{a\in A} f^{-1}(B_a)$. 
-        \item $f^{-1}(\cap_{a\in A} B_a) = \cap_{a\in A} f^{-1}(B_a)$
+        \item $f^{-1}(\bigcup_{a\in A} B_a) = \bigcup_{a\in A} f^{-1}(B_a)$. 
+        \item $f^{-1}(\bigcap_{a\in A} B_a) = \bigcap_{a\in A} f^{-1}(B_a)$
     \end{thmenum}
 \end{proposition}
 \begin{proof}
@@ -140,8 +143,8 @@
     and $\liminf f_n$ are measurable.
 \end{proposition}
 \begin{proof}
-    Note that $\set{\sup_n f_n > a} = \cup_n \set{f_n > a}$ and 
-    $\set{\inf_n f_n < a} = \cup_n \set{f_n < a}$ are measurable. 
+    Note that $\set{\sup_n f_n > a} = \bigcup_n \set{f_n > a}$ and 
+    $\set{\inf_n f_n < a} = \bigcup_n \set{f_n < a}$ are measurable. 
     $\limsup_n f_n = \inf_k\sup_{n\geq k} f_n$ and $\liminf_n f_n 
     = \sup_k\inf_{n\geq k} f_n$ are measurable as well.
 \end{proof}
@@ -154,7 +157,7 @@
     function $\mu:\M\to[0,\infty]$ satisfying
     \begin{thmenum}
         \item $\mu(\varnothing) = 0$.
-        \item $\mu(\cup_n A_n) = \sum_n \mu(A_n)$ for disjoint $A_n$.
+        \item $\mu(\bigcup_n A_n) = \sum_n \mu(A_n)$ for disjoint $A_n$.
     \end{thmenum}
     The triple $(X,\M,\mu)$ is called a \textbf{measure space}.
 \end{definition}
@@ -180,9 +183,9 @@
 \end{proposition}
 \begin{proof}
     Suppose $\mu(E_n)<\infty$ for all $n$. Consider $S_n = E_n - E_{n-1}$ with 
-    $E_0 = \varnothing$. Then $S_n$ are disjoint and $\cup_n S_n = E$. Then 
+    $E_0 = \varnothing$. Then $S_n$ are disjoint and $\bigcup_n S_n = E$. Then 
     \begin{equation*}
-        \mu(E) = \mu(\cup_n S_n) = \sum_n \mu(S_n) = \sum_n \mu(E_n) - \mu(E_{n-1}) = \lim_n \mu(E_n).
+        \mu(E) = \mu(\bigcup_n S_n) = \sum_n \mu(S_n) = \sum_n \mu(E_n) - \mu(E_{n-1}) = \lim_n \mu(E_n).
     \end{equation*}
     If $\mu(E_n) = \infty$ for some $n$, then $\mu(E) = \infty$ and the result 
     follows.
@@ -208,7 +211,7 @@
     \cref{prop:measure_limit}, there exists $k_n$ such that $\mu(E-E_{k_n}^n)<2^{-n}$. 
     Then we have $\abs{f_j(x)-f(x)}<1/n$ for every $j>k_n$ and $x\in E_{k_n}^n$. 
     Choose $N$ such that $\sum_{n\geq N}2^{-n}<\epsilon/2$ and let 
-    $\hat{A}_\epsilon = \cap_{n\geq N} E^n_{k_n}$. Then 
+    $\hat{A}_\epsilon = \bigcap_{n\geq N} E^n_{k_n}$. Then 
     $\mu(E-\hat{A}_\epsilon)\leq \sum_{n\geq N}\mu(E-E^n_{k_n})<\epsilon/2$. 
     Also, for any $\delta>0$, we may pick $n>N$ with $1/n<\delta$ and 
     for $x\in\hat{A}_\epsilon$, $\abs{f_j(x)-f(x)}<\delta$ whenever $j>k_n$. 
@@ -242,13 +245,13 @@
     and $f\restrict{F_\epsilon}$ is continuous.
 \end{theorem}
 \begin{proof}
-    First we may partition $E$ into $E = \cup_{i\in\N} E_i$ where $E_i = E\cap[-i,i]$. 
+    First we may partition $E$ into $E = \bigcup_{i\in\N} E_i$ where $E_i = E\bigcap[-i,i]$. 
     We first prove the result for simple functions. Let $f = \sum_{j=1}^{N}c_j\chi_{A_j}$ 
     be a simple function with the stated properties. Then for each $j$, 
     we may find a closed set $F_j\subset A_j$ such that $\mu(A_j-F_j)<\epsilon/N$. 
-    Now since $E_i$ are bounded, $F_j\cap E_i$ are compact and hence 
-    $f$ being constant on each $F_j\cap E_i$ is continuous. Note that 
-    $F_\epsilon = \cup_{i,j=1}^{N} F_j\cap E_i$ satisfies the desired 
+    Now since $E_i$ are bounded, $F_j\bigcap E_i$ are compact and hence 
+    $f$ being constant on each $F_j\bigcap E_i$ is continuous. Note that 
+    $F_\epsilon = \bigcup_{i,j=1}^{N} F_j\bigcap E_i$ satisfies the desired 
     properties. Next, for a general measurable function $f$, we may find 
     a sequence of simple functions $s_n\nearrow f$ by \cref{lem:simple_approx}. 
     Now by Egorov's theorem, we may find a closed set $F_\epsilon\subset E$ such 
@@ -267,12 +270,12 @@
 \begin{proof}
     Suppose $E$ is Lebesgue measurable. Then for each $n$, there exists
     an open set $V_n$ such that $E\subset V_n$ and $\mu(V_n-E)<1/n$. 
-    Let $B = \cap_n V_n$. Then $B$ is a Borel set and $\mu(E\triangle B) = 0$. 
+    Let $B = \bigcap_n V_n$. Then $B$ is a Borel set and $\mu(E\triangle B) = 0$. 
     Conversely, if $\mu(E\triangle B) = 0$ for some Borel set $B$, 
     since $B$ is measurable, there exists an open $V\supset B$ such that 
-    $\mu(V-B)<\epsilon$. Then $B = (E\cap B) \cup (B-E)$ and since the 
-    later set has outer measure zero, $E\cap B$ is measurable. And since 
-    $E-B$ is outer measure zero, $E\cap B = E$ is measurable.
+    $\mu(V-B)<\epsilon$. Then $B = (E\bigcap B) \bigcup (B-E)$ and since the 
+    later set has outer measure zero, $E\bigcap B$ is measurable. And since 
+    $E-B$ is outer measure zero, $E\bigcap B = E$ is measurable.
 \end{proof}
 
 \begin{proposition}

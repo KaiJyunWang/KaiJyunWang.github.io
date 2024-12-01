@@ -1,13 +1,10 @@
 \begin{definition}
     Let $(X,\A)$ be a measurable space. A \textbf{signed measure} 
-    is a function $\mu:\A\to [-\infty,\infty]$ such that
-    \begin{thmenum}
-        \item $\mu(\varnothing) = 0$.
-        \item For any countable disjoint collection $\set{A_i}_{i\in\N}$, 
-        \begin{equation*}
-            \mu\pth{\bigcup_{i\in\N} A_i} = \sum_{i\in\N} \mu(A_i).
-        \end{equation*}
-    \end{thmenum}
+    is a function $\mu:\A\to [-\infty,\infty]$ such that $\mu(\varnothing) = 0$ 
+    and for any countable disjoint collection $\set{A_i}_{i\in\N}$,
+    \begin{equation*}
+        \mu\pth{\bigcup_{i\in\N} A_i} = \sum_{i\in\N} \mu(A_i).
+    \end{equation*}
 \end{definition}
 \begin{remark}
     The range of $\mu$ can only include one of $\pm\infty$.
