@@ -1,16 +1,16 @@
 \begin{definition}
-    Let $\mathbb{F} = \R$ or $\C$. $\inprod{\cdot}{\cdot}:X\times X\to\mathbb{F}$ 
+    Let $\mathbb{F} = \R$ or $\C$. $\inp{\cdot}{\cdot}:X\times X\to\mathbb{F}$ 
     is an inner product on $X$ if it satisfies 
     \begin{thmenum}
-        \item $\inprod{cx+y}{z} = c\inprod{x}{z} + \inprod{y}{z}$ for all 
+        \item $\inp{cx+y}{z} = c\inp{x}{z} + \inp{y}{z}$ for all 
         $x,y,z\in X$ and $c\in\mathbb{F}$. 
-        \item $\inprod{x}{y} = \overline{\inprod{y}{x}}$ for all $x,y\in X$. 
-        \item $\inprod{x}{x}> 0$ for all $x\neq 0$.
+        \item $\inp{x}{y} = \overline{\inp{y}{x}}$ for all $x,y\in X$. 
+        \item $\inp{x}{x}> 0$ for all $x\neq 0$.
     \end{thmenum}
 \end{definition}
 \begin{remark}
     An inner product automatically induces a norm on $X$ by $\norm{\cdot} 
-    = \sqrt{\inprod{\cdot}{\cdot}}$.
+    = \sqrt{\inp{\cdot}{\cdot}}$.
 \end{remark}
 
 \begin{definition}
@@ -26,38 +26,38 @@
 \begin{proposition}[Cauchy-Schwarz Inequality]
     For all $x,y\in\H$, 
     \begin{equation*}
-        \abs{\inprod{x}{y}} \leq \norm{x}\norm{y}.
+        \abs{\inp{x}{y}} \leq \norm{x}\norm{y}.
     \end{equation*}
     Furthermore, equality holds if and only if $x$ and $y$ are linearly 
     dependent.
 \end{proposition}
 \begin{proof}
-    If $\inprod{x}{y} = 0$, then the inequality is trivial. Otherwise, let 
+    If $\inp{x}{y} = 0$, then the inequality is trivial. Otherwise, let 
     $t\in\R$. Then 
     \begin{equation*}
         \begin{split}
-            0 &\leq \inprod{t\frac{\abs{\inprod{x}{y}}}{\inprod{x}{y}}x+y}{t\frac{\abs{\inprod{x}{y}}}{\inprod{x}{y}}x+y} \\
-            &= t^2\norm{x}^2 + 2t\Re\pth{\frac{\abs{\inprod{x}{y}}}{\inprod{x}{y}}\inprod{x}{y}} + \norm{y}^2 
-            = t^2\norm{x}^2 + 2t\abs{\inprod{x}{y}} + \norm{y}^2.
+            0 &\leq \inp{t\frac{\abs{\inp{x}{y}}}{\inp{x}{y}}x+y}{t\frac{\abs{\inp{x}{y}}}{\inp{x}{y}}x+y} \\
+            &= t^2\norm{x}^2 + 2t\Re\pth{\frac{\abs{\inp{x}{y}}}{\inp{x}{y}}\inp{x}{y}} + \norm{y}^2 
+            = t^2\norm{x}^2 + 2t\abs{\inp{x}{y}} + \norm{y}^2.
         \end{split}
     \end{equation*}
     Hence 
     \begin{equation*}
-        4\abs{\inprod{x}{y}}^2 - 4\norm{x}^2\norm{y}^2 \leq 0
-        \implies \abs{\inprod{x}{y}} \leq \norm{x}\norm{y}.
+        4\abs{\inp{x}{y}}^2 - 4\norm{x}^2\norm{y}^2 \leq 0
+        \implies \abs{\inp{x}{y}} \leq \norm{x}\norm{y}.
     \end{equation*}
     Note that if the equality holds, then 
     \begin{equation*}
-        t^2\norm{x}^2 + 2t\abs{\inprod{x}{y}} + \norm{y}^2 
+        t^2\norm{x}^2 + 2t\abs{\inp{x}{y}} + \norm{y}^2 
         = t^2\norm{x}^2 + 2t\norm{x}\norm{y} + \norm{y}^2  
         = \pth{t\norm{x} + \norm{y}}^2 = 0
     \end{equation*}
     by taking $t = -\norm{y}/\norm{x}$. But this implies that 
     \begin{equation*}
-        t\frac{\abs{\inprod{x}{y}}}{\inprod{x}{y}}x+y = 0
+        t\frac{\abs{\inp{x}{y}}}{\inp{x}{y}}x+y = 0
     \end{equation*}
     and so $x$ and $y$ are linearly dependent. Conversely, suppose $cx = y$.
-    Then $\abs{\inprod{x}{y}} = \abs{c}\norm{y}^2 = \norm{x}\norm{y}$.
+    Then $\abs{\inp{x}{y}} = \abs{c}\norm{y}^2 = \norm{x}\norm{y}$.
 \end{proof}
 
 \begin{proposition}[Parallelogram Law]
@@ -69,8 +69,8 @@
 \begin{proof}
     Note that 
     \begin{align*}
-        \norm{x+y}^2 = \inprod{x+y}{x+y} &= \norm{x}^2 + 2\Re\pth{\inprod{x}{y}} + \norm{y}^2, \\
-        \norm{x-y}^2 = \inprod{x-y}{x-y} &= \norm{x}^2 - 2\Re\pth{\inprod{x}{y}} + \norm{y}^2.
+        \norm{x+y}^2 = \inp{x+y}{x+y} &= \norm{x}^2 + 2\Re\pth{\inp{x}{y}} + \norm{y}^2, \\
+        \norm{x-y}^2 = \inp{x-y}{x-y} &= \norm{x}^2 - 2\Re\pth{\inp{x}{y}} + \norm{y}^2.
     \end{align*}
     Adding the two equations gives 
     \begin{equation*}
@@ -81,58 +81,58 @@
 \begin{proposition}
     For all $x\in\H$, 
     \begin{equation*}
-        \norm{x} = \sup_{\norm{y} = 1}\abs{\inprod{x}{y}}.
+        \norm{x} = \sup_{\norm{y} = 1}\abs{\inp{x}{y}}.
     \end{equation*}
 \end{proposition}
 \begin{proof}
     By the Cauchy-Schwarz inequality, 
     \begin{equation*}
-        \abs{\inprod{x}{y}} \leq \norm{x}\norm{y} 
-        \implies \abs{\inprod{x}{\frac{y}{\norm{y}}}} \leq \norm{x}
-        \implies \sup_{\norm{y} = 1}\abs{\inprod{x}{y}} \leq \norm{x}.
+        \abs{\inp{x}{y}} \leq \norm{x}\norm{y} 
+        \implies \abs{\inp{x}{\frac{y}{\norm{y}}}} \leq \norm{x}
+        \implies \sup_{\norm{y} = 1}\abs{\inp{x}{y}} \leq \norm{x}.
     \end{equation*}
     Taking $y = x/\norm{x}$ gives the equality and $\norm{y} = 1$.
 \end{proof}
 
 \begin{theorem}[Completion of Pre-Hilbert Space]
-    Let $(X,\inprod{\cdot}{\cdot})$ be a pre-Hilbert space. Then there 
+    Let $(X,\inp{\cdot}{\cdot})$ be a pre-Hilbert space. Then there 
     exists a Hilbert space $\H$ such that $X$ is dense in $\H$ and 
-    $\inprod{\cdot}{\cdot}_*$ on $\H$ is an extension of $\inprod{\cdot}{\cdot}$.
+    $\inp{\cdot}{\cdot}_*$ on $\H$ is an extension of $\inp{\cdot}{\cdot}$.
 \end{theorem}
 \begin{proof}
-    Define $\inprod{x}{y}_* = \lim_{n\to\infty}\inprod{x_n}{y_n}$ for 
+    Define $\inp{x}{y}_* = \lim_{n\to\infty}\inp{x_n}{y_n}$ for 
     Cauchy sequences $\set{x_n},\set{y_n}\subset X$ and $x,y\in\overline{X}$. 
-    We first check that $\inprod{\cdot}{\cdot}_*$ is well-defined. Note that 
+    We first check that $\inp{\cdot}{\cdot}_*$ is well-defined. Note that 
     \begin{equation*}
         \begin{split}
-            \abs{\inprod{x_n}{y_n} - \inprod{x_m}{y_m}} 
-            &\leq \abs{\inprod{x_n}{y_n} - \inprod{x_n}{y_m}} + \abs{\inprod{x_n}{y_m} - \inprod{x_m}{y_m}} \\
+            \abs{\inp{x_n}{y_n} - \inp{x_m}{y_m}} 
+            &\leq \abs{\inp{x_n}{y_n} - \inp{x_n}{y_m}} + \abs{\inp{x_n}{y_m} - \inp{x_m}{y_m}} \\
             &\leq \norm{x_n}\norm{y_n - y_m} + \norm{x_n - x_m}\norm{y_m} \to 0
         \end{split}
     \end{equation*}
     as $n,m\to\infty$ by the Cauchy-Schwarz inequality. Since $\mathbb{F}$ is 
-    complete, the limit exists. To see that $\inprod{\cdot}{\cdot}_*$ is 
+    complete, the limit exists. To see that $\inp{\cdot}{\cdot}_*$ is 
     independent of the choice of sequences, suppose $\set{x_n^1},\set{y_n^1}$ 
     and $\set{x_n^2},\set{y_n^2}$ are two pairs of Cauchy sequences converging 
     to $x$ and $y$ respectively. Then 
     \begin{equation*}
         \begin{split}
-            \abs{\inprod{x_n^1}{y_n^1} - \inprod{x_n^2}{y_n^2}} 
-            &\leq \abs{\inprod{x_n^1}{y_n^1} - \inprod{x_n^1}{y_n^2}} + \abs{\inprod{x_n^1}{y_n^2} - \inprod{x_n^2}{y_n^2}} \\
+            \abs{\inp{x_n^1}{y_n^1} - \inp{x_n^2}{y_n^2}} 
+            &\leq \abs{\inp{x_n^1}{y_n^1} - \inp{x_n^1}{y_n^2}} + \abs{\inp{x_n^1}{y_n^2} - \inp{x_n^2}{y_n^2}} \\
             &\leq \norm{x_n^1}\norm{y_n^1 - y_n^2} + \norm{x_n^1 - x_n^2}\norm{y_n^2}\to 0.
         \end{split}
     \end{equation*}
-    Hence $\inprod{x}{y}_*$ is well-defined. We now show that 
-    $\inprod{\cdot}{\cdot}_*$ is indeed an inner product on $\overline{X}$. 
+    Hence $\inp{x}{y}_*$ is well-defined. We now show that 
+    $\inp{\cdot}{\cdot}_*$ is indeed an inner product on $\overline{X}$. 
     For the linearity in the first argument, let $x,y,z\in\overline{X}$, 
     $\set{x_n},\set{y_n},\set{z_n}\subset X$ be Cauchy sequences converging to 
     $x,y,z$ respectively and $c\in\mathbb{F}$. Then 
     \begin{equation*}
         \begin{split}
-            \inprod{cx+y}{z}_* &= \lim_{n\to\infty}\inprod{c x_n + y_n}{z_n} 
-            = \lim_{n\to\infty}c\inprod{x_n}{z_n} + \inprod{y_n}{z_n} \\
-            &= c\lim_{n\to\infty}\inprod{x_n}{z_n} + \lim_{n\to\infty}\inprod{y_n}{z_n} 
-            = c\inprod{x}{z}_* + \inprod{y}{z}_*.
+            \inp{cx+y}{z}_* &= \lim_{n\to\infty}\inp{c x_n + y_n}{z_n} 
+            = \lim_{n\to\infty}c\inp{x_n}{z_n} + \inp{y_n}{z_n} \\
+            &= c\lim_{n\to\infty}\inp{x_n}{z_n} + \lim_{n\to\infty}\inp{y_n}{z_n} 
+            = c\inp{x}{z}_* + \inp{y}{z}_*.
         \end{split}
     \end{equation*}
     For the conjugate symmetry, let $x,y\in\overline{X}$ and $\set{x_n},
@@ -140,34 +140,34 @@
     respectively. Then 
     \begin{equation*}
         \begin{split}
-            \overline{\inprod{x}{y}_*} &= \overline{\lim_{n\to\infty}\inprod{x_n}{y_n}} 
-            = \lim_{n\to\infty}\overline{\inprod{x_n}{y_n}} 
-            = \lim_{n\to\infty}\inprod{y_n}{x_n} = \inprod{y}{x}_*.
+            \overline{\inp{x}{y}_*} &= \overline{\lim_{n\to\infty}\inp{x_n}{y_n}} 
+            = \lim_{n\to\infty}\overline{\inp{x_n}{y_n}} 
+            = \lim_{n\to\infty}\inp{y_n}{x_n} = \inp{y}{x}_*.
         \end{split}
     \end{equation*}
     For the positive definiteness, let $x\in\overline{X}$, $x\neq 0$ and 
     $\set{x_n}\subset X$ be a Cauchy sequence converging to $x$. Then 
     \begin{equation*}
         \begin{split}
-            \inprod{x}{x}_* &= \lim_{n\to\infty}\inprod{x_n}{x_n} 
+            \inp{x}{x}_* &= \lim_{n\to\infty}\inp{x_n}{x_n} 
             = \lim_{n\to\infty}\norm{x_n}^2 > 0.
         \end{split}
     \end{equation*}
-    Hence $\inprod{\cdot}{\cdot}_*$ is an inner product on $\overline{X}$ and 
+    Hence $\inp{\cdot}{\cdot}_*$ is an inner product on $\overline{X}$ and 
     induces a norm on $\overline{X}$. Lastly, for every $x,y\in\overline{X}$, 
     pick $x_n = x$ and $y_n = y$ to see that 
     \begin{equation*}
-        \inprod{x}{y}_* = \lim_{n\to\infty}\inprod{x}{y} = \inprod{x}{y},
+        \inp{x}{y}_* = \lim_{n\to\infty}\inp{x}{y} = \inp{x}{y},
     \end{equation*}
-    which shows that $\inprod{\cdot}{\cdot}_*$ is an extension of 
-    $\inprod{\cdot}{\cdot}$. We conclude that $\H = \overline{X}$ forms a 
+    which shows that $\inp{\cdot}{\cdot}_*$ is an extension of 
+    $\inp{\cdot}{\cdot}$. We conclude that $\H = \overline{X}$ forms a 
     Hilbert space.
 \end{proof}
 
 \begin{example}
     Let $X = C([0,1])$ with the inner product 
     \begin{equation*}
-        \inprod{f}{g} = \int_0^1 f(x)g(x)dx.
+        \inp{f}{g} = \int_0^1 f(x)g(x)dx.
     \end{equation*}
     Then $X$ is a pre-Hilbert space. To see this, set $f_n(x) = x^n$. 
     \begin{equation*}
@@ -242,7 +242,7 @@
     $Y\subset\H$ is a closed subspace. The \textbf{orthogonal complement} of 
     $Y$, denoted by $Y^\perp$, is defined as 
     \begin{equation*}
-        Y^\perp = \Set{x\in\H}{\inprod{x}{y} = 0\text{ for all }y\in Y}.
+        Y^\perp = \Set{x\in\H}{\inp{x}{y} = 0\text{ for all }y\in Y}.
     \end{equation*}
 \end{definition}
 
@@ -258,19 +258,19 @@
     For (a), we first check that $Y^\perp$ is a subspace. First note that 
     $0\in Y^\perp$. Also, if $x,z\in Y^\perp$ and $c\in\mathbb{F}$, then 
     \begin{equation*}
-        \inprod{cx+z}{y} = c\inprod{x}{y} + \inprod{z}{y} = 0
+        \inp{cx+z}{y} = c\inp{x}{y} + \inp{z}{y} = 0
     \end{equation*}
     for all $y\in Y$. Hence $cx+z\in Y^\perp$. This shows that $Y^\perp$ is a 
     subspace. To see that $Y^\perp$ is closed, let $\set{x_n}\subset Y^\perp$ 
     be a sequnce converging to $x$. Then for all $y\in Y$, 
     \begin{equation*}
-        \abs{\inprod{x}{y} - \inprod{x_n}{y}} = \abs{\inprod{x-x_n}{y}} 
+        \abs{\inp{x}{y} - \inp{x_n}{y}} = \abs{\inp{x-x_n}{y}} 
         \leq \norm{x-x_n}\norm{y} \to 0
     \end{equation*}
-    by the Cauchy-Schwarz inequality. Thus $\inprod{\cdot}{y}$ is a continuous 
+    by the Cauchy-Schwarz inequality. Thus $\inp{\cdot}{y}$ is a continuous 
     functional on $\H$. Therefore,
     \begin{equation*}
-        \inprod{x}{y} = \lim_{n\to\infty}\inprod{x_n}{y} = 0
+        \inp{x}{y} = \lim_{n\to\infty}\inp{x_n}{y} = 0
     \end{equation*}
     for all $y\in Y$ and so $x\in Y^\perp$. This shows that $Y^\perp$ is closed. 
 
@@ -282,29 +282,32 @@
     \begin{equation*}
         \begin{split}
             \norm{z}^2 &= \norm{u-y}^2 \leq \norm{u-y-ty'}^2 \\
-            &= \norm{u-y}^2 - 2t\Re\pth{\inprod{u-y}{y'}} + t^2\norm{y'}^2 \\
-            &= \norm{z}^2 - 2t\Re\pth{\inprod{z}{y'}} + t^2\norm{y'}^2.
+            &= \norm{u-y}^2 - 2t\Re\pth{\inp{u-y}{y'}} + t^2\norm{y'}^2 \\
+            &= \norm{z}^2 - 2t\Re\pth{\inp{z}{y'}} + t^2\norm{y'}^2.
         \end{split}
     \end{equation*} 
     Rearranging gives
     \begin{equation*}
-        2t\Re\pth{\inprod{z}{y'}} - t^2\norm{y'}^2 \leq 0.
+        2t\Re\pth{\inp{z}{y'}} - t^2\norm{y'}^2 \leq 0.
     \end{equation*}
-    If $y' = 0$, we have $\inprod{z}{y'} = 0$; if $y'\neq 0$, then take 
-    $t = \Re\pth{\inprod{z}{y'}/\norm{y'}^2}$. Substituting this back gives
+    If $y' = 0$, we have $\inp{z}{y'} = 0$; if $y'\neq 0$, then take 
+    $t = \Re\pth{\inp{z}{y'}/\norm{y'}^2}$. Substituting this back gives
     \begin{equation*}
-        0 \geq 2\frac{\pth{\Re\pth{\inprod{z}{y'}}}^2}{\norm{y'}^2} - \frac{\pth{\Re\pth{\inprod{z}{y'}}}^2}{\norm{y'}^2}
-        = \frac{\pth{\Re\pth{\inprod{z}{y'}}}^2}{\norm{y'}^2}.
+        0 \geq 2\frac{\pth{\Re\pth{\inp{z}{y'}}}^2}{\norm{y'}^2} 
+        - \frac{\pth{\Re\pth{\inp{z}{y'}}}^2}{\norm{y'}^2}
+        = \frac{\pth{\Re\pth{\inp{z}{y'}}}^2}{\norm{y'}^2}.
     \end{equation*}
-    Hence $\Re\pth{\inprod{z}{y'}} = 0$ for all $y'\in Y$. Similarly, replacing 
-    $t$ with $it$ gives $\Im\pth{\inprod{z}{y'}} = 0$ for all $y'\in Y$. 
-    Therefore, $\inprod{z}{y'} = 0$ for all $y'\in Y$ and so $z\in Y^\perp$. 
+    Hence $\Re\pth{\inp{z}{y'}} = 0$ for all $y'\in Y$. Similarly, replacing 
+    $t$ with $it$ gives $\Im\pth{\inp{z}{y'}} = 0$ for all $y'\in Y$. 
+    Therefore, $\inp{z}{y'} = 0$ for all $y'\in Y$ and so $z\in Y^\perp$. 
     Since our choice of $y$ is unique, we can write $u = y + z$ uniquely for 
     $y\in Y$ and $z\in Y^\perp$. This shows that $\H = Y\oplus Y^\perp$. 
 
-    For (c), note that $Y\subset\pth{Y^\perp}^\perp$ since for all $y\in Y$, 
-    \begin{equation*}
-        \inprod{y}{x} = \overline{\inprod{x}{y}} = 0
-    \end{equation*}
-    for all $x\in Y^\perp$. Conversely, 
+    For (c), note that we can apply (a) and (b) to $Y^\perp$ and obtain that 
+    $(Y^\perp)^\perp$ is a closed subspace and $\H = Y\oplus Y^\perp 
+    = \pth{Y^\perp}^\perp\oplus Y^\perp$. It follows that for every $u\in\H$, 
+    we can write $u = y + z = x + z$ for $x\in \pth{Y^\perp}^\perp$, 
+    $y\in Y$ and $z\in Y^\perp$ by the uniqueness of decomposition. This 
+    implies that $y = x$ and hence $\pth{Y^\perp}^\perp = Y$.
 \end{proof}
+

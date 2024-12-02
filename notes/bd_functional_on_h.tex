@@ -1,0 +1,22 @@
+\begin{proposition}
+    $\mathbb{F} = \R$ or $\C$. $T:\H\to\mathbb{F}$ is a nonzero bounded 
+    linear functional. 
+    \begin{thmenum}
+        \item $\H = \spanby(\set{w})\oplus\ker(T)$ for $w\notin \ker(T)$.
+        \item If $S,T$ are bounded linear functionals and $\ker(S) = \ker(T)$, 
+        then there exists $c\in\mathbb{F}$ such that $S = cT$. 
+        \item $\ker(T)$ is closed.
+    \end{thmenum}
+\end{proposition}
+\begin{proof}
+    For (a), since $T$ is nonzero, there is some $w$ such that $Tw\neq 0$. 
+    For $x\in\H$, set $\alpha = Tx/Tw$ and $u = x - \alpha w$. Then 
+    $x = \alpha w + u$ and 
+    \begin{equation*}
+        Tu = Tx - \frac{Tx}{Tw}Tw = 0.
+    \end{equation*}
+    Hence $u\in \ker(T)$. Also, if $v\in \spanby(\set{w})\bigcap\ker(T)$, 
+    $v = cw$ and $Tv = 0$. Then $cTw = Tv = 0$; $c = 0$ and thus $v = 0$. 
+    Therefore, $\spanby(\set{w})\bigcap\ker(T) = \set{0}$ and 
+    $\H = \spanby(\set{w})\oplus\ker(T)$.
+\end{proof}
