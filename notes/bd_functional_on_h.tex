@@ -18,5 +18,22 @@
     Hence $u\in \ker(T)$. Also, if $v\in \spanby(\set{w})\bigcap\ker(T)$, 
     $v = cw$ and $Tv = 0$. Then $cTw = Tv = 0$; $c = 0$ and thus $v = 0$. 
     Therefore, $\spanby(\set{w})\bigcap\ker(T) = \set{0}$ and 
-    $\H = \spanby(\set{w})\oplus\ker(T)$.
+    $\H = \spanby(\set{w})\oplus\ker(T)$. 
+
+    To see (b), note that if $S = 0$, $\H = \ker(S) = \ker(T)$. 
+    Thus $T = 0$. If $S\neq 0$, by (a) we can write 
+    $\H = \spanby(\set{w})\oplus\ker(S) = \spanby(\set{w})\oplus\ker(T)$. 
+    Then for every $x\in\H$, $x = \alpha w + u$ for some $\alpha\in\mathbb{F}$ 
+    and $u\in\ker(T)=\ker(S)$. Then $Tw\neq 0$ and
+    \begin{equation*}
+        Sx = S(\alpha w + u) = \alpha Sw = \alpha Tw\frac{Sw}{Tw} = \frac{Sw}{Tw}T(\alpha w + u) = \frac{Sw}{Tw}Tx.
+    \end{equation*}
+    Taking $c = Sw/Tw$ gives $S = cT$. 
+
+    For (c), let $x_n\in\ker(T)$ be a sequence such that $x_n\to x\in\H$. 
+    Since $T$ is continuous, 
+    \begin{equation*}
+        Tx = \lim_{n\to\infty} Tx_n = 0. 
+    \end{equation*}
+    Hence $x\in\ker(T)$ and $\ker(T)$ is closed.
 \end{proof}
