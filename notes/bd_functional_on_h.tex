@@ -1,4 +1,4 @@
-\begin{proposition}
+\begin{proposition}\label{prop:bd_functional_on_h}
     $\mathbb{F} = \R$ or $\C$. $T:\H\to\mathbb{F}$ is a nonzero bounded 
     linear functional. 
     \begin{thmenum}
@@ -37,3 +37,54 @@
     \end{equation*}
     Hence $x\in\ker(T)$ and $\ker(T)$ is closed.
 \end{proof}
+
+\begin{theorem}[Riesz Representation on $\H$]
+    $\mathbb{F} = \R$ or $\C$. $T:\H\to\mathbb{F}$ is a bounded linear 
+    functional. Then there exists $x^*\in\H$ such that $Ty = \inp{y}{x^*}$ 
+    for all $y\in\H$.
+\end{theorem}
+\begin{proof}
+    If $T = 0$, pick $x^* = 0$ then $Ty = 0 = \inp{y}{0}$. If $T\neq 0$, 
+    there is some $w\in\H$ such that $Tw\neq 0$. By 
+    \cref{prop:bd_functional_on_h}, we can write $\H = \spanby(\set{w})\oplus\ker(T)$ 
+    with $\ker(T)$ closed. Also, $\H = \ker(T)\oplus\ker(T)^{\perp}$ by 
+    \cref{prop:orthogonal_complement}. We claim that $\ker(T)^{\perp} = \spanby(\set{w})$. 
+    First note that $\ker(T)^{\perp}\neq \set{0}$ or we would have 
+    $\H = \ker(T)$ and $T = 0$, contradicting to our assumption. Now if 
+    $z_1,z_2\in\ker(T)^\perp$, write $z_1 = \alpha_1 w + u_1$ and 
+    $z_2 = \alpha_2 w + u_2$ for some $\alpha_1,\alpha_2\in\mathbb{F}$ and 
+    $u_1,u_2\in\ker(T)$. Then $\alpha_2z_1 - \alpha_1z_2 
+    = \alpha_2u_1 - \alpha_1u_2\in\ker(T)$ and $\alpha_2z_1 - \alpha_1z_2
+    \in\ker(T)^\perp$. Hence $\alpha_2z_1 - \alpha_1z_2 = 0$ and $z_1,z_2$ 
+    are linearly dependent. Now define $S:\H\to\mathbb{F}$ by $Sx = \inp{x}{w}$. 
+    Then $S$ is a bounded linear functional and $\ker(S) = \Set{x\in\H}{\inp{x}{w} = 0} 
+    = (\ker(T)^\perp)^\perp = \ker(T)$ by \cref{prop:orthogonal_complement}. 
+    Applying (b) of \cref{prop:bd_functional_on_h} gives $cS = T$ for some 
+    $c\in\mathbb{F}$. Then $Tx = cSx = c\inp{x}{w} = \inp{x}{\overline{c}w}$. 
+    Set $x^* = \overline{c}w$ proves the theorem.
+\end{proof}
+
+\begin{definition}
+    Let $X,Y$ be vector spaces. $T:X\to Y$ is called \textbf{skew-linear} if 
+    $T(cx + y) = \overline{c}Tx + Ty$ for all $x,y\in X$ and $c\in\mathbb{F}$.
+\end{definition}
+
+\begin{definition}
+    $\mathbb{F} = \R$ or $\C$. $B:\H\times\H\to\mathbb{F}$ is called a 
+    \textbf{bilinear form} if 
+    \begin{thmenum}
+        \item $B(\cdot,x)$ is linear for all $x\in\H$. 
+        \item $B(x,\cdot)$ is skew-linear for all $x\in\H$.
+    \end{thmenum}
+\end{definition}
+
+\begin{definition}
+    A bilinear form $B:\H\times\H\to\mathbb{F}$ is called \textbf{bounded} if 
+    there exists $M\geq 0$ such that $\abs{B(x,y)}\leq M\norm{x}\norm{y}$ for 
+    all $x,y\in\H$.
+\end{definition}
+
+\begin{definition}
+    A bilinear form $B:\H\times\H\to\mathbb{F}$ is called \textbf{coercive} if 
+    there exists $c>0$ such that $B(x,x)\geq c\norm{x}^2$ for all $x\in\H$.
+\end{definition}
