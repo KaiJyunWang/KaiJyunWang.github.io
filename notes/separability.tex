@@ -5,29 +5,21 @@
 
 \begin{definition}
     $\Set{x_\alpha}{\alpha\in A}\subset\H$, where $A$ is an arbitrary 
-    index set. The \textbf{closed linear span} of 
-    $\Set{x_\alpha}{\alpha\in A}$ is defined as 
+    index set. The \textbf{linear span} of $\Set{x_\alpha}{\alpha\in A}$ 
+    is defined as 
     \begin{equation*}
-        \overline{\spanby\set{x_\alpha}} 
-        = \Set{\sum_{\alpha\in A}c_\alpha x_\alpha}{c_\alpha\in\mathbb{F} = \R \text{ or } \C, \sum_{\alpha\in A}\abs{c_\alpha}^2 < \infty}.
+        \spanby\set{x_\alpha}
+        = \Set{\sum_{\alpha\in A}c_\alpha x_\alpha}{c_\alpha\in\mathbb{F} = \R \text{ or } \C},
     \end{equation*}
+    where the sum is a finite sum.
 \end{definition}
-\begin{remark}
-    Note that the definition of closed linear span here ensures that 
-    for every $x\in\overline{\spanby(\set{x_\alpha})}$, 
-    $x = \sum_{\alpha\in A} c_\alpha x_\alpha$, there is at most 
-    countable $\alpha\in A$ such that $c_\alpha\neq 0$. To see 
-    this, suppose that there are uncountably many $\alpha\in A$ 
-    such that $c_\alpha\neq 0$, then we can find countably many 
-    disjoint subsets $A_n\subset A$ such that $c_\alpha\neq 0$ for 
-    every $\alpha\in A_n$. Then $\sum_{\alpha\in A_n} \abs{c_\alpha}^2>\delta$ 
-    for some $\delta>0$ for all $n\in\N$. This implies that 
-    \begin{equation*}
-        \sum_{\alpha\in A}\abs{c_\alpha}^2 \geq \sum_{n=1}^\infty\sum_{\alpha\in A_n}\abs{c_\alpha}^2 
-        \geq \sum_{n=1}^\infty\delta = \infty.
-    \end{equation*}
-    This contradicts the assumption that $x\in\overline{\spanby(\set{x_\alpha})}$.
-\end{remark}
+
+\begin{definition}
+    $\Set{x_\alpha}{\alpha\in A}\subset\H$, where $A$ is an arbitrary 
+    index set. The \textbf{closed linear span} of $\Set{x_\alpha}{\alpha\in A}$ 
+    is defined as the smallest closed subspace of $\H$ containing 
+    $\Set{x_\alpha}{\alpha\in A}$.
+\end{definition}
 
 \begin{proposition}
     Let $Y = \overline{\spanby(\set{x_\alpha})}\subset\H$ be a 
@@ -36,8 +28,14 @@
     $\inp{x}{z} = 0$ for all $z\in Y$.
 \end{proposition}
 \begin{proof}
-    For $z\in Y$, write $z = \sum_{\alpha\in A}c_\alpha x_\alpha$. 
+    Assume first that for $x\in\H$, $\inp{x}{x_\alpha} = 0$ for all 
+    $\alpha\in A$. For each $z\in Y$, write $z = \sum_{\alpha_j\in A}c_{\alpha_j} x_{\alpha_j}$.  
     Then
+    \begin{equation*}
+        \inp{x}{z} = \lim_{M\to\infty}\inp{x}{\sum_{j = 1}^{M} c_{\alpha_j}x_{\alpha_j}} 
+        = \lim_{M\to\infty}\sum_{j = 1}^{M} \overline{c_{\alpha_j}}\inp{x}{x_{\alpha_j}} = 0.
+    \end{equation*}
+    The converse is trivial since $x_\alpha\in Y$ for all $\alpha\in A$.
 \end{proof}
 
 \begin{definition}
@@ -51,9 +49,156 @@
     of $\H$ if it is orthonormal and $\overline{\spanby(\set{x_\alpha})} = \H$. 
 \end{definition}
 \begin{remark}
-    This definition of basis here is difference from the definition 
+    This definition of basis is different from the definition 
     of basis in linear algebra. In linear algebra, one can only 
     express a vector as a finite linear combination of basis vectors; 
     however, in Hilbert space, one can express a vector as a countable 
     linear combination of basis vectors.
 \end{remark}
+
+\begin{lemma}[Bessel's Inequality]\label{lem:bessel}
+    Let $\Set{x_\alpha}{\alpha\in A}$ be an orthonormal set in $\H$. 
+    For any $x\in\H$, let $c_\alpha = \inp{x}{x_\alpha}$. Then 
+    \begin{thmenum}
+        \item The set $\Set{\alpha}{c_\alpha\neq 0}$ is at most countable. 
+        \item $\sum_\alpha \abs{c_\alpha}^2 \leq \norm{x}^2$.
+    \end{thmenum}
+\end{lemma}
+\begin{proof}
+    We assume that (a) is established and prove (b) first. 
+    Let $J\subset A$ be a countable subset with $J = \Set{\alpha_k}{k\in\N}$. 
+    For each $M\in\N$, 
+    \begin{equation*}
+        \begin{split}
+            0 &\leq \norm{\sum_{k=1}^{M} c_{\alpha_k}x_{\alpha_k} - x}^2 
+            = \sum_{k=1}^{M}\abs{c_{\alpha_k}}^2 - 2\Re\pth{\inp{x}{\sum_{k=1}^{M}c_{\alpha_k}x_{\alpha_k}}} + \norm{x}^2 \\
+            &= \sum_{k=1}^{M}\abs{c_{\alpha_k}}^2 - 2\Re\pth{\sum_{k=1}^{M}\overline{c_{\alpha_k}}\inp{x}{x_{\alpha_k}}} + \norm{x}^2 
+            = \sum_{k=1}^{M}\abs{c_{\alpha_k}}^2 - 2\sum_{k=1}^{M}\abs{c_{\alpha_k}}^2 + \norm{x}^2 \\
+            &= \norm{x}^2 - \sum_{k=1}^{M}\abs{c_{\alpha_k}}^2 \implies \sum_{k=1}^{M}\abs{c_{\alpha_k}}^2 \leq \norm{x}^2.
+        \end{split}
+    \end{equation*}
+    Taking $M\to\infty$, we have $\sum_{k=1}^{\infty}\abs{c_{\alpha_k}}^2 \leq \norm{x}^2$. 
+
+    Now we turn back to establish (a). For $m\in\N$, let $J_m = \Set{\alpha\in A}{\abs{c_\alpha} \geq 1/m}$. 
+    Then $J_m$ is finite or we can find infinitely many $\alpha\in J_m$ such that $\abs{c_\alpha} \geq 1/m$. 
+    This implies that $x\in\H$ and 
+    \begin{equation*}
+        \norm{x}^2 = \sum_{\alpha\in A}\abs{c_\alpha}^2 \geq \sum_{\alpha\in J_m}\abs{c_\alpha}^2 \geq \sum_{\alpha\in J_m} \frac{1}{m^2} = \infty,
+    \end{equation*}
+    which is absurd. Thus $J_m$ is finite for all $m\in\N$. 
+    Observe that $\bigcup_{m\in\N} J_m = \Set{\alpha\in A}{c_\alpha\neq 0}$. 
+    It follows that as a countable union of finite sets, $\Set{\alpha\in A}{c_\alpha\neq 0}$ 
+    is at most countable. (b) follows from (a) and the previous argument.
+\end{proof}
+\begin{remark}
+    There is a non-separable Hilbert space. Consider an uncountable 
+    set $S$. Let 
+    \begin{equation*}
+        \H = \Set{f:S\to\R}{\sum_{s\in S}f(s)^2 < \infty, f(S)\setminus\set{0}\text{ is at most countable}}.
+    \end{equation*}
+    Then $\H$ is a Hilbert space with the inner product 
+    \begin{equation*}
+        \inp{f}{g} = \sum_{s\in S}f(s)g(s).
+    \end{equation*}
+    To see that $\H$ is a Hilbert space, note that the countable 
+    union of countably many non-zero points is countable. Also, 
+    it is not separable since the set 
+    \begin{equation*}
+        \Set{e_s:S\to\R}{e_s(t) = \delta_{st}}
+    \end{equation*}
+    forms an orthonormal set in $\H$ and for each $s\neq r$,
+    $\norm{e_s - e_r} = \sqrt{2}$. This shows that it is nowhere 
+    dense in $\H$. Thus $\H$ is not separable.
+\end{remark}
+
+\begin{proposition}
+    $\set{x_\alpha}$ is orthonormal. Let $Y$ be the closed linear span of 
+    $\set{x_\alpha}$. Then 
+    \begin{equation*}
+        Y = \Set{\sum_j c_jx_{\alpha_j}}{\sum_j \abs{c_j}^2 < \infty, \alpha_j\in A}.
+    \end{equation*}
+\end{proposition}
+\begin{proof}
+    Let $S = \Set{\sum_j c_jx_{\alpha_j}}{\sum_j \abs{c_j}^2 < \infty, \alpha_j\in A}$. 
+    For $x\in S$, $x = \sum_j c_jx_{\alpha_j}$ with $\sum_j \abs{c_j}^2 < \infty$. 
+    Then $z_n = \sum_{j=1}^{n} c_jx_{\alpha_j}\to x$ as $n\to\infty$. 
+    Each $z_n\in Y$ and thus $x\in Y$. Hence $S\subset Y$. 
+
+    Conversely, we claim that $S$ is a closed subspace of $\H$. 
+    Clearly $0\in S$. For $c\in\mathbb{F}$, $x = \sum_j c_jx_{\alpha_j}\in S$ 
+    and $y = \sum_j d_jx_{\alpha_j}\in S$, we have 
+    \begin{equation*}
+        cx + y = c\sum_j c_jx_{\alpha_j} + \sum_j d_jx_{\alpha_j} = \sum_j (cc_j + d_j)x_{\alpha_j}\in S,
+    \end{equation*}
+    where the summation is over all $j$ such that either $c_j\neq 0$ or $d_j\neq 0$.
+    To see that $S$ is closed, let $z_n\in S$ where $z_n = \sum_j c_j^nx_{\alpha_j^n}$ 
+    with $\sum_j \abs{c_j^n}^2 < \infty$ for all $n\in\N$. Let 
+    $J_n = \Set{\alpha_j^n}{j\in\N}$ and $J = \bigcup_n J_n\subset A$ 
+    is at most countable. Consider the transformation $T:S\to\ell^2$ 
+    defined by $\sum_j c_jx_{\alpha_j}\mapsto \set{c_j}$. Such 
+    definition is well-defined since if $\sum_j c_jx_{\alpha_j} = \sum_j d_jx_{\alpha_j}$, 
+    then $\sum_j (c_j - d_j)x_{\alpha_j} = 0$ and thus $c_j = d_j$ for all $j$ since 
+    every $x_{\alpha_j}$ is orthogonal and thus linearly independent. 
+    Furthermore, $T$ is clearly linear. Also, it is isometric 
+    since 
+    \begin{equation*}
+        \norm{\sum_j c_jx_{\alpha_j}}^2 = \sum_j \abs{c_j}^2 = \norm{\set{c_j}}^2.
+    \end{equation*}
+    For $z_n\in S$, $z_n\to z$. Since $z_n$ is Cauchy and $T$ is 
+    isometric, $\set{c_j^n}$ is Cauchy in $\ell^2$ and thus converges 
+    to some $\set{c_j}\in\ell^2$. Define $w = \sum_j c_jx_{\alpha_j}\in S$. 
+    It follows that $Tz_n\to Tw$. Hence $z = w\in S$ by the isometry 
+    of $T$. Thus $S$ is closed. It follows that by the definition 
+    of $Y$, $Y\subset S$. We conclude that $Y = S$.
+\end{proof}
+
+\begin{lemma}[Gram-Schmidt]
+    Suppose $\set{x_\alpha}$ is an orthonormal set in $\H$ with 
+    $\overline{\spanby(\set{x_\alpha})}\neq\H$. Then there exists 
+    $y\in\H$ such that $\set{x_\alpha}\bigcup\set{y}$ is orthonormal.
+\end{lemma}
+\begin{proof}
+    Pick $z\in\H$ such that $z\notin\overline{\spanby(\set{x_\alpha})}$. 
+    By \cref{lem:bessel}, there are at most countably many $\alpha$ 
+    such that $\inp{z}{x_\alpha}\neq 0$. Let $\alpha_j$ denumerate all 
+    $\alpha$ such that $\inp{z}{x_\alpha}\neq 0$. Set $\hat{z} 
+    = \sum_j \inp{z}{x_{\alpha_j}}x_{\alpha_j}$. For each $x_{\alpha_k}$, 
+    \begin{equation*}
+        \begin{split}
+            \inp{z-\hat{z}}{x_{\alpha_k}} 
+            &= \lim_{m\to\infty} \inp{z-\sum_{j=1}^{m}\inp{z}{x_{\alpha_j}}x_{\alpha_j}}{x_{\alpha_k}} \\
+            &= \lim_{m\to\infty} \inp{z}{x_{\alpha_k}} - \sum_{j=1}^{m} \inp{z}{x_{\alpha_j}}\delta_{jk} \\
+            &= \inp{z}{x_{\alpha_k}} - \inp{z}{x_{\alpha_k}} = 0.
+        \end{split}
+    \end{equation*}
+    And for those $x_\alpha$ such that $\inp{z}{x_\alpha} = 0$, 
+    $\inp{z-\hat{z}}{x_\alpha} = \inp{z}{x_\alpha} - \inp{\hat{z}}{x_\alpha} = 0$ 
+    since $x_{\alpha_j}$ and $x_\alpha$ are orthogonal. Now set 
+    $y = (z - \hat{z})/\norm{z - \hat{z}}$. Then $\set{x_\alpha}\bigcup\set{y}$ 
+    forms a orthonormal set.
+\end{proof}
+
+\begin{theorem}
+    Every Hilbert space has an orthonormal basis.
+\end{theorem}
+\begin{proof}
+    We plan to use Zorn's lemma. 
+\end{proof}
+
+\begin{proposition}
+    Let $\H$ be a Hilbert space and $\Set{x_\alpha}{\alpha\in A},\Set{y_\beta}{\beta\in B}$ 
+    be two orthonormal sets in $\H$. Then $\card(A) = \card(B)$.
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+\begin{proposition}[Parseval's Identity]
+    Let $\set{x_\alpha}$ be an orthonormal basis of $\H$. Then 
+    \begin{equation*}
+        \norm{x}^2 = \sum_j\abs{\inp{x}{x_{\alpha_j}}}^2.
+    \end{equation*}
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
