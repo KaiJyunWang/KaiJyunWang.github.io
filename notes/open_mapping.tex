@@ -169,6 +169,17 @@
     for all $x\in X$.
 \end{definition}
 
+\begin{proposition}\label{prop:equiv_compatible}
+    Suppose $X$ is a vector space with norms $\norm{\cdot}_1$ and $\norm{\cdot}_2$. 
+    If the norms are equivalent, then they are compatible.
+\end{proposition}
+\begin{proof}
+    Suppose $\norm{x_n-x}_1\to 0$ and $\norm{x_n-y}_2\to 0$. By the equivalence, 
+    $\norm{x-y}_1\leq \norm{x-x_n}_1 + \norm{x_n-y}_1\leq \norm{x-x_n}_1 + c_2\norm{x_n-y}_2\to 0$ 
+    for some $c_2>0$. Similarly, $\norm{x-y}_2\leq c_1\norm{x-x_n}_1 + \norm{x_n-y}_2\to 0$ 
+    for some $c_1>0$. Thus $x=y$.
+\end{proof}
+
 \begin{proposition}
     If $(X,\norm{\cdot}_1)$ and $(X,\norm{\cdot}_2)$ are Banach spaces. Then 
     the norms are equivalent.

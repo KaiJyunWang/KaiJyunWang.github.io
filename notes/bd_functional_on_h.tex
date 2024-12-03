@@ -40,8 +40,8 @@
 
 \begin{theorem}[Riesz Representation on $\H$]
     $\mathbb{F} = \R$ or $\C$. $T:\H\to\mathbb{F}$ is a bounded linear 
-    functional. Then there exists $x^*\in\H$ such that $Ty = \inp{y}{x^*}$ 
-    for all $y\in\H$.
+    functional. Then there exists a unique $x^*\in\H$ such that 
+    $Ty = \inp{y}{x^*}$ for all $y\in\H$.
 \end{theorem}
 \begin{proof}
     If $T = 0$, pick $x^* = 0$ then $Ty = 0 = \inp{y}{0}$. If $T\neq 0$, 
@@ -61,7 +61,12 @@
     = (\ker(T)^\perp)^\perp = \ker(T)$ by \cref{prop:orthogonal_complement}. 
     Applying (b) of \cref{prop:bd_functional_on_h} gives $cS = T$ for some 
     $c\in\mathbb{F}$. Then $Tx = cSx = c\inp{x}{w} = \inp{x}{\overline{c}w}$. 
-    Set $x^* = \overline{c}w$ proves the theorem.
+    Set $x^* = \overline{c}w$ proves the existence of $x^*$. 
+
+    To see uniqueness, suppose $x_1^*,x_2^*\in\H$ are such that 
+    $Ty = \inp{y}{x_1^*} = \inp{y}{x_2^*}$ for all $y\in\H$. Then 
+    $\inp{y}{x_1^* - x_2^*} = 0$ for all $y\in\H$. Hence 
+    $x_1^* - x_2^* = 0$ and $x_1^* = x_2^*$. Such $x^*$ is unique.
 \end{proof}
 
 \begin{definition}
@@ -80,11 +85,83 @@
 
 \begin{definition}
     A bilinear form $B:\H\times\H\to\mathbb{F}$ is called \textbf{bounded} if 
-    there exists $M\geq 0$ such that $\abs{B(x,y)}\leq M\norm{x}\norm{y}$ for 
+    there exists $C<\infty$ such that $\abs{B(x,y)}\leq C\norm{x}\norm{y}$ for 
     all $x,y\in\H$.
 \end{definition}
 
 \begin{definition}
     A bilinear form $B:\H\times\H\to\mathbb{F}$ is called \textbf{coercive} if 
-    there exists $c>0$ such that $B(x,x)\geq c\norm{x}^2$ for all $x\in\H$.
+    there exists $\delta>0$ such that $B(x,x)\geq \delta\norm{x}^2$ for all 
+    $x\in\H$.
 \end{definition}
+
+\begin{theorem}[Lax-Milgram \rom{1}]
+    Let $\mathbb{F} = \R$ or $\C$. $B:\H\times\H\to\mathbb{F}$ is a bounded 
+    coercive bilinear form. Then for every $L\in\H'$, there exists $x\in\H$ 
+    such that $Ly = B(y,x)$ for all $y\in\H$.
+\end{theorem}
+\begin{proof}
+    Fixed $x\in\H$. Then $B(\cdot, x)$ is a bounded linear functional 
+    defined on $\H$. By Riesz representation, there exists a unique 
+    $x^*\in\H$ such that $B(y,x) = \inp{y}{x^*}$ for all $y\in\H$. 
+    Define $T:\H\to\H$ by $Tx = x^*$. Such definition is well-defined 
+    because $x^*$ is unique. We claim that $T$ is bounded and linear. 
+    For linearity, let $x,y,z\in\H$ and $c\in\mathbb{F}$. Then 
+    \begin{equation*}
+        \inp{y}{T(cx + z)} = B(y, cx + z) = \overline{c}B(y,x) + B(y,z) 
+        = \overline{c}\inp{y}{Tx} + \inp{y}{Tz} = \inp{y}{cTx + Tz}.
+    \end{equation*}
+    Hence $T(cx+z) = cTx+Tz$. For boundedness, by \cref{prop:inp_norm}, 
+    \begin{equation*}
+        \norm{Tx} = \sup_{\norm{y}=1}\abs{\inp{y}{Tx}} 
+        = \sup_{\norm{y}=1}\abs{B(y,x)} \leq \sup_{\norm{y}=1} C\norm{x}\norm{y} 
+        = C\norm{x}.
+    \end{equation*}
+    Hence $T$ is bounded. 
+
+    Next, let $A = T(\H)$. We claim that $A$ is closed. Let $y_n\to y$ 
+    and $y_n\in A$. By the boundedness of $T$ we have $\norm{Tx}\leq C\norm{x}$. 
+    Also, by the coerciveness and \cref{prop:inp_norm},
+    \begin{equation*}
+        \delta\norm{x}^2 \leq B(x,x) \leq \abs{B(x,x)} 
+        = \abs{\inp{x}{Tx}} = \norm{x}\abs{\inp{\frac{x}{\norm{x}}}{Tx}} 
+        \leq \norm{x}\sup_{\norm{y} = 1} \abs{\inp{y}{Tx}} = \norm{x}\norm{Tx}.
+    \end{equation*}
+    So $\norm{x}\leq \frac{1}{\delta}\norm{Tx}$. Then we see that 
+    the norms $\norm{\cdot}$ and $\norm{T(\cdot)}$ are equivalent. 
+    For $y_n\in A$, we can find $x_n\in\H$ such that $Tx_n = y_n$. 
+    Since $y_n$ is Cauchy, $x_n$ is also Cauchy by the equivalence 
+    of norms. By the completeness of $\H$, $x_n\to x\in\H$. 
+    Then the boundedness of $T$ implies the continuity and 
+    $Tx_n\to Tx$. It follows that $y = Tx$ by the uniqueness of 
+    the limit. Hence $y\in A$ and $A$ is closed. 
+
+    Finally, we claim that $A = \H$. Assume not. Then because 
+    $A$ is closed, $\H = A\oplus A^{\perp}$ with $A^\perp\neq\set{0}$ 
+    by \cref{prop:orthogonal_complement}. There is some $z\in A$ 
+    such that $\inp{z}{y} = 0$ for all $y\in A^\perp$. This implies 
+    $B(z,x) = \inp{z}{Tx} = 0$ for all $x\in\H$. Taking $x = z$ 
+    gives $0 = B(z,z) \geq \delta\norm{z}^2$ by the coerciveness of $B$. 
+    Hence $z = 0$, $A^\perp = \set{0}$, and $A = \H$, a contradiction. 
+    We conclude that $A = \H$. 
+
+    For any bounded linear functional $L$, there is $x^*\in\H$ such that 
+    $Ly = \inp{y}{x^*}$ for all $y\in\H$ by Riesz representation. 
+    Then there is $x\in\H$ such that $Tx = x^*$. Then for all $y\in\H$, 
+    \begin{equation*}
+        Ly = \inp{y}{x^*} = \inp{y}{Tx} = B(y,x).
+    \end{equation*}
+    This completes the proof.
+\end{proof}
+\begin{remark}
+    Lax-Milgram theorem ensures the existence of weak solutions to 
+    linear PDEs. For example, consider the Poisson equation 
+    \begin{equation*}
+        -\Delta u = f \quad \text{on }\Omega\subset\R^d, \quad u\restrict{\partial\Omega} = 0
+    \end{equation*}
+    for $f\in\L^2(\Omega)$. $\Delta = \sum_{i=1}^{d}\partial_i^2$ is 
+    the Laplacian. Then for all $\varphi\in C^\infty_c$, 
+    \begin{equation*}
+        L(\varphi) = B(u,\varphi) = \int_{\Omega} \nabla u\cdot\nabla\varphi = \int_{\Omega} f\varphi.
+    \end{equation*} 
+\end{remark}

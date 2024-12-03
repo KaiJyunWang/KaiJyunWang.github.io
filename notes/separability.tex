@@ -1,0 +1,59 @@
+\begin{definition}
+    A Hilbert space $\H$ is said to be \textbf{separable} if there 
+    exists a countable dense subset in $\H$.
+\end{definition}
+
+\begin{definition}
+    $\Set{x_\alpha}{\alpha\in A}\subset\H$, where $A$ is an arbitrary 
+    index set. The \textbf{closed linear span} of 
+    $\Set{x_\alpha}{\alpha\in A}$ is defined as 
+    \begin{equation*}
+        \overline{\spanby\set{x_\alpha}} 
+        = \Set{\sum_{\alpha\in A}c_\alpha x_\alpha}{c_\alpha\in\mathbb{F} = \R \text{ or } \C, \sum_{\alpha\in A}\abs{c_\alpha}^2 < \infty}.
+    \end{equation*}
+\end{definition}
+\begin{remark}
+    Note that the definition of closed linear span here ensures that 
+    for every $x\in\overline{\spanby(\set{x_\alpha})}$, 
+    $x = \sum_{\alpha\in A} c_\alpha x_\alpha$, there is at most 
+    countable $\alpha\in A$ such that $c_\alpha\neq 0$. To see 
+    this, suppose that there are uncountably many $\alpha\in A$ 
+    such that $c_\alpha\neq 0$, then we can find countably many 
+    disjoint subsets $A_n\subset A$ such that $c_\alpha\neq 0$ for 
+    every $\alpha\in A_n$. Then $\sum_{\alpha\in A_n} \abs{c_\alpha}^2>\delta$ 
+    for some $\delta>0$ for all $n\in\N$. This implies that 
+    \begin{equation*}
+        \sum_{\alpha\in A}\abs{c_\alpha}^2 \geq \sum_{n=1}^\infty\sum_{\alpha\in A_n}\abs{c_\alpha}^2 
+        \geq \sum_{n=1}^\infty\delta = \infty.
+    \end{equation*}
+    This contradicts the assumption that $x\in\overline{\spanby(\set{x_\alpha})}$.
+\end{remark}
+
+\begin{proposition}
+    Let $Y = \overline{\spanby(\set{x_\alpha})}\subset\H$ be a 
+    closed linear span of $\set{x_\alpha}$. Then for any $x\in\H$, 
+    $\inp{x}{x_\alpha} = 0$ for all $\alpha\in A$ if and only if 
+    $\inp{x}{z} = 0$ for all $z\in Y$.
+\end{proposition}
+\begin{proof}
+    For $z\in Y$, write $z = \sum_{\alpha\in A}c_\alpha x_\alpha$. 
+    Then
+\end{proof}
+
+\begin{definition}
+    $\Set{x_\alpha}{\alpha\in A}$ is said to be \textbf{orthonormal} 
+    if $\inp{x_\alpha}{x_\beta} = \delta_{\alpha\beta}$ for all 
+    $\alpha,\beta\in A$.
+\end{definition}
+
+\begin{definition}
+    $\Set{x_\alpha}{\alpha\in A}$ forms a \textbf{othonormal basis} 
+    of $\H$ if it is orthonormal and $\overline{\spanby(\set{x_\alpha})} = \H$. 
+\end{definition}
+\begin{remark}
+    This definition of basis here is difference from the definition 
+    of basis in linear algebra. In linear algebra, one can only 
+    express a vector as a finite linear combination of basis vectors; 
+    however, in Hilbert space, one can express a vector as a countable 
+    linear combination of basis vectors.
+\end{remark}
