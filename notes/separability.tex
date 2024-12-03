@@ -152,7 +152,7 @@
     of $Y$, $Y\subset S$. We conclude that $Y = S$.
 \end{proof}
 
-\begin{lemma}[Gram-Schmidt]
+\begin{lemma}[Gram-Schmidt]\label{lem:gram_schmidt}
     Suppose $\set{x_\alpha}$ is an orthonormal set in $\H$ with 
     $\overline{\spanby(\set{x_\alpha})}\neq\H$. Then there exists 
     $y\in\H$ such that $\set{x_\alpha}\bigcup\set{y}$ is orthonormal.
@@ -182,15 +182,38 @@
     Every Hilbert space has an orthonormal basis.
 \end{theorem}
 \begin{proof}
-    We plan to use Zorn's lemma. 
+    We plan to use Zorn's lemma. Denote the space consisting of all orthonormal 
+    sets in $\H$ by $\mathcal{O}$. Define a partial order as the inclusion of 
+    sets. Let $\mathcal{C}\subset\mathcal{O}$ be a chain. We claim that 
+    $B = \bigcup_{\set{x_\alpha}\in\mathcal{C}}\set{x_\alpha}$ is an upper bound 
+    of $\mathcal{C}$. By construction we have $\set{x_\alpha}\subset B$ for all 
+    $\set{x_\alpha}\in\mathcal{C}$. We need to show that $B\in\mathcal{O}$. For 
+    distinct $x_\alpha$, $x_\beta\in B$, they belong to a common set 
+    $C\in\mathcal{C}\subset\mathcal{O}$. Hence $C$ is orthonormal and 
+    $\inp{x_\alpha}{x_\beta} = 0$. Also, it is clear that for every $x_\alpha\in B$, 
+    $x_\alpha$ belongs to some $C\in\mathcal{C}$ and thus $\norm{x_\alpha} = 1$. 
+    It follows that $B$ is also orthonormal. By Zorn's lemma, there exists a 
+    maximal element in $\mathcal{O}$, say $B$, such that if $C\in\mathcal{O}$ 
+    and $B\subset C$, then $B = C$. We claim that $B$ is an orthonormal basis. 
+    It suffices to check that $\overline{\spanby(B)} = \H$. Suppose not, then 
+    by \cref{lem:gram_schmidt}, there exists $y\in\H$ such that $\set{x_\alpha}\bigcup\set{y}$ 
+    forms an orthonormal set. This contradicts the maximality of $B$. We 
+    conclude that $B$ is an orthonormal basis.
 \end{proof}
 
 \begin{proposition}
     Let $\H$ be a Hilbert space and $\Set{x_\alpha}{\alpha\in A},\Set{y_\beta}{\beta\in B}$ 
-    be two orthonormal sets in $\H$. Then $\card(A) = \card(B)$.
+    be two orthonormal bases in $\H$. Then $\card(A) = \card(B)$.
 \end{proposition}
 \begin{proof}
-    
+    Fixed an $\alpha\in A$, $B_\alpha = \Set{\beta\in B}{\inp{y_\beta}{x_\alpha}\neq 0}$ 
+    is at most countable by \cref{lem:bessel} and $B_\alpha\subset B$. We 
+    claim that $B\subset\bigcup_{\alpha\in A}B_\alpha$. Take $\beta\in B$, 
+    we can write $y_\beta = \sum_k \inp{y_\beta}{x_{\alpha_k}}x_{\alpha_k}$ with 
+    at least one $\inp{y_\beta}{x_{\alpha_k}} \neq 0$. Hence $\beta\in B_{\alpha_k}$ 
+    for some $\alpha_k\in A$. It follows that $B\subset\bigcup_{\alpha\in A}B_\alpha$ 
+    and hence $\card(B)\leq \card(A)$. By symmetry, we have $\card(A)\leq \card(B)$ 
+    and thus $\card(A) = \card(B)$.
 \end{proof}
 
 \begin{proposition}[Parseval's Identity]
@@ -200,5 +223,15 @@
     \end{equation*}
 \end{proposition}
 \begin{proof}
-    
+    Let $x\in\H$. Write $x = \sum_j c_jx_{\alpha_j}$ with $\sum_j \abs{c_j}^2 < \infty$. 
+    Then 
+    \begin{equation*}
+        \inp{x}{x_{\alpha_k}} = \lim_{M\to\infty}\inp{\sum_{j=1}^{M}c_jx_{\alpha_j}}{x_{\alpha_k}} 
+        = \lim_{M\to\infty}\sum_{j=1}^{M}c_j\inp{x_{\alpha_j}}{x_{\alpha_k}} = c_k.
+    \end{equation*}
+    It follows that 
+    \begin{equation*}
+        \norm{x}^2 = \lim_{M\to\infty}\inp{\sum_{j=1}^{M} c_jx_{\alpha_j}}{\sum_{j=1}^{M} c_jx_{\alpha_j}}
+        = \lim_{M\to\infty}\sum_{j=1}^{M}\abs{c_j}^2 = \sum_j\abs{c_j}^2 = \sum_j\abs{\inp{x}{x_{\alpha_j}}}^2.
+    \end{equation*}
 \end{proof}

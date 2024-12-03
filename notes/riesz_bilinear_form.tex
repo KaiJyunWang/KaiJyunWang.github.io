@@ -165,3 +165,18 @@
         L(\varphi) = B(u,\varphi) = \int_{\Omega} \nabla u\cdot\nabla\varphi = \int_{\Omega} f\varphi.
     \end{equation*} 
 \end{remark}
+
+\begin{definition}
+    A bilinear form $B:\H\times\H\to\mathbb{F}$ is called \textbf{symmetric} 
+    if $B(x,y) = B(y,x)$ for all $x,y\in\H$.
+\end{definition}
+
+\begin{theorem}[Lax-Milgram \rom{2}]
+    Let $\mathbb{F} = \R$ or $\C$. Suppose that $B:\H\times\H\to\mathbb{F}$ is 
+    a bounded symmetric coercive bilinear form and $L\in\H'$ is a bounded 
+    linear functional. Then 
+    \begin{equation*}
+        \inf_{x\in\H} \frac{1}{2}B(x,x) - Lx
+    \end{equation*}
+    is attained at a unique $x\in\H$.
+\end{theorem}
