@@ -180,3 +180,47 @@
     \end{equation*}
     is attained at a unique $x\in\H$.
 \end{theorem}
+\begin{proof}
+    Set $F(x) = \frac{1}{2}B(x,x) - Lx$ and $\alpha = \inf_{x\in\H} F(x)$. 
+    We check that $\alpha$ is finite. Notice that for all $x\in\H$,
+    \begin{equation*}
+        -M < \frac{1}{2}\delta\norm{x}^2 - \norm{L}\norm{x} 
+        \leq \frac{1}{2}B(x,x) - \abs{Lx} \leq F(x) 
+        \leq \abs{\frac{1}{2}B(x,x)-Lx} \leq \frac{1}{2}C\norm{x}^2 + \norm{L}\norm{x} < \infty
+    \end{equation*}
+    for some finite $M,C>0$ and $\delta>0$. The first inequality is due to 
+    $\delta>0$ and the quadratic function is bounded below. Taking infimum 
+    of $F(x)$ gives that $\alpha$ is finite. 
+
+    Now by definition we can find $u_n\in\H$ such that $F(u_n)\to\alpha$. 
+    We claim that $u_n$ is Cauchy. For all $n,m\in\N$, we have 
+    \begin{equation*}
+        \begin{split}
+            F(u_m) + F(u_n) &= \frac{1}{2}B(u_m,u_m) - Lu_m + \frac{1}{2}B(u_n,u_n) - Lu_n \\
+            &= 2\pth{B\pth{\frac{u_m}{2},\frac{u_m}{2}} + B\pth{\frac{u_n}{2},\frac{u_n}{2}}} - 2L\pth{\frac{u_m+u_n}{2}} \\
+            &= 2\sbrc{\frac{1}{2}\pth{B\pth{\frac{u_m+u_n}{2},\frac{u_m+u_n}{2}} + B\pth{\frac{u_m-u_n}{2},\frac{u_m-u_n}{2}}} - L\pth{\frac{u_m+u_n}{2}}} \\ 
+            &= 2F\pth{\frac{u_m+u_n}{2}} + B\pth{\frac{u_m-u_n}{2},\frac{u_m-u_n}{2}} 
+            \geq 2\alpha + \frac{\delta}{4}\norm{u_m-u_n}^2.
+        \end{split}
+    \end{equation*}
+    For arbitrary $\epsilon>0$, there is $N\in\N$ such that for all $m,n\geq N$, 
+    $F(u_m),F(u_n)\leq \alpha + \epsilon$. Then
+    \begin{equation*}
+        2\alpha + \frac{\delta}{4}\norm{u_m-u_n}^2 \leq F(u_m) + F(u_n) \leq 2\alpha + 2\epsilon
+        \implies \norm{u_m-u_n}^2 \leq \frac{8\epsilon}{\delta}.
+    \end{equation*}
+    Since $\epsilon$ is arbitrary, we obtain that $u_n$ is Cauchy. By the 
+    completeness, $u_n\to u$ for some $u\in\H$. We check that $u$ is the 
+    minimizer of $F$, i.e. $F(u) = \alpha$. Observe that if for $u_n\to u$ 
+    and $v_n\to v$, we have $B(u_n,v_n)\to B(u,v)$ and $Lu_n\to Lu$. Indeed, 
+    $Lu_n\to u$ by the boundedness and hence the continuity of $L$. Also, 
+    \begin{equation*}
+        \abs{B(u_n,v_n) - B(u,v)} \leq \abs{B(u_n-u,v_n)} + \abs{B(u,v_n-v)} 
+        \leq C\norm{u_n-u}\norm{v_n} + C\norm{u}\norm{v_n-v} \to 0
+    \end{equation*}
+    since $u_n\to u$ as a Cauchy sequence must be bounded. This implies 
+    \begin{equation*}
+        F(u_n) = \frac{1}{2}B(u_n,u_n) - Lu_n \to \frac{1}{2}B(u,u) - Lu = F(u).
+    \end{equation*}
+    The uniqueness of the limit of $u_n$ ensures that the minimizer is unique.
+\end{proof}
