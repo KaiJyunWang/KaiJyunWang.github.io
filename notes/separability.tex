@@ -201,6 +201,19 @@
     conclude that $B$ is an orthonormal basis.
 \end{proof}
 
+\begin{theorem}
+    Let $\mathbb{F} = \R$ or $\C$. Suppose that $\H$ is a Hilbert space. Then $\H$ 
+    is separable if and only if $\H$ has a countable orthonormal basis.
+\end{theorem}
+\begin{proof}
+    Suppose that $\H$ has a countable orthonormal basis $\set{x_n}$. Then consider 
+    the sets
+    \begin{equation*}
+        A_n = \Set{\sum_{j=1}^n c_jx_j}{c_j\in\mathbb{Q}\text{ or }\mathbb{Q}+\mathbb{Q}i\text{ if $\mathbb{F} = \C$}}.
+    \end{equation*}
+    Put $A = \bigcup_n A_n$. We 
+\end{proof}
+
 \begin{proposition}
     Let $\H$ be a Hilbert space and $\Set{x_\alpha}{\alpha\in A},\Set{y_\beta}{\beta\in B}$ 
     be two orthonormal bases in $\H$. Then $\card(A) = \card(B)$.
@@ -215,6 +228,10 @@
     and hence $\card(B)\leq \card(A)$. By symmetry, we have $\card(A)\leq \card(B)$ 
     and thus $\card(A) = \card(B)$.
 \end{proof}
+\begin{remark}
+    If $\H$ is separable, then $\H$ has a countable orthonormal basis and hence 
+    every orthonormal basis of $\H$ is countable. 
+\end{remark}
 
 \begin{proposition}[Parseval's Identity]
     Let $\set{x_\alpha}$ be an orthonormal basis of $\H$. Then 

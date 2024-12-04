@@ -171,7 +171,7 @@
     if $B(x,y) = B(y,x)$ for all $x,y\in\H$.
 \end{definition}
 
-\begin{theorem}[Lax-Milgram \rom{2}]
+\begin{theorem}[Lax-Milgram \rom{2}]\label{thm:lax_milgram_2}
     Let $\mathbb{F} = \R$ or $\C$. Suppose that $B:\H\times\H\to\mathbb{F}$ is 
     a bounded symmetric coercive bilinear form and $L\in\H'$ is a bounded 
     linear functional. Then 
@@ -223,4 +223,38 @@
         F(u_n) = \frac{1}{2}B(u_n,u_n) - Lu_n \to \frac{1}{2}B(u,u) - Lu = F(u).
     \end{equation*}
     The uniqueness of the limit of $u_n$ ensures that the minimizer is unique.
+\end{proof}
+
+\begin{theorem}
+    Let $\mathbb{F} = \R$ or $\C$. Suppose that $B:\H\times\H\to\mathbb{F}$ is 
+    a bounded symmetric coercive bilinear form and $L\in\H'$ is a bounded 
+    linear functional. $x_0\in\H$ is a minimizer of $F(x) = \frac{1}{2}B(x,x) - Lx$ 
+    if and only if $B(x_0,y) = L(y)$ for all $y\in\H$.
+\end{theorem}
+\begin{proof}
+    Suppose that $x_0$ is a solution to $B(x_0,y) = L(y)$ for all $y\in\H$. 
+    Then for all $x\in\H$, 
+    \begin{equation*}
+        \begin{split}
+            F(x_0 + x) - F(x_0) &= \frac{1}{2}B(x_0 + x, x_0 + x) - L(x_0 + x) - \frac{1}{2}B(x_0,x_0) + L(x_0) \\
+            &= B(x_0,x) - L(x) + \frac{1}{2}B(x,x) \geq \frac{\delta}{2}\norm{x}^2\geq 0
+        \end{split}
+    \end{equation*}
+    by the coerciveness of $B$. Hence $F(x_0)\leq F(x_0 + x)$ for all $x\in\H$ and 
+    $x_0$ is a minimizer. 
+
+    Conversely, suppose that $x_0$ minimizes $F$. For all $t\in\R$ and $y\in\H$, 
+    consider the function $\phi(t) = F(x_0 + ty)$. Then since $x_0$ minimizes $F$, 
+    $\phi'(t)\restrict{t=0} = 0$. We compute that 
+    \begin{equation*}
+        \begin{split}
+            \phi(t) &= F(x_0 + ty) = \frac{1}{2}B(x_0 + ty, x_0 + ty) - L(x_0 + ty) \\
+            &= \frac{1}{2}B(x_0,x_0) + tB(x_0,y) + \frac{1}{2}t^2B(y,y) - L(x_0) - tL(y).
+        \end{split}
+    \end{equation*}
+    Differentiating gives 
+    \begin{equation*}
+        0 = \phi'(t)\restrict{t=0} = B(x_0,y) - L(y) + tB(y,y)\restrict{t=0} = B(x_0,y) - L(y)
+    \end{equation*}
+    for each given $y\in\H$. Hence $x_0$ satisfies $B(x_0,y) = L(y)$ for all $y\in\H$.
 \end{proof}
