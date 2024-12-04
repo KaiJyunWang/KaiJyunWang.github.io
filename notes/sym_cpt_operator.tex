@@ -1,0 +1,66 @@
+\begin{definition}
+    $\D(A)\subset\H$ is dense in $\H$. A linear operator $A:\D(A)\to\H$ is 
+    said to be \textbf{symmetric} if $\inp{Ax}{y} = \inp{x}{Ay}$ for all 
+    $x,y\in\D(A)$.
+\end{definition}
+\begin{remark}
+    Note that the domain $\D(A)$ is dense in $\H$. It follows that by density, 
+    the domain can often be extended to $\H$. For simplicity, we consider 
+    the domain to be $\H$, but the domain can be any dense subset of $\H$.
+\end{remark}
+
+\begin{definition}
+    $\lambda\in\mathbb{F}$ is an \textbf{eigenvalue} of a linear operator 
+    $A:\H\to\H$ if there exists a non-zero vector $x\in\H$ such that 
+    $Ax = \lambda x$. The vector $x$ is called the \textbf{eigenvector} 
+    corresponding to the eigenvalue $\lambda$.
+\end{definition} 
+
+\begin{proposition}
+    Let $A:\H\to\H$ be a symmetric operator. The followings are true. 
+    \begin{thmenum}
+        \item $\inp{Ax}{x}\in\R$ for all $x\in\H$.
+        \item If $\lambda\in\mathbb{F}$ is an eigenvalue of $A$, then $\lambda\in\R$. 
+        \item If $\lambda_1,\lambda_2\in\mathbb{F}$ are two distinct eigenvalues 
+        with respect to eigenvectors $x_1,x_2\in\H$, then $\inp{x_1}{x_2} = 0$. 
+        \item Suppose $\set{x_\alpha}$ is an orthonormal basis of $\H$ with 
+        the property that each $x_\alpha$ is an eigenvector of $A$ corresponding 
+        to the eigenvalue $\lambda_\alpha$. Then if $\mu\in\mathbb{F}$ is also 
+        an eigenvalue of $A$, then $\mu = \lambda_\alpha$ for some $\alpha$.
+    \end{thmenum}
+\end{proposition}
+\begin{proof}
+    For (a), $\inp{Ax}{x} = \inp{x}{Ax} = \overline{\inp{Ax}{x}}$. Then 
+    $\Im\pth{\inp{Ax}{x}} = 0$ and $\inp{Ax}{x}\in\R$.
+
+    For (b), let $x\in\H$ be the corresponding eigenvector to $\lambda$. Then 
+    \begin{equation*}
+        \inp{Ax}{x} = \inp{\lambda x}{x} = \lambda\inp{x}{x} = \lambda\norm{x}^2
+        \implies \lambda = \frac{\inp{Ax}{x}}{\norm{x}^2}\in\R.
+    \end{equation*}
+
+    For (c), by symmetry and (b), we have 
+    \begin{equation*}
+        \lambda_1\inp{x_1}{x_2} = \inp{Ax_1}{x_2} = \inp{x_1}{Ax_2} 
+        = \overline{\lambda_2}\inp{x_1}{x_2} = \lambda_2\inp{x_1}{x_2}.
+    \end{equation*}
+    Since $\lambda_1\neq\lambda_2$, $\inp{x_1}{x_2} = 0$. 
+
+    For (d), let $\mu\in\mathbb{F}$ be an eigenvalue of $A$ with eigenvector 
+    $y\in\H$, $y\neq 0$. We claim that $\mu = \lambda_\alpha$ for some $\alpha$. 
+    Suppose not. Then write $y = \sum_{j} c_jx_{\alpha_j}$, where $c_j\in\mathbb{F}$. 
+    We see that
+    \begin{equation*}
+        \norm{y}^2 = \lim_{M\to\infty}\inp{y}{\sum_{j=1}^{M} c_jx_{\alpha_j}} 
+        = \lim_{M\to\infty} \overline{c_j}\inp{y}{x_{\alpha_j}} = 0
+    \end{equation*}
+    by (c), but this is a contradiction since $y\neq 0$. Thus $\mu = \lambda_\alpha$ 
+    for some $\alpha$.
+\end{proof}
+
+\begin{definition}
+    A linear operator $A:\H\to\H$ is called \textbf{bounded} if 
+    \begin{equation*}
+        \norm{A} = \sup_{\norm{x}=1}\norm{Ax} < \infty.
+    \end{equation*}
+\end{definition}

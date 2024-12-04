@@ -178,7 +178,7 @@
     forms a orthonormal set.
 \end{proof}
 
-\begin{theorem}
+\begin{theorem}\label{thm:orthonormal_basis_exist}
     Every Hilbert space has an orthonormal basis.
 \end{theorem}
 \begin{proof}
@@ -201,7 +201,7 @@
     conclude that $B$ is an orthonormal basis.
 \end{proof}
 
-\begin{theorem}
+\begin{theorem}\label{thm:separable_countable_basis}
     Let $\mathbb{F} = \R$ or $\C$. Suppose that $\H$ is a Hilbert space. Then $\H$ 
     is separable if and only if $\H$ has a countable orthonormal basis.
 \end{theorem}
@@ -209,9 +209,40 @@
     Suppose that $\H$ has a countable orthonormal basis $\set{x_n}$. Then consider 
     the sets
     \begin{equation*}
-        A_n = \Set{\sum_{j=1}^n c_jx_j}{c_j\in\mathbb{Q}\text{ or }\mathbb{Q}+\mathbb{Q}i\text{ if $\mathbb{F} = \C$}}.
+        A_n = \Set{\sum_{j=1}^n c_jx_j}{c_j\in S},
     \end{equation*}
-    Put $A = \bigcup_n A_n$. We 
+    where $S = \Q$ if $\mathbb{F} = \R$ and $S = \Q + \Q i$ if $\mathbb{F} = \C$. 
+    Since $S$ is countable, each $A_n$ being a finite union of countable sets is 
+    countable. Put $A = \bigcup_n A_n$ and let $\epsilon>0$ be given. Since $A$ is 
+    a countable union of countable sets, it is also countable. For every $x\in\H$, 
+    we can write $x = \sum_j \inp{x}{x_j}x_j$ with 
+    \begin{equation*}
+        \norm{\sum_{j=N+1}^{\infty}\inp{x}{x_j}x_j} < \frac{\epsilon}{2}
+    \end{equation*}
+    for some $N\in\N$. Since $S$ is dense in $\mathbb{F}$, we can pick some 
+    $c_j\in S$ with $\abs{c_j - \inp{x}{x_j}} < \epsilon/2^{j+1}$. Then 
+    \begin{equation*}
+        \begin{split}
+            \norm{x - \sum_{j=1}^N c_jx_j} 
+            &= \norm{\sum_{j=1}^{\infty}\inp{x}{x_j}x_j - \sum_{j=1}^{N} \inp{x}{x_j}x_j + \sum_{j=1}^{N} \inp{x}{x_j}x_j - \sum_{j=1}^N c_jx_j} \\
+            &\leq \norm{\sum_{j=1}^{\infty}\inp{x}{x_j}x_j - \sum_{j=1}^{N} \inp{x}{x_j}x_j} + \norm{\sum_{j=1}^{N} \inp{x}{x_j}x_j - \sum_{j=1}^N c_jx_j} \\ 
+            &\leq \norm{\sum_{j=N+1}^{\infty}\inp{x}{x_j}x_j} + \sum_{j=1}^{N}\abs{\inp{x}{x_j} - c_j}\norm{x_j} 
+            \leq \frac{\epsilon}{2} + \sum_{j=1}^{N}\frac{\epsilon}{2^{j+1}} \leq \epsilon.
+        \end{split}
+    \end{equation*}
+    It follows that $A$ is dense in $\H$ and hence $\H$ is separable. 
+    
+    Conversely, suppose that $\H$ is separable. Let $S\subset\H$ be a countable 
+    subset. Assume that every orthonormal basis of $\H$ is uncountable. Denote an 
+    orthonormal basis of $\H$ by $\set{x_\alpha}$. For each distinct $x_\alpha$ 
+    $x_\beta\in S$, $\norm{x_\alpha - x_\beta} = \sqrt{2}$. Consider the open 
+    balls $B_{1/2}(x_\alpha)$. They are clearly disjoint since if $y$ lies in 
+    two such balls, then $\sqrt{2} = \norm{x_\alpha - x_\beta}\leq 
+    \norm{x_\alpha - y} + \norm{y - x_\beta} < 1$, which is absurd. Now since $S$ 
+    is dense in $\H$, for each $\alpha$ we can find some $s_\alpha\in S$ such that 
+    $s_\alpha\in B_{1/2}(x_\alpha)$. It follows that each $s_\alpha$ is distinct 
+    and thus $S$ is uncountable. This contradicts to our assumption that $S$ is 
+    countable. Thus $\H$ must have a countable orthonormal basis.
 \end{proof}
 
 \begin{proposition}
