@@ -16,7 +16,7 @@
     corresponding to the eigenvalue $\lambda$.
 \end{definition} 
 
-\begin{proposition}
+\begin{proposition}\label{prop:sym_eval}
     Let $A:\H\to\H$ be a symmetric operator. The followings are true. 
     \begin{thmenum}
         \item $\inp{Ax}{x}\in\R$ for all $x\in\H$.
@@ -64,3 +64,83 @@
         \norm{A} = \sup_{\norm{x}=1}\norm{Ax} < \infty.
     \end{equation*}
 \end{definition}
+
+\begin{proposition}
+    $A:\H\to\H$ is a symmetric bounded linear operator. Then 
+    \begin{equation*}
+        \norm{A} = \sup_{\norm{x} = 1} \abs{\inp{Ax}{x}}.
+    \end{equation*}
+\end{proposition}
+\begin{proof}
+    Assume $\norm{x} = 1$. By Cauchy-Schwarz inequality, $\abs{\inp{Ax}{x}} 
+    \leq \norm{Ax}\norm{x} = \norm{Ax}$. Taking supremum, 
+    \begin{equation*}
+        \sup_{\norm{x} = 1}\abs{\inp{Ax}{x}} \leq \sup_{\norm{x} = 1}\norm{Ax} 
+        = \norm{A}.
+    \end{equation*}
+    To see the reverse inequality, note that $\norm{Ax}^2 = \inp{Ax}{Ax} 
+    = \inp{A^2x}{x}$. For any nonzero $\lambda\in\R$, define $x^+ 
+    = \lambda x + \frac{1}{\lambda}Ax$ and $x^- = \lambda x - \frac{1}{\lambda}Ax$. 
+    Then $x = \frac{1}{2\lambda}(x^++x^-)$ and $Ax = \frac{\lambda}{2}(x^+-x^-)$. 
+    Now, 
+    \begin{equation*}
+        \begin{split}
+            \inp{A^2x}{x} &= \inp{A\pth{\frac{\lambda}{2}(x^+-x^-)}}{\frac{1}{2\lambda}(x^++x^-)} \\
+            &= \frac{1}{4}\inp{Ax^+-Ax^-}{x^++x^-} \\ 
+            &= \frac{1}{4}\pth{\inp{Ax^+}{x^+} + \inp{Ax^+}{x^-} - \inp{Ax^-}{x^+} - \inp{Ax^-}{x^-}} 
+        \end{split}
+    \end{equation*}
+    Notice that $\inp{A^2x}{x}$, $\inp{Ax^+}{x^+}$ and $\inp{Ax^-}{x^-}$ are 
+    real numbers by \cref{prop:sym_eval}; hence 
+    $\Im\pth{\inp{Ax^+}{x^-} - \inp{Ax^-}{x^+}} = 0$. Also, $\inp{Ax^-}{x^+} 
+    = \overline{\inp{x^+}{Ax^-}} = \overline{\inp{Ax^+}{x^-}}$. We have 
+    $\Im\pth{\inp{Ax^+}{x^-}} = 0$ and $\inp{Ax^+}{x^-} - \inp{Ax^-}{x^+} = 0$. 
+    Thus, letting $C = \sup_{\norm{x} = 1}\abs{\inp{Ax}{x}}$, 
+    \begin{equation*}
+        \begin{split}
+            \inp{A^2x}{x} &= \frac{1}{4}\pth{\inp{Ax^+}{x^+} + \inp{Ax^-}{x^-}} \\
+            &\leq \frac{1}{4}C\pth{\norm{x^+}^2 + \norm{x^-}^2} \\
+            &= \frac{1}{4}C\pth{\inp{x^+}{x^+} + \inp{x^-}{x^-}} \\
+            &= \frac{1}{4}C\pth{2\lambda^2\norm{x^2} + \frac{2}{\lambda^2}\norm{Ax}^2}
+            = \frac{1}{2}C\pth{\lambda^2\norm{x}^2 + \frac{1}{\lambda^2}\norm{Ax}^2}.
+        \end{split}
+    \end{equation*}
+    Notice that for $a,b\in\R$, $(a-b)^2\geq 0$ and thus $a^2 + b^2\geq 2ab$. Hence 
+    \begin{equation*}
+        \lambda^2\norm{x}^2 + \frac{1}{\lambda^2}\norm{Ax}^2 \geq 2\lambda\norm{x}\frac{1}{\lambda}\norm{Ax} 
+        = 2\norm{Ax}\norm{x}.
+    \end{equation*}
+    We see that 
+    \begin{equation*}
+        \norm{Ax}^2 = \inp{A^2x}{x} \leq \frac{1}{2}C\inf_{\lambda\neq 0} \lambda^2\norm{x}^2 + \frac{1}{\lambda^2}\norm{Ax}^2 
+        \leq C\norm{Ax}\norm{x}.
+    \end{equation*}
+    Clearly if $Ax=0$ the inequality holds. Suppose $\norm{Ax} \neq 0$. Then 
+    deviding both sides by $\norm{Ax}$ and taking supremum gives 
+    \begin{equation*}
+        \norm{A} = \sup_{\norm{x} = 1}\norm{Ax} \leq C\sup_{\norm{x} = 1}\norm{x} 
+        = C = \sup_{\norm{x} = 1}\abs{\inp{Ax}{x}}.
+    \end{equation*}
+    We conclude that $\norm{A} = \sup_{\norm{x} = 1} \abs{\inp{Ax}{x}}$.
+\end{proof}
+
+\begin{definition}
+    $X$ and $Y$ are normed spaces. $M\subset X$. $A:M\to Y$ is an operator. We 
+    say that $A$ is \textbf{compact} if $A$ is continuous and for every bounded 
+    sequence $x_n\in M$, the sequence $Ax_n\in Y$ has a convergent subsequence.
+\end{definition}
+\begin{remark}
+    A compact operator $A$ transfers bounded sets in $X$ to relatively compact 
+    sets in $Y$.
+\end{remark}
+
+\begin{example}
+    Consider the integral operator $A:C([0,1])\to C([0,1])$ equipped with the 
+    supremum norms. Define 
+    \begin{equation*}
+        Au(x) = \int_0^1 K(x,y)f(y)dy,
+    \end{equation*}
+    where $K\in C([0,1]^2)$. We claim that $A$ is compact. Let $\set{u_n}$ be 
+    a bounded sequence in $C([0,1])$. By Arzel\`a-Ascoli theorem, it suffices 
+    to show that $\set{Au_n}$ is bounded and uniformly equicontinuous. 
+\end{example}
