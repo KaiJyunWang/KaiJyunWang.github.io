@@ -140,7 +140,43 @@
     \begin{equation*}
         Au(x) = \int_0^1 K(x,y)f(y)dy,
     \end{equation*}
-    where $K\in C([0,1]^2)$. We claim that $A$ is compact. Let $\set{u_n}$ be 
+    where $K\in C([0,1]^2)$. We verify that $A$ is well-defined, i.e., 
+    $Au\in C([0,1])$. Let $x_n\to x\in [0,1]$. 
+    \begin{equation*}
+        \begin{split}
+            \abs{Au(x_n) - Au(x)} &= \abs{\int_0^1 K(x_n,y)u(y)dy - \int_0^1 K(x,y)u(y)dy} \\
+            &\leq \int_0^1 \abs{K(x_n,y) - K(x,y)}\abs{u(y)}dy 
+            \leq \norm{K(x_n,\cdot) - K(x,\cdot)}_\infty\norm{u}_\infty.
+        \end{split}
+    \end{equation*}
+    Since $K$ is continuous, $(x_n,y)\to (x,y)$ implies $K(x_n,y)\to K(x,y)$. 
+    It follows that $Au(x_n)\to Au(x)$. Hence $Au\in C([0,1])$.
+
+    We claim that $A$ is compact. Let $\set{u_n}$ be 
     a bounded sequence in $C([0,1])$. By Arzel\`a-Ascoli theorem, it suffices 
-    to show that $\set{Au_n}$ is bounded and uniformly equicontinuous. 
+    to show that $\set{Au_n}$ is bounded and uniformly equicontinuous. To see 
+    the boundedness, note that by assumption we have $\norm{u_n}_\infty\leq M$ 
+    for all $n$. Also, since $K$ is continuous on a compact set, we have 
+    $K(x,y)\leq C$ for all $x,y\in [0,1]$. Then 
+    \begin{equation*}
+        \begin{split}
+            \norm{Au_n}_\infty &= \sup_{x\in [0,1]}\abs{\int_0^1 K(x,y)u_n(y)dy} \\
+            &\leq \sup_{x\in [0,1]}\int_0^1 \abs{K(x,y)}\abs{u_n(y)}dy \\
+            &\leq \sup_{x\in [0,1]}\int_0^1 C\norm{u_n}_\infty dy = C\norm{u_n}_\infty \leq CM.
+        \end{split}
+    \end{equation*} 
+    Thus $\set{Au_n}$ is bounded. To see the uniform equicontinuity, let 
+    $\epsilon>0$ be given. By continuity of $K$, we can find $\delta>0$ such that 
+    whenever $\abs{x-z}<\delta$, $\abs{K(x,y) - K(z,y)}<\epsilon/M$ for all $y\in [0,1]$. 
+    Then for each $n\in\N$, 
+    \begin{equation*}
+        \begin{split}
+            \abs{Au_n(x) - Au_n(z)} &= \abs{\int_0^1 K(x,y)u_n(y)dy - \int_0^1 K(z,y)u_n(y)dy} \\
+            &\leq \int_0^1 \abs{K(x,y) - K(z,y)}\abs{u_n(y)}dy 
+            \leq \frac{\epsilon}{M}\norm{u_n}_\infty \leq \epsilon.
+        \end{split}
+    \end{equation*}
+    Thus $\set{Au_n}$ is uniformly equicontinuous. By Arzel\`a-Ascoli theorem, 
+    $\set{Au_n}$ has a convergent subsequence, i.e., $A$ is compact.
+
 \end{example}
