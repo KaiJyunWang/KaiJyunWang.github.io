@@ -328,17 +328,15 @@
     basis and thus must be orthogonal.
 \end{proof}
 
-\begin{corollary}[Spectral Decomposition]
+\begin{remark}[Spectral Decomposition]
     Let $\H$ be a separable Hilbert space and $A:\H\to\H$ be a symmetric compact 
     linear operator. Then for each $x\in\H$, we can find $\set{x_j}$ and $\set{w_k}$ 
     are orthonormal bases for $\ker(A)^\perp$ and $\ker(A)$ respectively such that 
     \begin{equation*}
         x = \sum_j\inp{x}{x_j}x_j + \sum_k\inp{x}{w_k}w_k.
     \end{equation*}
-\end{corollary}
-\begin{proof}
-    This is a direct consequence of the spectral theorem.
-\end{proof}
+    Such decomposition is called the \textbf{spectral decomposition} of $A$.
+\end{remark}
 
 \begin{theorem}[Fredholm Alternative]
     Let $\H$ be separable. Suppose $A:\H\to\H$ is a symmetric compact 
