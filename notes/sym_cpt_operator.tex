@@ -340,10 +340,64 @@
 
 \begin{theorem}[Fredholm Alternative]
     Let $\H$ be separable. Suppose $A:\H\to\H$ is a symmetric compact 
-    linear operator and $\lambda\neq 0$. Let $F_\lambda = \Set{x\in\H}{Ax = \lambda x}$. 
+    linear operator, $\lambda\neq 0$. Let $F_\lambda = \Set{x\in\H}{Ax = \lambda x}$. 
     Then the equation 
     \begin{equation*}
         \lambda x - Ax = z
     \end{equation*}
     has a unique solution if and only if $z\in F_\lambda^\perp$.
 \end{theorem}
+\begin{proof}
+    Consider the orthonormal eigenbasis $\set{x_j}\bigcup\set{w_k}$ of $A$ with nonzero 
+    eigenvalues $\lambda_j$ for $x_j$ and zeros for $w_k$. Suppose first that 
+    $\lambda\neq\lambda_j$ for all $j$. This is equivalent to that $F_\lambda = \set{0}$ and 
+    $F_\lambda^\perp = \H$. For every $z\in\H$, by setting 
+    \begin{equation*}
+        x = \sum_j\frac{1}{\lambda-\lambda_j}\inp{z}{x_j}x_j + \sum_k\frac{1}{\lambda}\inp{z}{w_k}w_k,
+    \end{equation*} 
+    we see that 
+    \begin{equation*}
+        \begin{split}
+            \lambda x - Ax 
+            &= \lambda\sum_j\frac{1}{\lambda-\lambda_j}\inp{z}{x_j}x_j + \lambda\sum_k\frac{1}{\lambda}\inp{z}{w_k}w_k - \sum_j\frac{\lambda_j}{\lambda-\lambda_j}\inp{z}{x_j}x_j \\
+            &= \sum_j\inp{z}{x_j}x_j + \sum_k\inp{z}{w_k}w_k = z.
+        \end{split}
+    \end{equation*}
+    We verify that such $x$ indeed belongs to $\H$. 
+    \begin{equation*}
+        \norm{x}^2 = \sum_j\abs{\frac{1}{\lambda-\lambda_j}\inp{z}{x_j}}^2 + \sum_k\abs{\frac{1}{\lambda}\inp{z}{w_k}}^2 
+        \leq \sup_j\frac{1}{\abs{\lambda-\lambda_j}^2}\norm{z}^2 + \sup_k\frac{1}{\abs{\lambda}^2}\norm{z}^2 < C_\lambda\norm{z}^2
+    \end{equation*}
+    for some $C_\lambda$ by the Parseval's identity. Since $\lambda\neq 0$, $C_\lambda$ is 
+    finite and thus $x\in\H$. To check the uniqueness, it suffices to show that the 
+    homogeneous equation $\lambda x - Ax = 0$ implies $x = 0$. Indeed, if $x\neq 0$ satisfies 
+    $\lambda x - Ax = 0$, then $\lambda$ becomes an eigenvalue of $A$ with eigenvector $x$, 
+    which contradicts to our assumption. Hence the solution is unique. The converse is trvial 
+    since $F_\lambda^\perp = \H$.
+
+    Now suppose that $\lambda = \lambda_{j}$ for some $j$, say $j=1$. Then $F_\lambda = E_{\lambda_1}$. 
+    If $z\in E_{\lambda_1}^\perp$, then since $\dim(E_{\lambda_1})<\infty$ by the spectral theorem, 
+    $E_{\lambda_1}$ is a closed subspace of $\H$ and hence $E_{\lambda_1}^\perp$ by 
+    \cref{prop:orthogonal_complement}. Thus for such $z$, we can write $z = 
+    \sum_{j:\lambda_j\neq\lambda_1} \inp{z}{x_j}x_j + \sum_k\inp{z}{w_k}w_k$. 
+    Set 
+    \begin{equation*}
+        x = \sum_{j:\lambda_j\neq\lambda_1}\frac{1}{\lambda-\lambda_j}\inp{z}{x_j}x_j + \sum_k\frac{1}{\lambda}\inp{z}{w_k}w_k.
+    \end{equation*}
+    Then 
+    \begin{equation*}
+        \begin{split}
+            \lambda x - Ax 
+            &= \lambda\sum_{j:\lambda_j\neq\lambda_1}\frac{1}{\lambda-\lambda_j}\inp{z}{x_j}x_j + \lambda\sum_k\frac{1}{\lambda}\inp{z}{w_k}w_k - \sum_{j:\lambda_j\neq\lambda_1}\frac{\lambda_j}{\lambda-\lambda_j}\inp{z}{x_j}x_j \\
+            &= \sum_{j:\lambda_j\neq\lambda_1}\inp{z}{x_j}x_j + \sum_k\inp{z}{w_k}w_k = z.
+        \end{split}
+    \end{equation*}
+    We verify that such $x$ indeed belongs to $\H$. By exactly the same argument as above, 
+    \begin{equation*}
+        \norm{x}^2 \leq \sup_{j:\lambda_j\neq\lambda}\frac{1}{\abs{\lambda-\lambda_j}^2}\norm{z}^2 + \sup_k\frac{1}{\abs{\lambda}^2}\norm{z}^2 < C_\lambda\norm{z}^2.
+    \end{equation*}
+    Since by the spectral theorem we have $\lambda_j\to 0$ as $j\to\infty$, $C_\lambda<\infty$.
+    To see that such $x$ is unique, suppose $x_1$ and $x_2$ are two solutions. Then 
+    $\lambda(x_1-x_2) = A(x_1-x_2)$. Thus $x_1-x_2\in E_{\lambda_1}$.
+
+\end{proof}
