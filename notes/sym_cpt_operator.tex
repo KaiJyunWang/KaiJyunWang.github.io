@@ -65,7 +65,7 @@
     \end{equation*}
 \end{definition}
 
-\begin{proposition}
+\begin{proposition}\label{prop:sym_norm}
     $A:\H\to\H$ is a symmetric bounded linear operator. Then 
     \begin{equation*}
         \norm{A} = \sup_{\norm{x} = 1} \abs{\inp{Ax}{x}}.
@@ -178,5 +178,174 @@
     \end{equation*}
     Thus $\set{Au_n}$ is uniformly equicontinuous. By Arzel\`a-Ascoli theorem, 
     $\set{Au_n}$ has a convergent subsequence, i.e., $A$ is compact.
-
 \end{example}
+
+\begin{definition}
+    Let $A:\H\to\H$ be a linear operator. If $\lambda\in\mathbb{F}$ 
+    is an eigenvalue of $A$, then the corresponding \textbf{eigenspace} 
+    is defined as 
+    \begin{equation*}
+        E_\lambda = \set{x\in\H: Ax = \lambda x}.
+    \end{equation*}
+\end{definition}
+\begin{remark}
+    Clearly $E_\lambda$ is a subspace of $\H$.
+\end{remark}
+
+\begin{theorem}[Spectral Theorem for Compact Symmetric Operators]
+    Let $\H$ be a separable Hilbert space. Suppose that $A:\H\to\H$ is a symmetric 
+    compact linear operator. Then the followings are true.
+    \begin{thmenum}
+        \item There exists an at most countable orthobormal basis $\set{x_j}$, in 
+        which each $x_j$ is an eigenvector of $A$ corresponding to an eigenvalue $\lambda_j$. 
+        \item If $\lambda_i\neq\lambda_j$, then $\inp{x_i}{x_j} = 0$.
+        \item For any $\lambda\neq 0$, $\dim(E_\lambda)<\infty$. 
+        \item If $\dim(\H) = \infty$, then either $\lambda_j\to 0$ or there is only 
+        finitely many $\lambda_j\neq 0$.
+    \end{thmenum}
+\end{theorem}
+\begin{proof}
+    First note that if $\H = \set{0}$, then the statements are vacuously true. 
+    We assume that $\H\neq\set{0}$. Assume first that $\dim(\H) = \infty$ and 
+    $\ker(A) = \set{0}$. By the assumptions we can find $x\in\H$ such that 
+    $\norm{Ax}>0$ and thus $\norm{A} > 0$. By \cref{prop:sym_norm}, 
+    $\norm{A} = \sup_{\norm{x} = 1}\abs{\inp{Ax}{x}}$. Hence there exists 
+    a sequence $z_n\in\H$ such that $\abs{\inp{Az_n}{z_n}}\to\norm{A}$ 
+    with $\norm{z_n} = 1$. Let $\lambda_1\in\R$ satisfying that $\lambda_1 
+    = \sgn(\inp{Az_n}{z_n})\norm{A}$ for $n$ greater than some $N$ so that the 
+    sign of $\inp{Az_n}{z_n}$ does not alternate. Now notice that 
+    \begin{equation*}
+        \begin{split}
+            0 &\leq \norm{\lambda_1z_n-Az_n}^2 \\
+            &= \abs{\lambda_1}^2\norm{z_n}^2 + \norm{Az_n}^2 - 2\abs{\lambda_1}\inp{Az_n}{z_n} \\
+            &\leq 2\abs{\lambda_1}^2 - 2\lambda_1\inp{Az_n}{z_n} 
+            \leq 2\abs{\lambda_1}^2 - 2\abs{\lambda_1}\abs{\inp{Az_n}{z_n}} \to 0.
+        \end{split}
+    \end{equation*}
+    Hence $\lambda_1z_n - Az_n\to 0$. Since $A$ is compact, $\set{Az_n}$ has a 
+    convergent subsequence, say $A(z_{n_k})\to y$. Then $\lambda_1z_{n_k}\to \lambda_1x_1$ 
+    for some $x_1\in\H$ with $Ax_1 = y$ and then $z_{n_k}\to x_1$. Since $A$ 
+    is continuous, $A(z_{n_k})\to Ax_1$ implies that
+    \begin{equation*}
+        Ax_1 = \lim_{k\to\infty} A(z_{n_k}) = \lim_{k\to\infty} \lambda_1z_{n_k} = \lambda_1x_1.
+    \end{equation*}
+    Note that $\norm{z_{n_k}} = 1$ and thus $\norm{x_1} = 1$. We have shown that
+    there exists an eigenvector $x_1$ corresponding to an eigenvalue $\lambda_1$, 
+    with $\norm{x_1} = 1$ and $\abs{\lambda_1} = \norm{A}$. 
+
+    Next, define $W_1 = \spanby(\set{x_1})$ and $W_1^\perp = \Set{y\in\H}{\inp{y}{x_1} = 0}$. 
+    Consider $A_1 = A\restrict{W_1^\perp}$. We verify that $A_1:W_1^\perp\to W_1^\perp$ 
+    is well-defined. For any $y\in W_1^\perp$, 
+    \begin{equation*}
+        \inp{A_1y}{x_1} = \inp{Ay}{x_1} = \inp{y}{Ax_1} = \inp{y}{\lambda_1x_1} = \lambda_1\inp{y}{x_1} = 0.
+    \end{equation*}
+    Hence $A_1y\in W_1^\perp$. Observe that $A_1$ is also symmetric since for every 
+    $y_1,y_2\in W_1^\perp$, 
+    \begin{equation*}
+        \inp{A_1y_1}{y_2} = \inp{Ay_1}{y_2} = \inp{y_1}{Ay_2} = \inp{y_1}{A_1y_2}.
+    \end{equation*}
+    We show that $A_1$ is compact. Suppose $y_n\in w_1^\perp$ and $y_n\to y\in W_1^\perp$. 
+    Then $A_1y_n = Ay_n\to Ay = A_1y$ by the continuity of $A$. Also, if $\set{y_n}$ 
+    is a bounded sequence in $W_1^\perp$, then $\set{A_1y_n} = \set{Ay_n}\subset W_1^\perp$ 
+    has a convergent subsequence. Since $W_1$ is finite-dimensional, $W_1$ is itself 
+    closed and thus so does $W_1^\perp$ by \cref{prop:orthogonal_complement}. It follows 
+    that the subsequence converges in $W_1^\perp$. Hence $A_1$ is compact. 
+
+    Now by similar argument as above, we can find $x_2\in W_1^\perp$ such that 
+    $\norm{x_2} = 1$, $\abs{\lambda_2} = \norm{A_1}\leq \norm{A} = \abs{\lambda_1}$ 
+    and $Ax_2 = A_1x_2 = \lambda_2x_2$ for some $\lambda_2\in\R$. Continue the 
+    process. We obtain a sequence $\set{x_j}$ such that each $x_j$ is an eigenvector 
+    of $A$ corresponding to an eigenvalue $\lambda_j$ with $\abs{\lambda_j}\leq \abs{\lambda_{j-1}}$ 
+    and $\norm{x_j} = 1$. Furthermore, observe that $\inp{x_i}{x_j} = 0$ for all $i\neq j$ 
+    and $\abs{\lambda_{i+1}} = \norm{A_i}$.
+    
+    We verify (d) first. Notice that $\abs{\lambda_j}$ decreases and bounded below by $0$. 
+    Hence $\abs{\lambda_j}\to\alpha$. By the compactness of $A$, there exists a subsequence 
+    $x_{n_i}$ such that $Ax_{n_i}$ converges. Thus $Ax_{n_i}$ is Cauchy and 
+    \begin{equation*}
+        \norm{Ax_{n_i} - Ax_{n_j}}^2 = \norm{\lambda_{n_i}x_{n_i} - \lambda_{n_j}x_{n_j}}^2 
+        = \abs{\lambda_{n_i}}^2 + \abs{\lambda_{n_j}}^2.
+    \end{equation*}
+    Note that the left hand side converges to $0$ and the right hand side converges 
+    to $2\alpha^2$. Hence $\alpha = 0$. 
+
+    Next, we show that $\dim(E_\lambda) < \infty$ for $\lambda\neq 0$. Suppose 
+    not. Then we can find a countable orthonormal basis $\set{x_i}$ of $E_\lambda$ 
+    with each $x_i$ corresponding to $\lambda$. By the compactness of $A$, there 
+    exists a subsequence $x_{n_i}$ such that $Ax_{n_i}$ converges and thus Cauchy. 
+    \begin{equation*}
+        2\abs{\lambda}^2 = \abs{\lambda}^2\norm{x_{n_i}}^2 + \abs{\lambda}^2\norm{x_{n_j}}^2 
+        = \norm{\lambda x_{n_i} - \lambda x_{n_j}}^2 = \norm{Ax_{n_i} - Ax_{n_j}}^2 \to 0.
+    \end{equation*}
+    Hence $\abs{\lambda} = 0$, a contradiction. Thus $\dim(E_\lambda) < \infty$. 
+
+    Lastly, we show that $\overline{\spanby\pth{\set{x_j}}} = \H$. For every $x\in\H$, 
+    consider the partial sum $z_n = \sum_{i=1}^{n}\inp{x}{x_i}x_i$. We want to 
+    show that $z_n\to x$. $Az_n = \sum_{i=1}^{n}\lambda_i\inp{x}{x_i}x_i$. 
+    Notice that 
+    \begin{equation*}
+        \inp{x-z_n}{x_j} = \inp{x - \sum_{i=1}^{n}\inp{x}{x_i}x_i}{x_j} 
+        = \inp{x}{x_j} - \inp{x}{x_j} = 0.
+    \end{equation*}
+    Hence $x-z_n\in W_n^\perp$. Thus since $\norm{x-z_n}$ is bounded,
+    \begin{equation*}
+        \norm{Ax-Az_n} = \norm{A(x-z_n)} = \norm{A_n(x-z_n)} 
+        \leq \norm{A_n}\norm{x-z_n} = \abs{\lambda_{n+1}}\norm{x-z_n}\to 0
+    \end{equation*}
+    Hence $Az_n\to Ax$ and thus we can write $Ax = \sum_j\lambda_j\inp{x}{x_j}x_j$. 
+    If $y = \sum_j\inp{x}{x_j}x_j$, then $Ay = \sum_j\lambda_j\inp{x}{x_j}x_j = Ax$. 
+    Because $A$ has zero kernel, $x = y = \sum_j\inp{x}{x_j}x_j$. Thus we have 
+    $\overline{\spanby\pth{\set{x_j}}} = \H$. 
+
+    Now we drop the assumption that $\ker(A) = \set{0}$. Note that $\ker(A)$ is a 
+    closed subspace of $\H$ since if $x_n\in\ker(A)$ and $x_n\to x\in\H$, by continuity 
+    of $A$, 
+    \begin{equation*}
+        Ax = \lim_{n\to\infty} Ax_n = 0
+        \implies x\in\ker(A).
+    \end{equation*} 
+    It follows that by \cref{prop:orthogonal_complement}, $\H = \ker(A)\oplus\ker(A)^\perp$. 
+    For $\ker(A)$, we apply \cref{thm:orthonormal_basis_exist} to find an orthonormal 
+    basis $\set{w_k}$ of $\ker(A)$. Note that since $\set{w_k}\subset \ker(A)$, each 
+    $w_k$ is an eigenvector of $A$ corresponding to the eigenvalue $0$. Also, 
+    define $A^\perp:\ker(A)^\perp\to\ker(A)^\perp$ by $A^\perp y = Ay$. We verify 
+    that such definition is well-defined, i.e., $A^\perp y\in\ker(A)^\perp$. For 
+    each $y\in\ker(A)^\perp$,
+    \begin{equation*}
+        \inp{A^\perp y}{w} = \inp{Ay}{w} = \inp{y}{Aw} = 0
+    \end{equation*}
+    for all $w\in\ker(A)$. Hence $A^\perp y\in\ker(A)^\perp$. Also, $A^\perp$ inherits 
+    the compactness and symmetry of $A$. By the previous argument, we can find an 
+    orthonormal basis $\set{x_j}$ of $\ker(A)^\perp$ such that each $x_j$ is an 
+    eigenvector of $A^\perp$ and thus $A$, corresponding to an eigenvalue $\lambda_j$. 
+    Notice that $\inp{w_k}{x_j} = 0$. Thus $\set{w_k}\cup\set{x_j}$ forms the desired 
+    orthonormal basis of $\H$. 
+
+    Finally, if $\dim(\H) = \infty$, then (c) and (d) are vacuously true. 
+    (a) follows by applying the above construction with the process 
+    being terminated in finite steps. Once (a) is established, (b) follows 
+    by observing that $x_i$ and $x_j$ are distinct eigenvectors in the orthonormal 
+    basis and thus must be orthogonal.
+\end{proof}
+
+\begin{corollary}[Spectral Decomposition]
+    Let $\H$ be a separable Hilbert space and $A:\H\to\H$ be a symmetric compact 
+    linear operator. Then for each $x\in\H$, we can find $\set{x_j}$ and $\set{w_k}$ 
+    are orthonormal bases for $\ker(A)^\perp$ and $\ker(A)$ respectively such that 
+    \begin{equation*}
+        x = \sum_j\inp{x}{x_j}x_j + \sum_k\inp{x}{w_k}w_k.
+    \end{equation*}
+\end{corollary}
+\begin{proof}
+    This is a direct consequence of the spectral theorem.
+\end{proof}
+
+\begin{theorem}[Fredholm Alternative]
+    Let $\H$ be separable. Suppose $A:\H\to\H$ is a symmetric compact 
+    linear operator and $\lambda\neq 0$. Let $F_\lambda = \Set{x\in\H}{Ax = \lambda x}$. 
+    Then the equation 
+    \begin{equation*}
+        \lambda x - Ax = z
+    \end{equation*}
+    has a unique solution if and only if $z\in F_\lambda^\perp$.
+\end{theorem}
