@@ -340,18 +340,19 @@
 
 \begin{theorem}[Fredholm Alternative]
     Let $\H$ be separable. Suppose $A:\H\to\H$ is a symmetric compact 
-    linear operator, $\lambda\neq 0$. Let $F_\lambda = \Set{x\in\H}{Ax = \lambda x}$. 
+    linear operator, $\lambda\neq 0$. Let $N_\lambda = \Set{x\in\H}{Ax = \lambda x}$. 
     Then the equation 
     \begin{equation*}
         \lambda x - Ax = z
     \end{equation*}
-    has a unique solution if and only if $z\in F_\lambda^\perp$.
+    has a solution if and only if $z\in N_\lambda^\perp$. Furthermore, if 
+    $\lambda$ is not an eigenvalue of $A$, then the solution is unique.
 \end{theorem}
 \begin{proof}
     Consider the orthonormal eigenbasis $\set{x_j}\bigcup\set{w_k}$ of $A$ with nonzero 
     eigenvalues $\lambda_j$ for $x_j$ and zeros for $w_k$. Suppose first that 
-    $\lambda\neq\lambda_j$ for all $j$. This is equivalent to that $F_\lambda = \set{0}$ and 
-    $F_\lambda^\perp = \H$. For every $z\in\H$, by setting 
+    $\lambda\neq\lambda_j$ for all $j$. This is equivalent to that $N_\lambda = \set{0}$ and 
+    $N_\lambda^\perp = \H$. For every $z\in\H$, by setting 
     \begin{equation*}
         x = \sum_j\frac{1}{\lambda-\lambda_j}\inp{z}{x_j}x_j + \sum_k\frac{1}{\lambda}\inp{z}{w_k}w_k,
     \end{equation*} 
@@ -373,9 +374,9 @@
     homogeneous equation $\lambda x - Ax = 0$ implies $x = 0$. Indeed, if $x\neq 0$ satisfies 
     $\lambda x - Ax = 0$, then $\lambda$ becomes an eigenvalue of $A$ with eigenvector $x$, 
     which contradicts to our assumption. Hence the solution is unique. The converse is trvial 
-    since $F_\lambda^\perp = \H$.
+    since $N_\lambda^\perp = \H$.
 
-    Now suppose that $\lambda = \lambda_{j}$ for some $j$, say $j=1$. Then $F_\lambda = E_{\lambda_1}$. 
+    Now suppose that $\lambda = \lambda_{j}$ for some $j$, say $j=1$. Then $N_\lambda = E_{\lambda_1}$. 
     If $z\in E_{\lambda_1}^\perp$, then since $\dim(E_{\lambda_1})<\infty$ by the spectral theorem, 
     $E_{\lambda_1}$ is a closed subspace of $\H$ and hence $E_{\lambda_1}^\perp$ by 
     \cref{prop:orthogonal_complement}. Thus for such $z$, we can write $z = 
@@ -397,7 +398,21 @@
         \norm{x}^2 \leq \sup_{j:\lambda_j\neq\lambda}\frac{1}{\abs{\lambda-\lambda_j}^2}\norm{z}^2 + \sup_k\frac{1}{\abs{\lambda}^2}\norm{z}^2 < C_\lambda\norm{z}^2.
     \end{equation*}
     Since by the spectral theorem we have $\lambda_j\to 0$ as $j\to\infty$, $C_\lambda<\infty$.
-    To see that such $x$ is unique, suppose $x_1$ and $x_2$ are two solutions. Then 
-    $\lambda(x_1-x_2) = A(x_1-x_2)$. Thus $x_1-x_2\in E_{\lambda_1}$.
-
+    We conclude that the equation $\lambda x - Ax = z$ has a solution if $z\in N_\lambda^\perp$. 
+    Conversely, if $x$ is a solution, then for every $x_{j_i}$ with $\lambda_{j_i} = \lambda_1 = \lambda$, 
+    \begin{equation*}
+        \begin{split}
+            \inp{z}{x_{j_i}} &= \inp{\lambda x - Ax}{x_{j_i}} = \inp{\lambda x}{x_{j_i}} - \inp{Ax}{x_{j_i}} \\
+            &= \lambda\inp{x}{x_{j_i}} - \inp{x}{Ax_{j_i}} = 0.
+            = \lambda\inp{x}{x_{j_i}} - \lambda_{j_i}\inp{x}{x_{j_i}} = 0.
+        \end{split}
+    \end{equation*}
+    We see that $z\in N_\lambda^\perp$. This completes the proof.
 \end{proof}
+\begin{remark}
+    If $\lambda$ is an eigenvalue of $A$, we can actually find infinitely 
+    many solutions. Since every eigenvector $x$ corresponding to $\lambda$ 
+    would become a homogeneous solution, for any solution $x_0$ such that 
+    $\lambda x_0 - Ax_0 = z$, $x_0 + x$ forms another solution for any 
+    $x\in E_\lambda$. In other words, the set of solutions is $x_0 + E_\lambda$.
+\end{remark}
