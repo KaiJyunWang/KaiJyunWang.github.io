@@ -530,6 +530,19 @@ one only needs to evaluate the integral on the right hand
 side and then apply the inverse of $u'$ to get the 
 updated policy function, which is much faster.
 
+% \section{Discrete-Continuous Choice Endogenous Grid Method}
+
+% In this section, we introduce the discrete-continuous choice 
+% endogenous grid method (DC-EGM). The content of this section 
+% is based on \cite{iskhakov2017}. We consider the following 
+% general structure of a finite-horizon dynmaic model with both 
+% discrete and continuous choices. To understand the power of 
+% the EGM, we take a closer look at the model. Suppose that the 
+% model solution is characterized by the first-order condition. 
+% \begin{equation}
+%     u'(c_t) = \beta\int v'_{t+1}
+% \end{equation}
+
 \section{Policy Function Iteration}
 The last method we are going to introduce is the policy 
 function iteration, also known as the Howard's policy 
@@ -618,8 +631,9 @@ evaluate the value or policy on $m^n$ points. Recently, there are
 some papers that try to solve the curse of dimensionality by 
 randomness. The main idea is to draw the points randomly in an 
 area in the state space and then simulate the value or policy 
-on these points. For example, one may refer to the paper 
-\href{https://www.sciencedirect.com/science/article/pii/S0304393221000799}
-{Deep learning for solving dynamic economic models.}
+on these points. For example, one may refer to \cite{maliar2021}.
+
+\bibliographystyle{apacite}
+\bibliography{dynamic_method}
 
 \end{document}
