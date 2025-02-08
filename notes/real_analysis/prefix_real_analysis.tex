@@ -1,8 +1,12 @@
+% For fonts
+% \usepackage{palatino}
+% \usepackage[T1]{fontenc}
+% \usepackage{mathpazo}
+% \usepackage{textcomp}
+% \usepackage{fouriernc}
+% \usepackage{mathastext}
+\usepackage[scaled = 0.9]{scholax}
 
-%\usepackage{palatino}
-%\usepackage[T1]{fontenc}
-\usepackage{mathpazo}
-\usepackage{textcomp}
 
 
 \usepackage{setspace}
@@ -22,7 +26,7 @@
 \usepackage{titlesec}%
 \titlelabel{\thetitle.\hspace{0.5em}}%
 \usepackage{xcolor}%
-\usepackage{mleftright}%
+\usepackage{mleftright}
 \usepackage{xspace}%
 \usepackage{graphicx}
 \usepackage{hyperref}%
@@ -33,10 +37,11 @@
 \usepackage{mathrsfs}
 \usepackage{listings}
 \usepackage{enumitem}
-\usepackage[normalem]{ulem}
-\usepackage{fouriernc}
+% \usepackage[normalem]{ulem}
 \usepackage[nameinlink,noabbrev]{cleveref}
-\usepackage{quoting,xparse}
+% Math font, must be loaded after amsmath
+\usepackage[scaled = 0.95,vvarbb]{newtxmath}
+
 
 \NewDocumentCommand{\bywhom}{m}{% the Bourbaki trick
   {\nobreak\hfill\penalty50\hskip1em\null\nobreak
