@@ -1,0 +1,112 @@
+\begin{lemma}
+    Let $X$ be a finite-dimensional vector space. Then every norm on 
+    $X$ is equivalent.
+\end{lemma}
+\begin{proof}
+    This can be seen as a special case of \cref{prop:equivalent_norm}, as any 
+    finite-dimensional vector space is a Banach space. However, we also have a
+    simple proof here. 
+
+    Let $\set{e_1,\ldots,e_n}$ be a basis for $X$. For any $x\in X$, we can write 
+    $x = \sum_{i=1}^n x_ie_i$. For any norm $\norm{\cdot}$ on $X$, 
+    \begin{equation*}
+        \norm{x} = \norm{\sum_{i=1}^n x_ie_i} \leq \sum_{i=1}^n \abs{x_i}\norm{e_i} 
+        \leq \pth{\max_{1\leq i\leq n}\norm{e_i}}\sum_{i=1}^n\abs{x_i} = C_1\norm{x}_1.
+    \end{equation*}
+    where $\norm{\cdot}_1$ is the $\ell^1$ norm. Also, this implies that 
+    $\norm{\cdot}:X\to\R$ is continuous with respect to the $\ell^1$ norm since 
+    \begin{equation*}
+        \abs{\norm{x} - \norm{y}} \leq \norm{x-y} \leq C_1\norm{x-y}_1.
+    \end{equation*}
+    Now for any $x\neq 0$, the function $f(x) = \norm{\frac{x}{\norm{x}_1}}$ is 
+    continuous on $S = \Set{x\in X}{\norm{x}_1 = 1}$, which is compact. 
+    By extreme value theorem, $f$ attains its minimum on $S$, which leads to 
+    \begin{equation*}
+        \frac{\norm{x}}{\norm{x}_1} = \norm{\frac{x}{\norm{x}_1}} \geq C_2 > 0
+    \end{equation*}
+    for some $C_2 > 0$ since $x\neq 0$. Thus $\norm{x} \geq C_2\norm{x}_1$ and 
+    the norms are equivalent.
+\end{proof}
+
+\begin{remark}
+    Every finite-dimensional vector space is complete.
+\end{remark}
+
+\begin{remark}
+    Every closed ball in a finite-dimensional vector space is compact.
+\end{remark}
+
+\begin{theorem}
+    Let $X$ be a Banach space and $Y$ be a finite-dimensional subspace. For any 
+    $x\in X$, there exists a $y^*\in Y$ such that 
+    \begin{equation*}
+        \norm{x-y^*} = \inf_{y\in Y}\norm{x-y}.
+    \end{equation*}
+\end{theorem}
+\begin{proof}
+    Since $Y$ is a subspace, $0\in Y\subset X$. Then $\norm{x-y^*}\leq\norm{x}$. 
+    Consider the closed ball $B = \Set{y\in Y}{\norm{x-y}\leq \norm{x}}$. Let 
+    $f(y) = \norm{x-y}$. Observe that 
+    \begin{equation*}
+        \abs{f(y) - f(z)} = \abs{\norm{x-y} - \norm{x-z}} \leq \norm{y-z},
+    \end{equation*}
+    and $f$ is continuous. Since $B$ is compact, $f$ attains its minimum at some 
+    point $y^*\in B\subset Y$. Thus $\norm{x-y^*} = \inf_{y\in Y}\norm{x-y}$.
+\end{proof}
+
+\begin{lemma}
+    Let $X$ be a Banach space and $Y\subset X$ be a finite-dimensional subspace. 
+    Suppose that for each $x\in X$, there corresponds a unique $y_x\in Y$ such 
+    that $\norm{x-y_x} = \inf_{y\in Y}\norm{x-y}$. Then the map $P:X\to Y$ defined 
+    by $P: x\mapsto y_x$ is continuous.
+\end{lemma}
+\begin{proof}
+    Let $x_n\to x$ in $X$. Since 
+    \begin{equation*}
+        \norm{P(x_n)} = \norm{P(x_n) - x_n + x_n} \leq \norm{P(x_n) - x_n} + \norm{x_n}
+        \leq 2\norm{x_n},
+    \end{equation*}
+    $P(x_n)$ is bounded. By Bolzano-Weierstrass theorem, there is a subsequence 
+    $x_{n_k}$ such that $P(x_{n_k})\to P(\hat{x})$ for some $\hat{x}\in X$. It 
+    remains to show that $P(x) = P(\hat{x})$. Indeed, 
+    \begin{equation*}
+        \norm{P(x_{n_k}) - x_{n_k}} \leq \norm{P(x) - x_{n_k}} 
+    \end{equation*}
+    for all $k$. Letting $k\to\infty$ gives $\norm{P(\hat{x}) - x} \leq \norm{P(x) - x}$. 
+    Since the minimizer is unique, $P(x) = P(\hat{x})$ and $x = \hat{x}$. Hence 
+    $P$ is continuous.
+\end{proof}
+
+\begin{theorem}
+    Let $X$ be a Banach space, $Y\subset X$ be a subspace, and $x\in X$. Then the 
+    set 
+    \begin{equation*}
+        Y_x = \Set{y\in Y}{y = \argmin_{y\in Y}\norm{x-y}}
+    \end{equation*} 
+    is a bounded convex set. 
+\end{theorem}
+\begin{proof}
+    Since $0\in Y$, for all $y\in Y_x$, $\norm{y} \leq \norm{x-y} + \norm{x} \leq 2\norm{x}$. 
+    Thus $Y_x$ is bounded. To see the convexity, let $y_1,y_2\in Y_x$ and $t\in[0,1]$. 
+    Then $ty_1 + (1-t)y_2\in Y$ and
+    \begin{equation*}
+        \begin{split}
+            \norm{x-\pth{ty_1 + (1-t)y_2}} &= \norm{t(x-y_1) + (1-t)(y_2-x)} \\
+            &\leq t\norm{x-y_1} + (1-t)\norm{x-y_2} \\
+            &= \norm{x-y_1} = \norm{x-y_2}
+        \end{split}
+    \end{equation*}
+    since $y_1,y_2\in Y_x$. Thus $ty_1 + (1-t)y_2\in Y_x$ and $Y_x$ is convex.
+\end{proof}
+
+\begin{definition}
+    A Banach space $(X,\norm{\cdot})$ has a strictly convex norm if 
+    \begin{equation*}
+        \norm{x + y} < \norm{x} + \norm{y}
+    \end{equation*}
+    for all $x,y\in X$ such that $\alpha x \neq \beta y$ for all $\alpha,\beta\in\R$.
+\end{definition}
+
+\begin{remark}
+    $\L^p$ spaces are strictly convex for $1<p<\infty$.
+\end{remark}
