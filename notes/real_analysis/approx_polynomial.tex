@@ -1,7 +1,7 @@
-\begin{lemma}
+\begin{proposition}
     Let $X$ be a finite-dimensional vector space. Then every norm on 
     $X$ is equivalent.
-\end{lemma}
+\end{proposition}
 \begin{proof}
     This can be seen as a special case of \cref{prop:equivalent_norm}, as any 
     finite-dimensional vector space is a Banach space. However, we also have a
@@ -29,11 +29,11 @@
 \end{proof}
 
 \begin{remark}
-    Every finite-dimensional vector space is complete.
+    Every finite-dimensional normed vector space is complete.
 \end{remark}
 
 \begin{remark}
-    Every closed ball in a finite-dimensional vector space is compact.
+    Every closed ball in a finite-dimensional normed vector space is compact.
 \end{remark}
 
 \begin{theorem}
@@ -54,12 +54,12 @@
     point $y^*\in B\subset Y$. Thus $\norm{x-y^*} = \inf_{y\in Y}\norm{x-y}$.
 \end{proof}
 
-\begin{lemma}
+\begin{proposition}
     Let $X$ be a Banach space and $Y\subset X$ be a finite-dimensional subspace. 
     Suppose that for each $x\in X$, there corresponds a unique $y_x\in Y$ such 
     that $\norm{x-y_x} = \inf_{y\in Y}\norm{x-y}$. Then the map $P:X\to Y$ defined 
     by $P: x\mapsto y_x$ is continuous.
-\end{lemma}
+\end{proposition}
 \begin{proof}
     Let $x_n\to x$ in $X$. Since 
     \begin{equation*}
@@ -110,3 +110,130 @@
 \begin{remark}
     $\L^p$ spaces are strictly convex for $1<p<\infty$.
 \end{remark}
+
+\begin{definition}
+    For any bounded function $f:[0,1]\to\R$, the Bernstein polynomial of 
+    degree $n$ for $f$ is defined as 
+    \begin{equation*}
+        B_n(f)(x) = \sum_{k=0}^n f\pth{\frac{k}{n}}\binom{n}{k}x^k(1-x)^{n-k}.
+    \end{equation*}
+\end{definition}
+
+\begin{theorem}[Weierstrass]
+    Let $f\in C([a,b])$. Then for any $\epsilon>0$, there exists a polynomial 
+    $p$ such that $\norm{f-p}_\infty < \epsilon$.
+\end{theorem}
+\begin{proof}
+    First consider the mapping $\sigma: x\mapsto a + (b-a)x$ for $x\in[a,b]$. 
+    Then by replacing $f$ with $f\circ\sigma$, we can assume that $a=0$ and $b=1$. 
+    
+    Now consider the Bernstein polynomial $B_n(f)$. Since $f$ is continuous on 
+    $[0,1]$, which is compact, $f$ is uniformly continuous. Thus for any 
+    $\epsilon>0$, there exists a $\delta>0$ such that $\abs{x-y}<\delta$ implies 
+    $\abs{f(x)-f(y)}<\epsilon$. Let $F = \Set{k\in\set{0,\ldots,n}}{\abs{x - \frac{k}{n}}<\delta}$. 
+    We can compute that 
+    \begin{equation*}
+        \begin{split}
+            \abs{B_n(f)(x) - f(x)} &= \abs{f(x) - \sum_{k=0}^n f\pth{\frac{k}{n}}\binom{n}{k}x^k(1-x)^{n-k}} \\
+            &\leq \sum_{k\in F}\abs{f(x) - f\pth{\frac{k}{n}}}\binom{n}{k}x^k(1-x)^{n-k} + \sum_{k\notin F}\abs{f(x) - f\pth{\frac{k}{n}}}\binom{n}{k}x^k(1-x)^{n-k} \\ 
+            &\leq \sum_{k=0}^n \epsilon\binom{n}{k}x^k(1-x)^{n-k} + 2\norm{f}_\infty\sum_{k\notin F}\binom{n}{k}x^k(1-x)^{n-k} \\
+            &\leq \epsilon + 2\norm{f}_\infty\sum_{k=0}^n \mathds{1}\set{\abs{x-\frac{k}{n}}\geq\delta}\binom{n}{k}x^k(1-x)^{n-k} \\
+            &\leq \epsilon + 2\norm{f}_\infty\sum_{k=0}^n \frac{1}{\delta^2}\pth{x-\frac{k}{n}}^2\binom{n}{k}x^k(1-x)^{n-k} \\ 
+            &= \epsilon + 2\frac{\norm{f}_\infty}{\delta^2}\sum_{k=0}^{n}\pth{x^2 - \frac{2k}{n}x + \frac{k^2}{n^2}}\binom{n}{k}x^k(1-x)^{n-k}.
+        \end{split}
+    \end{equation*}
+    Now let 
+    \begin{equation*}
+        S(x,y) = \sum_{k=0}^{n}\binom{n}{k}x^ky^{n-k} = (x+y)^n.
+    \end{equation*}
+    Then 
+    \begin{align*}
+        nx(x+y)^{n-1} &= x\pd{S}{x} = \sum_{k=0}^{n}k\binom{n}{k}x^ky^{n-k}, \\
+        n(n-1)x^2(x+y)^{n-2} &= x^2\pdd{S}{x} = \sum_{k=0}^{n}k(k-1)\binom{n}{k}x^ky^{n-k}.
+    \end{align*}
+    Taking $y = 1-x$ gives 
+    \begin{equation*}
+        \sum_{k=0}^{n}\pth{x^2 - \frac{2k}{n}x + \frac{k^2}{n^2}}\binom{n}{k}x^k(1-x)^{n-k} 
+        = x^2 - \frac{2}{n}x\cdot nx + \frac{1}{n^2}\pth{n(n-1)x^2 + nx} 
+        = \frac{x(1-x)}{n}\leq \frac{1}{4n}.
+    \end{equation*}
+    Hence we obtain the estimate
+    \begin{equation*}
+        \abs{B_n(f)(x) - f(x)} \leq \epsilon + \frac{\norm{f}_\infty}{2n\delta^2}.
+    \end{equation*}
+    Letting $n\to\infty$ and by the arbitrariness of $\epsilon$, we see that 
+    $B_n(f)\to f$ uniformly.
+\end{proof}
+
+\begin{remark}
+    An alternative expression for the Weierstrass theorem is that for such $f$, 
+    there exists a sequence of polynomials $p_n$ such that $p_n\to f$ uniformly.
+\end{remark}
+
+\begin{remark}
+    As a direct consequence of the Weierstrass theorem, the polynomial space is
+    dense in $C([0,1])$.
+\end{remark}
+
+\begin{definition}
+    A map $T:C([a,b])\to C([a,b])$ is said to be \textbf{positive} if 
+    $T(f)\geq 0$ for all $f\geq 0$.
+\end{definition}
+
+\begin{proposition}
+    The map $U:C([0,1])\to C([0,1])$ defined by $f\mapsto B_n(f)$ is linear, positive, and continuous.
+\end{proposition}
+\begin{proof}
+    To show the linearity, let $c\in\R$ and $f,g\in C([0,1])$. Then 
+    \begin{equation*}
+        \begin{split}
+            U(cf + g)(x) &= \sum_{k=0}^n \pth{cf\pth{\frac{k}{n}} + g\pth{\frac{k}{n}}}\binom{n}{k}x^k(1-x)^{n-k} \\
+            &= c\sum_{k=0}^{n}f\pth{\frac{k}{n}}\binom{n}{k}x^k(1-x)^{n-k} + \sum_{k=0}^{n}g\pth{\frac{k}{n}}\binom{n}{k}x^k(1-x)^{n-k} 
+            = cU(f)(x) + U(g)(x).
+        \end{split}
+    \end{equation*}
+
+    To show the positivity, let $f\geq 0$. Then $f\pth{\frac{k}{n}}x^k(1-x)^{n-k}\geq 0$ for all $k$ 
+    and $x\in[0,1]$. Then the sum is nonnegative and $U(f)\geq 0$. 
+
+    To show the continuity, it is enough to show the boundedness of $U$. 
+    \begin{equation*}
+        \begin{split}
+            \norm{U(f)}_\infty &= \sup_{x\in[0,1]}\abs{\sum_{k=0}^n f\pth{\frac{k}{n}}\binom{n}{k}x^k(1-x)^{n-k}} \\
+            &\leq \sup_{x\in[0,1]}\sum_{k=0}^n \abs{f\pth{\frac{k}{n}}}\binom{n}{k}x^k(1-x)^{n-k} \\ 
+            &\leq \sup_{x\in[0,1]}\sum_{k=0}^n \norm{f}_\infty\binom{n}{k}x^k(1-x)^{n-k} = \norm{f}_\infty.
+        \end{split}
+    \end{equation*}
+    Hence $U$ is a bounded linear operator and thus continuous.
+\end{proof}
+
+\begin{theorem}[Korovkin]
+    Let $T_n:C([0,1])\to C([0,1])$ be positive linear maps. Suppose that 
+    $T_n(f_i)\to f_i$ uniformly for $i = 0,1,2$ with $f_i(x) = x^i$. Then 
+    $T_n(f)\to f$ uniformly for all $f\in C([0,1])$.
+\end{theorem}
+\begin{proof}
+    For any $f\in C([0,1])$, by Weierstrass theorem, for any $\epsilon>0$, 
+    there exists a polynomial $p$ sych that $\norm{f - p}_\infty<\epsilon$. 
+    For such polynomial $p$, write $p = \sum_{i=0}^n a_ix^i$. 
+
+    We claim that $T_n(f_i)\to f_i$ uniformly as $n\to\infty$ with $f_i(x) = x^i$ 
+    for all $i\in\N\cup\set{0}$. Indeed, by the positivity of $T_n$, we have that 
+    $T_n$ preserves the order of functions, i.e., $T_n(f)\geq T_n(g)$ for all $f\geq g$. 
+    Now since $T_n(f_0)\to 1$, by replacing $T_n(f_i)$ with $T_n(f_i)/T_n(f_0)$ if 
+    needed, we can assume that $T_n(f_i)\leq x^i$ for all $i$. Then 
+    \begin{equation*}
+        \begin{split}
+            \sup_{x\in[0,1]}\abs{T_n(f_i)(x) - x^i} 
+            &= \sup_{x\in[0,1]} x^i - T_n(f_i)(x) \\ 
+        \end{split}
+    \end{equation*}
+\end{proof}
+
+\begin{example}
+    Let $f\in C([0,1])$ and $L_n(f)$ be the polygonal approximation of $f$ with 
+    nodes at $k/n$ for $k = 0,\ldots,n$, i.e., 
+    \begin{equation*}
+        L_n(f)(x) = f\pth{\frac{k}{n}} + n\pth{f\pth{\frac{k+1}{n}} - f\pth{\frac{k}{n}}}\pth{x - \frac{k}{n}}, \quad x\in\sbrc{\frac{k}{n},\frac{k+1}{n}}.
+    \end{equation*}
+\end{example}
