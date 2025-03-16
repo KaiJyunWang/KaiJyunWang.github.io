@@ -213,21 +213,49 @@
     $T_n(f)\to f$ uniformly for all $f\in C([0,1])$.
 \end{theorem}
 \begin{proof}
-    For any $f\in C([0,1])$, by Weierstrass theorem, for any $\epsilon>0$, 
-    there exists a polynomial $p$ sych that $\norm{f - p}_\infty<\epsilon$. 
-    For such polynomial $p$, write $p = \sum_{i=0}^n a_ix^i$. 
-
-    We claim that $T_n(f_i)\to f_i$ uniformly as $n\to\infty$ with $f_i(x) = x^i$ 
-    for all $i\in\N\cup\set{0}$. Indeed, by the positivity of $T_n$, we have that 
-    $T_n$ preserves the order of functions, i.e., $T_n(f)\geq T_n(g)$ for all $f\geq g$. 
-    Now since $T_n(f_0)\to 1$, by replacing $T_n(f_i)$ with $T_n(f_i)/T_n(f_0)$ if 
-    needed, we can assume that $T_n(f_i)\leq x^i$ for all $i$. Then 
+    Let $\epsilon > 0$. Since $f$ is continuous on a compact 
+    set, we can assume that it is Lipschitz with constant $L$. Now observe 
+    that 
+    \begin{equation*}
+        \abs{f(x)-f(a)} \leq L\abs{x-a} \leq L\epsilon + L\frac{(x-a)^2}{\epsilon}.
+    \end{equation*}
+    This can be verify as follows, 
+    \begin{equation*}
+        \begin{cases*}
+            L\abs{x-a} \leq L\epsilon \leq L\epsilon + L\frac{(x-a)^2}{\epsilon}  & if $\abs{x-a} \leq \epsilon$, \\
+            L\abs{x-a} \leq L\frac{(x-a)^2}{\epsilon} \leq L\epsilon + L\frac{(x-a)^2}{\epsilon} & if $\abs{x-a} > \epsilon$.
+        \end{cases*}
+    \end{equation*}
+    Next, we apply $T_n$ and note that we have $\abs{T_n(f)} = T_n(\abs{f})$. 
+    Then,
     \begin{equation*}
         \begin{split}
-            \sup_{x\in[0,1]}\abs{T_n(f_i)(x) - x^i} 
-            &= \sup_{x\in[0,1]} x^i - T_n(f_i)(x) \\ 
+            \abs{T_n(f)(x) - f(a)} &\leq \abs{T_n(f)(x) - f(a)T_n(f_0)(x)} + \abs{f(a)T_n(f_0)(x) - f(a)} \\ 
+            &= T_n(\abs{f-f(a)})(x) + \abs{f(a)}\abs{T_n(f_0)(x) - f_0} \\
+            &\leq L\pth{\epsilon T_n(f_0)(x) + \frac{1}{\epsilon}T_n(f_2 - 2af_1 + a^2f_0)(x)} + \norm{f}_\infty\norm{T_n(f_0) - f_0}_\infty \\
+            &\leq L\epsilon(T_n(f_0)(x) - f_0(x)) + L\epsilon f_0(x) + \frac{L}{\epsilon}(T_n(f_2)(x) - f_2(x)) + \frac{L}{\epsilon}f_2(x) \\
+            &\qquad - \frac{2aL}{\epsilon}(T_n(f_1)(x) - f_1(x)) - \frac{2aL}{\epsilon}f_1(x) + \frac{a^2L}{\epsilon}(T_n(f_0)(x) - f_0(x)) \\
+            &\qquad + \frac{a^2L}{\epsilon}f_0(x) + \norm{f}_\infty\norm{T_n(f_0) - f_0}_\infty \\
+            &\leq L\epsilon\norm{T_n(f_0) - f_0}_\infty + \frac{L}{\epsilon}\norm{T_n(f_2) - f_2}_\infty + \frac{2aL}{\epsilon}\norm{T_n(f_1) - f_1}_\infty \\
+            &\qquad + \frac{a^2L}{\epsilon}\norm{T_n(f_0) - f_0}_\infty + \norm{f}_\infty\norm{T_n(f_0) - f_0}_\infty + L\epsilon + \frac{L}{\epsilon}(x-a)^2.
         \end{split}
     \end{equation*}
+    Now taking $a = x$ and then taking supremum over $x\in[0,1]$ gives
+    \begin{equation*}
+        \begin{split}
+            \norm{T_n(f) - f}_\infty &\leq L\epsilon\norm{T_n(f_0) - f_0}_\infty + \frac{L}{\epsilon}\norm{T_n(f_2) - f_2}_\infty \\
+            &\qquad + \frac{2L}{\epsilon}\norm{T_n(f_1) - f_1}_\infty + \frac{L}{\epsilon}\norm{T_n(f_0) - f_0}_\infty + \norm{f}_\infty\norm{T_n(f_0) - f_0}_\infty + L\epsilon.
+        \end{split}
+    \end{equation*}
+    By the assumptions, there is $N$ such that $n>N$ implies that 
+    \begin{equation*}
+        \norm{T_n(f_i) - f_i}_\infty < \epsilon^2, \quad i = 0,1,2.
+    \end{equation*}
+    Thus, 
+    \begin{equation*}
+        \norm{T_n(f) - f}_\infty < L\epsilon^3 + 5L\epsilon + \norm{f}_\infty\epsilon^2.
+    \end{equation*}
+    Since $\epsilon$ is arbitrary, we obtain that $T_n(f)\to f$ uniformly.
 \end{proof}
 
 \begin{example}
@@ -236,4 +264,212 @@
     \begin{equation*}
         L_n(f)(x) = f\pth{\frac{k}{n}} + n\pth{f\pth{\frac{k+1}{n}} - f\pth{\frac{k}{n}}}\pth{x - \frac{k}{n}}, \quad x\in\sbrc{\frac{k}{n},\frac{k+1}{n}}.
     \end{equation*}
+    Now $L_n(1) = 1$, $L_n(x) = x$, and $\norm{L_n(x^2) - x^2}_\infty \leq \max_{0\leq k\leq n-1} \frac{(k+1)^2}{n^2} - \frac{k^2}{n^2} \leq \frac{1}{n}\to 0$. 
+    By the Korovkin theorem, we can conclude that $L_n(f)\to f$ uniformly for 
+    all $f\in C([0,1])$.
 \end{example}
+
+\begin{definition}
+    Let $f$ be a bounded function on $[a,b]$. The \textbf{modulus of continuity} 
+    of $f$ is defined as 
+    \begin{equation*}
+        \omega_f(\delta) = \sup_{\substack{\abs{x-y}\leq\delta \\ x,y\in[a,b]}}\abs{f(x) - f(y)}.
+    \end{equation*}
+\end{definition}
+
+\begin{definition}
+    A function $f$ is said to be \textbf{Lipschitz of order $\alpha$} if 
+    \begin{equation*}
+        \abs{f(x) - f(y)}\leq M\abs{x-y}^\alpha
+    \end{equation*}
+    for some $M>0$ and all $x,y\in[a,b]$.
+\end{definition}
+
+\begin{proposition}
+    Let $f$ be a bounded function on $[a,b]$. Then 
+    \begin{thmenum}
+        \item $\omega_f(\delta_1)\leq \omega_f(\delta_2)$ for all $\delta_1\leq\delta_2$. 
+        \item If $f'$ exists and is bounded, then $\omega_f(\delta)\leq M\delta$ for some $M$. 
+        \item If $f$ is Lipschitz of order $\alpha$, then $\omega_f(\delta)\leq M\delta^\alpha$ for some $M$ and all $\delta>0$.
+    \end{thmenum}
+\end{proposition}
+\begin{proof}
+    For (a), note that we have $\abs{x-y}\leq\delta_1\leq\delta_2$ for all $x,y\in[a,b]$.
+    
+    For (b), from the mean value theorem, we have that if $\abs{x-y}\leq\delta$, then
+    \begin{equation*}
+        \abs{f(x) - f(y)} = \abs{f'(c)(x-y)}\leq M\abs{x-y}\leq M\delta
+    \end{equation*}
+    for some $c\in[a,b]$ and some $M>0$. 
+    
+    For (c), we have that 
+    \begin{equation*}
+        \abs{f(x) - f(y)}\leq M\abs{x-y}^\alpha\leq M\delta^\alpha
+    \end{equation*}
+    for $\abs{x-y}\leq\delta$.
+\end{proof}
+
+\begin{lemma}\label{lem:omega}
+    Let $f$ be a bounded function on $[a,b]$ and $\delta>0$. Then 
+    \begin{thmenum}
+        \item $\omega_f(n\delta)\leq n\omega_f(\delta)$ for all $n\in\N$. 
+        \item $\omega_f(\lambda\delta)\leq (1+\lambda)\omega_f(\delta)$ for all $\lambda>0$.
+    \end{thmenum}
+\end{lemma}
+\begin{proof}
+    For (a), let $x<y$ be such that $\abs{x-y}\leq n\delta$. We can split $[x,y]$ 
+    into $n$ intervals of length at most $\delta$, say $[z_0,z_1],\ldots,[z_{n-1},z_n]$. 
+    Then $\abs{z_i - z_{i-1}}\leq\delta$ for all $i$ and 
+    \begin{equation*}
+        \abs{f(x) - f(y)} \leq \sum_{i=1}^n\abs{f(z_i) - f(z_{i-1})} \leq n\omega_f(\delta).
+    \end{equation*}
+
+    For (b), let $n\in\N$ be such that $n-1\leq\lambda\leq n$. Then 
+    \begin{equation*}
+        \omega_f(\lambda\delta) \leq \omega_f(n\delta) \leq n\omega_f(\delta) \leq (1+\lambda)\omega_f(\delta).
+    \end{equation*}
+\end{proof}
+
+\begin{theorem}
+    For any $f\in C([0,1])$, the Bernstein polynomial $B_n(f)$ satisfies 
+    \begin{equation*}
+        \norm{B_n(f) - f}_\infty \leq \frac{3}{2}\omega_f\pth{\frac{1}{\sqrt{n}}}.
+    \end{equation*}
+\end{theorem}
+\begin{proof}
+    By \cref{lem:omega}, setting $\delta = 1/\sqrt{n}$ and 
+    $\lambda = \sqrt{n}\abs{x-\frac{k}{n}}$, then 
+    \begin{equation*}
+        \begin{split}
+            \abs{f(x) - B_nf(x)} &\leq \sum_{k=0}^{n}\abs{f(x) - f\pth{\frac{k}{n}}}\binom{n}{k}x^k(1-x)^{n-k} 
+            \leq \sum_{k=0}^{n}\omega_f\pth{\abs{x-\frac{k}{n}}}\binom{n}{k}x^k(1-x)^{n-k} \\
+            &\leq \sum_{k=0}^{n}\omega_f\pth{\frac{1}{\sqrt{n}}}\pth{1 + \sqrt{n}\abs{x-\frac{k}{n}}}\binom{n}{k}x^k(1-x)^{n-k} \\
+            &\leq \omega_f\pth{\frac{1}{\sqrt{n}}}\brc{1 + \sqrt{n}\sum_{k=0}^{n}\abs{x-\frac{k}{n}}\binom{n}{k}x^k(1-x)^{n-k}} \\
+            &\leq \omega_f\pth{\frac{1}{\sqrt{n}}}\brc{1 + \sqrt{n}\pth{\sum_{k=0}^{n}\abs{x-\frac{k}{n}}^2\binom{n}{k}x^k(1-x)^{n-k}}^{1/2}\pth{\sum_{k=0}^{n}\binom{n}{k}x^k(1-x)^{n-k}}^{1/2}} \\
+            &\leq \omega_f\pth{\frac{1}{\sqrt{n}}}\brc{1 + \sqrt{n}\frac{1}{2\sqrt{n}}}
+            = \frac{3}{2}\omega_f\pth{\frac{1}{\sqrt{n}}}.
+        \end{split}
+    \end{equation*}
+    The fourth inequality follows from the Cauchy-Schwarz inequality.
+\end{proof}
+
+\begin{theorem}\label{thm:cpt_approx}
+    Let $X$ be a metric space and $Y\subset X$ be a compact subset. Then 
+    for any $f\in X$, there exists a $p^*\in Y$ such that $d(f,p^*)\leq d(f,q)$ 
+    for all $q\in Y$.
+\end{theorem}
+\begin{proof}
+    Let $d^*$ be the shortest distance from $f$ to $Y$, i.e., $d^* = \inf_{q\in Y}d(f,q)$. 
+    Then there exists a sequence $q_n\in Y$ such that $d(f,q_n)\to d^*$. From 
+    the compactness of $Y$, there exists a subsequence $q_{n_k}$ such that
+    $q_{n_k}\to p^*\in Y$. We claim that $p^*$ is the desired point. Indeed, 
+    for any $\epsilon > 0$, there is an $N$ such that $d(f,q_{n_k})\leq d^* + \epsilon$ 
+    and $d(q_{n_k},p^*)\leq\epsilon$ for all $k\geq N$. Then
+    \begin{equation*}
+        d(f,p^*) \leq d(f,q_{n_k}) + d(q_{n_k},p^*) \leq d^* + 2\epsilon.
+    \end{equation*}
+    Since $\epsilon$ is arbitrary, we have $d(f,p^*)\leq d^*$, 
+    which completes the proof.
+\end{proof}
+
+\begin{theorem}
+    If $X$ is a strictly convex Banach space, and $Y$ is a convex compact
+    subset of $X$, then for any $f\in X$, there exists a unique $p^*\in Y$ 
+    such that $\norm{f-p^*} = \inf_{q\in Y}\norm{f-q}$.
+\end{theorem}
+\begin{proof}
+    The exsistence of such $p^*$ follows from \cref{thm:cpt_approx}. Denote 
+    the shortest distance from $f$ to $Y$ by $d^*$. To show that $p^*$ is unique, 
+    suppose that there are two such points $p_1^*$ and $p_2^*$. Then by the 
+    convexity of $Y$, $\frac{1}{2}p_1^* + \frac{1}{2}p_2^*\in Y$ and from the 
+    strict convexity of $X$, 
+    \begin{equation*}
+        \norm{f - \frac{1}{2}p_1^* - \frac{1}{2}p_2^*} < \frac{1}{2}\norm{f-p_1^*} + \frac{1}{2}\norm{f-p_2^*} = d^*.
+    \end{equation*}
+    This contradicts the minimality of $d^*$ and thus $p^*$ is unique.
+\end{proof}
+
+\begin{definition}
+    A function $g$ on $[a,b]$ satisfies the \textbf{equioscillation condition} of 
+    degree $n$ if there are $n+2$ points $a\leq x_0 < x_1 \ldots< x_{n+1}\leq b$ 
+    such that $g(x_i) = (-1)^i\norm{g}$ for $i = 0,\ldots,n+1$.
+\end{definition}
+
+\begin{theorem}[Chebyshev Equioscillation theorem]
+    Let $f\in C[a,b]$ and $p\in P_n$ be the polynomial of degree $n$. Let 
+    $r = f - p$. Then $r$ satisfies the equioscillation condition of degree $n$ 
+    if and only if $\norm{f-p}_\infty \leq \norm{f-q}_\infty$ for all $q\in P_n$.
+\end{theorem}
+\begin{proof}
+    First assume that $r$ satisfies the equioscillation condition of degree $n$. 
+    If $p$ is not the best approximation to $f$ in $P_n$, then there is $q\in P_n$ 
+    such that $\norm{f-(p+q)}_\infty < \norm{f-p}_\infty$. This implies that 
+    $\norm{r-q}_\infty < \norm{r}_\infty$. By the equioscillation condition, 
+    $\abs{r(x_i) - q(x_i)} < \abs{r(x_i)}$ for all $i = 0,\ldots,n+1$. 
+    This means that $q$ has the same sign with $r$ at each $x_i$, so $q$ must 
+    change sign $n+1$ times. This contradicts the fact that $q\in P_n$.
+
+    Conversely, suppose that $p\in P_n$ is the best approximation to $f$ in $P_n$ 
+    in uniform norm. Let $R = \norm{r}_\infty$. Since $r$ is uniform continuous 
+    on $[a,b]$, we can split $[a,b]$ into subintervals $[t_i, t_{i+1}]$ such that 
+    $\abs{r(x) - r(y)} < R/2$ for all $x,y\in[t_i,t_{i+1}]$. Now observe that if 
+    $[t_i,t_{i+1}]$ contains a local extremum of $r$, then $r$ must have same 
+    sign in $[t_i,t_{i+1}]$. Denote the intervals by $I_k$ and rearrange them so 
+    that $r$ has maximum in $I_1,\ldots,I_{k_1}$ and minimum in 
+    $I_{k_1+1},\ldots,I_{k_1+k_2}$. The rest intervals are denumerated by 
+    $I_{k_1+k_2+1},\ldots,I_{k_1+k_2+k_3}$. By construction we see that 
+    the intervals with extremum points are disjoint. 
+    
+    We claim that $k_1 + k_2 \geq n+2$. Assume that $k_1 + k_2 \leq n+1$. 
+    Consider the polynomial 
+    \begin{equation*}
+        q(x) = \pm\prod_{i=1}^{k_1 + k_2 - 1} (x - z_i),
+    \end{equation*}
+    where $z_i$ are the points chosen with $\max I_i < z_i < \min I_{i+1}$ 
+    for $i = 1,\ldots,k_1+k_2-1$. Notice that $q(x)\neq 0$ for all $x$ 
+    lying in $I_i$ for $i = 1,\ldots,k_1+k_2$. We select the sign of $q$ 
+    such that $q$ has the same sign as $r$ in $I_i$ for $i = 1,\ldots,k_1+k_2$. 
+    We show that $p + \lambda q$ gives a better approximation than $p$ for 
+    some $\lambda > 0$. Let $S = \cup_{i=1}^{k_1+k_2}I_i$ and 
+    $N = \cup_{i=k_1+k_2+1}^{k_1+k_2+k_3}I_i$. Then for $x\in S$, 
+    \begin{equation*}
+        \abs{f(x) - (p(x) + \lambda q(x))} = \abs{r(x) - \lambda q(x)} \leq R - \lambda \min\abs{q(x)} < R.
+    \end{equation*}
+    And for $x\in N$, 
+    \begin{equation*}
+        \abs{f(x) - (p(x) + \lambda q(x))} = \abs{r(x) - \lambda q(x)} \leq R + \lambda \max\abs{q(x)} 
+        < \frac{R}{2} + \lambda \norm{q}_\infty < R
+    \end{equation*}
+    by taking $\lambda = \frac{R}{2\norm{q}_\infty}$. This contradicts the 
+    assumption that $p$ is the best approximation in $P_n$. Hence $k_1 + k_2 \geq n+2$. 
+    Since $p$ lies in $P_n$, $p$ has at most $n$ interior extremum plus 
+    the two endpoints; we have $n+2$ extremum points, yielding the equioscillation 
+    condition.
+\end{proof}
+\begin{remark}
+    The Chebyshev equioscillation theorem gives us a way to compute the best 
+    polynomial approximation to a function in uniform norm. The approach is 
+    as follows. Consider the approximation polynomial $p(x) = \sum_{k=0}^{n}a_kx^k$ 
+    and the error $h = \norm{f-p}_\infty$. Our goal is to find the coefficients 
+    $a_k$ and the error $h$ as well. The Chebyshev equioscillation theorem 
+    gives the extremum points $x_0,\ldots,x_{n+1}$ such that $f(x_i) = (-1)^ih$. 
+    Then we have the system of equations 
+    \begin{equation*}
+        \begin{pmatrix}
+            1 & x_0 & \cdots & x_0^n & -1\\
+            1 & x_1 & \cdots & x_1^n & 1 \\
+            \vdots & \vdots & \ddots & \vdots &\vdots \\
+            1 & x_{n+1} & \cdots & x_{n+1}^n & (-1)^n
+        \end{pmatrix}
+        \begin{pmatrix}
+            a_0 \\ a_1 \\ \vdots \\ a_n \\ h
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+            f(x_0) \\ f(x_1) \\ \vdots \\ f(x_{n+1})
+        \end{pmatrix}.
+    \end{equation*}
+    Since $x_i$ are unknown, we need to guess a set of $x_i$ and 
+    solve the system of equations. The iteration continues until 
+    $\norm{f-p}_\infty = h$.
+\end{remark}

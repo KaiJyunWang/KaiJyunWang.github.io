@@ -1,0 +1,176 @@
+\begin{definition}
+    The \textbf{Fourier series} of a function $f$ is given by 
+    \begin{equation*}
+        Sf(x) = \frac{a_0}{2} + \sum_{k=1}^\infty a_k \cos(kx) + b_k \sin(kx),
+    \end{equation*}
+    where the \textbf{Fourier coefficients} $a_k$ and $b_k$ are 
+    given by 
+    \begin{equation*}
+        a_k = \frac{1}{\pi} \int_{-\pi}^\pi f(x) \cos(kx)dx, \quad
+        b_k = \frac{1}{\pi} \int_{-\pi}^\pi f(x) \sin(kx)dx.
+    \end{equation*}
+    Or, alternatively, 
+    \begin{equation*}
+        Sf(x) = \sum_{k=-\infty}^\infty c_k e^{ikx},
+    \end{equation*}
+    where the \textbf{Fourier coefficients} $c_k$ are given by
+    \begin{equation*}
+        c_k = \frac{1}{2\pi} \int_{-\pi}^\pi f(x) e^{-ikx}dx.
+    \end{equation*}
+\end{definition}
+
+\begin{definition}
+    The \textbf{Truncated Fourier series} of a function $f$ is denoted by 
+    \begin{equation*}
+        S_N f(x) = \frac{a_0}{2} + \sum_{k=1}^N a_k \cos(kx) + b_k \sin(kx) = \sum_{k=-N}^N c_k e^{ikx}.
+    \end{equation*}
+\end{definition}
+
+\begin{proposition}
+    Let $a_k$ and $b_k$ be the Fourier coefficients of a function $f$. Then 
+    \begin{thmenum}
+        \item If $f\in\L^1$, $\abs{a_k}, \abs{b_k}\leq C\norm{f}_1$ for some constant $C>0$.
+        \item If $f\in\L^\infty$, $\abs{a_k}, \abs{b_k}\leq C\norm{f}_\infty$ for some constant $C>0$.
+    \end{thmenum}
+\end{proposition}
+\begin{proof}
+    To see (a), compute that
+    \begin{equation*}
+        \abs{a_k} \leq \frac{1}{\pi}\int_{-\pi}^\pi \abs{f(x)}\abs{\cos(kx)}dx \leq \frac{1}{\pi}\int_{-\pi}^\pi \abs{f(x)}dx = C\norm{f}_1
+    \end{equation*}
+    and similarly for $b_k$. 
+    For (b), 
+    \begin{equation*}
+        \abs{a_k} \leq \frac{1}{\pi}\int_{-\pi}^\pi \abs{f(x)}\abs{\cos(kx)}dx \leq \frac{1}{\pi}\int_{-\pi}^\pi \norm{f}_\infty dx = 2\norm{f}_\infty = C\norm{f}_\infty.
+    \end{equation*}
+    The proof for $b_k$ is analogous.
+\end{proof}
+
+\begin{lemma}[Riemann-Lebesgue]
+    Let $f\in \L^1[a,b]$. Then 
+    \begin{equation*}
+        \lim_{n\to\infty} \int_a^b f(x)e^{-inx}dx = 0.
+    \end{equation*}
+\end{lemma}
+\begin{proof}
+    Let $\epsilon > 0$. Since $f\in\L^1[a,b]$, there is a step function 
+    $g$ such that $\norm{f-g}_1 < \epsilon$. For any interval $E$, 
+    \begin{equation*}
+        \abs{\int_a^b \chi_E(x)e^{-inx}dx} \leq \abs{\int_E \cos(nx)dx} + \abs{\int_E \sin(nx)dx} 
+        \leq \frac{2\pi}{n} \to 0
+    \end{equation*}
+    as $n\to\infty$. A step function is a linear combination of characteristic 
+    functions of intervals, and thus $\abs{\int_a^b g(x)e^{-inx}dx} \to 0$ as $n\to\infty$.
+    Therefore, 
+    \begin{equation*}
+        \begin{split}
+            \abs{\int_a^b f(x)e^{-inx}dx} &\leq \abs{\int_a^b (f(x)-g(x))e^{-inx}dx} + \abs{\int_a^b g(x)e^{-inx}dx} \\
+            &\leq \norm{f-g}_1 + \abs{\int_a^b g(x)e^{-inx}dx} \to 0
+        \end{split}
+    \end{equation*}
+    as $n\to\infty$.
+\end{proof}
+
+\begin{definition}
+    The space of piecewise continuous functions on $[a,b]$ is denoted by $PC[a,b]$. 
+    The symbol $PC^n[a,b]$ denotes the space of functions having continuous derivatives up to order $n-1$, 
+    with the $n$-th derivative being piecewise continuous.
+\end{definition}
+
+\begin{proposition}
+    Let $f\in PC^1[-\pi,\pi]$ and 
+    \begin{equation*}
+        f(x) = \frac{a_0}{2} + \sum_{k=1}^\infty a_k \cos(kx) + b_k \sin(kx).
+    \end{equation*}
+    Then 
+    \begin{equation*}
+        f'(x) = \sum_{k=1}^\infty -ka_k \sin(kx) + kb_k \cos(kx).
+    \end{equation*}
+\end{proposition}
+\begin{proof}
+    Differentiation term by term gives the desired result.
+\end{proof}
+\begin{remark}
+    If $f\in PC^n[-\pi,\pi]$, then
+    \begin{equation*}
+        \abs{a_k}, \abs{b_k} \leq \frac{\norm{f}_{PC^n}}{k^n},
+    \end{equation*}
+    where $\norm{f}_{PC^n} = \sum_{j=0}^n \norm{f^{(j)}}_\infty$.
+\end{remark}
+
+\begin{definition}
+    Let $f$ be a function on $\R$. The \textbf{right-limit} and 
+    the \textbf{left-limit} of $f$ at $x$ are defined by
+    \begin{equation*}
+        f(x^+) = \lim_{h\to 0^+} f(x+h), \quad f(x^-) = \lim_{h\to 0^+} f(x-h).
+    \end{equation*}
+\end{definition}
+
+\begin{definition}
+    A \textbf{kernel} is a function $k:X\times X\to\R$ such that 
+    \begin{thmenum}
+        \item $k(x,y) = k(y,x)$ for all $x,y\in X$,
+        \item For finitely many points $x_1,\ldots,x_n\in X$ and scalars $a_1,\ldots,a_n\in\R$, 
+        \begin{equation*}
+            \sum_{i=1}^n \sum_{j=1}^n a_ia_jk(x_i,x_j) \geq 0.
+        \end{equation*}
+    \end{thmenum}
+\end{definition}
+
+\begin{definition}
+    The \textbf{Dirichlet kernel} is defined by
+    \begin{equation*}
+        D_N(x) = \frac{1}{2\pi}\sum_{k=-N}^N e^{ikx}.
+    \end{equation*}
+\end{definition}
+\begin{remark}
+    The Dirichlet kernel can be simplified to 
+    \begin{equation*}
+        D_N(x) = \frac{\sin\pth{(N+1/2)x}}{2\pi\sin(x/2)}.
+    \end{equation*}
+    To see this, note that 
+    \begin{equation*}
+        2\pi D_N(x)(e^{ix}-1) = e^{i(N+1)x} - e^{-iNx} 
+        = \frac{e^{i(N+1/2)x} - e^{-i(N+1/2)x}}{e^{ix/2} - e^{-ix/2}}.
+    \end{equation*}
+    And thus,
+    \begin{equation*}
+        D_N(x) = \frac{\sin\pth{(N+1/2)x}}{2\pi\sin(x/2)}.
+    \end{equation*}
+    Some other properties of the Dirichlet kernel include $D_N(-x) = D_N(x)$ 
+    and $\int_{-\pi}^\pi D_N(x)dx = 1$.
+\end{remark}
+
+\begin{definition}
+    Let $f,g:X\to\R$. The \textbf{convolution} of $f$ and $g$ is defined by
+    \begin{equation*}
+        (f*g)(x) = \int_X f(x-y)g(y)dy.
+    \end{equation*}
+\end{definition}
+
+\begin{proposition}
+    For any $2\pi$-periodic function $f\in PC$,
+    \begin{equation*}
+        S_Nf = D_N*f.
+    \end{equation*}
+\end{proposition}
+\begin{proof}
+    Compute that 
+    \begin{equation*}
+        \begin{split}
+            S_Nf(x) &= \sum_{k=-N}^N c_k e^{ikx} = \sum_{k=-N}^N \frac{1}{2\pi} \int_{-\pi}^\pi f(y)e^{-iky}dy e^{ikx} \\
+            &= \int_{-\pi}^\pi f(y) \frac{1}{2\pi}\sum_{k=-N}^N e^{ik(x-y)}dy = \int_{-\pi}^\pi f(y)D_N(x-y)dy = (D_N*f)(x).
+        \end{split}
+    \end{equation*}
+\end{proof}
+
+\begin{theorem}[Dirichlet-Jordan]
+    Let $f$ be a $2\pi$-periodic function and piecewise Lipschitz. Then 
+    \begin{equation*}
+        \lim_{N\to\infty} S_Nf(x) = \frac{f(x^+)+f(x^-)}{2}.
+    \end{equation*}
+    In particular, if $f$ is continuous at $x$, then 
+    \begin{equation*}
+        \lim_{N\to\infty} S_Nf(x) = f(x).
+    \end{equation*}
+\end{theorem}
