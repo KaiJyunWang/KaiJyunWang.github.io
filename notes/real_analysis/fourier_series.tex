@@ -46,7 +46,7 @@
     The proof for $b_k$ is analogous.
 \end{proof}
 
-\begin{lemma}[Riemann-Lebesgue]
+\begin{lemma}[Riemann-Lebesgue \rom{1}]
     Let $f\in \L^1[a,b]$. Then 
     \begin{equation*}
         \lim_{n\to\infty} \int_a^b f(x)e^{-inx}dx = 0.
@@ -173,4 +173,133 @@
     \begin{equation*}
         \lim_{N\to\infty} S_Nf(x) = f(x).
     \end{equation*}
+\end{theorem}
+\begin{proof}
+    Since $f$ is $2\pi$-periodic,
+    \begin{equation*}
+        \begin{split}
+            S_Nf(x) &= \int_{-\pi}^\pi D_N(x-y)f(y)dy = \int_{-\pi}^\pi D_N(y)f(x-y)dy \\
+            &= \int_0^\pi D_N(y)f(x-y)dy + \int_{-\pi}^0 D_N(y)f(x-y)dy \\
+            &= \int_0^\pi D_N(y)f(x-y)dy + \int_0^\pi D_N(-y)f(x+y)dy \\
+            &= \int_0^\pi D_N(y)\pth{f(x-y)+f(x+y)}dy.
+        \end{split}
+    \end{equation*}
+    Notice that 
+    \begin{equation*}
+        \frac{1}{2}\pth{f(x^+)+f(x^-)} = \int_0^\pi D_N(y)\pth{f(x^+)+f(x^-)}dy.
+    \end{equation*}
+    Thus for given $x$, we have 
+    \begin{equation*}
+        \begin{split}
+            \abs{S_Nf(x) - \frac{f(x^+)+f(x^-)}{2}} &\leq \abs{\int_0^\pi D_N(y)\pth{f(x+y)-f(x^+)}dy} \\
+            &\quad + \abs{\int_0^\pi D_N(y)\pth{f(x-y)-f(x^-)}dy}.
+        \end{split}
+    \end{equation*}
+    We claim that 
+    \begin{equation*}
+        \int_0^\pi D_N(y)\abs{f(x+y)-f(x^+)}dy \to 0
+    \end{equation*}
+    as $N\to\infty$ and the other integral is similar. There is a $\delta>0$ such that 
+    $f$ is continuous on $[x,x+\delta]$. Thus $f$ is uniformly continuous on 
+    $[x,x+\delta]$, and $\abs{f(x+y)-f(x^+)} < Cy$ for some constant $C>0$ and 
+    $y\in[0,\delta]$. Then 
+    \begin{equation*}
+        \int_0^\delta \abs{D_N(y)}\abs{f(x+y)-f(x^+)}dy \leq C\int_0^\delta y\abs{D_N(y)}dy
+        \leq C\int_0^\delta dy = C\delta, 
+    \end{equation*}
+    because $\abs{D_N(t)}\leq 1/\abs{t}$. On the other hand, 
+    \begin{equation*}
+        \begin{split}
+            \int_\delta^\pi \abs{D_N(y)}\abs{f(x+y)-f(x^+)}dy 
+            &\leq \frac{1}{2\pi}\int_\delta^\pi \frac{\sin((N+1/2)y)}{\sin(y/2)}\abs{f(x+y)-f(x^+)}dy \\
+            &\leq \frac{1}{2\pi\sin(\delta/2)}\int_\delta^\pi \sin((N+1/2)y)g(y)dy \to 0,
+        \end{split}
+    \end{equation*}
+    as $N\to\infty$ by the Riemann-Lebesgue lemma, where $g(y) = \abs{f(x+y)-f(x^+)}$ 
+    is a continuous function on $[\delta,\pi]$. Hence we see that 
+    \begin{equation*}
+        \abs{\int_0^\pi D_N(y)f(x+y)-f(x^+)dy} \to 0 \quad \text{as } N\to\infty.
+    \end{equation*}
+    We now see that 
+    \begin{equation*}
+        \abs{S_Nf(x) - \frac{f(x^+)+f(x^-)}{2}} \to 0 \quad \text{as } N\to\infty.
+    \end{equation*}
+    The pointwise convergence is achieved whenever $f$ is continuous since 
+    $f(x^+)=f(x^-)=f(x)$.
+\end{proof}
+
+\begin{definition}
+    The series $\sigma_Nf$ is defined by 
+    \begin{equation*}
+        \sigma_Nf(x) = \frac{1}{N+1}\sum_{n=0}^{N} S_nf(x).
+    \end{equation*}
+\end{definition}
+\begin{remark}
+    The series $\sigma_Nf$ is the Cesaro's mean of the Fourier series of $f$.
+\end{remark}
+
+\begin{definition}
+    The \textbf{Fejer kernel} is defined by 
+    \begin{equation*}
+        F_N(x) = \frac{1}{N+1}\sum_{k=0}^N D_k(x).
+    \end{equation*}
+\end{definition}
+\begin{remark}
+    The Fejer kernel can be simplified to 
+    \begin{equation*}
+        F_N(x) = \frac{\sin^2\pth{\frac{N+1}{2}x}}{2\pi(N+1)\sin^2(x/2)}.
+    \end{equation*}
+    To see this, note that 
+    \begin{equation*}
+        \begin{split}
+            F_N(t) &= \frac{1}{N+1}\sum_{k=0}^{N} D_k(t) 
+            = \frac{1}{2\pi(N+1)}\sum_{k=0}^{N} \frac{\sin((k+1/2)t)}{\sin(t/2)} \\
+            &= \frac{1}{2\pi(N+1)\sin^2(t/2)}\sum_{k=0}^{N} \sin((k+1/2)t)\sin(t/2) \\
+            &= \frac{1}{2\pi(N+1)\sin^2(t/2)}\sum_{k=0}^{N} \cos(kt) - \cos((k+1)t) \\ 
+            &= \frac{1}{4\pi(N+1)\sin^2(t/2)}\pth{1 - \cos((N+1)t)}
+            = \frac{\sin^2\pth{\frac{N+1}{2}t}}{2\pi(N+1)\sin^2(t/2)}.
+        \end{split}
+    \end{equation*}
+    Some other properties of the Fejer kernel include that if $f = 1$, then 
+    \begin{equation*}
+        \sigma_Nf = \int_{-\pi}^{\pi} F_N(x)dx = 1,
+    \end{equation*}
+    and that $F_N(-x) = F_N(x), F_N \geq 0$. Also, 
+    \begin{equation*}
+        \sigma_Nf(x) = \frac{1}{N+1}\sum_{k=0}^{N} \int_{-\pi}^\pi D_k(x-y)f(y)dy
+        = \int_{-\pi}^\pi \pth{\frac{1}{N+1}\sum_{k=0}^{N}D_k(x-y)}f(y)dy
+        = F_N*f(x).
+    \end{equation*}
+\end{remark}
+
+\begin{definition}
+    $C_{2\pi}$ denote the space of $2\pi$-periodic continuous functions. 
+    $C^k_{2\pi}$ denotes the space of $2\pi$-periodic functions having continuous 
+    derivatives up to order $k$.
+\end{definition}
+
+\begin{theorem}[Fejer]
+    Let $f\in C_{2\pi}$. Then $\sigma_Nf \to f$ uniformly.
+\end{theorem}
+\begin{proof}
+    Let $\epsilon>0$. There is a $\delta>0$ such that $\abs{f(x)-f(y)}<\epsilon$ 
+    whenever $\abs{x-y}<\delta$. Observe that if $\abs{t}\geq\delta$, then 
+    \begin{equation*}
+        F_N(t) \leq \frac{1}{2\pi(N+1)\sin^2(\delta/2)} \to 0
+    \end{equation*}
+    as $N\to\infty$. Hence 
+    \begin{equation*}
+        \begin{split}
+            \abs{\sigma_Nf(x) - f(x)} &= \abs{\int_{-\pi}^\pi F_N(x-y)f(y)dy - f(x)}  
+            \leq \int_{-\pi}^\pi F_N(x-y)\abs{f(y)-f(x)}dy \\
+            &\leq \int_{\abs{x-y}\leq \delta} F_N(x-y)\abs{f(y)-f(x)}dy + \int_{\delta\leq\abs{x-y}\leq\pi} F_N(x-y)\abs{f(y)-f(x)}dy \\
+            &\leq \epsilon\int_{-\pi}^\pi F_N(x-y)dy + 2\norm{f}_\infty\int_{\delta\leq\abs{x-y}\leq\pi} F_N(x-y)dy \\
+            &= \epsilon + 2\norm{f}_\infty\frac{\pi-\delta}{2\pi(N+1)\sin^2(\delta/2)} \to 0
+        \end{split}
+    \end{equation*}
+    as $N\to\infty$.
+\end{proof}
+
+\begin{theorem}
+    If $f\in C^1_{2\pi}$, then $S_Nf \to f$ uniformly.
 \end{theorem}
