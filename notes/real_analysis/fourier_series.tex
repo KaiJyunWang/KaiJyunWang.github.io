@@ -216,9 +216,9 @@
         \end{split}
     \end{equation*}
     as $N\to\infty$ by the Riemann-Lebesgue lemma, where $g(y) = \abs{f(x+y)-f(x^+)}$ 
-    is a continuous function on $[\delta,\pi]$. Hence we see that 
+    is a continuous function on $[\delta,\pi]$. Hence we have
     \begin{equation*}
-        \abs{\int_0^\pi D_N(y)f(x+y)-f(x^+)dy} \to 0 \quad \text{as } N\to\infty.
+        \abs{\int_0^\pi D_N(y)\pth{f(x+y)-f(x^+)}dy} \to 0 \quad \text{as } N\to\infty.
     \end{equation*}
     We now see that 
     \begin{equation*}
@@ -300,6 +300,102 @@
     as $N\to\infty$.
 \end{proof}
 
+\begin{definition}
+    The \textbf{trigonometric polynomial} of degree $N$ is a function of the form 
+    \begin{equation*}
+        TP_N(x) = \sum_{k=0}^N a_k\cos(kx) + b_k\sin(kx). 
+    \end{equation*}
+    The \textbf{trigonometric polynomial space} is denoted by $TP = \cup_N TP_N$.
+\end{definition}
+
 \begin{theorem}
-    If $f\in C^1_{2\pi}$, then $S_Nf \to f$ uniformly.
+    Under $\L^2[-\pi,\pi]$, $PC_{2\pi}\subset\overline{TP}$.
 \end{theorem}
+\begin{proof}
+    Since continuous functions are dense in $PC_{2\pi}$, it suffices to show 
+    that continuous functions can be approximated by trigonometric polynomials.
+    Let $f\in C_{2\pi}$. By the Fejer theorem, $\sigma_Nf \to f$ uniformly.
+    Since $\sigma_Nf$ is a trigonometric polynomial, $f$ can be approximated
+    by trigonometric polynomials. 
+\end{proof}
+
+\begin{definition}
+    The \textbf{best approximation error} of a function $f$ by a trigonometric 
+    polynomial is defined by $\tilde{E}_N(f) = \inf_{p\in TP_N}\norm{p-f}_\infty$. 
+\end{definition}
+
+\begin{theorem}\label{thm:fourier_series_approx_loss}
+    For $f\in C_{2\pi}$, 
+    \begin{equation*}
+        \norm{S_Nf - f}_\infty \leq C(1+\log N)\tilde{E}_N(f)
+    \end{equation*}
+    for some constant $C>0$.
+\end{theorem}
+\begin{proof}
+    Recall that $S_Nf = D_N*f$. Then
+    \begin{equation*}
+        \abs{S_Nf(x)} = \abs{\int_{-\pi}^\pi D_N(x-y)f(y)dy} \leq \int_{-\pi}^\pi \abs{D_N(x-y)}\abs{f(y)}dy
+        \leq \norm{f}_\infty\int_{-\pi}^\pi \abs{D_N(t)}dt.
+    \end{equation*}
+    Observe that 
+    \begin{equation*}
+        \abs{D_N(t)} = \frac{1}{2\pi}\abs{\frac{\sin\pth{(N+1/2)t}}{\sin(t/2)}} \leq \min\set{\frac{2N+1}{2\pi}, \frac{1}{2\abs{t}}}.
+    \end{equation*}
+    Thus 
+    \begin{equation*}
+        \begin{split}
+            \int_{-\pi}^{\pi} \abs{D_N(t)}dt &\leq \int_{\abs{t}\leq \pi/(2N+1)} \frac{2N+1}{2\pi}dt + \int_{\pi/(2N+1)\leq\abs{t}\leq\pi} \frac{1}{2\abs{t}}dt \\
+            &\leq \frac{2N+1}{2\pi}\frac{2\pi}{2N+1} + 2\cdot\frac{1}{2}\log(2N+1) \leq C(1 + \log N)
+        \end{split}
+    \end{equation*}
+    for some constant $C>0$. Now let $q^*$ be the best approximation to $f$ in $TP_N$. 
+    Notice that $S_Nq^* = q^*$ and $S_N$ is a linear operator. Then 
+    \begin{equation*}
+        \norm{S_Nf - q^*}_\infty = \norm{S_Nf - S_Nq^*}_\infty 
+        \leq \norm{S_N}\norm{f-q^*}_\infty \leq C(1+\log N)\tilde{E}_N(f)
+    \end{equation*}
+    as desired.
+\end{proof}
+
+\begin{theorem}
+    If $f\in C_{2\pi}$ is $L$-Lipschitz, then
+    \begin{thmenum}
+        \item $\norm{\sigma_Nf - f}_\infty \leq C_1\frac{1+\log N}{N}L$
+        \item $\norm{S_Nf - f}_\infty \leq C_2\frac{(1+\log N)^2}{N}L$
+    \end{thmenum}
+    for some constant $C_1,C_2>0$.
+\end{theorem}
+\begin{proof}
+    For (a) we have 
+    \begin{equation*}
+        \sigma_Nf(x) = (F_N*f)(x) = \int_{-\pi}^\pi F_N(x-y)f(y)dy.
+    \end{equation*}
+    And thus
+    \begin{equation*}
+        \begin{split}
+            \abs{\sigma_Nf(x) - f(x)} &\leq \int_{-\pi}^\pi F_N(x-y)\abs{f(y)-f(x)}dy \\
+            &= \int_{-\pi}^\pi F_N(u)\abs{f(x-u)-f(x)}du \leq L\int_{-\pi}^\pi F_N(u)\abs{u}du.
+        \end{split}
+    \end{equation*}
+    Observe that 
+    \begin{equation*}
+        \abs{F_N(u)} = \frac{1}{2\pi(N+1)}\abs{\frac{\sin^2\pth{\frac{N+1}{2}u}}{\sin^2(u/2)}} 
+        \leq \min\set{\frac{N+1}{2\pi}, \frac{\pi}{2(N+1)\abs{u}^2}}.
+    \end{equation*}
+    Then 
+    \begin{equation*}
+        \begin{split}
+            L\int_{-\pi}^\pi F_N(u)\abs{u}du &\leq L\int_{\abs{u}\leq \pi/(N+1)} \frac{N+1}{2\pi}\abs{u}du + L\int_{\pi/(N+1)\leq\abs{u}\leq\pi} \frac{\pi}{2(N+1)\abs{u}^2}\abs{u}du \\
+            &\leq L\int_{\abs{u}\leq \pi/(N+1)} \frac{N+1}{2\pi}\frac{\pi}{N+1}du + \frac{L\pi}{2(N+1)}\cdot 2\log(N+1) \\
+            &= \frac{L\pi}{N+1} + L\pi\frac{\log(N+1)}{N+1} \leq C_1\frac{1+\log N}{N}L
+        \end{split}
+    \end{equation*}
+    for some constant $C_1>0$. 
+    
+    For (b), from \cref{thm:fourier_series_approx_loss} we have
+    \begin{equation*}
+        \norm{S_Nf - f}_\infty \leq C(1+\log N)\tilde{E}_N(f) 
+        \leq C(1+\log N)\norm{\sigma_Nf - f}_\infty \leq C_2\frac{(1+\log N)^2}{N}L
+    \end{equation*}
+    for some constant $C_2>0$.
+\end{proof}
