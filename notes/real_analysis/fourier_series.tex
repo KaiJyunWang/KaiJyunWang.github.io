@@ -324,12 +324,15 @@
     polynomial is defined by $\tilde{E}_N(f) = \inf_{p\in TP_N}\norm{p-f}_\infty$. 
 \end{definition}
 
+\begin{definition}
+    For $f,g > 0$, $f\lesssim g$ if there is some constant $c>0$ such that $f\leq cg$.
+\end{definition}
+
 \begin{theorem}\label{thm:fourier_series_approx_loss}
     For $f\in C_{2\pi}$, 
     \begin{equation*}
-        \norm{S_Nf - f}_\infty \leq C(1+\log N)\tilde{E}_N(f)
+        \norm{S_Nf - f}_\infty \lesssim (1+\log N)\tilde{E}_N(f).
     \end{equation*}
-    for some constant $C>0$.
 \end{theorem}
 \begin{proof}
     Recall that $S_Nf = D_N*f$. Then
@@ -345,14 +348,14 @@
     \begin{equation*}
         \begin{split}
             \int_{-\pi}^{\pi} \abs{D_N(t)}dt &\leq \int_{\abs{t}\leq \pi/(2N+1)} \frac{2N+1}{2\pi}dt + \int_{\pi/(2N+1)\leq\abs{t}\leq\pi} \frac{1}{2\abs{t}}dt \\
-            &\leq \frac{2N+1}{2\pi}\frac{2\pi}{2N+1} + 2\cdot\frac{1}{2}\log(2N+1) \leq C(1 + \log N)
+            &\leq \frac{2N+1}{2\pi}\frac{2\pi}{2N+1} + 2\cdot\frac{1}{2}\log(2N+1) \lesssim (1 + \log N).
         \end{split}
     \end{equation*}
-    for some constant $C>0$. Now let $q^*$ be the best approximation to $f$ in $TP_N$. 
+    Now let $q^*$ be the best approximation to $f$ in $TP_N$. 
     Notice that $S_Nq^* = q^*$ and $S_N$ is a linear operator. Then 
     \begin{equation*}
         \norm{S_Nf - q^*}_\infty = \norm{S_Nf - S_Nq^*}_\infty 
-        \leq \norm{S_N}\norm{f-q^*}_\infty \leq C(1+\log N)\tilde{E}_N(f)
+        \leq \norm{S_N}\norm{f-q^*}_\infty \lesssim (1+\log N)\tilde{E}_N(f)
     \end{equation*}
     as desired.
 \end{proof}
@@ -360,10 +363,9 @@
 \begin{theorem}
     If $f\in C_{2\pi}$ is $L$-Lipschitz, then
     \begin{thmenum}
-        \item $\norm{\sigma_Nf - f}_\infty \leq C_1\frac{1+\log N}{N}L$
-        \item $\norm{S_Nf - f}_\infty \leq C_2\frac{(1+\log N)^2}{N}L$
+        \item $\norm{\sigma_Nf - f}_\infty \lesssim \frac{1+\log N}{N}L$,
+        \item $\norm{S_Nf - f}_\infty \lesssim \frac{(1+\log N)^2}{N}L$.
     \end{thmenum}
-    for some constant $C_1,C_2>0$.
 \end{theorem}
 \begin{proof}
     For (a) we have 
@@ -387,15 +389,266 @@
         \begin{split}
             L\int_{-\pi}^\pi F_N(u)\abs{u}du &\leq L\int_{\abs{u}\leq \pi/(N+1)} \frac{N+1}{2\pi}\abs{u}du + L\int_{\pi/(N+1)\leq\abs{u}\leq\pi} \frac{\pi}{2(N+1)\abs{u}^2}\abs{u}du \\
             &\leq L\int_{\abs{u}\leq \pi/(N+1)} \frac{N+1}{2\pi}\frac{\pi}{N+1}du + \frac{L\pi}{2(N+1)}\cdot 2\log(N+1) \\
-            &= \frac{L\pi}{N+1} + L\pi\frac{\log(N+1)}{N+1} \leq C_1\frac{1+\log N}{N}L
+            &= \frac{L\pi}{N+1} + L\pi\frac{\log(N+1)}{N+1} \lesssim \frac{1+\log N}{N}L,
         \end{split}
     \end{equation*}
-    for some constant $C_1>0$. 
+    proving (a).
     
     For (b), from \cref{thm:fourier_series_approx_loss} we have
     \begin{equation*}
-        \norm{S_Nf - f}_\infty \leq C(1+\log N)\tilde{E}_N(f) 
-        \leq C(1+\log N)\norm{\sigma_Nf - f}_\infty \leq C_2\frac{(1+\log N)^2}{N}L
+        \norm{S_Nf - f}_\infty \lesssim (1+\log N)\tilde{E}_N(f) 
+        \lesssim \norm{\sigma_Nf - f}_\infty \lesssim \frac{(1+\log N)^2}{N}L,
     \end{equation*}
-    for some constant $C_2>0$.
+    proving (b).
+\end{proof}
+
+\begin{definition}
+    The \textbf{Chebyshev polynomials} are defined by $T_n(x) = \cos(n\cos^{-1}(x))$ 
+    for $n = 0,1,\ldots$ on $[-1,1]$.
+\end{definition}
+\begin{remark}
+    The Chebyshev polynomials have the following recurrence property, 
+    \begin{equation*}
+        \begin{split}
+            T_{n+1}(x) &= \cos((n+1)\cos^{-1}(x)) = \cos(n\cos^{-1}(x))\cos(\cos^{-1}(x)) - \sin(n\cos^{-1}(x))\sin(\cos^{-1}(x)) \\
+            &= xT_n(x) - \frac{1}{2}\cos((n-1)\cos^{-1}(x)) + \frac{1}{2}\cos((n+1)\cos^{-1}(x)) \\
+            &= xT_n(x) - \frac{1}{2}T_{n-1}(x) + \frac{1}{2}T_{n+1}(x).
+        \end{split}
+    \end{equation*}
+    Then 
+    \begin{equation*}
+        T_{n+1}(x) = 2xT_n(x) - T_{n-1}(x).
+    \end{equation*}
+    Immediately we see that $T_n(x)\in P_n[-1,1]$.
+\end{remark}
+
+\begin{proposition}
+    $\set{T_n}_{n=0}^\infty$ forms an orthogonal set with respect to 
+    the inner product 
+    \begin{equation*}
+        \inp{f}{g}_T = \frac{1}{\pi}\int_{-1}^{1} f(x)g(x)\frac{dx}{\sqrt{1-x^2}}.
+    \end{equation*}
+\end{proposition}
+\begin{proof}
+    Using the change of variable $x = \cos(\theta)$, a direct 
+    computation gives 
+    \begin{equation*}
+        \begin{split}
+            \inp{T_m}{T_n}_T &= \frac{1}{\pi}\int_{-1}^{1} \cos(m\cos^{-1}(x))\cos(n\cos^{-1}(x))\frac{dx}{\sqrt{1-x^2}} 
+            = \frac{1}{\pi}\int_0^\pi \cos(m\theta)\cos(n\theta)d\theta \\
+            &= \frac{1}{2\pi}\int_0^\pi \cos((m+n)\theta) + \cos((m-n)\theta)d\theta 
+            = 0
+        \end{split}
+    \end{equation*}
+    for $m\neq n$.
+\end{proof}
+
+\begin{proposition}\label{prop:chebyshev_isomorphism}
+    Let $E[-\pi,\pi]$ be the subspace of $C[-1,1]$ consisting of 
+    all even continuous function on $[-\pi,\pi]$. Consider the mapping 
+    $\Phi:C[-1,1]\to E[-\pi,\pi]$ defined by $\Phi:f\to f\circ\cos$. 
+    Then the followings are true. 
+    \begin{thmenum}
+        \item $\Phi$ is well-defined and is an isomorphism. 
+        \item $(\Phi T_n)(\theta) = \cos(n\theta)$. 
+        \item $\Phi(P_n) = E[-\pi,\pi]\cap TP_n$. 
+        \item $\Phi$ is isometric. 
+        \item $E_n(f) = \tilde{E}_n(\Phi f)$ for all $f\in C[-1,1]$.
+        \item $\inp{f}{g}_T = \inp{\Phi f}{\Phi g}$ for all $f,g\in C[-1,1]$.
+    \end{thmenum}
+\end{proposition}
+\begin{proof}
+    For (a), since $(\Phi f)(-x) = f(\cos(-x)) = f(\cos(x)) =( \Phi f)(x)$ and 
+    both $f$ and $\cos$ are continuous, $f\circ \cos$ is also continuous, 
+    we conclude that $\Phi f\in E[-\pi,\pi]$ and $\Phi$ is well-defined. 
+    Now if $\Phi f = 0$, then $\norm{f}_\infty = \norm{\Phi f}_\infty = 0$ 
+    and thus $f = 0$. Hence $\Phi$ is injective. For the sujectivity, let 
+    $g\in E[-\pi,\pi]$. $\Phi (g\circ\cos^{-1}) = g$ and $g\circ\cos^{-1}$ 
+    is continuous. Thus $\Phi$ is surjective. 
+
+    (b) is immediate from the definition of $\Phi$. $(\Phi T_n)(\theta) 
+    = \cos(n\cos^{-1}(\cos(\theta))) = \cos(n\theta)$.
+
+    We now prove (c). From (a) we have $\Phi$ is an isomorphism. Also, 
+    from (b) we have that $\Phi(P_n)\subset TP_n$. For any even trigonometric 
+    polynomial $p\in TP_n$, $p(x) = \sum_{k=0}^n a_k\cos(kx)$. Then 
+    consider $g = \sum_{k=0}^{n} a_kT_k$. Then 
+    \begin{equation*}
+        (\Phi g)(x) = \sum_{k=0}^{n} a_k(T_k\circ\cos)(x) = \sum_{k=0}^{n} a_k\cos(k\cos^{-1}(\cos(x))) = \sum_{k=0}^{n} a_k\cos(kx) = p(x).
+    \end{equation*}
+    Hence $TP_n\subset \Phi(P_n)$ and (c) is proven. 
+
+    For (d), 
+    \begin{equation*}
+        \norm{\Phi f}_\infty = \sup_{x\in[-\pi,\pi]} \abs{f(\cos(x))} = \sup_{x\in[-1,1]}\abs{f(x)} = \norm{f}_\infty.
+    \end{equation*} 
+
+    (e) is an immediate consequence of (d). 
+
+    Finally, for (f), by changing the variable $x = \cos\theta$ and 
+    the fact that $f(\cos(\theta))g(\cos(\theta))$ is even, we have
+    \begin{equation*}
+        \inp{f}{g}_T = \frac{1}{\pi}\int_{-1}^{1} f(x)g(x)\frac{dx}{\sqrt{1-x^2}} = \frac{1}{2\pi}\int_{-\pi}^{\pi} f(\cos(\theta))g(\cos(\theta))d\theta = \inp{\Phi f}{\Phi g},
+    \end{equation*}
+    showing (f).
+\end{proof}
+
+\begin{theorem}
+    If $f\in C[-1,1]$ admits a Chebyshev series
+    \begin{equation*}
+        f(x) = \sum_{n=0}^\infty a_nT_n(x),
+    \end{equation*}
+    then 
+    \begin{equation*}
+        \tau_Nf = \sum_{k=0}^{N}(1-\frac{k}{N+1})a_kT_k \to f 
+    \end{equation*}
+    uniformly on $[-1,1]$. If $f$ is Lipschitz and $P_N^Cf$ is 
+    the truncated Chebyshev series to $f$, then 
+    \begin{equation*}
+        \norm{P_N^Cf - f}_\infty \lesssim (1+\log N)E_N(f).
+    \end{equation*}
+\end{theorem}
+\begin{proof}
+    Consider the transformation $\Phi:C[-1,1]\to E[-\pi,\pi]$ defined by 
+    $\Phi:f\to f\circ\cos$. Then from \cref{prop:chebyshev_isomorphism} we 
+    have 
+    \begin{equation*}
+        (\Phi\tau_Nf)(\theta) = \sum_{k=0}^{N}\pth{1-\frac{k}{N+1}}a_k\cos(k\theta) 
+        = \frac{1}{N+1}\sum_{j=0}^N\sum_{k=0}^j a_j\cos(j\theta) = \sigma_N(\Phi f)(\theta). 
+    \end{equation*}
+    By the Fejer theorem, 
+    \begin{equation*}
+        \norm{\tau_Nf - f}_\infty = \norm{\Phi\tau_Nf - \Phi f}_\infty = \norm{\sigma_N(\Phi f) - \Phi f}_\infty \to 0
+    \end{equation*}
+    as $N\to\infty$. 
+
+    To see the second part, suppose that $f$ is $L$-Lipschitz. Then
+    \begin{equation*}
+        \abs{\Phi f(\alpha) - \Phi f(\beta)} \leq L\abs{\cos(\alpha) - \cos(\beta)} \leq L\abs{\alpha - \beta}
+    \end{equation*}
+    since the derivative of $\cos$ is bounded by $1$. Thus $\Phi f$ 
+    is $L$-Lipschitz and 
+    \begin{equation*}
+        \norm{P_N^Cf - f}_\infty = \norm{\Phi P_N^Cf - \Phi f}_\infty 
+        = \norm{S_N(\Phi f) - \Phi f}_\infty \lesssim (1+\log N)\tilde{E}_N(\Phi f) 
+        = (1+\log N)E_N(f)
+    \end{equation*}
+    by \cref{thm:fourier_series_approx_loss} and part (e) of \cref{prop:chebyshev_isomorphism}.
+\end{proof}
+
+\begin{theorem}[Jackson]
+    For $f\in C[-1,1]$, 
+    \begin{equation*}
+        E_N(f) \lesssim \omega(f,\frac{1}{N}).
+    \end{equation*}
+\end{theorem}
+\begin{proof}
+    Let $\phi(\theta) = \sum_{k=0}^{N} c_k\cos(k\theta)\in TP_N$, 
+    where $c_k\in\R$ such that $\phi\geq 0$. For any $2\pi$-periodic 
+    $f$, define $\Psi$ by 
+    \begin{equation*}
+        \Psi f(\theta) = \frac{1}{2\pi}\int_{-\pi}^\pi f(\theta - t)\phi(t)dt = \frac{1}{2\pi}(f*\phi)(\theta).
+    \end{equation*}
+
+    Next we make the following observations. First, $\Psi\mathbf{1} = \mathbf{1}$ 
+    where $\mathbf{1}$ is the constant function $\mathbf{1}(\theta) = 1$. Second, 
+    $\Psi$ is linear and positive. To see this, note that 
+    \begin{equation*}
+        \Psi(cf+g) = \frac{1}{2\pi}\int_{-\pi}^\pi (cf+g)(\theta - t)\phi(t)dt = c\Psi f + \Psi g
+    \end{equation*}
+    for any $c\in\R$ and $f,g\in C[-1,1]$. Also, if $f\geq 0$, then 
+    \begin{equation*}
+        \Psi f(\theta) = \frac{1}{2\pi}\int_{-\pi}^\pi f(\theta - t)\phi(t)dt \geq 0.
+    \end{equation*}
+    Third, $\Psi f\in TP_N$ for any $f\in C[-1,1]$. Indeed, 
+    \begin{equation*}
+        \begin{split}
+            \Psi f(\theta) &= \frac{1}{2\pi}\int_{-\pi}^{\pi} f(t)\phi(\theta - t)dt 
+            = \frac{1}{2\pi}\sum_{k=0}^{N}\int_{-\pi}^{\pi} f(t)c_k\cos(k(\theta - t))dt \\ 
+            &= \frac{1}{2\pi}\sum_{k=0}^{N} B_k\cos(k\theta) + D_k\sin(k\theta) \in TP_N
+        \end{split}
+    \end{equation*}
+    with 
+    \begin{equation*}
+        B_k = \frac{c_k}{2\pi}\int_{-\pi}^{\pi} f(t)\cos(kt)dt, 
+        \quad \text{and} \quad
+        D_k = \frac{c_k}{2\pi}\int_{-\pi}^{\pi} f(t)\sin(kt)dt.
+    \end{equation*}
+
+    Now we have the last claim that 
+    \begin{equation*}
+        \norm{\Psi f - f}_\infty \leq \omega(f,\frac{1}{N})\pth{1 + \frac{N\pi}{2}\sqrt{2 - C}} 
+    \end{equation*}
+    for some constant $C>0$, which will be determined later. Since $f$ is uniformly continuous, 
+    \begin{equation*}
+        \abs{f(\theta - t) - f(\theta)} \leq \omega\pth{f,\abs{t}} \leq (1 + N\abs{t})\omega\pth{f,\frac{1}{N}}.
+    \end{equation*}
+    Using the first observation $\Psi \mathbf{1} = \mathbf{1}$, we have
+    \begin{equation*}
+        \abs{\Psi f(\theta) - f(\theta)} = \abs{\frac{1}{2\pi}\int_{-\pi}^{\pi}\pth{f(\theta - t) - f(\theta)}\phi(t)dt}
+        \leq \frac{1}{2\pi}\omega\pth{f,\frac{1}{N}}\int_{-\pi}^{\pi}\pth{1 + N\abs{t}}\phi(t)dt.
+    \end{equation*}
+    Also, 
+    \begin{equation*}
+        \begin{split}
+            \frac{1}{2\pi}\int_{-\pi}^{\pi} \pth{1 + N\abs{t}}\phi(t)dt &= 1 + \frac{N}{2\pi}\int_{-\pi}^{\pi} \abs{t}\phi(t)dt \\
+            &\leq 1 + N\pth{\frac{1}{2\pi}\int_{-\pi}^{\pi} \abs{t}^2\phi(t)dt}^{1/2}\pth{\frac{1}{2\pi}\int_{-\pi}^{\pi} \phi(t)dt}^{1/2} \\
+            &= 1 + N\pth{\frac{1}{2\pi}\int_{-\pi}^{\pi} \abs{t}^2\phi(t)dt}^{1/2}
+        \end{split}
+    \end{equation*}
+    by the Cauchy-Schwarz inequality. Notice that 
+    \begin{equation*}
+        1 - \cos t = 2\sin^2\frac{t}{2} \geq 2\frac{4}{\pi^2}\frac{t^2}{4} = \frac{2t^2}{\pi^2} 
+        \Rightarrow \abs{t}^2 \leq \frac{\pi^2}{2}(1-\cos t).
+    \end{equation*}
+    Then 
+    \begin{equation*}
+        \frac{1}{2\pi}\int_{-\pi}^{\pi} \pth{1 + N\abs{t}}\phi(t)dt \leq 1 + N\pth{\frac{1}{2\pi}\frac{\pi^2}{2}\int_{-\pi}^{\pi} (1-\cos t)\phi(t)dt}^{1/2} 
+        = 1 + \frac{N\pi}{2}\sqrt{2 - C}.
+    \end{equation*}
+    Thus 
+    \begin{equation*}
+        \norm{\Psi f - f}_\infty \leq \omega(f,\frac{1}{N})\pth{1 + \frac{N\pi}{2}\sqrt{2 - C}}.
+    \end{equation*}
+
+    Finally, we want to pin down our constant $C$ so that $\sqrt{2 - C}$ is minimized 
+    and $\Psi \mathbf{1} = \mathbf{1}$. We conjecture that $\phi(\theta) = C_1\abs{p(\theta)}^2$, 
+    where $p(\theta) = \sum_{k=0}^{N} a_ke^{ik\theta}$, $a_k = \sin\pth{\frac{k+1}{N+2}\pi}$. 
+    Compute that 
+    \begin{equation*}
+        \begin{split}
+            C_1\abs{p(\theta)}^2 &= C_1p(\theta)\overline{p(\theta)} = C_1\sum_{k=0}^{N}a_ke^{ik\theta}\sum_{j=0}^{N}a_je^{-ij\theta}  \\
+            &= C_1\sum_{k=0}^{N}\sum_{j=0}^{N}a_ka_j e^{i(k-j)\theta} = C_1\sum_{k=0}^{N}a_k^2 + C_1\sum_{s=1}^{N}\sum_{k=0}^{N-s}a_ka_{k+s}\pth{e^{is\theta} + e^{-is\theta}} \\ 
+            &= C_1\sum_{k=0}^{N}a_k^2 + 2C_1\sum_{s=1}^{N}\sum_{k=0}^{N-s}a_ka_{k+s}\cos(s\theta).
+        \end{split}
+    \end{equation*}
+    Take $C = \pth{\sum_{k=0}^N a_k^2}^{-1}$, then
+    \begin{equation*}
+        \phi(\theta) = 1 + \sum_{s=1}^{N}2C_1b_s\cos(s\theta), \quad \text{where } b_s = \sum_{k=0}^{N-s}a_ka_{k+s}.
+    \end{equation*}
+    Now 
+    \begin{equation*}
+        \begin{split}
+            2b_1 &= \sum_{k=0}^{N-1}2\sin\pth{\frac{k+1}{N+2}\pi}\sin\pth{\frac{k+2}{N+2}\pi} 
+            = \sum_{k=1}^{N}2\sin\pth{\frac{k}{N+2}\pi}\sin\pth{\frac{k+1}{N+2}\pi} \\
+            &= \sum_{k=0}^{N-1}2\sin\pth{\frac{k}{N+2}\pi}\sin\pth{\frac{k+1}{N+2}\pi}.
+        \end{split}
+    \end{equation*}
+    Combining the first expression and the third one allows us to write 
+    \begin{equation*}
+        \begin{split}
+            2b_1 &= \sum_{k=0}^{N-1}\sin\pth{\frac{k+1}{N+2}\pi}\pth{\sin\pth{\frac{k}{N+2}\pi} + \sin\pth{\frac{k+2}{N+2}\pi}} \\
+            &= \sum_{k=0}^{N-1}\sin^2\pth{\frac{k+1}{N+2}\pi}\cos\frac{2\pi}{N+2} 
+            = \cos\pth{\frac{2\pi}{N+2}}\sum_{k=0}^{N-1}a_k^2 = C_1^{-1}\cos\pth{\frac{2\pi}{N+2}}.
+        \end{split}
+    \end{equation*}
+    Now 
+    \begin{equation*}
+        C = 2C_1b_1 = 2\cos(\frac{2\pi}{N+2}) \Rightarrow 2 - C \lesssim \frac{1}{N^2}
+    \end{equation*}
+    by the Taylor expansion of $\cos$. It now follows from the last claim that 
+    \begin{equation*}
+        \norm{\Psi f - f}_\infty \leq \omega(f,\frac{1}{N})\pth{1 + \frac{N\pi}{2}\sqrt{2 - C}} \lesssim \omega(f,\frac{1}{N}).
+    \end{equation*}
+    The proof is complete.
 \end{proof}

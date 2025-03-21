@@ -1,0 +1,35 @@
+\begin{definition}
+    For $f\in\L^1(\R)$, its \textbf{Fourier transform} is defined as 
+    \begin{equation}
+        \hat{f}(t) = \int_{\R} f(x)e^{-2\pi itx}dx.
+    \end{equation}
+\end{definition}
+\begin{remark}
+    The Fourier series coefficients can be viewed as discrete Fourier transform 
+    $f\mapsto \set{a_n}_{n\in\Z}$, with 
+    \begin{equation}
+        a_n = \int_{-1}^{1}f(x)e^{-2\pi inx}dx.
+    \end{equation}
+    The inverse discrete Fourier transform is then given by 
+    \begin{equation}
+        f(x) = \sum_{n\in\Z}a_ne^{2\pi inx}.
+    \end{equation}
+\end{remark}
+
+\begin{example}
+    \begin{equation*}
+        \hat{\chi}_{[a,b]}(t) = \int_{a}^{b}e^{-2\pi itx}dx 
+        = \begin{cases}
+            b-a & \text{if }t=0, \\
+            \frac{-1}{2\pi it}\pth{e^{-2\pi itb} - e^{-2\pi ita}} & \text{if }t\neq 0.
+        \end{cases} 
+    \end{equation*}    
+\end{example} 
+
+\begin{lemma}[Riemann-Lebesgue \rom{2}]
+    Let $f\in\L^1(\R)$. Then $\hat{f}$ is uniformly continuous on $\R$, 
+    satisfying $\norm{\hat{f}}_\infty\leq\norm{f}_1$, and 
+    \begin{equation*}
+        \lim_{\abs{t}\to\infty}\hat{f}(t) = 0.
+    \end{equation*} 
+\end{lemma}
