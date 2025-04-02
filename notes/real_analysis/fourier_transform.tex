@@ -1,7 +1,7 @@
 \begin{definition}
     For $f\in\L^1(\R)$, its \textbf{Fourier transform} is defined as 
     \begin{equation}
-        \hat{f}(t) = \int_{\R} f(x)e^{-2\pi itx}dx.
+        \hat{f}(t) = \F f = \int_{\R} f(x)e^{-2\pi itx}dx.
     \end{equation}
 \end{definition}
 \begin{remark}
@@ -33,3 +33,327 @@
         \lim_{\abs{t}\to\infty}\hat{f}(t) = 0.
     \end{equation*} 
 \end{lemma}
+\begin{proof}
+    We first prove the uniform continuity of $\hat{f}$. Let 
+    $t_n\to t$. Then since $\abs{e^{-2\pi it_nx}f(x)}\leq \abs{f(x)}$, 
+    we may apply the Lebesgue dominated convergence theorem to obtain 
+    \begin{equation*}
+        \lim_{n\to\infty}\hat{f}(t_n) = \lim_{n\to\infty}\int_{\R}f(x)e^{-2\pi it_nx}dx 
+        = \int_{\R}f(x)e^{-2\pi itx}dx = \hat{f}(t).
+    \end{equation*}
+    Hence $\hat{f}$ is uniformly continuous. 
+
+    To see the second property, we have
+    \begin{equation*}
+        \abs{\hat{f}(t)} = \abs{\int_{\R}f(x)e^{-2\pi itx}dx} 
+        \leq \int_{\R}\abs{f(x)}\abs{e^{-2\pi itx}}dx 
+        = \int_{\R}\abs{f(x)}dx = \norm{f}_1
+    \end{equation*}
+    for any $t\in\R$ and thus $\norm{\hat{f}}_\infty\leq\norm{f}_1$. 
+
+    Finally, if $f = \chi_E$ where $E = [a,b]$ is an interval, then 
+    \begin{equation*}
+        \hat{f}(t) = \begin{cases}
+            b-a & \text{if }t=0, \\
+            \frac{-1}{2\pi it}\pth{e^{-2\pi itb} - e^{-2\pi ita}} & \text{if }t\neq 0.
+        \end{cases}
+    \end{equation*}
+    Clearly $\hat{f}(t)\to 0$ as $\abs{t}\to\infty$. Since step functions 
+    are finite linear combinations of such characteristic functions, 
+    the result holds for stpe functions. For any integrable function, 
+    we can find a sequence of step functions $f_n$ such that $\norm{f_n-f}_1\to 0$. 
+    Then 
+    \begin{equation*}
+        \abs{\hat{f}(t) - \hat{f_n}(t)} = \abs{\int_{\R}(f(x)-f_n(x))e^{-2\pi itx}dx} 
+        \leq \int_{\R}\abs{f(x)-f_n(x)}dx = \norm{f-f_n}_1\to 0
+    \end{equation*}
+    as $n\to\infty$. Since $\hat{f_n}(t)$ is uniformly continuous and 
+    $\hat{f_n}(t)\to 0$ as $\abs{t}\to\infty$, we have $\hat{f}(t)\to 0$ 
+    as well. 
+\end{proof} 
+
+\begin{proposition}
+    Let $\hat{f}$ be the Fourier transform of $f$. 
+    \begin{thmenum}
+        \item If $f\in\L^1(\R)$ and $g(x) = xf(x)\in\L^1(\R)$ as well, then 
+        $\hat{f}\in C^1(\R)$ and $\hat{f}'(t) = -2\pi i\hat{g}(t)$.
+        \item If $f\in\L^1(\R)\cap C^1(\R)$ and $f'\in\L^1(\R)$, then 
+        \begin{equation*}
+            \widehat{(f')}(t) = 2\pi i t\hat{f}(t).
+        \end{equation*}
+    \end{thmenum}
+\end{proposition}
+\begin{proof}
+    For (a), 
+    \begin{equation*}
+        \frac{1}{s}\pth{\hat{f}(t+s) - \hat{f}(t)} 
+        = \frac{1}{s}\int_{\R}f(x)e^{-2\pi i(t+s)x - e^{-2\pi itx}}dx 
+        = \int_{\R}f(x)e^{-2\pi itx}\frac{e^{-2\pi isx} - 1}{s}dx.
+    \end{equation*}
+    Observe that 
+    \begin{equation*}
+        \abs{f(x)e^{-2\pi tx}\frac{1}{s}(e^{-2\pi isx} - 1)} 
+        \lesssim \abs{xf(x)} = \abs{g(x)}\in\L^1(\R).
+    \end{equation*}
+    By the Lebesgue dominated convergence theorem, 
+    \begin{equation*}
+        \frac{1}{s}\pth{\hat{f}(t+s) - \hat{f}(t)} = \int_{\R}f(x)e^{-2\pi itx}\frac{e^{-2\pi isx} - 1}{s}dx 
+        \to -2\pi i\int_{\R}g(x)e^{-2\pi itx}dx = -2\pi i\hat{g}(t).
+    \end{equation*}
+
+    For (b), using integration by parts,
+    \begin{equation*}
+        \widehat{(f')}(t) = \int_{\R}f'(x)e^{-2\pi itx}dx 
+        = f(x)e^{-2\pi itx}\bigg|_{-\infty}^{\infty} + 2\pi it\int_{\R}f(x)e^{-2\pi itx}dx 
+        = 2\pi it\hat{f}(t).
+    \end{equation*}
+\end{proof}
+
+\begin{proposition}\label{prop:fourier_transform_properties}
+    Let $f\in\L^1(\R)$ and $b,t\in\R$. Then 
+    \begin{thmenum}
+        \item If $g(x) = f(x-b)$, $\hat{g}(t) = e^{-2\pi ibt}\hat{f}(t)$. 
+        \item If $g(x) = e^{2\pi ibx}f(x)$, $\hat{g}(t) = \hat{f}(t-b)$. 
+        \item If $g(x) = f(bx)$, $\hat{g}(t) = \frac{1}{\abs{b}}\hat{f}\pth{\frac{t}{b}}$. 
+        \item If $f,g\in\L^1(\R)$, then
+        \begin{equation*}
+            \int \hat{f}(t)g(t)dt = \int f(t)\hat{g}(t)dt.
+        \end{equation*}
+    \end{thmenum}
+\end{proposition}
+\begin{proof}
+    For (a), using a translation,
+    \begin{equation*}
+        \hat{g}(t) = \int f(x-b)e^{-2\pi xt}dx = \int f(x)e^{-2\pi (x+b)t}dt 
+        = e^{-2\pi ibt}\int f(t)e^{-2\pi ixt}dx = e^{-2\pi ibt}\hat{f}(t).
+    \end{equation*}
+
+    For (b), using a translation,
+    \begin{equation*}
+        \hat{g}(t) = \int f(x)e^{2\pi bx}e^{-2\pi ixt}dx = \int f(x)e^{-2\pi ix(t-b)}dx 
+        = \hat{f}(t-b).
+    \end{equation*}
+
+    For (c), using a dilation,
+    \begin{equation*}
+        \hat{g}(t) = \int f(bx)e^{-2\pi ixt}dx = \frac{1}{\abs{b}}\int f(x)e^{-2\pi ixt/b}dx 
+        = \frac{1}{\abs{b}}\hat{f}\pth{\frac{t}{b}}.
+    \end{equation*}
+
+    For (d), using Fubini theorem, 
+    \begin{equation*}
+        \int \hat{f}(t)g(t)dt = \int\int f(x)g(t)e^{-2\pi ixt}dxdt 
+        = \int\int f(x)g(t)e^{-2\pi ixt}dtdx 
+        = \int f(x)\hat{g}(x)dx.
+    \end{equation*}
+    The use of Fubini theorem is justified as follows: 
+    \begin{equation*}
+        \int\int \abs{f(x)g(t)e^{-2\pi ixt}}dxdt = \int \abs{g(t)}dt\int f(x)dx = \norm{f}_1\norm{g}_1 < \infty,
+    \end{equation*}
+    since $f,g\in\L^1(\R)$.
+\end{proof}
+
+\begin{theorem}[Convolution Theorem]\phantom{.}\vspace{-1.5em}
+    \begin{thmenum}
+        \item For $p\in[1,\infty]$, if $f\in\L^1(\R)$ and $g\in\L^p(\R)$, then 
+        $\norm{f*g}_p \leq \norm{f}_1\norm{g}_p$. 
+        \item If $f,g\in\L^1(\R)$, then $\widehat{f*g} = \hat{f}\cdot\hat{g}$.
+    \end{thmenum}
+\end{theorem}
+\begin{proof}
+    We first prove (a). For the case $p=\infty$, 
+    \begin{equation*}
+        \abs{(f*g)(x)} = \int f(y)g(x-y)dy \leq \norm{f}_1\norm{g}_\infty.
+    \end{equation*} 
+    For the case $p=1$, by Tonelli theorem,
+    \begin{equation*}
+        \begin{split}
+            \norm{f*g}_1 &\leq \int\int \abs{f(y)g(x-y)}dydx = \int\int\abs{f(y)}\abs{g(x-y)}dxdy \\
+            &= \norm{g}_1\int \abs{f(y)}dy = \norm{f}_1\norm{g}_1.
+        \end{split}
+    \end{equation*}
+    For the general case where $p\in(1,\infty)$, with $1/p + 1/p' = 1$, 
+    \begin{equation*}
+        \begin{split}
+            \norm{f*g}_p^p &= \int\abs{\int f(x-y)g(y)dy}^pdx \leq \int\pth{\int \abs{f(x-y)g(y)}dy}^pdx \\ 
+            &\leq \int\pth{\int\abs{f(x-y)}dy}^{p/p'}\int \abs{f(x-y)}\abs{g(y)}^pdydx \\
+            &= \norm{f}_1^{p/p'}\norm{f*(g^p)}_1 \leq \norm{f}_1^{p/p'}\norm{g^p}_1\norm{f}_1 
+            = \norm{f}_1^{p/p'}\norm{f}_1\norm{g}_p^p. 
+        \end{split}
+    \end{equation*}
+    The second line uses the H\"older inequality and the inequality in the 
+    third line uses the result for $p=1$. Now we obtain that 
+    \begin{equation*}
+        \norm{f*g}_p = \norm{f}_1\norm{g}_p
+    \end{equation*}
+    
+    For (b), using Fubini theorem,
+    \begin{equation*}
+        \begin{split}
+            \widehat{f*g}(t) &= \int\int f(x-y)g(y)dy e^{-2\pi ixt}dx 
+            = \int\int f(x-y)g(y)e^{-2\pi ixt}dxdy \\
+            &= \int\int f(x-y)g(y)e^{-2\pi i(x-y)t}d(x-y)e^{-2\pi iyt}dy \\
+            &= \int g(y)\hat{f}(t)e^{-2\pi yt}dy = \hat{f}(t)\hat{g}(t).
+        \end{split}
+    \end{equation*}
+    We verify that $(x,y)\mapsto\abs{f(x-y)g(y)e^{-2\pi ixt}}$ is integrable. 
+    Indeed, 
+    \begin{equation*}
+        \begin{split}
+            \int\int \abs{f(x-y)g(y)e^{-2\pi ixt}}dydx 
+            &= \int\int \abs{f(x-y)}\abs{g(y)}dxdy \\
+            &= \int\abs{g(y)}dy\int\abs{f(x-y)}dx 
+            = \norm{f}_1\norm{g}_1 < \infty
+        \end{split}
+    \end{equation*}
+    by Tonelli theorem. The proof is complete.
+\end{proof}
+
+\begin{definition}
+    Given $\epsilon>0$, the \textbf{Poisson kernel} is defined as 
+    \begin{equation*}
+        P_\epsilon(x) = \frac{1}{\pi}\frac{\epsilon}{x^2+\epsilon^2}.
+    \end{equation*}
+\end{definition}
+
+\begin{proposition}\label{prop:poisson_kernel}
+    Let $P_\epsilon$ be the Poisson kernel. Then 
+    \begin{thmenum}
+        \item $P_\epsilon(x)\geq 0$ for all $x\in\R$ and $\epsilon>0$.
+        \item For any $\epsilon>0$,
+        \begin{equation*}
+            \int P_\epsilon(x)dx = 1.
+        \end{equation*}
+        \item $\sup_\epsilon\norm{P_\epsilon}_1 \leq M < \infty$ for some $M>0$.
+        \item For any given $\eta>0$, 
+        \begin{equation*}
+            \lim_{\epsilon\to 0}\int_{\abs{x}>\eta}P_\epsilon(x)dx = 0.
+        \end{equation*}
+    \end{thmenum}
+\end{proposition}
+\begin{proof}
+    (a) is trivial. For (b), 
+    \begin{equation*}
+        \int P_\epsilon(x)dx = \frac{1}{\pi}\epsilon^{-2}\epsilon^2\pi = 1.
+    \end{equation*}
+    (c) follows immediately from (b). For (d), let $\eta>0$ be given. 
+    Then 
+    \begin{equation*}
+        \int_{\abs{x}>\eta}P_\epsilon(x)dx = \frac{1}{\pi}\int_{\abs{x}>\eta}\frac{\epsilon}{x^2+\epsilon^2}dx 
+        = \frac{2\epsilon}{\pi}\int_{\eta}^\infty\frac{1}{x^2+\epsilon^2}dx 
+        = \frac{2\epsilon}{\pi}\frac{1}{\epsilon}\pth{\frac{\pi}{2} - \tan^{-1}\pth{\frac{\eta}{\epsilon}}} 
+        \to 0
+    \end{equation*}
+    as $\epsilon\to 0$.
+\end{proof}
+\begin{remark}
+    The properties (b)-(d) are sometimes referred to as the 
+    \textbf{good kernel} property. (d) is used to approximate 
+    the dirac $\delta$ function.
+\end{remark}
+
+\begin{lemma}\label{lem:poisson_kernel}
+    Let $P_\epsilon$ be the Poisson kernel. Then 
+    \begin{thmenum}
+        \item If $f$ is uniformly continuous and bounded on $\R$, then 
+        $\norm{P_\epsilon*f - f}_\infty \to 0$ as $\epsilon\to 0$.
+        \item If $f\in\L^p(\R)$ where $1\leq p<\infty$, then
+        \begin{equation*}
+            \norm{P_\epsilon*f - f}_p \to 0\quad\text{as }\epsilon\to 0.
+        \end{equation*}
+    \end{thmenum}
+\end{lemma}
+\begin{proof}
+    For (a), we shall proceed with a similat approach in Fejer kernel and 
+    Dirichlet kernel. Write 
+    \begin{equation*}
+        \begin{split}
+            \abs{P_\epsilon*f(x) - f(x)} 
+            &= \abs{\int P_\epsilon(x-y)f(y)dy - f(x)} = \abs{\int P_\epsilon(x-y)\pth{f(y) - f(x)}dy} \\
+            &\leq \int P_\epsilon(x-y)\abs{f(y) - f(x)}dy.
+        \end{split}
+    \end{equation*}
+    By the uniform continuity of $f$, for any $\delta>0$, there exists $\eta>0$ such that 
+    on $[x-\eta,x+\eta]$, $\abs{f(y) - f(x)}<\delta$. Also, by (d) of 
+    \cref{prop:poisson_kernel}, we can choose $\epsilon$ small enough such that 
+    \begin{equation*}
+        \int_{\abs{x-y}>\eta}P_\epsilon(x-y)dy < \delta.
+    \end{equation*}
+    Then we have
+    \begin{equation*}
+        \begin{split}
+            \abs{P_\epsilon*f(x) - f(x)} 
+            &\leq \int_{\abs{x-y}\leq\eta}P_\epsilon(x-y)\abs{f(y) - f(x)}dy + \int_{\abs{x-y}>\eta}P_\epsilon(x-y)\abs{f(y) - f(x)}dy \\
+            &\leq \delta\int_{\abs{x-y}\leq\eta}P_\epsilon(x-y)dy + 2\norm{f}_\infty\int_{\abs{x-y}>\eta}P_\epsilon(x-y)dy \\
+            &\leq \delta + 2\norm{f}_\infty\delta = \delta(1 + 2\norm{f}_\infty)
+        \end{split}
+    \end{equation*}
+    by the boundedness of $f$. Since $\delta$ is arbitrary, we obtain that 
+    $\norm{P_\epsilon*f - f}_\infty\to 0$ as $\epsilon\to 0$.
+
+    For (b), 
+    \begin{equation*}
+        \begin{split}
+            \norm{P_\epsilon*f-f}_p^p &= \int\abs{\int (f(x)-f(x-y))P_\epsilon(y)dy}^pdx \\
+            &\leq \int\pth{\int\abs{(f(x)-f(x-y))}P_\epsilon(y)dy}^pdx \\
+            &\leq \int\int\abs{f(x)-f(x-y)}^p P_\epsilon(y)dydx \\
+        \end{split}
+    \end{equation*}
+    by Jensen inequality with $d\mu = P_\epsilon(y)dy$ and \cref{prop:poisson_kernel} (b). 
+    Next, by Fubini theorem, letting $g(y) = \int\abs{f(x)-f(x-y)}^pdx$, 
+    \begin{equation*}
+        \begin{split}
+            \int\int\abs{f(x)-f(x-y)}^p P_\epsilon(y)dydx 
+            &= \int\int\abs{f(x)-f(x-y)}^p P_\epsilon(y)dxdy \\ 
+            &= \int P_\epsilon(y)\int\abs{f(x)-f(x-y)}^pdxdy \\
+            &= \int P_\epsilon(y)g(y)dy = (P_\epsilon*g)(0)\to 0
+        \end{split}
+    \end{equation*}
+    as $\epsilon\to 0$ by (a). Thus we conclude that 
+    \begin{equation*}
+        \norm{P_\epsilon*f-f}_p \to 0
+    \end{equation*}
+    as $\epsilon\to 0$ for any $1\leq p<\infty$.
+\end{proof}
+
+\begin{theorem}[Fourier Inversion Theorem]
+    Suppose $f,\hat{f}\in\L^1(\R)$. Then
+    \begin{equation*}
+        f(x) = \int \hat{f}(t)e^{2\pi itx}dt
+    \end{equation*}
+    for almost every $x\in\R$.
+\end{theorem}
+\begin{proof}
+    Consider 
+    \begin{equation*}
+        I_\epsilon(x) = \int\hat{f}(t)e^{-2\pi\epsilon\abs{t}}e^{2\pi itx}dt.
+    \end{equation*}
+    Letting $g_\epsilon(t;x) = e^{-2\pi\epsilon\abs{t}}e^{2\pi itx}$, we have 
+    \begin{equation*}
+        I_\epsilon(x) = \int g_\epsilon(t;x)\hat{f}(t)dt = \int f(t)\hat{g}_\epsilon(t;x)dt
+    \end{equation*}
+    since $g_\epsilon$ is clearly integrable and this follows from 
+    \cref{prop:fourier_transform_properties} (d). Compute that 
+    \begin{equation*}
+        \begin{split}
+            \hat{g}_\epsilon(\xi;x) &= \int e^{-2\pi\epsilon\abs{t}}e^{2\pi itx}e^{-2\pi i\xi t}dt 
+            = \int_0^\infty e^{2\pi t(i(x-\xi)-\epsilon)}dt + \int_{-\infty}^0 e^{2\pi t(i(x-\xi)+\epsilon)}dt \\ 
+            &= \frac{-1}{2\pi(i(x-\xi)-\epsilon)} + \frac{1}{2\pi(i(x-\xi)+\epsilon)} 
+            = \frac{1}{\pi}\frac{\epsilon}{(x-\xi)^2+\epsilon^2} = P_\epsilon(x-\xi).
+        \end{split}
+    \end{equation*}
+    Thus 
+    \begin{equation*}
+        \int f(t)\hat{g}_\epsilon(t;x)dt = \int f(t)P_\epsilon(x-t)dt = (f*P_\epsilon)(x).
+    \end{equation*}
+    It follows that $\norm{P_\epsilon*f - f}_1\to 0$ as $\epsilon\to 0$ by
+    \cref{lem:poisson_kernel} (b). On the other hand, 
+    \begin{equation*}
+        I_\epsilon(x) = \int \hat{f}(t)e^{-2\pi\epsilon\abs{t}}e^{2\pi itx}dt
+        \to \int \hat{f}(t)e^{2\pi itx}dt
+    \end{equation*}
+    as $\epsilon\to 0$ by Lebesgue dominated convergence theorem since 
+    \begin{equation*}
+        \abs{\hat{f}(t)e^{-2\pi\epsilon\abs{t}}e^{2\pi itx}}\leq \abs{\hat{f}(t)}\in\L^1(\R).
+    \end{equation*}
+\end{proof}

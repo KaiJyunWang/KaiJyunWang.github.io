@@ -163,6 +163,15 @@
     in $\L^\infty$. We conclude that $\L^p$ spaces are complete.
 \end{proof}
 
+\begin{theorem}\label{thm:Lp_subseq_ae}
+    Let $1\leq p<\infty$. Let $f_n\in\L^p$ be a sequence of measurable 
+    funcitons on $X$. If $f_n\to f$ in $\L^p$, then there exists a subsequence 
+    $f_{n_k}$ such that $f_{n_k}\to f$ a.e.\ on $X$.
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+
 \begin{proposition}\label{prop:dual_isometry}
     $1\leq p<\infty$. $1/p + 1/p' = 1$. Let $g\in\L^{p'}(X,\mu)$. Then the 
     mapping $Tg:\L^p(X,\mu)\to\R$ defined by 
@@ -344,9 +353,8 @@
     $\delta:\C^\infty([-1,1])\to\R$ by $\delta(f) = f(0)$. 
     Clearly $\delta\in(\L^\infty)'$. Now suppose there exists 
     $g\in\L^1$ such that $\delta(f) = \int_{-1}^{1} fgdx$. 
-    Let $f = \chi_A$ where $A = [-1,1]-[-\epsilon,\epsilon]$ 
-    for some small $\epsilon>0$. Then $f\in\L^\infty$ and 
-    by definition, 
+    Let $f = \chi_A$ where $A$ is measurable. Then 
+    $f\in\L^\infty$ and by definition, 
     \begin{equation*}
         0 = f(0) = \delta(f) = \int_{-1}^{1} fgdx = \int_A gdx.
     \end{equation*}
