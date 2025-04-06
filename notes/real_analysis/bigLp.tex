@@ -1,0 +1,251 @@
+\begin{definition}
+    Let $(X,\A,\mu)$ be a measure space and $1\leq p < \infty$. 
+    The space $\L^p(X)$ consists of all equivalence classes of 
+    measurable functions $f:X\to\R$ such that 
+    \begin{equation*}
+        \norm{f}_{\L^p} = \pth{\int_X \abs{f}^pd\mu}^{1/p} < \infty,
+    \end{equation*} 
+    where $f\sim g$ if $f = g$ a.e. and the norm is defined 
+    on a representative of the equivalence class.
+\end{definition}
+
+\begin{definition}
+    $f:X\to\R$ is measurable. The \textbf{essential supremum} of 
+    $f$ on $X$ is defined as 
+    \begin{equation*}
+        \esssup_X f = \inf\Set{\sup_X g}{g = f \mu\text{-a.e.}}
+        = \inf\Set{c\in\R}{\mu\pth{\Set{x}{f(x)>c}} = 0}.
+    \end{equation*}
+    We called $f$ \textbf{essentially bounded} if $\esssup_X f < \infty$.
+    The space $\L^\infty(X)$ consists of all equivalence classes 
+    of essentially bounded measurable functions with the norm 
+    \begin{equation*}
+        \norm{f}_{\L^\infty} = \esssup_X\abs{f}.
+    \end{equation*}
+\end{definition} 
+
+\begin{theorem}[H\"older's Inequality in $\L^p$]
+    Let $1\leq p,p'\leq\infty$ with $\frac{1}{p}+\frac{1}{p'}=1$. 
+    Then for all $f\in\L^p$ and $g\in\L^{p'}$, 
+    \begin{equation*}
+        \norm{fg}_1 \leq \norm{f}_p\norm{g}_{p'}.
+    \end{equation*}
+    Moreover, the equality holds if and only if $f = cg$ for some 
+    constant $c$.
+\end{theorem}
+\begin{proof}
+    For the case $p = 1$ and $p' = \infty$, notice that
+    \begin{equation*}
+        \abs{fg} \leq \abs{f}\esssup \abs{g} \implies 
+        \norm{fg}_1 = \int \abs{fg}d\mu \leq \int \abs{f}\esssup\abs{g}d\mu = \norm{f}_1\norm{g}_\infty.
+    \end{equation*}
+    For the case $p = \infty$ and $p' = 1$, the proof is similar. 
+    Now suppose $1<p<\infty$ and $1<p'<\infty$. If one of $f$ or 
+    $g$ is zero, the inequality is trivial. Without loss of 
+    generality, we may assume that $\norm{f}_p = \norm{g}_{p'} = 1$. 
+    By the Young's inequality, 
+    \begin{equation*}
+        \abs{fg} \leq \frac{\abs{f}^p}{p} + \frac{\abs{g}^{p'}}{p'}.
+    \end{equation*}
+    Integrating both sides yields
+    \begin{equation*}
+        \norm{fg}_1 = \int \abs{fg}d\mu \leq \int \frac{\abs{f}^p}{p}d\mu + \int \frac{\abs{g}^{p'}}{p'}d\mu 
+        = \frac{1}{p} + \frac{1}{p'} = 1.
+    \end{equation*}
+    Hence we obtain the desired inequality. The equality holds if 
+    and only if $\abs{f}^p = \abs{g}^{p'}$ a.e.\ by the Young's inequality. 
+    In general, the equality holds if and only if $f = cg$ a.e.\ for some 
+    constant $c$ after scaling the both sides of the inequality by $c$.
+\end{proof}
+
+\begin{theorem}[Minkowski's Inequality in $\L^p$]
+    Let $1\leq p\leq\infty$. Then for all $f,g\in\L^p$, 
+    \begin{equation*}
+        \norm{f+g}_p \leq \norm{f}_p + \norm{g}_p.
+    \end{equation*}
+\end{theorem}
+\begin{proof}
+    If $p = 1$, the inequality comes from the triangle inequality. 
+    For $1<p<\infty$, 
+    \begin{equation*}
+        \begin{split}
+            \norm{f+g}_p^p &= \int \abs{f+g}^pd\mu 
+            = \int \abs{f+g}\abs{f+g}^{p-1}d\mu \\
+            &\leq \int \abs{f}\abs{f+g}^{p-1}d\mu + \int \abs{g}\abs{f+g}^{p-1}d\mu \\
+            &\leq \norm{f}_p\pth{\int \abs{f+g}^{(p-1)p'}d\mu}^{1/p'} + \norm{g}_p\pth{\int \abs{f+g}^{(p-1)p'}d\mu}^{1/p'} \\
+            &= \norm{f}_p\norm{f+g}_p^{p/p'} + \norm{g}_p\norm{f+g}_p^{p/p'}.
+        \end{split}
+    \end{equation*}
+    Rearranging the inequality yields 
+    \begin{equation*}
+        \norm{f+g}_p = \norm{f+g}_p^{p-p/p'} \leq \norm{f}_p + \norm{g}_p.
+    \end{equation*}
+    For $p = \infty$, 
+    \begin{equation*}
+        \norm{f+g}_\infty = \esssup \abs{f+g} \leq \esssup \abs{f} + \esssup \abs{g} = \norm{f}_\infty + \norm{g}_\infty.
+    \end{equation*}
+    The proof is complete.
+\end{proof}
+
+\begin{theorem}\label{thm:simple_dense}
+    $1\leq p\leq \infty$. Simple functions are dense in $\L^p$.
+\end{theorem}
+\begin{proof}
+    For $p<\infty$, consider $f\geq 0$ and $f\in\L^1$. There exists a 
+    sequence of simple functions $f_n\nearrow f$ a.e. Note that 
+    $\abs{f-f_n}^p\leq\abs{f}^p\in\L^1$. By Lebesgue's dominated 
+    convergence theorem, $\norm{f_n-f}_p\to 0$ as $n\to\infty$. 
+    For $p=\infty$, pick an $f$ in the $f$-equivalent class 
+    such that $f$ is bounded. Then since the approximation of 
+    simple functions can be done uniformly, the result follows.
+\end{proof}
+\begin{remark}
+    A simple function $s = \sum_{i=1}^n c_i\chi_{A_i}\in\L^p$ must have 
+    $\mu(A_i)<\infty$ for every $i$ such that $c_i > 0$. Since 
+    contiuous functions can approximate simple functions, 
+    they are dense in $\L^p$ as well.
+\end{remark}
+\begin{remark}
+    Step functions and continuous functions with compact supports are 
+    dense in $\L^p$ for $1\leq p<\infty$. This can be seen by a slight 
+    modification of the proof of \cref{prop:conti_approx}. Let $\epsilon>0$ 
+    be given. First, for $f\in\L^p$, we can find some $M>0$ such that 
+    \begin{equation*}
+        \int_{\abs{x}>M} \abs{f}^pd\mu < \epsilon.
+    \end{equation*}
+    Next, since $\L^p([-M,M])\subset\L^1([-M,M])$, the result from 
+    \cref{prop:conti_approx} applies, and we can find a step function 
+    $s$ such that $\norm{f-s}_\infty < \epsilon$ on $[-M,M]$. This 
+    implies 
+    \begin{equation*}
+        \int_{\abs{x}\leq M} \abs{f-s}^pd\mu 
+        \leq \int_{\abs{x}\leq M} \epsilon^pd\mu = \epsilon^p\mu([-M,M]).
+    \end{equation*}
+    Thus 
+    \begin{equation*}
+        \norm{f-s}_p^p = \int_{\abs{x}>M} \abs{f}^pd\mu + \int_{\abs{x}\leq M} \abs{f-s}^pd\mu 
+        \leq \epsilon + \epsilon^p\mu([-M,M]).
+    \end{equation*}
+    Hence step functions with compact supports are dense in $\L^p$. Using 
+    the same approximation technique in \cref{prop:conti_approx}, we can 
+    find a continuous function $g$ such that $\norm{f-g}_p < \epsilon$ 
+    as well.
+\end{remark}
+
+\begin{lemma}\label{lem:r-f_sum}
+    $1\leq p<\infty$. $g_k\in\L^p$ and $\sum_k \norm{g_k}_p < \infty$. 
+    Then there exists $f\in\L^p$ such that $\sum_k g_k = f$ pointwise 
+    a.e. and in $\L^p$.
+\end{lemma}
+\begin{proof}
+    Define $h_n$ and $h$ by $h_n = \sum_{k=1}^n\abs{g_k}$ and 
+    $h = \sum_k \abs{g_k}$. Then $h_n\nearrow h$. By Lebesgue's 
+    monotone convergence theorem, 
+    \begin{equation*}
+        \lim_{n\to\infty} \int h_n^pd\mu = \int h^pd\mu.
+    \end{equation*} 
+    By Minkowski's inequality, 
+    \begin{equation*}
+        \pth{\int h_n^pd\mu}^{1/p} = \pth{\int \pth{\sum_{k=1}^n\abs{g_k}}^pd\mu}^{1/p} 
+        \leq \sum_{k=1}^n \pth{\int \abs{g_k}^pd\mu}^{1/p} 
+        \leq \sum_{k=1}^n \norm{g_k}_p < \infty
+    \end{equation*}
+    for every $n$, so $h\in\L^p$ and $\norm{h}_p \leq M$ for some $M$ bounding 
+    $\sum_k \norm{g_k}_p$. Now since $\sum_k g_k$ converges absolutely to some 
+    $f$ pointwisely a.e.\ and $\abs{f}\leq h$, 
+    \begin{equation*}
+        \abs{f - \sum_{k=1}^{n} g_k}^p \leq \pth{\abs{f} + \sum_{k=1}^{n}\abs{g_k}}^p 
+        \leq \pth{2h}^p \in \L^1.
+    \end{equation*}
+    By Lebesgue's dominated convergence theorem, $\norm{f-\sum_{k=1}^{n} g_k}_p\to 0$ 
+    as $n\to\infty$. Thus the proof is complete.
+\end{proof}
+
+\begin{theorem}[Riesz-Fischer]
+    $\L^p$ spaces are complete. 
+\end{theorem}
+\begin{proof}
+    First, we focus on the case where $1\leq p<\infty$. Let $f_k$ be a 
+    Cauchy sequence in $\L^p$. Take a subsequence $f_{k_j}$ such that 
+    $\norm{f_{k_{j+1}}-f_{k_j}} \leq 2^{-j}$. Let 
+    $g_j = f_{k_{j+1}}-f_{k_j}\in\L^p$ and we have 
+    $\sum_j \norm{g_j}_p < \infty$. By the \cref{lem:r-f_sum}, there exists 
+    $f\in\L^p$ such that $f = \sum_j g_j$ a.e.\ and 
+    \begin{equation*}
+        \lim_{j\to\infty} f_{k_j} = \lim_{j\to\infty} f_{k_1} + \sum_{i=1}^{j-1} g_i 
+        = f_{k_1} + f\in\L^p.
+    \end{equation*}
+    Since $f_k$ is Cauchy and a subsequence converges, the original 
+    sequence $f_k$ converges to $f_{k_1} + f\in\L^p$ as well. 
+    We now consider the case where $p=\infty$. Let $f_k$ be a Cauchy 
+    sequence in $\L^\infty$. Then for almost every $x$, $\set{f_k(x)}$ 
+    is a Cauchy sequence in $\R$. Thus we can define $f(x)$ as the 
+    limit of $f_k(x)$ as $k\to\infty$. On the set where $f_k(x)$ does 
+    not converge, we let $f(x)$ be zero. Then $f\in\L^\infty$ since 
+    $\set{f_k}$ is Cauchy and has an uniform bound except on a measure 
+    zero set. Also, for any $\epsilon>0$, we can find $N$ such that 
+    $\norm{f_k - f_j}_\infty < \epsilon$ for all $k,j\geq N$. Hence 
+    $\norm{f_k-f}_\infty < \epsilon$ for all $k\geq N$. Thus $f_k\to f$ 
+    in $\L^\infty$. We conclude that $\L^p$ spaces are complete.
+\end{proof}
+
+\begin{theorem}\label{thm:Lp_subseq_ae}
+    Let $1\leq p<\infty$. Let $f_n\in\L^p$ be a sequence of measurable 
+    funcitons on a $\sigma$-finite measure space $X$. If $f_n\to f$ in $\L^p$, 
+    then there exists a subsequence $f_{n_k}$ such that $f_{n_k}\to f$ a.e.\ on $X$.
+\end{theorem}
+\begin{proof}
+    Using the Markov inequality, 
+    \begin{equation*}
+        \begin{split}
+            \mu\pth{\Set{x\in X}{\abs{f_n(x)-f(x)}\geq \epsilon}} 
+            &= \mu\pth{\Set{x\in X}{\abs{f_n(x)-f(x)}^p\geq \epsilon^p}} \\
+            &\leq \frac{1}{\epsilon^p}\int \abs{f_n(x)-f(x)}^pd\mu 
+            = \frac{1}{\epsilon^p}\norm{f_n-f}_p^p \to 0
+        \end{split}
+    \end{equation*}
+    as $n\to\infty$. Thus $f_n\mto f$. By \cref{thm:mconv_subseq}, there 
+    is a subsequence $f_{n_k}$ such that $f_{n_k}\to f$ a.e.\ on $X$.
+\end{proof}
+
+\begin{definition}
+    A metric space $(X,d)$ is \textbf{separable} if there exists a countable 
+    dense subset.
+\end{definition}
+
+\begin{theorem}
+    Let $1\leq p<\infty$. $\L^p(\R)$ is separable.
+\end{theorem}
+\begin{proof}
+    Consider the collection of sets $\I = \Set{(q,r)}{q<r\in\Q}$. Then the 
+    family of functions $F = \Set{\sum_{i=1}^n c_i\chi_{I_i}}{I_i\in\I, c_i\in\Q, n\in\N}$
+    is countable. We claim that $F$ is dense in $\L^p(\R)$. Indeed, since 
+    the continuous functions with compact supports are dense in $\L^p(\R)$, 
+    it suffices to show that any such function can be approximated by 
+    functions in $F$. Let $f\in\L^p(\R)$ be a continuous function with 
+    compact support. By the uniform continuity, there exists $\delta>0$ such 
+    that for all $x,y\in\R$ with $\abs{x-y}<\delta$, $\abs{f(x)-f(y)}<\epsilon$. 
+
+    Consider $\I' = \Set{I\in\I}{I\cap\supp{f}\neq\varnothing, \mu{I}<\delta}$, an 
+    open cover of $\supp{f}$. By the compactness of $\supp{f}$, we can find a finite 
+    subcover $\I'' = \Set{I_i}{i=1,\ldots,n}$ such that $\supp{f}\subset \cup_{i=1}^n I_i$.
+    By the density of $\Q$ in $\R$, we can find $c_i\in\Q$ such that 
+    $\abs{f(x)-c_i}<\epsilon$ for all $x\in I_i$, for $i=1,\ldots,n$. 
+    Let $g = \sum_{i=1}^n c_i\chi_{I_i}\in F$. Then $\norm{f-g}_\infty < \epsilon$.
+    \begin{equation*}
+        \norm{f-g}_p^p = \int \abs{f-g}^pd\mu 
+        \leq \int_{\supp{f-g}} \epsilon^pd\mu = \epsilon^p\mu(\supp{f-g}).
+    \end{equation*}
+    Since $\epsilon$ is arbitrary, we conclude that $F$ is dense in $\L^p(\R)$. 
+    Thus $\L^p(\R)$ is separable.
+\end{proof}
+\begin{remark}
+    $\L^\infty(\Omega,\mu)$ is not separable in general. For example, let 
+    $\Omega = [a,b]$. Suppose that $\set{f_n}$ is a countable dense subset of 
+    $\L^\infty(\Omega)$. Define $\eta:[a,b]\to\N$ such that 
+    $\norm{\chi_{[a,b]} - f_{\eta(x)}}<\frac{1}{2}$. Then if $x_1\neq x_2$, 
+    $\norm{\chi_{[a,x_1]} - \chi_{[a,x_2]}}_\infty = 1$. This implies that 
+    $f_{\eta(x_1)}\neq f_{\eta(x_2)}$ and $\eta(x_1)\neq\eta(x_2)$. Thus $\eta$ 
+    is injective. But $[a,b]$ is uncountable, a contradiction. Hence
+    $\L^\infty(\Omega)$ is not separable.
+\end{remark}

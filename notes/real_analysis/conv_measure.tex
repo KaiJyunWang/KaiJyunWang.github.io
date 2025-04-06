@@ -1,3 +1,13 @@
+\begin{definition}
+    Let $(\Omega, \S, \mu)$ be a measure space. We say that a seuqnce 
+    of function $f_n$ on $\Omega$ \textbf{converges to a function $f$ in measure} 
+    if for every $\epsilon>0$, 
+    \begin{equation*}
+        \mu\pth{\Set{x\in\Omega}{|f_n(x)-f(x)|\geq \epsilon}} \to 0
+    \end{equation*}
+    as $n\to\infty$. We write $f_n\mto f$.
+\end{definition}
+
 \begin{theorem}[Markov Inequality]
     Let $(\Omega, \S, \mu)$ be a measure space. For any 
     non-negative measurable function $f$ on $\Omega$, 
@@ -5,3 +15,304 @@
         \mu\pth{\Set{x\in\Omega}{f\geq t}} \leq \frac{1}{t}\int_\Omega fd\mu.
     \end{equation*}
 \end{theorem}
+\begin{proof}
+    Let $E_t = \Set{x\in\Omega}{f(x)\geq t}$. Then 
+    \begin{equation*}
+        \mu(E_t) = \int \chi_{E_t}d\mu \leq \int \frac{f}{t}d\mu = \frac{1}{t}\int fd\mu.
+    \end{equation*}
+\end{proof}
+
+\begin{corollary}[Chebyshev Inequality]
+    Let $(\Omega, \S, \mu)$ be a measure space. For any measurable function $f$ on $\Omega$, 
+    and $\alpha\in\R$, 
+    \begin{equation*}
+        \mu\pth{\Set{x\in\Omega}{\abs{f(x)-\alpha}\geq t}} \leq \frac{1}{t^2}\int_\Omega (f-\alpha)^2d\mu.
+    \end{equation*}
+\end{corollary}
+\begin{proof}
+    Let $g = \abs{f-\alpha}^2$. Apply Markov inequality, 
+    \begin{equation*}
+        \mu\pth{\Set{x\in\Omega}{\abs{f(x)-\alpha}\geq t}} = \mu\pth{\Set{x\in\Omega}{g\geq t^2}} 
+        \leq \frac{1}{t^2}\int_\omega gd\mu = \frac{1}{t^2}\int_\Omega (f-\alpha)^2d\mu.
+    \end{equation*}
+\end{proof}
+
+\begin{corollary}[Chernoff Bound]
+    Let $(\Omega, \S, \mu)$ be a measure space. For any measurable function $f$ on $\Omega$, 
+    and $\eta\in\R$, 
+    \begin{equation*}
+        \mu\pth{\Set{x\in\Omega}{f(x)\geq t}} \leq e^{-\eta t}\int_\Omega e^{\eta f} d\mu
+    \end{equation*}
+    for all $t\in\R$.
+\end{corollary}
+\begin{proof}
+    Let $g = e^{\eta f}$. Then by Markov inequality, 
+    \begin{equation*}
+        \mu\pth{\Set{x\in\Omega}{f(x)\geq t}} = \mu\pth{\Set{x\in\Omega}{g\geq e^{\eta t}}} 
+        \leq \frac{1}{e^{\eta t}}\int_\Omega g d\mu = e^{-\eta t}\int_\Omega e^{\eta f} d\mu.
+    \end{equation*}
+\end{proof}
+
+\begin{corollary}
+    If $f_n\to f$ in $\L^1$, then $f_n\mto f$.
+\end{corollary}
+\begin{proof}
+    Let $\epsilon>0$. By Markov inequaltiy, we have
+    \begin{equation*}
+        \mu\pth{\Set{x\in\Omega}{|f_n(x)-f(x)|\geq \epsilon}} \leq \frac{1}{\epsilon}\int_\Omega |f_n-f|d\mu 
+        \to 0
+    \end{equation*}
+    as $n\to\infty$. Thus $f_n\mto f$.
+\end{proof} 
+\begin{remark}
+    The converse is not true. Simply find a sequence of functions converging in $L^1$ 
+    but not almost everywhere will do. However, even stronger, we can actually find 
+    a sequence converging in measure but neither in $\L^1$ nor almost everywhere. 
+    For example, let $\Omega = [0,1]$ with usual measure. Then let $f_{k,j} 
+    = k^2\chi_{[\frac{j}{k}, \frac{j+1}{k}]}$ for $j = 0,1,\ldots,k-1$ and $k\in\N$. 
+    Reindex the sequence recursively by letting $g_0 = f_{1,0}$ and 
+    \begin{equation*}
+        g_{n+1} = \begin{cases}
+            f_{k,j+1} &\text{if } g_n = f_{k,j} \text{ with } j \neq k-1,\\ 
+            f_{k+1,0} &\text{if } g_n = f_{k,j} \text{ with } j = k-1.
+        \end{cases}
+    \end{equation*}
+    This also defines a injective function $\phi:n\mapsto (k_n,j_n)$. Then $g_n\to 0$ 
+    in measure because for any $\epsilon>0$, 
+    \begin{equation*}
+        \mu\pth{\Set{x}{\abs{g_n}\geq \epsilon}} = \frac{1}{k_n}\to 0.
+    \end{equation*}
+    But 
+    \begin{equation*}
+        \int_0^1 \abs{g_n}d\mu = k_n\to\infty
+    \end{equation*}
+    and since $[\frac{j_n}{k_n}, \frac{j_n+1}{k_n}]$ includes $x$ infinitely many times for 
+    any $x\in[0,1]$, $g_n$ converges nowhere in $[0,1]$.
+\end{remark}
+
+\begin{theorem}\label{thm:mconv_subseq}
+    Let $(\Omega, \S, \mu)$ be a $\sigma$-finite measure space. If $f_n\mto f$, then 
+    there exists a subsequence $f_{n_k}$ such that $f_{n_k}\to f$ almost everywhere.
+\end{theorem}
+\begin{proof}
+    Since $f_n\mto f$, we can choose $n_k$ such that 
+    \begin{equation*}
+        \mu\pth{\Set{x\in\Omega}{\abs{f_n(x) - f(x)}\geq \frac{1}{k}}} \leq \frac{1}{2^k}
+        \quad\text{for all } n\geq n_k.
+    \end{equation*}
+    Let $E_k = \Set{x\in\Omega}{\abs{f_{n}(x) - f(x)}\geq \frac{1}{k}\text{ for all $n\geq n_k$}}$. 
+    Then $\mu(E_k)\leq 2^{-k}$. Put $H_m = \bigcup_{k=m}^\infty E_k$. We have 
+    \begin{equation*}
+        \mu(H_m) \leq \sum_{k\geq m} \mu(E_k) \leq \sum_{k\geq m} 2^{-k} = 2^{-m+1}.
+    \end{equation*}
+    Put $H = \bigcap_{m=1}^\infty H_m$, $H_m\searrow H$. Then 
+    \begin{equation*}
+        \mu(H) = \lim_{m\to\infty} \mu(H_m) = 0.
+    \end{equation*}
+    If $x\notin H$, then $x\notin H_m$ for some $m$. Then 
+    \begin{equation*}
+        \abs{f_{n_k}(x) - f(x)} < \frac{1}{k} \text{ for all } k\geq m.
+    \end{equation*}
+    Thus $f_{n_k}(x)\to f(x)$ almost everywhere as $k\to\infty$.
+\end{proof}
+
+\begin{definition}
+    Let $f_n$ be a sequence of measurable functions on $(\Omega, \S, \mu)$. 
+    We say that $f_n$ is \textbf{Cauchy in measure} if for every $\epsilon>0$, 
+    \begin{equation*}
+        \mu\pth{\Set{x\in\Omega}{\abs{f_n(x)-f_m(x)}\geq \epsilon}} \to 0
+    \end{equation*}
+    as $n,m\to\infty$. 
+\end{definition}
+
+\begin{theorem}[Cauchy Criterion for Convergence in Measure]
+    Let $(\Omega, \S, \mu)$ be a measure space. A sequence of measurable functions 
+    $f_n$ on $\Omega$ converges in measure if and only if it is Cauchy in measure.
+\end{theorem}
+\begin{proof}
+    Suppose that $f_n\mto f$. Let $\epsilon>0$ be given. We have 
+    \begin{equation*}
+        \mu\pth{\set{\abs{f_n-f}\geq \epsilon}} \to 0
+    \end{equation*}
+    as $n\to\infty$. Then since $\set{\abs{f_n-f_m}\geq\epsilon} 
+    \subset\set{\abs{f_n-f}\geq\epsilon/2}\cup\set{\abs{f_m-f}\geq\epsilon/2}$, 
+    \begin{equation*}
+        \mu\pth{\set{\abs{f_n-f_m}\geq\epsilon}} \leq \mu\pth{\set{\abs{f_n-f}\geq\epsilon/2}} 
+        + \mu\pth{\set{\abs{f_m-f}\geq\epsilon/2}} \to 0
+    \end{equation*}
+    as $n,m\to\infty$. Thus $f_n$ is Cauchy in measure. 
+
+    Conversely, suppose that $f_n$ is Cauchy in measure. We can take a subsequence 
+    $f_{n_j}$ such that 
+    \begin{equation*}
+        \mu(E_j) = \mu\pth{\set{\abs{f_{n_j}-f_{n_{j+1}}}\geq 2^{-j}}}\leq 2^{-j}.
+    \end{equation*}
+    Put $F_k = \cup_{j=k}^\infty E_j$. Then $\mu(F_k)\leq \sum_{j=k}^{\infty}\mu(E_j)\leq 2^{-k+1}$. 
+    For $x\notin F_k$, $i>j$, 
+    \begin{equation*}
+        \abs{f_{n_i}-f_{n_j}} \leq \sum_{l=j}^{i-1}\abs{f_{n_{l+1}}-f_{n_l}} \leq \sum_{l=j}^{i-1} 2^{-l} \leq 2^{-j+1}.
+    \end{equation*}
+    Hence $f_{n_j}$ is Cauchy on $F_k^c$. By the completeness of $\R$, $f_{n_j}$ 
+    converges pointwise on $F_k^c$ for each $k$. Put $F = \cap_{k=1}^\infty F_k$. 
+    Then $\mu(F) = 0$. Let 
+    \begin{equation*}
+        f(x) = \begin{cases}
+            \lim_{j\to\infty} f_{n_j}(x) &\text{if } x\notin F,\\
+            0 &\text{if } x\in F.
+        \end{cases}
+    \end{equation*}
+    Since $f_{n_j}$ are measurable, $f$ is measurable. Also, $f_{n_j}\to f$ 
+    pointwisely almost everywhere. Thus $f_{n_j}\mto f$. Observe that 
+    $\set{\abs{f_n-f}\geq\epsilon}\subset\set{\abs{f_n-f_{n_j}}\geq\epsilon/2}\cup\set{\abs{f_{n_j}-f}\geq\epsilon/2}$. 
+    Hence 
+    \begin{equation*}
+        \mu(\set{\abs{f_n-f}\geq\epsilon}) \leq \mu\pth{\set{\abs{f_n-f_{n_j}}\geq\epsilon/2}} 
+        + \mu\pth{\set{\abs{f_{n_j}-f}\geq\epsilon/2}} \to 0 
+    \end{equation*}
+    as $n\to\infty$. Thus $f_n\mto f$.
+\end{proof}
+
+\begin{definition}
+    A function $\phi:(a,b)\to\R$, where $-\infty\leq a < b\leq \infty$, is 
+    \textbf{convex} if for any $x,y\in(a,b)$ and $\lambda\in[0,1]$,
+    \begin{equation*}
+        \phi(\lambda x + (1-\lambda)y) \leq \lambda\phi(x) + (1-\lambda)\phi(y).
+    \end{equation*}
+\end{definition}
+\begin{remark}
+    Every convex function is continuous. 
+\end{remark}
+\begin{remark}
+    The definition of convexity can also be written as 
+    \begin{equation*}
+        \frac{\phi(t)-\phi(s)}{t-s} \leq \frac{\phi(u)-\phi(t)}{u-t},
+    \end{equation*}
+    whenever $a<s<t<u<b$. 
+\end{remark}
+
+\begin{theorem}[Jensen's Inequality]
+    Let $(\Omega,\S,\mu)$ be a measure space with $\mu(\Omega) = 1$. Suppose 
+    that $f:\Omega\to I$, $f\in\L^1(\Omega)$ and $\phi:I\to\R$ is a convex 
+    function on an interval $I$. Then 
+    \begin{equation*}
+        \phi\pth{\int_\Omega f d\mu} \leq \int_\Omega \phi(f) d\mu.
+    \end{equation*}
+\end{theorem}
+\begin{proof}
+    Put $t = \int_\Omega fd\mu$. Then $a<t<b$. Let 
+    \begin{equation*}
+        \beta = \sup_{s\in(a,t)} \frac{\phi(t)-\phi(s)}{t-s}.
+    \end{equation*}
+    By the convexity, 
+    \begin{equation*}
+        \beta \leq \frac{\phi(u)-\phi(t)}{u-t}
+    \end{equation*}
+    for any $u\in(t,b)$. Thus 
+    \begin{equation*}
+        \phi(y) \geq \phi(t) + \beta(y-t)
+    \end{equation*}
+    for all $y\in(a,b)$. Hence 
+    \begin{equation*}
+        \phi(f(x)) - \phi(t) - \beta(f(x)-t) \geq 0
+    \end{equation*}
+    for every $x\in\Omega$. Since $\phi$ is continuous, $\phi\circ f$ is 
+    measurable. Thus 
+    \begin{equation*}
+        \int_\Omega \phi(f) d\mu - \phi(t) = \int_\Omega \phi(f) d\mu - \phi(t) - \beta\pth{\int_\Omega fd\mu - t}
+        = \int_\Omega \phi(f) d\mu - \phi(t) - \beta\int_\Omega (f-t)d\mu \geq 0.
+    \end{equation*}
+    Since $t = \int_\Omega fd\mu$, we have
+    \begin{equation*}
+        \phi\pth{\int_\Omega f d\mu} \leq \int_\Omega \phi(f) d\mu.
+    \end{equation*}
+\end{proof}
+
+\begin{definition}
+    A family of measure $\set{\nu_\alpha}$ is said to be \textbf{equicontinuous at $\varnothing$} 
+    if for any $\epsilon>0$ and $B_k\searrow \varnothing$, there exists $k_0$ such that 
+    \begin{equation*}
+        \sup_{\alpha}\nu_\alpha(B_k) < \epsilon
+    \end{equation*}
+    for all $k\geq k_0$.
+\end{definition}
+
+\begin{definition}
+    A family of measure $\set{\nu_\alpha}$ is said to be \textbf{uniformly 
+    absolutely continuous} with respect to $\mu$ if for any $\epsilon>0$, 
+    there exists $\delta>0$ such that for any $B$ with $\mu(B)<\delta$, 
+    \begin{equation*}
+        \sup_{\alpha}\nu_\alpha(B) < \epsilon.
+    \end{equation*}
+\end{definition}
+
+\begin{lemma}\label{lem:mequiconti_unif_abs_conti}
+    If $\set{\nu_\alpha}$ is equicontinuous at $\varnothing$ and 
+    $\nu_\alpha\ll\mu$ for all $\alpha$, then $\set{\nu_\alpha}$ is uniformly 
+    absolutely continuous with respect to $\mu$. 
+\end{lemma}
+\begin{proof}
+    Suppose that $\set{\nu_\alpha}$ is not uniformly absolutely continuous with 
+    respect to $\mu$. Then there exists $\epsilon>0$ such that for any $n$, 
+    we can find $B_n$ with $\mu(B_n)\leq 2^{-n}$ and some $\alpha_n$ with 
+    $\nu_{\alpha_n}(B_n) \geq \epsilon$. Put $A_k = \cup_{n=k}^\infty B_n$. 
+    Then $\mu(A_k)\leq 2^{-k+1}$. Set $A = \cap_{k=1}^\infty A_k$. Then 
+    $A_k\searrow A$ and $\mu(A) = 0$. This implies $\nu_{\alpha}(A) = 0$ 
+    for all $\alpha$ since $\nu\alpha\ll\mu$. Observe now that 
+    \begin{equation*}
+        \nu_{\alpha_n}(A_k - A) = \nu_{\alpha_n}(A_k) \geq \nu_{\alpha_n}(B_n)
+        \geq \epsilon
+    \end{equation*}
+    for all $n\geq k$. But $\nu_{\alpha_n}(A_k - A)\to 0$ as $k\to\infty$, 
+    a contradiction. Thus $\set{\nu_\alpha}$ is uniformly absolutely continuous 
+    with respect to $\mu$.
+\end{proof} 
+
+\begin{theorem}
+    Let $(\Omega,\S,\mu)$ be a $\sigma$-finite measure space. Suppose 
+    $f_n\in\L^p(\Omega)$. Consider a family of measures 
+    $\nu_n$ defined by 
+    \begin{equation*}
+        \nu_n(A) = \int_A \abs{f_n}^p d\mu.
+    \end{equation*}
+    If $\nu_n$ is equicontinuous at $\varnothing$ and $f_n\mto f$, then 
+    $f_n\to f$ in $\L^p(\Omega)$.
+\end{theorem}
+\begin{proof}
+    Since $(\Omega,\S,\mu)$ is $\sigma$-finite, we can write $\Omega = \cup_k E_k$ 
+    with $\mu(E_k)<\infty$ for all $k$. Then $E_k^c\searrow\varnothing$ and 
+    $\nu_n(E_k^c)\to 0$ as $k\to\infty$. Also, since $\nu_n$ is equicontinuous at $\varnothing$, 
+    for any $\epsilon>0$, there exists $k_0$ such that 
+    \begin{equation*}
+        \sup_{n}\nu_n(E_k^c) < \epsilon
+    \end{equation*}
+    for all $k\geq k_0$. 
+    
+    We claim that $f_n$ is Cauchy in $\L^p$. Indeed, 
+    \begin{equation*}
+        \begin{split}
+            \int \abs{f_n-f_m}^pd\mu &= \int_{E_{k_0}^c} \abs{f_n-f_m}^pd\mu 
+            + \int_{E_{k_0}\cap \set{\abs{f_n-f_m}\leq\epsilon/\mu(E_{k_0})}}\abs{f_n-f_m}^pd\mu \\
+            &\quad + \int_{E_{k_0}\cap \set{\abs{f_n-f_m}>\epsilon/\mu(E_{k_0})}}\abs{f_n-f_m}^pd\mu.
+        \end{split}
+    \end{equation*}
+    Estimate from Jensen's inequality,
+    \begin{equation*}
+        \int_{E_{k_0}^c}\abs{f_n-f_m}^pd\mu \leq 2^p\int_{E_{k_0}^c}\abs{f_n}^pd\mu + 2^p\int_{E_{k_0}^c}\abs{f_m}^pd\mu 
+        = 2^p\nu_n(E_{k_0}^c) + 2^p\nu_m(E_{k_0}^c) \to 0,
+    \end{equation*}
+    \begin{equation*}
+        \int_{E_{k_0}\cap \set{\abs{f_n-f_m}\leq\epsilon/\mu(E_{k_0})}}\abs{f_n-f_m}^pd\mu 
+        \leq \frac{\epsilon}{\mu(E_{k_0})}\mu(E_{k_0}) \to 0.
+    \end{equation*}
+    For the last term, since $\nu_n\ll\mu$ for all $\mu$, \cref{lem:mequiconti_unif_abs_conti} 
+    gives that $\nu_n$ is uniformly absolutely continuous with respect to $\mu$. 
+    Given any $\epsilon>0$, there is $\delta>0$ such that for all $B$ with $\mu(B)\leq\delta$, 
+    $\nu_n(B)\leq\epsilon$ for all $n$. Thus 
+    \begin{equation*}
+        \mu\pth{\set{\abs{f_j-f}\geq\frac{\epsilon}{\mu(E_{k_0})}}} \to 0
+    \end{equation*}
+    as $j\to\infty$. Hence we obtain that $f_n$ is Cauchy in $\L^p$. It follows 
+    from the Riesz-Fischer thoerem that $f_n\to g$ in $\L^p(\Omega)$ for some 
+    $g\in\L^p(\Omega)$. Since $f_n\mto f$, $f = g$ almost everywhere. 
+    Thus $f_n\to f$ in $\L^p(\Omega)$.
+\end{proof}

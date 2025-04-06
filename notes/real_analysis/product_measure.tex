@@ -1,0 +1,204 @@
+\begin{definition}
+    Let $\S,\T$ be two $\sigma$-algebra on $X$ and $Y$ respectively. 
+    The smallest $\sigma$-algebra on $X\times Y$ containting the collection 
+    $\Set{S\times T}{S\in\S, T\in\T}$ is called the \textbf{product $\sigma$-algebra} 
+    of $\S$ and $\T$, denoted by $\S\otimes\T$.
+\end{definition}
+
+\begin{definition}
+    Suppose $X$ is an arbitrary set and $\M$ is a collection of subsets of $X$. 
+    We say that $\M$ is a \textbf{monotone class} if 
+    \begin{thmenum}
+        \item If $E_i\subset E_{i+1}$ for countably many $E_i\in\M$, then $\bigcup_{i=1}^\infty E_i\in\M$.
+        \item If $E_i\supset E_{i+1}$ for countably many $E_i\in\M$, then $\bigcap_{i=1}^\infty E_i\in\M$.
+    \end{thmenum}
+\end{definition}
+
+\begin{definition}
+    A collection $\A$ of subsets in $X$ is called an \textbf{algebra} on $X$ if 
+    \begin{thmenum}
+        \item $\varnothing\in\A$.
+        \item If $A\in\A$, then $A^c\in\A$.
+        \item If $A_1,A_2\in\A$, then $A_1\cup A_2\in\A$.
+    \end{thmenum}
+\end{definition}
+\begin{remark}
+    The condition (c) implies that for finitly many $A_i\in\A$, $\cup_{i=1}^n A_i\in\A$.
+\end{remark}
+
+\begin{theorem}[Monotone Class Theorem]
+    Suppose $\A$ is an algebra on $X$. Then the smallest $\sigma$-algebra 
+    containing $\A$ is the smallest monotone class containing $\A$.
+\end{theorem}
+\begin{proof}
+    Let $\M$ be the smallest monotone class containing $\A$. The theorem 
+    can be written as $\sigma(\A) = \M$. First we show that $\M\subset\sigma(\A)$. 
+    To see this, we claim first that a $\sigma$-algebra is automatically a monotone 
+    class. Indeed, let $\S$ be a $\sigma$-algebra. Then for any countably 
+    many $E_i\in\S$ with $E_i\nearrow E$, we have $E = \bigcup_{i=1}^\infty E_i\in\S$. 
+    Also, for any countably many $E_i\in\S$ with $E_i\searrow E$, we have 
+    $E_i^c\nearrow E^c$. Thus $E^c\in\S$ and $E\in\S$. Therefore $\S$ is a monotone class. 
+    It follows that $\sigma(\A)$ is a monotone class and hence $\M\subset\sigma(\A)$ 
+    by the minimality of $\M$.
+
+    Next, we claim that $\M$ is a $\sigma$-algebra. By definition, we already 
+    have $\varnothing\in\M$. Let $E\in\M$. Then there is a sequence 
+    of sets $E_i\in\A$ such that either $E_i\nearrow E$ or $E_i\searrow E$. In 
+    the former case, we have $E^c = \bigcap_{i=1}^\infty E_i^c\in\M$; in the latter 
+    case, we have $E^c = \bigcup_{i=1}^\infty E_i^c\in\M$. Thus $E^c\in\M$. Lastly, 
+    we need to show that $\M$ is closed under countable unions. We start by showing 
+    that it is closed under finite unions. Consider $A\in\A$. Define $\D_1 
+    = \Set{D\in\M}{D\cup A \in\M}$. It is clear that $\D_1$ is a monotone class and 
+    $\A\subset\D_1$. Consider also $\D_2 = \Set{D\in\M}{D\cup E\in\M \text{ for all } E\in\M}$. 
+    Then $\D_2$ is also a monotone class and $\A\subset\D_2$. By the minimality of 
+    $\M$, we have $\M\subset\D_1\cap\D_2$ and hence $\M$ is closed under finite unions. 
+    Now let $E_i\in\M$ be countably many sets. Put $F_n = \cup_{i=1}^n E_i$. 
+    Then $F_n\nearrow E = \bigcup_i E_i$. By the closure of $\M$ under countable unions, 
+    $F_n\in\M$; by the definition of $\M$, $E\in\M$. We conclude that $\M$ is closed under 
+    countable unions. Thus $\M$ forms a $\sigma$-algebra. It now follows by the minimality 
+    of $\sigma(\A)$ that $\sigma(\A)\subset\M$. We conclude that $\sigma(\A) = \M$.
+\end{proof}
+
+\begin{lemma}\label{lem:product_sigma_algebra}
+    Suppose $(X,\S,\mu)$ and $(Y,\T,\nu)$ are two finite measure spaces. Let 
+    \begin{equation*}
+        \F = \Set{E\subset X\times Y}{\int\int \chi_E(x,y)d\nu(y)d\mu(x) = \int\int \chi_E(x,y)d\mu(x)d\nu(y)}.
+    \end{equation*}
+    Then $\S\otimes\T\subset\F$.
+\end{lemma}
+\begin{proof}
+    Since $\varnothing\in\F$, $\F$ is non-empty. Let $E = A\times B$ for some 
+    $A\in\S$ and $B\in\T$. Then 
+    \begin{equation*}
+        \begin{split}
+            \int\int \chi_E(x,y)d\nu(y)d\mu(x) 
+            &= \int_A\int_B d\nu(y)d\mu(x) = \nu(B)\int_A d\mu(x)\\
+            &= \nu(B)\mu(A) = \int_B\mu(A)d\nu(y)\\
+            &= \int_B\int_A d\mu(x)d\nu(y) = \int\int \chi_E(x,y)d\mu(x)d\nu(y).
+        \end{split}
+    \end{equation*}
+
+    Now let $\mathcal{R}$ be the collection of all rectangles on $X\times Y$, i.e., 
+    $\mathcal{R} = \Set{A\times B}{A\in\S, B\in\T}$. For $R_1,R_2\in\mathcal{R}$, 
+    $R_1\cap R_2 = \varnothing$ implies $\chi_{R_1\cup R_2} = \chi_{R_1} + \chi_{R_2}$. 
+    By the above calculation, we know that $\mathcal{R}\subset\F$. Consider 
+    a sequence of sets $E_i\in\F$. If $E_i\nearrow E$, then
+    \begin{equation*}
+        \begin{split}
+            \int\int \chi_E(x,y)d\nu(y)d\mu(x) 
+            &= \lim_{i\to\infty}\int\int \chi_{E_i}(x,y)d\nu(y)d\mu(x)\\
+            &= \lim_{i\to\infty}\int\int \chi_{E_i}(x,y)d\mu(x)d\nu(y)
+            = \int\int \chi_E(x,y)d\mu(x)d\nu(y).
+        \end{split}
+    \end{equation*}
+    Also, if $E_i\searrow E$, then 
+    \begin{equation*}
+        \begin{split}
+            \int\int \chi_E(x,y)d\nu(y)d\mu(x) 
+            &= \lim_{i\to\infty}\int\int \chi_{E_i}(x,y)d\nu(y)d\mu(x)\\
+            &= \lim_{i\to\infty}\int\int \chi_{E_i}(x,y)d\mu(x)d\nu(y)
+            = \int\int \chi_E(x,y)d\mu(x)d\nu(y).
+        \end{split}
+    \end{equation*}
+    Hence $\F$ is a monotone class containing $\mathcal{R}$. By the monotone 
+    class theorem, $\S\otimes\T\subset\F$.
+\end{proof}
+
+\begin{theorem}[Existence and Uniqueness of Product Measure]\label{thm:product_measure}
+    Let $(X,\S,\mu)$ and $(Y,\T,\nu)$ be two $\sigma$-finite measure spaces. 
+    Let $\omega$ be a set function on $\S\otimes\T$. For $A\in\S$ and 
+    $B\in\T$, define 
+    \begin{equation*}
+        \omega(A\times B) = \mu(A)\nu(B).
+    \end{equation*}
+    Then, $\omega$ extends uniquely to a measure on $(X\times Y,\S\otimes\T)$ 
+    such that for every $E\in\S\otimes\T$, 
+    \begin{equation*}
+        \omega(E) = (\mu\times\nu)(E) = \int\int \chi_E(x,y)d\nu(y)d\mu(x) = \int\int \chi_E(x,y)d\mu(x)d\nu(y).
+    \end{equation*}
+\end{theorem}
+\begin{proof}
+    If we consider $\mu$ and $\nu$ to be $\sigma$-finite measures, 
+    \cref{lem:product_sigma_algebra} gives us that $\omega(A\times B) = \mu(A)\nu(B)$. 
+    We want to extend $\omega$ to a set function 
+    \begin{equation*}
+        \omega(E) = \int\int \chi_E(x,y)d\nu(y)d\mu(x) = \int\int \chi_E(x,y)d\mu(x)d\nu(y).
+    \end{equation*}
+    Since integrals are linear, $\omega$ is finitely additive. Applying the 
+    monotone class theorem, $\omega$ becomes $\sigma$-additive. Hence $\omega$ 
+    becomes a measure on $(X\times Y,\S\otimes\T)$. To see the uniqueness, 
+    let $\rho$ be another measure on $(X\times Y,\S\otimes\T)$ such that 
+    $\rho(A\times B) = \mu(A)\nu(B)$. Let $\M = \Set{E\subset X\times Y}{\omega(E) = \rho(E)}$. 
+    For countably many $E_i\in\M$ with $E_i\nearrow E$, we can write $E = \cup_{i=1}^\infty D_i$ 
+    where $D_i = E_{i+1}-E_i$ and $E_0 = \varnothing$ are disjoint. The $\sigma$-additivity 
+    gives $\omega(E) = \rho(E)$. Thus $E\in\M$. A similar argument gives us that 
+    $E_i\searrow E$ implies $E\in\M$. Hence $\M$ is a monotone class. By the 
+    monotone class theorem, $\S\otimes\T\subset\M$. Thus $\omega = \rho$. 
+
+    For the case $\mu,\nu$ being $\sigma$-finite, consider $\set{A_i}$ and $\set{B_i}$ 
+    to be two disjoint partitions of $X$ and $Y$ respectively with $\mu(A_i) < \infty$ 
+    and $\nu(B_i) < \infty$ for all $i$. Let $E_{ij} = E\cap(A_i\times B_j)$. 
+    By the established result for finite measures, 
+    \begin{equation*}
+        \int\int \chi_{E_{ij}}d\mu d\nu = \int\int \chi_{E_{ij}}d\nu d\mu.
+    \end{equation*}
+    Taking the sum over $i,j$ and applying Lebesgue monotone convergence 
+    theorem gives us 
+    \begin{equation*}
+        \omega(E) = \int\int \chi_E d\nu d\mu = \int\int \chi_E d\mu d\nu
+    \end{equation*}
+    for any $E\in\S\otimes\T$. Applying Lebesgue monotone convergence theorem again 
+    results in that $\omega$ is $\sigma$-additive. Hence $\omega$ is a measure on 
+    $(X\times Y,\S\otimes\T)$. To see the uniqueness, let $\rho$ be another measure on 
+    $(X\times Y,\S\otimes\T)$ such that $\rho(A\times B) = \mu(A)\nu(B)$. By 
+    the $\sigma$-additivity and the uniqueness of the finite measure case, 
+    \begin{equation*}
+        \omega(E) = \sum_{i,j}\omega(E_{ij}) = \sum_{i,j}\rho(E_{ij}) = \rho(E)
+    \end{equation*}
+    for all $E\in\S\otimes\T$. Thus $\omega = \rho$.
+\end{proof}
+
+\begin{theorem}[Fubini-Tonelli]
+    Let $(X,\S,\mu)$ and $(Y,\T,\nu)$ be two $\sigma$-finite measure spaces. 
+    Let $F:X\times Y\to\R$ be a $\S\otimes\T$-measurable function such that 
+    one of the following conditions holds: 
+    \begin{thmenum}
+        \item $F\geq 0$ a.e. (Tonelli);
+        \item $F$ is integrable (Fubini).
+    \end{thmenum}
+    Then 
+    \begin{equation*}
+        \int F(x,y)d(\mu\times\nu) = \int\int Fd\mu d\nu = \int\int Fd\nu d\mu
+    \end{equation*}
+    and furthermore, 
+    \begin{equation*}
+        \begin{cases}
+            y\mapsto\int F(x,y)d\mu(x) &\text{is $\T$-measurable},\\
+            x\mapsto\int F(x,y)d\nu(y) &\text{is $\S$-measurable}.
+        \end{cases}
+    \end{equation*}
+\end{theorem}
+\begin{proof}
+    By \cref{thm:product_measure}, the statement holds for indicator functions
+    and hence for simple functions. By Lebesgue monotone convergence theorem, 
+    the non-negative case (Tonelli) is proved. For the integrable case (Fubini), 
+    write $F = F^+ - F^-$. We also have that $y\mapsto\int F^\pm(x,y)d\mu(x)$ 
+    and $x\mapsto\int F^\pm(x,y)d\nu(y)$ are $\S$-measurable and $\T$-measurable 
+    by the \cref{thm:product_measure}. Furthermore, $y\mapsto\int F^\pm(x,y)d\mu(x)$ 
+    and $x\mapsto\int F^\pm(x,y)d\nu(y)$ are integrable a.e.\ or the condition 
+    (b) is violated. Thus 
+    \begin{equation*}
+        \begin{split}
+            \int F d(\mu\times\nu) 
+            &= \int\int F^+ d(\mu\times\nu) - \int\int F^- d(\mu\times\nu)\\
+            &= \int\int F^+ d\mu d\nu - \int\int F^- d\mu d\nu\\
+            &= \int\int F^+ d\nu d\mu - \int\int F^- d\nu d\mu.
+        \end{split}
+    \end{equation*}
+    The proof is complete.
+\end{proof}
+\begin{remark}
+    By induction, one can extend the Lebesgue measure to any $\R^d$, $d\in\N$. 
+    $\B_m\otimes\B_n = \B_{m+n}$, where $\B_n$ is the Borel $\sigma$-algebra on $\R^n$. 
+    Extension to $\R^{\infty}$ is also possible.
+\end{remark}

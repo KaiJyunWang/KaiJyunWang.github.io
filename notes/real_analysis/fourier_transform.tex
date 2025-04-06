@@ -347,7 +347,9 @@
         \int f(t)\hat{g}_\epsilon(t;x)dt = \int f(t)P_\epsilon(x-t)dt = (f*P_\epsilon)(x).
     \end{equation*}
     It follows that $\norm{P_\epsilon*f - f}_1\to 0$ as $\epsilon\to 0$ by
-    \cref{lem:poisson_kernel} (b). On the other hand, 
+    \cref{lem:poisson_kernel} (b). It follows that by \cref{thm:Lp_subseq_ae} there is 
+    a subsequence $I_{\epsilon_k}(x)\to f(x)$ almost everywhere.
+    On the other hand, 
     \begin{equation*}
         I_\epsilon(x) = \int \hat{f}(t)e^{-2\pi\epsilon\abs{t}}e^{2\pi itx}dt
         \to \int \hat{f}(t)e^{2\pi itx}dt
@@ -356,4 +358,266 @@
     \begin{equation*}
         \abs{\hat{f}(t)e^{-2\pi\epsilon\abs{t}}e^{2\pi itx}}\leq \abs{\hat{f}(t)}\in\L^1(\R).
     \end{equation*}
+    Thus 
+    \begin{equation*}
+        f(x) = \int \hat{f}(t)e^{2\pi itx}dt.
+    \end{equation*}
+    This completes the proof.
 \end{proof}
+\begin{remark}
+    We may also write 
+    \begin{equation*}
+        \hat{\hat{f}}(x) = f(-x).
+    \end{equation*}
+\end{remark}
+
+\begin{definition}
+    If $f\in\L^2(\R)$, we define its fourier transform as 
+    \begin{equation*}
+        \hat{f}(t) = \lim_{N\to\infty}\int_{-N}^N f(x)e^{-2\pi itx}dx.
+    \end{equation*}
+\end{definition}
+
+\begin{theorem}[Plancherel]
+    For $f\in\L^2(\R)\cap\L^1(\R)$, $\norm{\hat{f}}_2 = \norm{f}_2$.
+\end{theorem}
+\begin{proof}
+    Directly write 
+    \begin{equation*}
+        \begin{split}
+            \norm{f}_2^2 &= \int\abs{f(x)}^2dx = \int f(x)\overline{f(x)}dx = \int f(-x)\overline{f(-x)}dx \\
+            &= \int \hat{\hat{f}}(x)\overline{f(-x)}dx = \int \hat{f}(t)\overline{\hat{f}(t)}dt 
+            = \int \abs{\hat{f}(t)}^2dt = \norm{\hat{f}}_2^2.
+        \end{split}
+    \end{equation*}
+    The second equality in the second line follows from \cref{prop:fourier_transform_properties} (d) 
+    and the following fact: 
+    \begin{equation*}
+        \widehat{\overline{f(-x)}}(t) = \int_{-\infty}^\infty \overline{f(-x)}e^{-2\pi itx}dx 
+        = -\int_{\infty}^{-\infty} \overline{f(u)}e^{2\pi itu}du 
+        = \int_{-\infty}^{\infty} \overline{f(u)}\cdot\overline{e^{-2\pi itu}}du 
+        = \overline{\hat{f}(t)},
+    \end{equation*}
+    where we have used the change of variable $u = -x$.
+\end{proof}
+
+\begin{definition}
+    We denote the \textbf{fourier transform operator} as 
+    \begin{equation*}
+        \F f(t) = \int_{\R}f(x)e^{-2\pi itx}dx
+    \end{equation*}
+    for $f\in\L^1(\R)$. If $f\in\L^2(\R)$, we define 
+    \begin{equation*}
+        \F f(t) = \lim_{N\to\infty}\int_{-N}^N f(x)e^{-2\pi itx}dx
+    \end{equation*}
+    instead.
+\end{definition}
+\begin{remark}
+    From Plancherel theorem, it is immediate that $\F$ is a bounded linear operator.
+\end{remark}
+
+\begin{definition}
+    The \textbf{Schwartz space} $\S(\R)$ is the space of all functions $f\in C^\infty(\R)$ such that 
+    \begin{equation*}
+        \sup_{x\in\R}\abs{x^k D^m f(x)} < \infty
+    \end{equation*}
+    for all $k,m\in\N$, where $D^m$ is the $m$-th differentiation operator.
+\end{definition}
+
+\begin{proposition}\label{prop:schwartz_space}
+    Let $\S(\R)$ be the Schwartz space. 
+    \begin{thmenum}
+        \item $\S(\R)$ is a vector space over $\R$.
+        \item If $f\in\S(\R)$, then $x^kf^{(m)}(x)\in\S(\R)$ for all $k,m\in\N\cup\set{0}$. 
+        \item If $f\in\S(\R)$, then $f\in\L^p(\R)$ for all $p\geq 1$. 
+    \end{thmenum}
+\end{proposition}
+\begin{proof}
+    For (a), we check that $\S(\R)$ is closed under addition and scalar multiplication. 
+    Let $f,g\in\S(\R)$ and $c\in\R$. Then $cf+g$ is also smooth and for $k,l\in\N\cup\set{0}$, 
+    \begin{equation*}
+        \sup_{x\in\R}\abs{x^k(cf+g)^{(l)}(x)}\leq \abs{c}\sup_{x\in\R} \abs{x}^k\abs{f^{(l)}(x)} + \sup_{x\in\R}\abs{x^k g^{(l)}(x)}<\infty
+    \end{equation*}
+    by the definition of Schwartz space. Then $cf+g\in\S(\R)$, so $\S(\R)$ is a vector space over $\R$. 
+
+    To prove (b), we only need to show the following two facts: 
+    first, for any $f\in\S(\R)$, $xf(x)\in \S(\R)$; second, for any $f\in\S(\R)$, 
+    $f'(x)\in\S(\R)$. Suppose that $f\in\S(\R)$. Then for any $k,l\in\N\cup\set{0}$, 
+    \begin{equation*}
+        \sup_{x\in\R}\abs{x^k(xf(x))^{(l)}} = \sup_{x\in\R}\abs{x^k\pth{\sum_{i=0}^{l}\binom{l}{i}x^{(i)}f^{(l-i)}(x)}} 
+        \leq \sup_{x\in\R} \abs{x^{k+1}f^{(l)}(x)} + n\sup_{x\in\R}\abs{x^kf^{(l-1)}(x)} < \infty
+    \end{equation*}
+    by the Leibniz formula. Also, 
+    \begin{equation*}
+        \sup_{x\in\R}\abs{x^k(f'(x))^{(l)}} = \sup_{x\in\R}\abs{x^kf^{(l+1)}(x)} < \infty.
+    \end{equation*}
+    Thus $xf(x), f'(x)\in\S(\R)$. In general, the function of the form 
+    $x^kf^{(l)}(x)\in\S(\R)$ can be proved by using the above two facts 
+    finitely many times. 
+
+    For (c), let $E = [-1,1]$. By the smoothness of $f$, we know that 
+    there is some $M$ such that $\sup_{x\in E}\abs{f(x)}\leq M$. Also, 
+    from the definition of Schwartz space, $\sup_{x\in\R}\abs{x^2f(x)}\leq C$ 
+    for some constant $C$. Then 
+    \begin{equation*}
+        \begin{split}
+            \int \abs{f(x)}^p dx &= \int_E \abs{f(x)}^p dx + \int_{E^c} \abs{f(x)}^p dx \\ 
+            &= 2M^p + \int_{E^c} \abs{\frac{x^2f(x)}{x^2}}^p dx \\ 
+            &\leq 2M^p + C^p\int_{E^c} \frac{1}{x^2} dx 
+            = 2M^p + 2C^p < \infty.
+        \end{split}
+    \end{equation*}
+    Thus $\norm{f}_p<\infty$ for all $p\geq 1$ and $p\neq \infty$. 
+    We check that $f$ is bounded on $\R$. By the continuity of $f$, 
+    we have that $f$ is always bounded on a compact set. Now if 
+    $f$ does not vanish at infinity, then there is some $\delta>0$ 
+    and a sequence $x_n$ such that $\abs{x_n}\to\infty$ and 
+    $\abs{f(x_n)}>\delta$. Then $\sup_{x\in\R}\abs{xf(x)} 
+    \geq \delta\sup_{x\in\R}\abs{x} = \infty$, posing a contradiction. 
+    Thus $f$ vanishes at infinity. We can find some compact interval 
+    $E$ such that $\sup_{x\in E}\abs{f(x)}\geq \sup_{x\in E^c}\abs{f(x)}$. 
+    Then by the extreme value theorem, $f$ is bounded on $E$ and hence 
+    on $\R$. We conclude that $f\in\L^p(\R)$ for all $p\geq 1$.
+\end{proof}
+
+\begin{proposition}\label{prop:schwartz_fourier_transform}
+    Let $S(\R)$ be the Schwartz space. If $f\in\S(\R)$, then 
+    $\hat{f}\in\S(\R)$.
+\end{proposition}
+\begin{proof}
+    To see this, let $f\in \S(\R)$ be given. From \cref{prop:schwartz_space} 
+    (b), we know that $f$ and $g(x) = xf(x)\in\S(\R)\subset\L^1(\R)$. Thus 
+    $\hat{f}\in C^1(\R)$ and $\hat{f}'(t) = -2\pi i \hat{g}(t)$.
+    Since $g\in\S(\R)\subset\L^1(\R)$, we can repeat the argument to 
+    obtain that $\hat{f}\in C^2$ and $\hat{f}''(t) = (-2\pi i)^2\hat{G}(t)$, 
+    where $G(x) = x^2f(x)$. Apply the same argument repeatedly, we have that 
+    $\hat{f}\in C^\infty(\R)$ and $\hat{f}^{(l)}(t) = (-2\pi i)^l\hat{h}(t)$, 
+    where $h(x) = x^lf(x)$ for all $l\in\N\cup\set{0}$. Also, 
+    \begin{equation*}
+        \sup_{x\in\R} \abs{x^k\hat{f}^{(l)}(x)} = \sup_{x\in\R} \abs{x^k(-2\pi i)^l\hat{h}(x)} 
+        \leq (2\pi)^l\sup_{x\in\R}\abs{x^k\hat{h}(x)} < \infty.
+    \end{equation*}
+    The last inequality follows from the fact that $h\in \S(\R)\subset\L^1(\R)$ 
+    and the Riemann-Lebesgue lemma guarantees that $\hat{h}$ vanishes at infinity. 
+    We conclude that $f\in\S(\R)$ implies $\hat{f}\in\S(\R)$. 
+\end{proof}
+
+\begin{proposition}\label{prop:schwartz_dense}
+    $\S(\R)$ is dense in $\L^p(\R)$ for $1\leq p<\infty$.
+\end{proposition}
+\begin{proof}
+    Since continuous functions with compact support are dense in $\L^p(\R)$, 
+    it suffices to show that $\S(\R)$ is dense in the space of continuous functions 
+    with compact support. Without loss of generality, we can assume that $f$ is 
+    supported on $[-a,a]$ for some $a>0$. By the Weierstrass theorem, we can find 
+    a polynomial $q$ such that $\norm{f-q}_\infty < \epsilon/2$. Consider the 
+    function 
+    \begin{equation*}
+        \phi_n(t) = \begin{cases}
+            e^{-\frac{1}{n(t^2 - a^2)}} & \text{if } \abs{t} < a \\
+            0 & \text{if } \abs{t} \geq a.
+        \end{cases}
+    \end{equation*}
+    Note that $\phi_n\to\chi_{(-a,a)}$ pointwisely as $n\to\infty$ and 
+    bounded by $1$. We verify that $\phi_n\in\S(\R)$ for all $n\in\N$. 
+    Indeed, for any $k,l\in\N\cup\set{0}$, since $D^l\phi_n$ will result in 
+    \begin{equation*}
+        t^kD^l\phi_n(t) = r(t;n,k,l)e^{-\frac{1}{n(t^2-a^2)}} 
+    \end{equation*}
+    on $[-a,a]$ for some rational function $r(t;n,k,l)$ having singularities 
+    only at $t=\pm a$, we have that 
+    \begin{equation*}
+        \sup_{t\in\R}\abs{t^kD^l\phi_n(t)} < \infty.
+    \end{equation*}
+    Hence, $\phi_n\in\S(\R)$ for all $n\in\N$. 
+
+    Now it follows from \cref{prop:schwartz_space} (b) that $q\phi_n\in\S(\R)$ 
+    by extending the polynomial $q$ on $\R$. Then 
+    \begin{equation*}
+        \begin{split}
+            \int\abs{f-q\phi_n}^pd\mu &= \int_{-a}^{a} \abs{f-q\phi_n}^pd\mu 
+            \leq 2^{p-1}\pth{\int_{-a}^{a}\abs{f-q}^pd\mu + \int_{-a}^{a}\abs{q-q\phi_n}^pd\mu} \\
+            &\leq 2^{p-1}\pth{2a\epsilon^p + \int_{-a}^{a}\abs{q-q\phi_n}^pd\mu} \to 0
+        \end{split}
+    \end{equation*}
+    as $n\to\infty$ by the Lebesgue dominated convergence theorem using $\abs{q-q\phi_n}^p\to 0$
+    pointwisely a.e.\ and $\abs{q-q\phi_n}^p\leq 2^p\abs{q}^p$ is integrable. The 
+    last inequaltiy comes from the convexity $(x/2+y/2)^p\leq x^p+y^p$ for $x,y\geq 0$ 
+    and $p\geq 1$. We conclude that $\S(\R)$ is dense in $\L^p(\R)$ for $1\leq p<\infty$.
+\end{proof}
+
+\begin{definition}
+    A linear operator $T:\H_1\to\H_2$ is said to be \textbf{unitary} if 
+    \begin{thmenum}
+        \item $T$ is invertible. 
+        \item $\norm{Tf}_2 = \norm{f}_1$ for all $f\in\H_1$.
+    \end{thmenum}
+\end{definition}
+
+\begin{proposition}
+    Let $\F$ be the Fourier transform operator on $\L^2(\R)$. 
+    \begin{thmenum}
+        \item $\F$ is unitary on $\L^2(\R)$. 
+        \item $\F^4 = I$.
+    \end{thmenum}
+\end{proposition}
+\begin{proof}
+    (a) is directly from the Plancherel theorem. For (b), using 
+    \cref{prop:schwartz_fourier_transform},
+    \begin{equation*}
+        \F^4 f(t) = \F^2 f(-t) = f(t),
+    \end{equation*}
+    by the Fourier inversion theorem for Schwartz functions. Since $\F$ is 
+    unitary, it is also a bounded linear operator, and hence a continuous 
+    operator. It now follows from \cref{prop:schwartz_dense} that for any 
+    $f\in\L^2(\R)$, there is a sequence $f_n\in\S(\R)$ such that 
+    \begin{equation*}
+        \norm{f_n - f}_2\to 0.
+    \end{equation*}
+    Then
+    \begin{equation*}
+        \begin{split}
+            \F^4 f(t) &= \F^4 \lim_{n\to\infty}f_n(t) = \lim_{n\to\infty}\F^4f_n(t)
+            = \lim_{n\to\infty}f_n(t) = f(t) 
+        \end{split}
+    \end{equation*}
+    for any $f\in\L^2(\R)$ by the continuity of $\F$.
+\end{proof}
+
+\begin{example}
+    We can use the Fourier transform to solve some PDEs. Consider the Laplace 
+    equation
+    \begin{equation*}
+        \begin{cases}
+            \nabla^2\cdot u = 0 & \text{ for } u:\R^2\to\R, x\in\R, y>0, \\
+            u(x,0) = f(x) & \text{ for } x\in\R. \\
+        \end{cases}
+    \end{equation*}
+    Apply the Fourier transform in $x$ direction, the original PDE becomes
+    \begin{equation*}
+        \begin{cases}
+            4\pi^2t^2\hat{u}(t,y) + \hat{u}_{yy}(t,y) = 0 & \text{ for } t\in\R, y>0, \\
+            \hat{u}(t,0) = \hat{f}(t) & \text{ for } t\in\R. \\
+        \end{cases}
+    \end{equation*}
+    Fix $t$, conjecture that $\hat{u}(t,y) = A(t)e^{-2\pi \abs{t}y} + B(t)e^{2\pi \abs{t}y}$. 
+    Then we have
+    \begin{equation*}
+        \begin{cases}
+            \hat{u}(t,y) = A(t)e^{-2\pi\abs{t}y}, & \\
+            A(t) = \hat{f}(t). &
+        \end{cases}
+    \end{equation*}
+    Since 
+    \begin{equation*}
+        \hat{u}(t,y) = \hat{f}(t)e^{-2\pi\abs{t}y} = \hat{f}(t)\hat{P}_y(t) 
+        = \widehat{f*P_y}(t),
+    \end{equation*}
+    we obtain
+    \begin{equation*}
+        \begin{cases}
+            u(x,y) = f*P_y(x), & \\
+            \lim_{y\to 0}u(x,y) = f(x). &
+        \end{cases}
+    \end{equation*}
+\end{example}
