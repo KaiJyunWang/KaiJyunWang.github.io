@@ -1,7 +1,7 @@
 \begin{definition}
     Let $(X,\norm{\cdot})$ be a normed space. A sequence $\set{x_n}$ 
     in $X$ is said to \textbf{converge weakly} to $x\in X$, denoted 
-    by $x_n\rightharpoonup x$, if for every $L\in X'$, $L(x_n)\to 
+    by $x_n\wto x$, if for every $L\in X'$, $L(x_n)\to 
     L(x)$ as $n\to\infty$.
 \end{definition}
 \begin{remark}
@@ -9,7 +9,7 @@
     \begin{equation*}
         \abs{L(x_n)-L(x)} = \abs{L(x_n-x)}\leq\norm{L}\norm{x_n-x}\to 0
     \end{equation*}
-    as $n\to\infty$. Thus $x_n\rightharpoonup x$. However, the 
+    as $n\to\infty$. Thus $x_n\wto x$. However, the 
     converse is not true in general.
 \end{remark}
 
@@ -18,7 +18,7 @@
     $L\in(\ell^2)'$, there exists $y\in\ell^2$ such that $L(x) = 
     \sum_{n=1}^\infty x_ny_n$. Let $x_n = e^n$ be the sequence 
     with $1$ at the $n$-th position and $0$ elsewhere. Then 
-    $x_n\rightharpoonup 0$ since for every $L\in(\ell^2)'$, 
+    $x_n\wto 0$ since for every $L\in(\ell^2)'$, 
     \begin{equation*}
         L(x_n) = \sum_{i} e^n_iy_i = y_n\to 0
     \end{equation*} 
@@ -36,7 +36,7 @@
         \end{cases}
     \end{equation*}
     Then $\norm{x_n}_\infty = 1$ and thus $x_n\not\to 0$. Instead, 
-    we have $x_n\rightharpoonup 0$. Assume not, then we can find 
+    we have $x_n\wto 0$. Assume not, then we can find 
     $T\in X'$ and a subsequence $\set{x_{n_k}}$ such that 
     $\abs{T(x_{n_k})} \geq \delta > 0$. For simplicity, we consider 
     the case $T(x_{n_k})\geq\delta$, but the other case is similar. 
@@ -60,14 +60,14 @@
     On $[1/n_K,1/n_{K-1}]$, we have $\norm{y_K}\leq 3$. 
     Thus $\delta K\leq\norm{T}_{X\to\R}\norm{y_K}_\infty
     \leq 3\norm{T}_{X\to\R}$, which is impossible for 
-    sufficiently large $K$. Hence $x_n\rightharpoonup 0$.
+    sufficiently large $K$. Hence $x_n\wto 0$.
 \end{example}
 
 \begin{proposition}
     $(X,\norm{\cdot}_X)$ is a normed space and $x_n\in X$. If 
     $\norm{x_n}_X\leq C$ for all $n\in\N$ and $L(x_n)\to L(x)$ 
     for all $L\in A\subset X'$, where $A$ is dense in $X'$, then 
-    $x_n\rightharpoonup x$ in $X$.
+    $x_n\wto x$ in $X$.
 \end{proposition}
 \begin{proof}
     Let $\epsilon>0$ be given. $A$ is dense in $X'$. For $T\in X'$, 
@@ -81,7 +81,7 @@
             \leq 2C\epsilon + \epsilon
         \end{split}
     \end{equation*}
-    for all $n\leq N$. Since $\epsilon$ is arbitrary, $x_n\rightharpoonup x$.
+    for all $n\leq N$. Since $\epsilon$ is arbitrary, $x_n\wto x$.
 \end{proof}
 
 \begin{definition}
@@ -259,7 +259,7 @@
 \end{proof}
 
 \begin{corollary}\label{cor:ubp2}
-    $X$ is a normed space and $x_n\in X$ with $x_n\rightharpoonup x$ in $X$. 
+    $X$ is a normed space and $x_n\in X$ with $x_n\wto x$ in $X$. 
     Then there exists $C<\infty$ such that $\norm{x_n}_X\leq C$ for all $n$. 
 \end{corollary}
 \begin{proof}
@@ -267,7 +267,7 @@
 \end{proof}
 
 \begin{proposition}
-    Let $f_n\in\L^p(X,\mu)$ and $1\leq p<\infty$. Then $f_n\rightharpoonup f\in\L^p$ if 
+    Let $f_n\in\L^p(X,\mu)$ and $1\leq p<\infty$. Then $f_n\wto f\in\L^p$ if 
     \begin{equation*}
         \lim_{n\to\infty} \int f_ngd\mu = \int fgd\mu
     \end{equation*}
@@ -280,11 +280,11 @@
     \begin{equation*}
         T(f_n) = \int f_ngd\mu \to \int fgd\mu = T(f).
     \end{equation*}
-    Hence $f_n\rightharpoonup f$.
+    Hence $f_n\wto f$.
 \end{proof}
 
 \begin{proposition}\label{prop:weak_conv_bd}
-    $f_n\in\L^p(X,\mu)$ and $1\leq p<\infty$. If $f_n\rightharpoonup f$ in $\L^p$, 
+    $f_n\in\L^p(X,\mu)$ and $1\leq p<\infty$. If $f_n\wto f$ in $\L^p$, 
     then $f_n$ is bounded and 
     \begin{equation*}
         \norm{f_n}_p\leq \liminf_{n\to\infty}\norm{f_n}_p.
@@ -339,8 +339,8 @@
     right hand side of the inequality converges to $0$ as $n\to\infty$.
 \end{proof}
 \begin{remark}
-    If we loosen the condition to $f_n\rightharpoonup f$ in $\L^p$ 
-    and $g_n\rightharpoonup g$ in $\L^{p'}$, then the conclusion 
+    If we loosen the condition to $f_n\wto f$ in $\L^p$ 
+    and $g_n\wto g$ in $\L^{p'}$, then the conclusion 
     fails.
 \end{remark}
 \begin{example}
@@ -349,7 +349,7 @@
     \begin{equation*}
         \int_0^\pi f_n^2dx = \frac{2}{\pi}\int_0^\pi \sin^2(nx)dx = 1.
     \end{equation*}
-    To see that $f_n \rightharpoonup 0$, let $g\in\L^2([0,\pi])$. 
+    To see that $f_n \wto 0$, let $g\in\L^2([0,\pi])$. 
     For every $\epsilon>0$, there is a step function $\phi$ such 
     that $\norm{g-\phi}_2<\epsilon$. Note that every step function 
     is a finite linear combination of characteristic functions of 
@@ -359,14 +359,14 @@
         \abs{\int_I \sin(nx)dx} \leq \int_{0}^{\pi/n}\sin(nx)dx 
         = \frac{2}{n}\to 0
     \end{equation*}
-    as $n\to\infty$. Thus $f_n\rightharpoonup 0$ in $\L^2([0,\pi])$. 
+    as $n\to\infty$. Thus $f_n\wto 0$ in $\L^2([0,\pi])$. 
     However, $f_n$ does not converge to $0$ strongly in $\L^2([0,\pi])$ 
     since $\norm{f_n}_2 = 1\neq 0$ for all $n$.
 \end{example}
 
 \begin{proposition}\label{prop:weak_conv_on_set}
     $1\leq p<\infty$. Let $f_n\in\L^p(X,\mu)$ be a bounded sequence 
-    of functions. Then $f_n\rightharpoonup f$ in $\L^p$ if and only if 
+    of functions. Then $f_n\wto f$ in $\L^p$ if and only if 
     \begin{equation*}
         \lim_{n\to\infty}\int_A f_nd\mu = \int_A fd\mu
     \end{equation*}
@@ -376,7 +376,7 @@
 \begin{proof}
     \begin{equation*}
         \begin{split}
-            f_n\rightharpoonup f 
+            f_n\wto f 
             &\iff \int f_ngd\mu \to \int fgd\mu \text{ for all } g\in\L^{p'} \\
             &\iff \int_A f_nsd\mu \to \int_A fsd\mu \text{ for all simple } s\in\L^{p'} \\ 
             &\iff \int_A f_nd\mu = \int f_n\chi_Ad\mu \to \int f\chi_Ad\mu = \int_A fd\mu
@@ -389,7 +389,7 @@
 \begin{proposition}
     $1<p<\infty$. Let $f_n\in\L^p(X,\mu)$ be a sequence with 
     $\norm{f_n}_p\leq M$ and $f_n\to f$ pointwise a.e. Then 
-    $f_n\rightharpoonup f$ in $\L^p$.
+    $f_n\wto f$ in $\L^p$.
 \end{proposition}
 \begin{proof}
     Since $\norm{f_n}_p\leq M$, 
@@ -423,7 +423,7 @@
             \leq \epsilon\mu(A) + \epsilon + \epsilon.
         \end{split}
     \end{equation*}
-    Hence $f_n\rightharpoonup f$.
+    Hence $f_n\wto f$.
 \end{proof}
 
 \begin{remark}
@@ -438,7 +438,7 @@
 \begin{theorem}[Radon-Riesz]
     $1<p<\infty$. Then $f_n\to f$ in $\L^p$ if and only if 
     $\lim_{n\to\infty} \norm{f_n}_p = \norm{f}_p$ and 
-    $f_n\rightharpoonup f$ in $\L^p$.
+    $f_n\wto f$ in $\L^p$.
 \end{theorem}
 \begin{proof}
     Suppose $f_n\to f$ in $\L^p$. Then the strong convergence 
@@ -448,7 +448,7 @@
         \abs{\norm{f_n}_p-\norm{f}_p} \leq \norm{f_n-f}_p\to 0
     \end{equation*}
     by the strong convergence. Conversely, suppose that 
-    $\norm{f_n}_p\to\norm{f}_p$ and $f_n\rightharpoonup f$ in 
+    $\norm{f_n}_p\to\norm{f}_p$ and $f_n\wto f$ in 
     $\L^p$. 
     
     Assume $p\geq 2$. For any $y\in\R$, notice that $\abs{1+y}^p 
@@ -516,7 +516,7 @@
         \end{split}
     \end{equation*}
     Hence $f_n\to f$ in $\L^p$. We conclude that $f_n\to f$ strongly in $\L^p$ if and only if
-    $f_n\rightharpoonup f$ in $\L^p$ and $\norm{f_n}_p\to\norm{f}_p$.
+    $f_n\wto f$ in $\L^p$ and $\norm{f_n}_p\to\norm{f}_p$.
 \end{proof}
 \begin{remark}
     Radon-Riesz theorem fails for $p=1$. Consider $f_n(x) = 1+\sin(nx)$ on $X=[-\pi,\pi]$. 
@@ -533,3 +533,246 @@
     \end{equation*}
     for all $n$.
 \end{remark}
+
+\begin{definition}
+    Let $X$ be a Banach space. A subset $K\subset X$ is \textbf{weakly sequentially compact} 
+    if every sequence $\set{x_n}\subset K$ has a subsequence $\set{x_{n_k}}$ such that 
+    $x_{n_k}\wto x\in K$.
+\end{definition}
+
+\begin{proposition}\label{prop:w_seq_cpt_bd}
+    Let $X$ be a Banach space. If $K\subset X$ is weakly sequentially compact, then 
+    $K$ is bounded.
+\end{proposition}
+\begin{proof}
+    Suppose $K$ is not bounded. Then we can choose an unbounded sequence 
+    $\set{x_n}\subset K$ such that $\norm{x_n}\geq n$ for all $n$. By the 
+    weakly sequential compactness of $K$, there exists a weaky convergent 
+    subsequence $\set{x_{n_k}}$ such that $x_{n_k}\wto x\in K$ and also 
+    $\norm{x_{n_k}}\geq n_k$. However, by \cref{cor:ubp2}, $\norm{x_{n_k}}\leq C$ 
+    for some $C<\infty$, which is absurd. Hence $K$ is bounded.
+\end{proof}
+
+\begin{theorem}[Kakutani]
+    Let $X$ be a reflexive Banach space. Then the closed unit ball 
+    \begin{equation*}
+        B = \Set{x\in X}{\norm{x}\leq 1}
+    \end{equation*}
+    is weakly sequentially compact.
+\end{theorem}
+\begin{proof}
+    We consider first the case when $X$ is separable. Reflexivity gives 
+    that $X''\cong X$ and hence $X''$ is separable. By \cref{thm:dual_separable}, 
+    $X'$ is separable, and there exists a countable dense subset 
+    $\set{m_j}\subset X'$. Given $x_n\in X$ with $\norm{x_n}\leq 1$, we need 
+    to show that there exists a subsequence $x_{n_k}\wto x\in B$. Since $m_j(x_n)$ 
+    is a bounded sequence for each $j$, we can extract a subsequence $x_{n_k}$ such that 
+    $m_j(x_{n_{k_j}})\to A(m_{k_j})$ as $j\to\infty$, where 
+    \begin{equation*}
+        A(m_j) = \lim_{j\to\infty} m_j(x_{n_{k_j}}).
+    \end{equation*}
+
+    We claim that for all $m\in X'$, $m(x_{n_k})\to A(m)$ as $k\to\infty$. Indeed, 
+    for any $m\in X'$, we can find a sequence $\set{m_j}$ such that $m_j\to m$ as 
+    $j\to\infty$. Then 
+    \begin{equation*}
+        \begin{split}
+            \abs{m(x_{n_k}) - m(x_{n_l})} 
+            &\leq \abs{m(x_{n_k}) - m_j(x_{n_k})} + \abs{m_j(x_{n_k}) - m_j(x_{n_l})} + \abs{m_j(x_{n_l}) - m(x_{n_l})} \\
+            &\leq \norm{m-m_j}\norm{x_{n_k}} + \abs{m_j(x_{n_k}) - m_j(x_{n_l})} + \norm{m-m_j}\norm{x_{n_l}} \\
+            &\leq 2\norm{m-m_j} + \abs{m_j(x_{n_k}) - m_j(x_{n_l})} \to 0
+        \end{split}
+    \end{equation*}
+    as $k,l\to\infty$. Hence the sequence $\set{m(x_{n_k})}$ is Cauchy and $A$ 
+    is well-defined. Notice that $A$ is also bounded:
+    \begin{equation*}
+        \abs{A(m)} = \lim_{k\to\infty} \abs{m(x_{n_k})} \leq \lim_{k\to\infty}\norm{m}\norm{x_{n_k}} = \norm{m}.
+    \end{equation*}
+    We see that $\norm{A}\leq 1$. Because $A$ is bounded, it is continuous and thus 
+    $m(x_{n_k})\to m(x)$ for some $x\in X$ by the reflexivity of $X$. Such $x$ belongs 
+    to $B$ since $\norm{x} = \norm{A}\leq 1$. Thus $B$ is weakly sequentially compact.
+
+    For the general case where $X$ is not separable, consider the sequence $\set{x_n}\subset B$. 
+    Let $Y = \Set{\sum_{n=1}^N \alpha_n x_n}{N\in\N, \alpha_n\in\R}$ be the closed subspace of 
+    $X$ spanned by $\set{x_n}$. Since $X$ is reflexive, $Y$ is also reflexive by 
+    \cref{thm:subspace_reflexive}. Note that $Y$ is also separable. The established 
+    results above show that there exists a subsequence $\set{x_{n_k}}\subset Y$ and $x\in Y$ 
+    such that $x_{n_k}\wto x$ in $Y$, i.e., for every $m\in Y'$, $m(x_{n_k})\to m(x)$. 
+    Extend the functionals $m\in Y'$ to $\ell\in X'$ by Hahn-Banach theorem. Then 
+    $\ell|_Y = m\in Y'$ implies that $\ell(x_{n_k}) = m(x_{n_k})\to m(x) = \ell(x)$. 
+    We conclude that $x_{n_k}\wto x\in B$. Thus $B$ is weakly sequentially compact.
+\end{proof}
+
+\begin{example}
+    Let $p\in(1,\infty)$. Then $\L^p(\Omega,\mu)$ is reflexive. Then for all 
+    $\set{f_n}$ with $\norm{f_n}_p\leq 1$, there exists a subsequence $f_{n_k}\wto f$ 
+    in $\L^p$ for some $f$ with $\norm{f}_p\leq 1$. By Riesz representation theorem, 
+    this is equivalent to saying that for every $g\in\L^{q}(\Omega,\mu)$, 
+    \begin{equation*}
+        \lim_{k\to\infty} \int f_{n_k}g d\mu = \int fg d\mu,
+    \end{equation*}
+    where $q$ is the conjugate exponent of $p$. 
+\end{example}
+
+\begin{definition}
+    Let $M$ be a Banach space. A sequence of bounded linear functionals 
+    $\set{x_n}\subset M'$ \textbf{converges $\text{weakly}^*$} to $x$ if 
+    for all $m\in M$, $x_n(m)\to x(m)$ as $n\to\infty$. We denote the 
+    convergence by $x_n\wstarto x$.
+\end{definition}
+\begin{remark}
+    Since the canonical mapping $M\to M''$ is always injective, $w^*$ 
+    convergence is weaker than weak convergence. Allowing for the abuse 
+    of notation, we can write $M\subset M''$. Consider now a sequence 
+    $x_n\in M'$ with $x_n\wto x$ in $M'$. Then $\ell(x_n)\to\ell(x)$ for 
+    any $\ell\in M''$. This implies that $x_n(m)\to x(m)$ for all $m\in M$ 
+    and hence $x_n\wstarto x$ in $M'$. Thus weak convergence implies $w^*$ 
+    convergence. 
+
+    The converse is true if $M$ is reflexive. However, once we remove the 
+    reflexivity condition, the converse fails. Let $X$ be the space of finite 
+    signed measures on $[-1,1]$. Suppose $x_n, x\in X$. By Hahn-Jordan decomposition, 
+    we can write $x = x^+ - x^-$ and the norm of $x$ is given by 
+    $\norm{x} = x^+([-1,1]) + x^-([-1,1])$. For every $f\in C([-1,1])$, 
+    \begin{equation*}
+        x(f) = \int_{-1}^1 fdx.
+    \end{equation*}
+    $x_n\wstarto x$ means that 
+    \begin{equation*}
+        \int_{-1}^1 fdx_n \to \int_{-1}^1 fdx.
+    \end{equation*}
+    Consider the sequence of measures $x_n(A) = n\mu(A\cap[-1/n,1/n])/2$. We claim 
+    that $x_n\wstarto \delta_0$, where $\delta_0$ is the Dirac measure at $0$. 
+    Indeed, for any $f\in C([-1,1])$, 
+    \begin{equation*}
+        x_n(f) = \int_{-1}^1 fdx_n = \frac{n}{2}\int_{-1/n}^{1/n} f(x)dx \to f(0) = \delta_0(f).
+    \end{equation*}
+    However, $x_n$ is not weakly convergent to $\delta_0$. To see this, notice that 
+    $x_n$ belong to the space $X^{\ll} = \Set{\nu\in X}{\nu\ll\mu}$, 
+    where $\mu$ is the Lebesgue measure, while $\delta_0$ does not belong to $X^{\ll}$. 
+    By Radon-Nikodym theorem, $X^{\ll}$ can be identified with $\L^1(\mu)$ and hence 
+    by Riesz representation theorem, $(X^{\ll})' \cong \L^1(\mu)' = \L^\infty(\mu)$. 
+    We thus know that $X'$ contains at least $\L^\infty(\mu)$. Taking $\chi_{\set{1}}\in\L^\infty$, 
+    we have 
+    \begin{equation*}
+        x_n(\chi_{\set{1}}) = \frac{n}{2}\int_{-1/n}^{1/n} \chi_{\set{1}}(x)dx = 0 \neq 1 = \delta_0(\chi_{\set{1}}).
+    \end{equation*}
+    Thus $x_n$ does not converge weakly to $\delta_0$.
+\end{remark}
+
+\begin{definition}
+    Let $M$ be a Banach space. A subset $K\subset M'$ is \textbf{weakly* sequentially compact} 
+    if every sequence $\set{x_n}\subset K$ has a subsequence $\set{x_{n_k}}$ such that 
+    $x_{n_k}\wstarto x\in K$.
+\end{definition}
+
+\begin{theorem}[Banach-Alaoglu]
+    Let $M$ be a separable Banach space. Then the closed unit ball 
+    \begin{equation*}
+        B = \Set{x\in M'}{\norm{x}\leq 1}
+    \end{equation*}
+    is weakly* sequentially compact.
+\end{theorem}
+\begin{proof}
+    This proof is similar to the proof of Kakutani theorem. Let $\set{x_n}\subset B$ be a 
+    sequence. By the separability of $M$, for every $m\in M$, there is a sequence $\set{m_j}\subset M$ 
+    such that $m_j\to m$ as $j\to\infty$. For any fixed $j$, $\abs{x_n(m_j)}\leq \norm{m_j}$ 
+    is a bounded sequence. Hence we can extract a subsequence $x_{n_k}$ such that 
+    \begin{equation*}
+        x_{n_k}(m_j)\to A(m_j) \text{ as } k\to\infty
+    \end{equation*}
+    for some $A(m_j)\in\R$, with $A(m) = \lim_{k\to\infty} x_{n_k}(m)$. $A$ is a 
+    bounded linear functional on $M$ since it is clearly linear and 
+    \begin{equation*}
+        \abs{A(m)} = \lim_{k\to\infty} \abs{x_{n_k}(m)} \leq \lim_{k\to\infty} \norm{x_{n_k}}\norm{m} = \norm{m},
+    \end{equation*}
+    showing that $\norm{A}\leq 1$. We claim that $A$ is well-defined, i.e., 
+    the limit exists. Indeed, for any $m\in M$, we can find a sequence $\set{m_j}$ such that 
+    $m_j\to m$ as $j\to\infty$. Then 
+    \begin{equation*}
+        \begin{split}
+            \abs{x_{n_k}(m) - x_{n_l}(m)} &\leq \abs{x_{n_k}(m) - x_{n_k}(m_j)} + \abs{x_{n_k}(m_j) - x_{n_l}(m_j)} + \abs{x_{n_l}(m_j) - x_{n_l}(m)} \\
+            &\leq \norm{x_{n_k}-x_{n_l}}\norm{m} + \abs{x_{n_k}(m_j) - x_{n_l}(m_j)} + \norm{x_{n_k}-x_{n_l}}\norm{m} \\
+            &\leq 2\norm{x_{n_k}-x_{n_l}} + \abs{x_{n_k}(m_j) - x_{n_l}(m_j)} \to 0
+        \end{split}
+    \end{equation*}
+    as $k,l\to\infty$. Hence the sequence $\set{x_{n_k}(m)}$ is Cauchy and $A$ 
+    is well-defined. Because of the boundedness of $A$, it is continuous and thus
+    $x_{n_k}(m)\to x(m)$ for some $x\in M'$. Since $\norm{x_{n_k}}\leq 1$, we have 
+    $\norm{x}\leq 1$. Thus $x\in B$ and $x_{n_k}\wstarto x$ in $M'$. We conclude that 
+    $B$ is weakly* sequentially compact.
+\end{proof}
+
+\begin{remark}
+    Let $X$, $Y$ be Banach spaces and $B(X, Y)$ be the space of bounded linear 
+    operators from $X$ to $Y$. Consider the following topologies on $B(X,Y)$:
+    \begin{itemize}
+        \item The uniform topology on $B(X,Y)$ is the topology induced by the 
+        uniform norm: 
+        \begin{equation*}
+            \norm{m}_{B(X,Y)} = \sup_{\norm{x}_X\leq 1} \norm{m(x)}_Y.
+        \end{equation*}
+        This is the coarest among the three topologies.
+        \item The strong topology on $B(X,Y)$ is the topology generated by the 
+        collection of sets: 
+        \begin{equation*}
+            \Set{B_{x,\epsilon}(T) = \Set{S\in B(X,Y)}{\norm{Sx - Tx}<\epsilon}}{\epsilon>0, x\in X, T\in B(X,Y)}.
+        \end{equation*}
+        This is the coarest topology that makes the evaluation map $m\mapsto m(x)$ 
+        continuous for all $x\in X$.
+        \item The weak topology on $B(X,Y)$ is the topology generated by the collection 
+        \begin{equation*}
+            \Set{B_{y',x,\epsilon}(T) = \Set{S\in B(X,Y)}{\abs{y'Sx - y'Tx}<\epsilon}}{\epsilon>0, y'\in Y', x\in X, T\in B(X,Y)}.
+        \end{equation*}
+    \end{itemize}
+\end{remark}
+
+\begin{definition}
+    Let $\set{M_n}\subset B(X,Y)$ be a sequence of bounded linear operators. $M_n$ 
+    \textbf{converges strongly} if for any $x\in X$, $\norm{M_nx - y}_Y\to 0$ for some $y\in Y$.
+\end{definition}
+
+\begin{proposition}
+    If $\set{M_n}\subset B(X,Y)$ converges strongly, then there is an $M\in B(X,Y)$ such that
+    $\norm{M_nx - Mx}_Y\to 0$ for all $x\in X$. 
+\end{proposition}
+\begin{proof}
+    Set $Mx = \lim_{n\to\infty} M_nx$ for all $x\in X$. We check that $M\in B(X,Y)$. 
+    Linearity is trivial; we check the boundedness. Let $f_n(x) = \norm{M_nx}_Y$. 
+    Then $f_n$ is sub-additive and $f_n(\alpha x) = \abs{\alpha}f_n(x)$ for all $\alpha\in\R$. 
+    If $x_k\to x$, 
+    \begin{equation*}
+        f_n(x_k) = \norm{M_nx_k}_Y\to\norm{Mx_k}_Y = f_n(x)
+    \end{equation*}
+    for any fixed $n$ as $k\to\infty$; $f_n$ is continuous. Now for any fixed $x\in X$, 
+    $\sup_n f_n(x) = \sup_n \norm{M_nx}\leq C(x)$ by the strong convergence. It follows 
+    from the uniform boundedness principle that there is $C_0<\infty$ such that 
+    $\abs{f_n(x)}\leq C_0\norm{x}_X$ for all $n$. Thus 
+    \begin{equation*}
+        \norm{Mx}_Y = \lim_{n\to\infty} \norm{M_nx}_Y \leq C_0\norm{x}_X.
+    \end{equation*}
+    Hence $\norm{M}\leq C_0$ and $M\in B(X,Y)$.
+\end{proof}
+
+\begin{definition}
+    A sequence $\set{M_n}\subset B(X,Y)$ \textbf{converges weakly} if for all 
+    $x\in X$, $M_nx\wto y\in Y$ for some $y$. 
+\end{definition}
+
+\begin{proposition}
+    If $\set{M_n}\subset B(X,Y)$ converges weakly, then there is an $M\in B(X,Y)$ such that 
+    $M_nx\wto Mx$ for all $x\in X$.
+\end{proposition}
+\begin{proof}
+    Set $Mx = \lim_{n\to\infty} M_nx$ for all $x\in X$. We check that $M\in B(X,Y)$. 
+    Linearity is trivial; we check the boundedness. Without loss of genrality, we can 
+    assume that $\norm{x}_X = 1$. Observe that $\set{M_nx}\subset Y$ 
+    is a weakly convergence sequence and hence weakly sequentially compact; by 
+    \cref{prop:w_seq_cpt_bd}, it is bounded. Thus there exists $C<\infty$ such that
+    $\norm{M_nx}_Y\leq C = C\norm{x}$ for all $n$. Taking the limit, we have 
+    $\norm{Mx}_Y = \lim_{n\to\infty} \norm{M_nx}_Y\leq C\norm{x}_X$. Hence $M\in B(X,Y)$.
+    
+    Lastly, we check the weak convergence. Indeed, for any $\ell\in Y'$, 
+    $\ell(M_nx) = \ell(Mx)$ for all $x\in X$ since $M_nx\to Mx$ in $Y$. 
+    Thus $M_nx\wto Mx$ in $Y$. 
+\end{proof}
