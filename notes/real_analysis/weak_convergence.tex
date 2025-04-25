@@ -631,33 +631,26 @@
 
     The converse is true if $M$ is reflexive. However, once we remove the 
     reflexivity condition, the converse fails. Let $X$ be the space of finite 
-    signed measures on $[-1,1]$. Suppose $x_n, x\in X$. By Hahn-Jordan decomposition, 
-    we can write $x = x^+ - x^-$ and the norm of $x$ is given by 
-    $\norm{x} = x^+([-1,1]) + x^-([-1,1])$. For every $f\in C([-1,1])$, 
+    signed measures on $[-1,1]$. We have already seen in \cref{thm:dual_C} that 
+    $C([-1,1])'\cong X$. Consider the measures $\nu_n(A) = n\mu(A\cap[-1/n,1/n])/2$. 
+    We claim that $\nu_n\wstarto \delta_0$, where $\delta_0$ is the Dirac measure 
+    at $0$. Indeed, for any $f\in C([-1,1])$, the corresponding functional $\ell_n$ 
+    for $\nu_n$ is given by
     \begin{equation*}
-        x(f) = \int_{-1}^1 fdx.
+        \ell_n(f) = \int_{-1}^1 f d\nu_n = \frac{n}{2}\int_{-1/n}^{1/n} f(x)dx
+        \to f(0) = \ell_0(f),
     \end{equation*}
-    $x_n\wstarto x$ means that 
+    where $\ell_0$ is the functional defined as $\ell_0:f\mapsto f(0)$. 
+    Thus $\ell_n\wstarto\ell_0$.
+
+    However, $\ell_n$ is not weakly convergent to $\ell_0$. To see this, consider 
+    the evaluation functional $L_{\set{0}}:\ell\mapsto(\phi\ell)(\set{0})$, where 
+    $\phi$ is the isometric isomorphism from $C([-1,1])'$ to $X$. 
+    Then $L_{\set{0}}\in X' = M''$. However, 
     \begin{equation*}
-        \int_{-1}^1 fdx_n \to \int_{-1}^1 fdx.
+        L_{\set{0}}(\ell_n) = \nu_n(\set{0}) = 0 \not\to 1 = \delta_0(\set{0}) = L_{\set{0}}(\ell_0).
     \end{equation*}
-    Consider the sequence of measures $x_n(A) = n\mu(A\cap[-1/n,1/n])/2$. We claim 
-    that $x_n\wstarto \delta_0$, where $\delta_0$ is the Dirac measure at $0$. 
-    Indeed, for any $f\in C([-1,1])$, 
-    \begin{equation*}
-        x_n(f) = \int_{-1}^1 fdx_n = \frac{n}{2}\int_{-1/n}^{1/n} f(x)dx \to f(0) = \delta_0(f).
-    \end{equation*}
-    However, $x_n$ is not weakly convergent to $\delta_0$. To see this, notice that 
-    $x_n$ belong to the space $X^{\ll} = \Set{\nu\in X}{\nu\ll\mu}$, 
-    where $\mu$ is the Lebesgue measure, while $\delta_0$ does not belong to $X^{\ll}$. 
-    By Radon-Nikodym theorem, $X^{\ll}$ can be identified with $\L^1(\mu)$ and hence 
-    by Riesz representation theorem, $(X^{\ll})' \cong \L^1(\mu)' = \L^\infty(\mu)$. 
-    We thus know that $X'$ contains at least $\L^\infty(\mu)$. Taking $\chi_{\set{1}}\in\L^\infty$, 
-    we have 
-    \begin{equation*}
-        x_n(\chi_{\set{1}}) = \frac{n}{2}\int_{-1/n}^{1/n} \chi_{\set{1}}(x)dx = 0 \neq 1 = \delta_0(\chi_{\set{1}}).
-    \end{equation*}
-    Thus $x_n$ does not converge weakly to $\delta_0$.
+    Thus $\nu_n$ does not converge weakly to $\delta_0$.
 \end{remark}
 
 \begin{definition}
