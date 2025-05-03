@@ -712,28 +712,6 @@
     for $1<p<\infty$.
 \end{proof}
 
-\begin{theorem}[Milman-Pettis]
-    Every uniformly convex Banach space is reflexive.
-\end{theorem}
-\begin{proof}
-    
-\end{proof}
-
-\begin{corollary}
-    $\L^p(\Omega,\mu)$ is reflexive for any $1< p <\infty$.
-\end{corollary}
-\begin{proof}
-    This is a direct consequence of the Clarkson theorem and 
-    Milman-Pettis theorem. Since for every $1<p<\infty$, 
-    $\L^p(\Omega,\mu)$ is uniformly convex, and every uniformly 
-    convex Banach space is reflexive, we conclude that 
-    $\L^p(\Omega,\mu)$ is reflexive.
-\end{proof}
-\begin{remark}
-    This corollary can also be inferred from the Riesz 
-    representation theorem twice. 
-\end{remark}
-
 \begin{example}
     Fix $x\in X$ and define the functional $L_x:X'\to\R$ by 
     $L_x(\ell) = \ell(x)$. Then $L_x$ is a bounded linear functional. 
@@ -759,6 +737,11 @@
     \end{equation*} 
     Hence $\norm{L_x} = \norm{x}$. 
 \end{example}
+
+\begin{remark}
+    Another important observation from the above example is that 
+    $\norm{x} = \sup_{\norm{\ell} = 1}\abs{\ell(x)}$. 
+\end{remark}
 
 \begin{proposition}
     If $X$ is a finite-dimensional Banach space, then $X$ is reflexive.
@@ -896,4 +879,113 @@
     = L_0(m_0')$ and hence $L(m) = L_0(m_0) = m_0(z) = m(z)$. 
     Thus the extension is unique. We conclude that $Y$ is 
     a reflexive Banach space.
+\end{proof}
+
+\begin{definition}
+    Let $X$ be a Banach space and $Y\subset X$ be a closed 
+    subset. Then the \textbf{quotient space} $X/Y$ is defined as 
+    \begin{equation*}
+        X/Y = \Set{x+Y}{x\in X}
+    \end{equation*}
+    with the norm $\norm{x+Y} = \inf_{y\in Y}\norm{x+y}$. 
+\end{definition}
+\begin{remark}
+    In the quotient space $X/Y$, two elements $x_1+Y$ and 
+    $x_2+Y$ are equal if $x_1-x_2\in Y$.
+\end{remark}
+\begin{remark}
+    For any $T\in B(X,Y)$, consider its kernel $\ker(T)\subset X$. 
+    By \cref{prop:kernel_closed}, $\ker(T)$ is closed, and thus 
+    $X/\ker(T)$ is well-defined.
+\end{remark}
+
+\begin{proposition}
+    Let $T\in B(X,Y)$ be a bounded linear operator. Define $T_0:X/\ker(T)\to Y$ by 
+    $T_0:x+\ker(T)\mapsto Tx$. Then $T_0$ is a bounded linear operator with 
+    $\norm{T_0} = \norm{T}$.
+\end{proposition}
+\begin{proof}
+    We first check that $T_0$ is well-defined. Suppose $x_1+Y = x_2+Y$. 
+    Then $x_1-x_2\in\ker(T)$ and hence $T(x_1-x_2) = 0$. Thus $Tx_1 = Tx_2$ 
+    and  
+    \begin{equation*}
+        T_0(x_1+\ker(T)) = Tx_1 = Tx_2 = T_0(x_2+\ker(T)).
+    \end{equation*}
+    Next, $T_0$ is clearly linear. For $x+\ker(T)\in X/\ker(T)$ 
+    and any $\epsilon>0$, there exists $x_0\in X$ such that 
+    $\norm{x+x_0}\leq \norm{x+\ker(T)} + \epsilon$ by the definition 
+    of the norm on the quotient space. Then 
+    \begin{equation*}
+        \norm{T_0(x+\ker(T))} = \norm{Tx} = \norm{T(x+x_0)} 
+        \leq \norm{T}\norm{x+x_0} \leq \norm{T}(\norm{x+\ker(T)} + \epsilon).
+    \end{equation*}
+    Since $\epsilon$ is arbitrary, we have $\norm{T_0(x+\ker(T))}\leq \norm{T}\norm{x+\ker(T)}$. 
+    This shows that $T_0$ is bounded and $\norm{T_0}\leq\norm{T}$. 
+    Conversely, notice that $0\in\ker(T)$. Thus 
+    \begin{equation*}
+        \norm{Tx} = \norm{T_0(x+\ker(T))} \leq \norm{T_0}\norm{x+\ker(T)} 
+        \leq \norm{T_0}\norm{x+0} = \norm{T_0}\norm{x}.
+    \end{equation*}
+    Hence $\norm{T}\leq\norm{T_0}$. We conclude that $\norm{T_0} = \norm{T}$.
+\end{proof}
+\begin{remark}
+    $T_0$ is injective and $T_0(X/\ker(T)) = T(X)$.
+\end{remark}
+
+\begin{definition}
+    Let $X, Y$ be two Banach spaces and $T\in B(X,Y)$. The 
+    \textbf{transpose} of $T$ is defined as $T': Y'\to X'$ by 
+    $T':\ell\mapsto\ell T\in X'$. 
+\end{definition}
+\begin{remark}
+    $T'\ell = \ell T$.
+\end{remark}
+
+\begin{proposition}
+    Suppose $T\in B(X,Y)$. Then $T':Y'\to X'$ is a bounded linear operator 
+    with $\norm{T'} = \norm{T}$.
+\end{proposition}
+\begin{proof}
+    The linearity of $T'$ is trivial. By definition, 
+    \begin{equation*}
+            \norm{T'} = \sup_{\norm{\ell} = 1}\norm{T'\ell} 
+            = \sup_{\norm{\ell} = 1}\norm{\ell T} 
+            = \sup_{\norm{\ell} = 1}\sup_{\norm{x} = 1}\abs{\ell(Tx)}
+            \leq \sup_{\norm{\ell} = 1}\sup_{\norm{x} = 1}\norm{\ell}\norm{T}\norm{x} 
+            = \norm{T}.
+    \end{equation*}
+    Conversely, 
+    \begin{equation*}
+        \norm{T} = \sup_{\norm{x} = 1}\norm{Tx} 
+        = \sup_{\norm{x} = 1}\sup_{\norm{\ell} = 1}\abs{\ell(Tx)} 
+        \leq \sup_{\norm{\ell} = 1}\sup_{\norm{x} = 1}\norm{\ell T}\norm{x}
+        = \sup_{\norm{\ell} = 1}\norm{T'\ell} = \norm{T'}.
+    \end{equation*}
+    Hence $\norm{T'} = \norm{T}$.
+\end{proof}
+
+\begin{definition}
+    Let $T\in B(X,Y)$. The \textbf{orthogonal complement} of $T(X)$ is 
+    defined as 
+    \begin{equation*}
+        T(X)^\perp = \Set{\ell\in Y'}{\ell(Tx) = 0 \text{ for all } x\in X}.
+    \end{equation*}
+\end{definition}
+
+\begin{proposition}
+    Let $T\in B(X,Y)$. Then $\ker(T') = T(X)^\perp$.
+\end{proposition}
+\begin{proof}
+    Let $\ell\in T(X)^\perp$. Then for all $x\in X$, 
+    \begin{equation*}
+        T'\ell x = \ell(Tx) = 0.
+    \end{equation*}
+    Hence $\ell\in\ker(T')$ and $T(X)^\perp\subset\ker(T')$. 
+    Conversely, if $\ell\in\ker(T')$, then $T'\ell = 0$ and 
+    \begin{equation*}
+        \ell(Tx) = T'\ell(x) = 0
+    \end{equation*}
+    for all $x\in X$. Thus $\ell\in T(X)^\perp$ and 
+    $\ker(T')\subset T(X)^\perp$. We conclude that 
+    $\ker(T') = T(X)^\perp$.
 \end{proof}

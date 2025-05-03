@@ -70,6 +70,20 @@
 \end{proof}
 
 \begin{definition}
+    The \textbf{adjoint operator} of $T:\H\to\H$ is the operator 
+    $T^*:\H\to\H$ such that $\inp{Tx}{y} = \inp{x}{T^*y}$ for all $x,y\in\H$.
+\end{definition}
+\begin{remark}
+    $T:\H\to\H$ is a bounded linear operator. By the Riesz representation, 
+    $\H' = \H$. Thus $T':\H'\to\H'$ is defined by $T':\ell\mapsto T'\ell = \ell T$. 
+    $T^*:\H\to\H' = \H$ is defined by $T^*:x\mapsto T^*x = T'\ell y$. 
+    For $x,y\in\H$, 
+    \begin{equation*}
+        \inp{Tx}{y} = \inp{x}{T^*y} = \ell_{T^*y}(x) = T'\ell_y(x) = \ell_y(Tx).
+    \end{equation*}
+\end{remark}
+
+\begin{definition}
     Let $X,Y$ be vector spaces. $T:X\to Y$ is called \textbf{skew-linear} if 
     $T(cx + y) = \overline{c}Tx + Ty$ for all $x,y\in X$ and $c\in\mathbb{F}$.
 \end{definition}
@@ -181,7 +195,10 @@
     is attained at a unique $x\in\H$.
 \end{theorem}
 \begin{proof}
-    Set $F(x) = \frac{1}{2}B(x,x) - Lx$ and $\alpha = \inf_{x\in\H} F(x)$. 
+    Set $F(x) = \frac{1}{2}B(x,x) - Lx$ and 
+    \begin{equation*}
+        \alpha = \inf_{x\in\H} F(x).
+    \end{equation*}
     We check that $\alpha$ is finite. Notice that for all $x\in\H$,
     \begin{equation*}
         -M < \frac{1}{2}\delta\norm{x}^2 - \norm{L}\norm{x} 

@@ -54,6 +54,21 @@
     for every $f\in V$ and $j\geq N$. Hence $\norm{T_i - T}\leq\epsilon$ 
     for all $i\geq N$ and the proof is complete.
 \end{proof} 
+\begin{remark}
+    Consider $X$, $Y$ are two normed vector space. $\overline{X}$, 
+    $\overline{Y}$ are the completion of $X$ and $Y$, respectively. 
+    \begin{equation*}
+        \overline{X} = \Set{\set{x_n}\subset X}{\set{x_n} \text{ is Cauchy}}.
+    \end{equation*}
+    Define the equivalence relation $\set{x_n}\sim\set{y_n}$ if 
+    $\lim_{n\to\infty}\norm{x_n-y_n} = 0$. It is easy to see 
+    that $\overline{X}$ is a Banach space with $\norm{\set{x_n}} = \lim_{n\to\infty}\norm{x_n}$.
+
+    For $L:X\to Y$, a bounded linear operator, its counterpart 
+    $\overline{L}:\overline{X}\to\overline{Y}$ is also a bounded 
+    linear operator. 
+\end{remark}
+
 
 \begin{definition}
     $T$ is continuous if $f_i\to f$ in $V$ implies that 
@@ -96,7 +111,7 @@
     \end{equation*}
 \end{definition}
 
-\begin{proposition}
+\begin{proposition}\label{prop:kernel_closed}
     Let $X$ be a normed vector space and $T\in X'$. Then 
     \begin{thmenum}
         \item $\ker(T)$ is a closed subspace of $X$. 

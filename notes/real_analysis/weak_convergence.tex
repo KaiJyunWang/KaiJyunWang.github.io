@@ -696,6 +696,28 @@
     $B$ is weakly* sequentially compact.
 \end{proof}
 
+\begin{theorem}[Milman-Pettis]
+    Every uniformly convex Banach space is reflexive.
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+
+\begin{corollary}
+    $\L^p(\Omega,\mu)$ is reflexive for any $1< p <\infty$.
+\end{corollary}
+\begin{proof}
+    This is a direct consequence of the Clarkson theorem and 
+    Milman-Pettis theorem. Since for every $1<p<\infty$, 
+    $\L^p(\Omega,\mu)$ is uniformly convex, and every uniformly 
+    convex Banach space is reflexive, we conclude that 
+    $\L^p(\Omega,\mu)$ is reflexive.
+\end{proof}
+\begin{remark}
+    This corollary can also be inferred from the Riesz 
+    representation theorem twice. 
+\end{remark}
+
 \begin{remark}
     Let $X$, $Y$ be Banach spaces and $B(X, Y)$ be the space of bounded linear 
     operators from $X$ to $Y$. Consider the following topologies on $B(X,Y)$:
@@ -719,53 +741,3 @@
         \end{equation*}
     \end{itemize}
 \end{remark}
-
-\begin{definition}
-    Let $\set{M_n}\subset B(X,Y)$ be a sequence of bounded linear operators. $M_n$ 
-    \textbf{converges strongly} if for any $x\in X$, $\norm{M_nx - y}_Y\to 0$ for some $y\in Y$.
-\end{definition}
-
-\begin{proposition}
-    If $\set{M_n}\subset B(X,Y)$ converges strongly, then there is an $M\in B(X,Y)$ such that
-    $\norm{M_nx - Mx}_Y\to 0$ for all $x\in X$. 
-\end{proposition}
-\begin{proof}
-    Set $Mx = \lim_{n\to\infty} M_nx$ for all $x\in X$. We check that $M\in B(X,Y)$. 
-    Linearity is trivial; we check the boundedness. Let $f_n(x) = \norm{M_nx}_Y$. 
-    Then $f_n$ is sub-additive and $f_n(\alpha x) = \abs{\alpha}f_n(x)$ for all $\alpha\in\R$. 
-    If $x_k\to x$, 
-    \begin{equation*}
-        f_n(x_k) = \norm{M_nx_k}_Y\to\norm{Mx_k}_Y = f_n(x)
-    \end{equation*}
-    for any fixed $n$ as $k\to\infty$; $f_n$ is continuous. Now for any fixed $x\in X$, 
-    $\sup_n f_n(x) = \sup_n \norm{M_nx}\leq C(x)$ by the strong convergence. It follows 
-    from the uniform boundedness principle that there is $C_0<\infty$ such that 
-    $\abs{f_n(x)}\leq C_0\norm{x}_X$ for all $n$. Thus 
-    \begin{equation*}
-        \norm{Mx}_Y = \lim_{n\to\infty} \norm{M_nx}_Y \leq C_0\norm{x}_X.
-    \end{equation*}
-    Hence $\norm{M}\leq C_0$ and $M\in B(X,Y)$.
-\end{proof}
-
-\begin{definition}
-    A sequence $\set{M_n}\subset B(X,Y)$ \textbf{converges weakly} if for all 
-    $x\in X$, $M_nx\wto y\in Y$ for some $y$. 
-\end{definition}
-
-\begin{proposition}
-    If $\set{M_n}\subset B(X,Y)$ converges weakly, then there is an $M\in B(X,Y)$ such that 
-    $M_nx\wto Mx$ for all $x\in X$.
-\end{proposition}
-\begin{proof}
-    Set $Mx = \lim_{n\to\infty} M_nx$ for all $x\in X$. We check that $M\in B(X,Y)$. 
-    Linearity is trivial; we check the boundedness. Without loss of genrality, we can 
-    assume that $\norm{x}_X = 1$. Observe that $\set{M_nx}\subset Y$ 
-    is a weakly convergence sequence and hence weakly sequentially compact; by 
-    \cref{prop:w_seq_cpt_bd}, it is bounded. Thus there exists $C<\infty$ such that
-    $\norm{M_nx}_Y\leq C = C\norm{x}$ for all $n$. Taking the limit, we have 
-    $\norm{Mx}_Y = \lim_{n\to\infty} \norm{M_nx}_Y\leq C\norm{x}_X$. Hence $M\in B(X,Y)$.
-    
-    Lastly, we check the weak convergence. Indeed, for any $\ell\in Y'$, 
-    $\ell(M_nx) = \ell(Mx)$ for all $x\in X$ since $M_nx\to Mx$ in $Y$. 
-    Thus $M_nx\wto Mx$ in $Y$. 
-\end{proof}
