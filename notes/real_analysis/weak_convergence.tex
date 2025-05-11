@@ -696,11 +696,120 @@
     $B$ is weakly* sequentially compact.
 \end{proof}
 
+\begin{definition}
+    Let $X$ be a normed space. $A\subset B\subset X''$ is \textbf{weakly* dense} 
+    in $B$ if for every $f\in B$, there exists a sequence $\set{f_n}\subset A$ such that 
+    $f_n\wstarto f$ in $X'$. We also say that $B$ is the \textbf{weak* closure} of $A$.
+\end{definition}
+
+\begin{theorem}[Goldstine]
+    Let $X$ be a Banach space and $B$ be the closed unit ball in $X$. 
+    Consider the canonical mapping $J:X\to X''$ given by $J:x\mapsto 
+    (f\mapsto f(x))$. Then $J(B)$ is weakly* dense in the closed unit 
+    ball in $X''$.
+\end{theorem}
+\begin{proof}
+    We begin by showing the following claim: for all $\xi\in B''$, the 
+    closed unit ball in $X''$, $f_1,\ldots,f_n\in X'$, 
+    and $\delta>0$, there exists an $x\in(1+\delta)B$ such that $f_i(x) = \xi(f_i)$ 
+    for all $i=1,\ldots,n$. To show this, consider the mapping $\Phi:X\to\R^n$ given by 
+    \begin{equation*}
+        \Phi(x) = (f_1(x),\ldots,f_n(x)).
+    \end{equation*}
+    Then $\Phi$ is a surjective bounded linear mapping. Hence we can find 
+    $x\in X$ such that $f_i(x) = \xi(f_i)$ for all $i=1,\ldots,n$. 
+    Now, define $Y = \bigcap_{i=1}^n \ker(f_i) = \ker(\Phi)$. Every 
+    $z\in (x+Y)\cap(1+\delta)B$ satisfies that $z\in(1+\delta)B$ and 
+    $f_i(z) = f_i(x)$ for all $i=1,\ldots,n$. The claim follows once
+    we show that $(x+Y)\cap(1+\delta)B\neq\varnothing$.
+    
+    Suppose not. Then $d(x,Y)\geq 1+\delta$. Clearly, $Y$ is closed by 
+    \cref{prop:kernel_closed} and $\set{x}$ is compact. By Hahn-Banach 
+    seperation theorem, we can find $f\in X'$ such that $f|_Y = 0$, 
+    $\norm{f} = 1$, and $f(x) \geq 1+\delta$. $f\in\spanby\set{f_1,\ldots,f_n}$ 
+    and $1+\delta \leq f(x) = \xi(f) \leq \norm{f}\norm{\xi} \leq 1$, 
+    which is absurd. 
+
+    Now, fix $\xi\in B''$, $f_1,\ldots,f_n\in X'$, and $\epsilon>0$. 
+    Consider the weak* neighborhood of $\xi$ given by 
+    \begin{equation*}
+        U = \Set{\zeta\in X''}{\abs{\zeta(f_i) - \xi(f_i)}<\epsilon, i=1,\ldots,n}.
+    \end{equation*}
+    This is the base of the weak* topology on $x''$. The density 
+    of $J(B)$ in $B''$ follows once we show that $U\cap J(B)\neq\varnothing$. 
+    Our claim above asserts that since $J(B)\subset B''$, for any 
+    $\delta>0$, there exists $x\in (1+\delta)B$ such that $J(x)\in (1+\delta)J(B)\cap U$. 
+    Rescaling gives $(1+\delta)^{-1}J(x)\in J(B)$. We proceed to show that 
+    for sufficiently small $\delta$, we also have $(1+\delta)^{-1} U$. 
+    \begin{equation*}
+        \abs{\xi(f_i) - \frac{1}{1+\delta}J(x)(f_i)} 
+        = \abs{f_i(x) - \frac{1}{1+\delta}f_i(x)}  
+        = \frac{\delta}{1+\delta}\abs{f_i(x)}.
+    \end{equation*}
+    Now pick $\delta$ such that $\delta\max_{1\leq i\leq n}\norm{f_i}<\epsilon$. 
+    Since $\norm{x}\leq 1+\delta$, 
+    \begin{equation*}
+        \frac{\delta}{1+\delta}\abs{f_i(x)} \leq \frac{\delta}{1+\delta}\norm{f_i}\norm{x} 
+        \leq \delta\max_{1\leq i\leq n}\norm{f_i} < \epsilon.
+    \end{equation*}
+    Thus $(1+\delta)^{-1}J(x)\in U$ and we conclude that $J(B)\cap U\neq\varnothing$. 
+    This shows that $J(B)$ is weakly* dense in $B''$.
+\end{proof}
+
 \begin{theorem}[Milman-Pettis]
     Every uniformly convex Banach space is reflexive.
 \end{theorem}
 \begin{proof}
-    
+    Let $X$ be a uniformly convex Banach space and $\xi\in X''$. 
+    We need to show that there exists a unique $x\in X$ such that 
+    $\xi = J(x)$, where $J$ is the canonical mapping from $X$ to 
+    $X''$. Without loss of generality, we can assume that 
+    $\norm{\xi}= 1$. The injectivity of $J$ gives the uniqueness 
+    of $x$. It remains to show the existence of $x$. 
+
+    Consider the closed unit ball $B$ in $X$. 
+    We first show that $J(B)$ is closed in $X''$. Indeed, if 
+    $\zeta_n\in J(B)$ is a sequence converging to $\zeta\in X''$, then 
+    there exists a sequence $\set{z_n}\subset B$ such that 
+    $\norm{\zeta_m - \zeta_n} = \norm{J(z_m)-J(z_n)} = \norm{z_m-z_n}$ and 
+    $z_n$ is Cauchy. By the completeness of $X$, $z_n\to z\in X$. 
+    Take $\zeta = J(z)$ and using the fact that $J$ is isometric, 
+    we deduce that $J(B)$ is closed in $X''$. It now suffices to 
+    show that for any $\epsilon>0$, there exists $x\in B$ such that 
+    $\norm{\xi - J(x)} \leq \epsilon$. 
+
+    Now, fix $\epsilon>0$ and by the uniform convexity of $X$, there 
+    is $\delta>0$ such that $\norm{(x+y)/2} \leq 1-\delta$ for all $x,y\in B$ 
+    with $\norm{x-y}\geq\epsilon$. Choose $f\in X'$ such that $\norm{f} = 1$ 
+    and $\xi(f) \geq 1-\delta/2$. Set 
+    \begin{equation*}
+        V = \Set{\eta\in X''}{\abs{\eta(f) - \xi(f)}<\delta/2}.
+    \end{equation*}
+    By the Goldstine theorem, $J(B)$ is weakly* dense in the closed unit ball in $X''$. 
+    Hence $V\cap J(B)\neq\varnothing$ and there is $x\in B$ such that $J(x)\in V$. 
+    We claim that this $x$ is the desired choice. 
+
+    Suppose not, i.e., $\norm{\xi - J(x)} > \epsilon$. Then 
+    $\xi\in (J(x) + \epsilon B'')^c$, where $B''$ is the closed unit ball in $X''$. 
+    $(J(x) + \epsilon B'')^c$ is also a neighborhood of $\xi$ in weakly* topology. 
+    Using the Goldstine theorem again, we have that $V\cap(J(x) + \epsilon B'')^c\cap 
+    J(B)\neq\varnothing$. This means that there is some $y\in B$ such that 
+    $J(y)\in V\cap(J(x) + \epsilon B'')^c$. Then we obtain that 
+    \begin{equation*}
+        \abs{J(y)(f) - \xi(f)} < \delta/2 \text{ and } \abs{J(x)(f) - \xi(f)} < \delta/2.
+    \end{equation*}
+    Hence 
+    \begin{equation*}
+        2\xi(f) < J(x)(f) + J(y)(f) + \delta \leq \norm{x+y} + \delta.
+    \end{equation*}
+    Recall that $\xi(f)\geq 1-\delta/2$. Thus 
+    \begin{equation*}
+        2-\delta < \norm{x+y} + \delta\quad\Rightarrow\quad 
+        \norm{\frac{x+y}{2}} > 1-\delta.
+    \end{equation*}
+    This implies that $\norm{x-y}\leq\epsilon$ by the uniform convexity of $X$. 
+    This is contradicting to our assumption. Hence we conclude that 
+    $\xi$ lies in $J(B)$ and that $X$ is reflexive. 
 \end{proof}
 
 \begin{corollary}

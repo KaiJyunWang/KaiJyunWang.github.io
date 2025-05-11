@@ -652,6 +652,18 @@
     \end{equation*}
     for some $\delta>0$ depending on $\epsilon$.
 \end{definition}
+\begin{remark}
+    An equibalent definition of the uniform convexity is that for 
+    $\norm{x},\norm{y}\leq 1$ with $\norm{\frac{x+y}{2}}> 1-\delta$ 
+    for some $\delta = \delta(\epsilon)>0$, then $\norm{x-y}< \epsilon$. 
+    Indeed, if $\norm{x-y}\geq\epsilon$, then from the 
+    definition of uniform convexity, we have 
+    \begin{equation*}
+        \norm{\frac{x+y}{2}} \leq 1-\delta.
+    \end{equation*}
+    By contrapositive, if $\norm{\frac{x+y}{2}}> 1-\delta$, then 
+    $\norm{x-y}<\epsilon$.
+\end{remark}
 
 \begin{theorem}[Clarkson]
     $\L^p(\Omega,\mu)$ is uniformly convex for $1< p <\infty$.

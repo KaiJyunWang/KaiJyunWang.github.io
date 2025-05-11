@@ -1,0 +1,113 @@
+\begin{definition}
+    Let $T:D(T)\subset X\to X$ be a closed linear operator. The 
+    \textbf{resolvent set} of $T$ is defined as 
+    \begin{equation*}
+        \rho(T) = \Set{\xi\in\C}{(T-\xi I) \text{ has bounded inverse on $X$}}.
+    \end{equation*}
+    The \textbf{spectrum} of $T$ is defined as $\sigma(T) = \C\setminus\rho(T)$. 
+    $R_T(\xi) = (T-\xi I)^{-1}$ is called the \textbf{resolvent operator} of $T$.
+\end{definition}
+\begin{remark}
+    $\xi\in\rho(T)$ if and only if $T-\xi I$ has the bounded inverse on $X$.
+\end{remark}
+\begin{remark}
+    $\xi\in\sigma(T) = \C\setminus\rho(T)$ if either $T-\xi I$ is not invertible 
+    or $T-\xi I$ is invertible but has range smaller than $X$. If $\dim X<\infty$, 
+    $\sigma(T) = \Set{\lambda\in\C}{Tx = \lambda x \text{ for some } x\in X\setminus \set{0}}$.
+\end{remark}
+
+\begin{example}
+    $X = C[a,b]$. $Tu = u'$ and $D(T) = C^1[a,b]$. $T$ is not invertible since 
+    $T(u) = 0$ for every constant function $u$. Consider the following domains 
+    \begin{itemize}
+        \item $D_1 = \Set{u\in D(T)}{u(a) = 0}$, 
+        \item $D_2 = \Set{u\in D(T)}{u(b) = 0}$, 
+        \item $D_3 = \Set{u\in D(T)}{u(a) = ku(b)}$, 
+        \item $D_0 = \Set{u\in D(T)}{u(a) = u(b) = 0}$.
+    \end{itemize}
+    $T_i = T|_{D_i}$ are invertible on $D_i$ for $i = 0,1,2,3$, but the 
+    inverses are different. For example, 
+    \begin{equation*}
+        (T^{-1}_1 v)(x) = \int_a^x v(t)dt.
+    \end{equation*}
+\end{example}
+
+\begin{theorem}[von Neumann Series]
+    Let $T:X\to X$ be a bounded lienar operator. If $\norm{T}<1$, then $I-T$ is invertible and
+    \begin{equation*}
+        (I-T)^{-1} = \sum_{n=0}^\infty T^n.
+    \end{equation*}
+\end{theorem}
+\begin{proof}
+    Denote $S_n = \sum_{k=0}^n T^k$. Compute that 
+    \begin{equation*}
+        (I-T)S_n = S_n - S_nT = \sum_{k=0}^n T^k - T^{k+1} = I - T^{n+1}.
+    \end{equation*}
+    Take the limit as $n\to\infty$: 
+    \begin{equation*}
+        (I-T)S = I - \lim_{n\to\infty} T^{n+1} = I
+    \end{equation*}
+    since $\norm{T}<1$ implies that $\lim_{n\to\infty} T^{n+1} = 0$. 
+    Thus $(I-T)S = I$. By a similar argument, $S(I-T) = I$. Hence 
+    $I-T$ is invertible and $(I-T)^{-1} = S = \sum_{n=0}^\infty T^n$.
+\end{proof}
+
+\begin{proposition}[First Resolvent Identity]
+    Let $T:D(T)\to X$ be a closed linear operator. The followings are true. 
+    \begin{thmenum}
+        \item For all $\xi_1,\xi_2\in\rho(T)$, 
+        \begin{equation*}
+            R_T(\xi_1) - R_T(\xi_2) = (\xi_1-\xi_2)R_T(\xi_1)R_T(\xi_2).
+        \end{equation*}
+        \item For all $\xi\to\xi_0\in\rho(T)$, 
+        \begin{equation*}
+            \lim_{\xi\to\xi_0} \frac{R_T(\xi) - R_T(\xi_0)}{\xi - \xi_0} = R_T(\xi_0)^2.
+        \end{equation*}
+        \item If $\abs{\xi - \xi_0}<\norm{R_T(\xi)}^{-1}$, then
+        \begin{equation*}
+            R_T(\xi) = \sbrc{I - (\xi - \xi_0)R_T(\xi_0)}^{-1}R_T(\xi_0) = \sum_{n=0}^\infty (\xi - \xi_0)^n R_T(\xi_0)^{n+1}.
+        \end{equation*}
+    \end{thmenum} 
+\end{proposition}
+\begin{proof}
+    For (a), write 
+    \begin{equation*}
+        \begin{split}
+            \sbrc{R_T(\xi_1) - R_T(\xi_2)}(T - \xi_2I) 
+            &= (T - \xi_1I)^{-1}(T - \xi_2I) - I \\ 
+            &= (T - \xi_1I)^{-1}(T - \xi_1I) + (T - \xi_1I)^{-1}(\xi_1 - \xi_2) - I \\
+            &= (T - \xi_1I)^{-1}(\xi_1 - \xi_2).
+        \end{split}
+    \end{equation*}
+    Rearranging the equation gives 
+    \begin{equation*}
+        R_T(\xi_1) - R_T(\xi_2) = (\xi_1 - \xi_2)R_T(\xi_1)R_T(\xi_2).
+    \end{equation*}
+
+    For (b), using (a), 
+    \begin{equation*}
+        \lim_{\xi\to\xi_0} \frac{R_T(\xi) - R_T(\xi_0)}{\xi - \xi_0} 
+        = \lim_{\xi\to\xi_0} R_T(\xi_0)R_T(\xi) = R_T(\xi_0)^2.
+    \end{equation*}
+
+    For (c), (a) implies 
+    \begin{equation*}
+        R_T(\xi) = \sbrc{I - (\xi - \xi_0)R_T(\xi_0)}^{-1}R_T(\xi_0) 
+        = \sum_{n=0}^\infty (\xi - \xi_0)^n R_T(\xi_0)^{n+1}
+    \end{equation*}
+    since $\abs{\xi - \xi_0}<\norm{R_T(\xi)}^{-1}$ by the von Neumann series.
+\end{proof}
+
+\begin{definition}
+    An operator is said to be with \textbf{compact resolvent} if there exists 
+    $\xi\in\rho(T)$ such that $R_T(\xi)$ is compact.
+\end{definition}
+
+\begin{example}
+    $Tu = u'$ on $X = C[a,b]$ with $D(T) = C^1[a,b]$. 
+    \begin{equation*}
+        (T-\xi I)u = 0 \Leftrightarrow u' = \xi u \Leftrightarrow u(x) = Ce^{\xi x}
+    \end{equation*}
+    for all $C\in\R$. Thus $(T-\xi I)$ does not exists for all $\xi\in\C$. 
+    Hence $\rho(T) = \varnothing$ and $\sigma(T) = \C$.
+\end{example}

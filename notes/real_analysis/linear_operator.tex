@@ -47,3 +47,257 @@
     $\ell(M_nx) = \ell(Mx)$ for all $x\in X$ since $M_nx\to Mx$ in $Y$. 
     Thus $M_nx\wto Mx$ in $Y$. 
 \end{proof}
+
+\begin{lemma}
+    Let $X$ be a reflexive and $\set{T_n}\subset B(X,Y)$. Then 
+    $T_n\wto T$ implies $T_n'\wto T'$.
+\end{lemma}
+\begin{proof}
+    For all $x\in X$ and $\ell\in Y'$, $\ell T_nx\to\ell Tx$. We need 
+    to show that $T_n'\ell\to T'\ell$ for all $\ell\in Y'$. Note that 
+    $T_n'\ell\in X'$ and $X$ is reflexive, so we only need to check 
+    $T_n'\ell(x)\to T'\ell(x)$ for all $x\in X$. But this is essentially 
+    \begin{equation*}
+        T_n'\ell(x) = \ell T_nx\to \ell Tx = T'\ell(x).
+    \end{equation*}
+\end{proof}
+\begin{remark}
+    The statement of the lemma fails if we replace weak convergence with 
+    strong convergence, i.e., $T_n\to T$ does not imply $T_n'\to T'$ in general. 
+    Consider $X = \ell^2(\N)$ and $T_n:\ell^2\to\ell^2$ be the operator 
+    \begin{equation*}
+        T_n(x_1,\ldots) = (x_n,0,\ldots)
+    \end{equation*}
+    for $x = (x_1,x_2,\ldots)\in\ell^2$. Since $X$ is a Hilbert space, 
+    it is reflexive. Also, $T_n\to 0$ strongly, since 
+    \begin{equation*}
+        \norm{T_nx - 0}_2^2 = \abs{x_n}^2\to 0 
+    \end{equation*}
+    as $n\to\infty$ for all $x\in X$. However, $T_n':(\ell^2)'\to(\ell^2)'$ 
+    is the operator defined by $\ell\mapsto \ell T_n$. For any 
+    $\ell\in(\ell^2)'$, $\ell(x) = \inp{x}{y_\ell}$ for a unique $y_\ell\in\ell^2$. 
+    Then $T_n'\ell(x) = \ell T_nx = \inp{y_\ell}{T_nx} = (y_\ell)_1\cdot x_n$. 
+    Thus 
+    \begin{equation*}
+        T_n'\ell = (y_\ell)_1\cdot e_n.
+    \end{equation*}
+    Pick any $y_\ell\in\ell^2$ such that $(y_\ell)_1\neq 0$ will give 
+    \begin{equation*}
+        \norm{T_n'\ell - 0} = \abs{(y_\ell)_1} \not\to 0.
+    \end{equation*}
+\end{remark}
+
+\begin{theorem}
+    Let $T_n\in B(X,Y)$ be a sequence of bounded linear operators such that 
+    \begin{thmenum}
+        \item $\norm{T_n}\leq C<\infty$ for all $n$; 
+        \item $T_nx\to Tx$ for all $x\in D\subset X$ where $D$ is a dense 
+        subset of $X$. 
+    \end{thmenum}
+    Then $T_n\to T$ strongly.
+\end{theorem}
+\begin{proof}
+    We claim that for any $z\in X$, the sequence $\set{T_nz}$ is Cauchy in $Y$. 
+    Let $\epsilon>0$ be given. Since $D$ is dense in $X$, there exists 
+    a $x\in D$ such that $\norm{z - x}_X<\frac{\epsilon}{3C}$. Then 
+    \begin{equation*}
+        \begin{split}
+            \norm{T_nz - T_mz}_Y &\leq \norm{T_n(z - x)}_Y + \norm{T_m(z - x)}_Y + 
+            \norm{T_nx - T_mx}_Y \\
+            &\leq (\norm{T_n} + \norm{T_m})\cdot \norm{z - x}_X + \norm{T_nx - T_mx}_Y
+            \leq 2C\cdot\frac{\epsilon}{3C} + \norm{T_nx - T_mx}_Y.
+        \end{split}
+    \end{equation*}
+    Since $T_nx$ converges, it is Cauchy. Thus there exists $N$ such that for all 
+    $n,m\geq N$, $\norm{T_nx - T_mx}_Y<\frac{\epsilon}{3}$. Hence 
+    \begin{equation*}
+        \norm{T_nz - T_mz}_Y < \frac{2\epsilon}{3} + \frac{\epsilon}{3} = \epsilon.
+    \end{equation*}
+    Thus $\set{T_nz}$ is Cauchy in $Y$. Since $Y$ is complete, there exists 
+    $y_z\in Y$ such that $T_nz\to y_z$. Define $Tz = y_z$. We check that 
+    $T\in B(X,Y)$. The linearity is trivial; for any $z\in X$, 
+    \begin{equation*}
+        \norm{Tz}_Y = \lim_{n\to\infty} \norm{T_nz}_Y\leq C\norm{z}_X.
+    \end{equation*}
+    Thus $\norm{T}\leq C$ and $T\in B(X,Y)$. Lastly, we check the 
+    strong convergence. For any $z\in X$, 
+    \begin{equation*}
+        \norm{T_nz - Tz}_Y = \norm{T_nz - y_z}_Y\to 0
+    \end{equation*}
+    as $n\to\infty$. Thus $T_n\to T$ strongly.
+\end{proof}
+
+\begin{theorem}[Uniform Boundedness Principle \rom{3}]
+    A family of operators $\set{T_\alpha}_{\alpha\in I}\subset B(X,Y)$ satisfies 
+    that for all $x\in X$ and $\ell\in Y'$, 
+    \begin{equation*}
+        \abs{\ell(T_\alpha x)}\leq C(x,\ell) <\infty
+    \end{equation*}
+    for all $\alpha\in I$. Then there exists $C_0<\infty$ such that  
+    \begin{equation*}
+        \norm{T_\alpha}\leq C_0<\infty
+    \end{equation*}
+    for all $\alpha\in I$.
+\end{theorem}
+\begin{proof}
+    Set 
+    \begin{equation*}
+        f_\alpha(x) = \norm{T_\alpha x}_Y = \sup_{\norm{\ell}=1} \abs{\ell(T_\alpha x)}.
+    \end{equation*}
+    We verify the conditions of the uniform boundedness principle. Let 
+    $x_k\to x$ in $X$. Then $T_\alpha x_k\to T_\alpha x$ in $Y$. Thus 
+    $f_\alpha(x_k)\to f_\alpha(x)$ given any $\alpha\in I$. Thus $f_\alpha$ is continuous.
+    \begin{equation*}
+        f_\alpha(x+y) = \norm{T_\alpha (x+y)}_Y\leq \norm{T_\alpha x}_Y + \norm{T_\alpha y}_Y = f_\alpha(x) + f_\alpha(y).
+    \end{equation*}
+    $f_\alpha$ is sub-additve. Also, $f_\alpha(cx) = \norm{T_\alpha (cx)}_Y = \abs{c}\norm{T_\alpha x}_Y = \abs{c}f_\alpha(x)$ for all $c\in\R$. 
+    Lastly, given $x$, $g_{\alpha}(\ell) = \abs{\ell(T_\alpha x)}$ is clearly continuous, 
+    sub-additive and homogeneous. Also, $\abs{g_{\alpha}(\ell)}\leq C(x,\ell)$. Using the 
+    boundedness assumption and applying the uniform boundedness principle, we have that 
+    \begin{equation*}
+        \sup_{\alpha\in I} \abs{g_\alpha(\ell)} \leq C_1(x)\norm{\ell}.
+    \end{equation*} 
+    Now 
+    \begin{equation*}
+        \sup_{\alpha\in I} \abs{f_\alpha(x)} = \sup_{\alpha\in I} \sup_{\norm{\ell}=1} \abs{\ell(T_\alpha x)} 
+        = \sup_{\norm{\ell}=1} \sup_{\alpha\in I} \abs{\ell(T_\alpha x)} 
+        \leq \sup_{\norm{\ell}} \sup_{\alpha\in I} \abs{g_\alpha(\ell)} 
+        \leq C_1(x).
+    \end{equation*}
+    Applying the uniform boundedness principle again on $f_\alpha$, we have that 
+    \begin{equation*}
+        \sup_{\alpha\in I} f_\alpha(x) \leq C_0\norm{x}_X.
+    \end{equation*}
+    We conclude that $\norm{T_\alpha}\leq C_0$ for all $\alpha\in I$.
+\end{proof}
+
+\begin{proposition}
+    Let $T\in B(X,Y)$, $U\in B(Y,Z)$. Then $UT\in B(X,Z)$ and 
+    $(UT)' = T'U'$.
+\end{proposition}
+\begin{proof}
+    We first show that $UT\in B(X,Z)$. For any $c\in\R$ and $x,y\in X$, 
+    \begin{equation*}
+        UT(cx+y) = U(T(cx + y)) = U(cTx + Ty) = cUTx + UTy.
+    \end{equation*}
+    Thus $UT$ is linear. Now we check the boundedness. For any $x\in X$, 
+    \begin{equation*}
+        \norm{UTx}_Z \leq \norm{U}\norm{Tx}_Y \leq \norm{U}\norm{T}\norm{x}_X.
+    \end{equation*}
+    Since $\norm{U},\norm{T}$ are finite, the boundedness follows. 
+
+    Now we check the adjoint. For any $\ell\in Z'$, $(UT)'(\ell) = \ell UT 
+    = (U'\ell)T = T'U'\ell$. 
+\end{proof} 
+
+\begin{definition}
+    $T\in B(X,Y)$ is \textbf{compact} if for any bounded sequence $\set{x_n}\subset X$, 
+    $\set{Tx_n}$ has a convergent subsequence in $Y$.
+\end{definition}
+
+\begin{definition}
+    The \textbf{compact operator space} is denoted by $B_0(X,Y)$. 
+\end{definition}
+
+\begin{proposition}
+    Let $T\in B(X,Y)$ be a compact operator, $S_1\in B(Y,Z)$ and $S_2\in B(W,X)$. 
+    Then $S_1T\in B_0(X,Z)$ and $TS_2\in B_0(W,Y)$.
+\end{proposition}
+\begin{proof}
+    Let $\set{x_n}\subset X$ be a bounded sequence. Then 
+    $\set{Tx_n}\subset Y$ has a convergent subsequence $\set{Tx_{n_k}}$. 
+    Since $S_1$ is bounded, it is continuous; thus $\set{S_1Tx_{n_k}}$ is 
+    convergent in $Z$. Hence $S_1T$ is compact. 
+
+    Now let $\set{w_n}\subset W$ be a bounded sequence. Then 
+    $\norm{S_2w_n}_X\leq\norm{S_2}\norm{w_n}_W$ is also bounded 
+    in $X$. Thus by the compactness of $T$, $\set{TS_2w_n}$ has a 
+    convergent subsequence. We conclude that $TS_2$ is compact.
+\end{proof}
+
+\begin{lemma}\label{lem:increasing_separable}
+    Let $X$ be a metric space. If $A_n\subset X$ is a sequence of 
+    separable subsets of $X$ and $A_n\nearrow A$, then $A$ is 
+    separable.
+\end{lemma}
+\begin{proof}
+    Since $A_n$ is separable, there exists a countable dense 
+    subset $D_n\subset A_n$. Let $D = \bigcup_{n=1}^\infty D_n$.
+    We claim that $D$ is dense in $A$. Let $x\in A$ be given. 
+    Since $A_n\nearrow A$, there exists $n_0$ such that $x\in A_{n_0}$. 
+    Then for any $\epsilon>0$, there exists $y\in D_{n_0}\subset D$ such 
+    that $d(x,y)<\epsilon$. Thus $D$ is dense in $A$.
+\end{proof}
+
+\begin{theorem}\label{thm:cpt_op_separable}
+    Let $T\in B_0(X,Y)$. Then $T(X)$ is separable.
+\end{theorem}
+\begin{proof}
+    Consider the closed unit ball $B = \Set{x\in X}{\norm{x}_X\leq 1}$ 
+    in $X$. Since $T$ is compact, $T(B)$ is sequentially compact. 
+    Then $T(B)$ is compact in $Y$. Because every compact metric space 
+    is separable, $T(B)$ is separable. Write $X = \bigcup_n nB$. 
+    Then $T(X) = \bigcup_n T(nB) = \bigcup_n nT(B)$. By 
+    \cref{lem:increasing_separable}, $T(X)$ is separable.
+\end{proof}
+
+\begin{theorem}
+    Let $T\in B_0(X,Y)$ be a compact operator. Then $T'\in B_0(Y',X')$.
+\end{theorem}
+\begin{proof}
+    Suppose first that $Y$ is separable. Let $g_n\in Y'$ be a bounded 
+    sequence. $T(X)\subset Y$ is also separable. There exists a countable 
+    dense subset $\set{y_k}\subset T(X)$. For $y_1$, $\set{g_n(y_1)}$ 
+    is a bounded sequence in $\R$. By the Bolzano-Weierstrass theorem, 
+    there exists a subsequence $\set{g^{(1)}_n}$ such that $g^{(1)}_n(y_1)$ 
+    converges. For $y_2$, extract from $\set{g^{(1)}_n}$ to obtain a 
+    subsequence $\set{g^{(2)}_n}$ such that $g^{(2)}_n(y_2)$ converges. 
+    Continuing this process, we obtain a sequence $\set{g^{(k)}_n}$ such that 
+    $g^{(k)}_n(y_j)$ converges for all $j\leq k$. Pick $f_n = g^{(n)}_n$. 
+    Then for any $k$, $f_n(y_k)$ converges. Now given any $y\in Y$, we 
+    may without loss of generality assume that $y_k\to y$. Then 
+    \begin{equation*}
+        \begin{split}
+            \abs{f_n(y) - f_m(y)} &\leq \abs{f_n(y) - f_n(y_k)} + \abs{f_m(y) - f_m(y_k)} + \abs{f_n(y_k) - f_m(y_k)} \\
+            &\leq (\norm{f_n} + \norm{f_m})\norm{y - y_k}_Y + \abs{f_n(y_k) - f_m(y_k)}.
+        \end{split}
+    \end{equation*}
+    Since $f_n(y_k)$ converges for all $k$, it is Cauchy; 
+    $\set{f_n}\subset\set{g_n}$ is bounded. Thus taking $m,n\to\infty$ 
+    and then $k\to\infty$, we see that $\abs{f_n(y) - f_m(y)}\to 0$. 
+    Hence $\set{f_n(y)}$ is Cauchy. 
+
+    Next, we show that $f_n$ is in fact Cauchy in $Y'$. 
+    \begin{equation*}
+        \norm{f_n - f_m} = \sup_{\norm{y}_Y = 1} \abs{f_n(y) - f_m(y)} 
+    \end{equation*}
+    For each $m,n$, there exists $y\in Y$ such that $\norm{y}_Y = 1$ and 
+    \begin{equation*}
+        \abs{f_n(y) - f_m(y)} \geq \frac{1}{2}\norm{f_n - f_m}.
+    \end{equation*}
+    But $f_n(y)$ is Cauchy and thus $\norm{f_n - f_m}\to 0$ as $n,m\to\infty$.
+    Thus $\set{f_n}\subset Y'$ is Cauchy. $Y'$ is complete, so there exists 
+    $f\in Y'$ such that $f_n\to f$ in $Y'$. Now $f_n(Tx)\to f(Tx)$ for all 
+    $x\in X$. Thus 
+    \begin{equation*}
+        \norm{T'f_n - T'f} \leq \norm{T'}\norm{f_n - f} \to 0.
+    \end{equation*}
+    Hence $T'f_n\to T'f$ in $X'$. $\set{T'f_n}$ is a convergent 
+    subsequence of $\set{T'g_n}$. $T'$ is compact. 
+
+    In general if $Y$ is not separable, $T(X)$ is a separable subspace 
+    of $Y$ (\cref{thm:cpt_op_separable}). The same argument applies and 
+    we obtain a sequence $\set{f_n}\subset Y'$ such that 
+    \begin{equation*}
+        \sup_{\norm{Tx}_Y = 1} \abs{f_n(Tx) - f_m(Tx)} \to 0.
+    \end{equation*}
+    Thus there exists $f$ on $T(X)$ such that 
+    \begin{equation*}
+        \sup_{\norm{Tx}_Y = 1} \abs{f_n(Tx) - f(Tx)} \to 0
+    \end{equation*}
+    by the completeness of $T(X)$. Then 
+    \begin{equation*}
+        \norm{T'f_n - T'f} = \sup_{\norm{Tx}_Y = 1} \abs{f_n(Tx) - f(Tx)} \to 0.
+    \end{equation*}
+    Thus $T'f_n\to T'f$ in $X'$. Hence $T'$ is compact.
+\end{proof}

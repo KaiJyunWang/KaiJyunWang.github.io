@@ -153,6 +153,30 @@
     \end{equation*}
     for some constant $C<\infty$. Thus $T$ is bounded.
 \end{proof}
+\begin{remark}
+    To apply the closed graph theorem, $T$ must be closed 
+    in $X$. If $T$ is only closed in $D(T)$, the domain of $T$, 
+    then the theorem does not hold. For example, let $X = Y = C[a,b]$ 
+    with sup norm and $T:C^1[a,b]\to C[a,b]$ be the differentiation operator 
+    $T(f) = f'$. Then $T$ is closed in $C^1[a,b]$ while being unbounded. 
+    To see this, let $f_n(x) = \sin(nx)/n$. Then $T(f_n) = \cos(nx)$. 
+    $\norm{f_n}_\infty \to 0$ while $\norm{T(f_n)}_\infty = 1$. 
+    Thus $T$ is not bounded. However, $T$ is closed in $C^1[a,b]$. 
+    Let $u_n\in C^1[a,b]$ with $u_n\to u$ in $C[a,b]$ and $Tu_n = u_n'\to v\in C[a,b]$. 
+    Then $u\in C^1[a,b]$ and $Tu = v$. By definition, 
+    $T$ is closed in $C^1[a,b]$. 
+\end{remark}
+
+\begin{example}
+    Let $X = \L^2(\R)$ and $T:\Set{f\in\L^2(\R)}{xf(x)\in\L^2(\R)}\to X$ with 
+    $T(f) = xf(x)$. Consider $f_n = \frac{1}{n}\chi_{[n,n+1]}$. Then 
+    $\norm{f_n}_2^2 = 1/n^2\to 0$ and 
+    \begin{equation*}
+        \norm{T(f_n)}_2^2 = \frac{1}{n}\int_{n}^{n+1} xdx = \frac{2n+1}{2n}\to 1.
+    \end{equation*}
+    Thus $T$ is unbounded. If $u_n\to u$ in $\L^2(\R)$ and $T(u_n) = xu_n(x)\to v$, 
+    then $T(u) = xu(x) = v$. Hence $T$ is clsoed in $\Set{f\in\L^2(\R)}{xf(x)\in\L^2(\R)}$.
+\end{example}
 
 \begin{definition}
     Suppose $X$ is a vector space with norms $\norm{\cdot}_1$ and $\norm{\cdot}_2$. 
