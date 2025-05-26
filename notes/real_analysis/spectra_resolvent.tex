@@ -32,7 +32,7 @@
     \end{equation*}
 \end{example}
 
-\begin{theorem}[von Neumann Series]
+\begin{theorem}[Neumann Series]
     Let $T:X\to X$ be a bounded lienar operator. If $\norm{T}<1$, then $I-T$ is invertible and
     \begin{equation*}
         (I-T)^{-1} = \sum_{n=0}^\infty T^n.
@@ -98,16 +98,327 @@
     since $\abs{\xi - \xi_0}<\norm{R_T(\xi)}^{-1}$ by the von Neumann series.
 \end{proof}
 
-\begin{definition}
-    An operator is said to be with \textbf{compact resolvent} if there exists 
-    $\xi\in\rho(T)$ such that $R_T(\xi)$ is compact.
-\end{definition}
-
 \begin{example}
     $Tu = u'$ on $X = C[a,b]$ with $D(T) = C^1[a,b]$. 
     \begin{equation*}
         (T-\xi I)u = 0 \Leftrightarrow u' = \xi u \Leftrightarrow u(x) = Ce^{\xi x}
     \end{equation*}
-    for all $C\in\R$. Thus $(T-\xi I)$ does not exists for all $\xi\in\C$. 
+    for all $C\in\R$. Thus $(T-\xi I)^{-1}$ does not exists for all $\xi\in\C$. 
     Hence $\rho(T) = \varnothing$ and $\sigma(T) = \C$.
 \end{example}
+
+\begin{example}
+    Consider $Tu = u'$ on $X = C[0,1]$ and $D(T) = \Set{u\in C^1[0,1]}{u(0) = u(1) = 0}$. 
+    Then 
+    \begin{equation*}
+        \begin{cases}
+            (T-\xi I)u = v, & v\in C[0,1], \\
+            u(0) = u(1) = 0.
+        \end{cases}\quad\Rightarrow\quad 
+        \begin{cases}
+            u(x) = e^{-\xi x}\int_0^x e^{-\xi t}v(t)dt \\ 
+            u(1) = 0.
+        \end{cases}
+    \end{equation*}
+    Clearly, this is impossible for all $v\in C[0,1]$. Hence 
+    \begin{equation*}
+        \rho(T) = \varnothing \quad\text{and}\quad \sigma(T) = \C.
+    \end{equation*}
+\end{example}
+
+\begin{example}
+    Consider $Tu = u'$ on $X = C[0,1]$ and $D(T) = \Set{u\in C^1[0,1]}{u(0) = ku(1)}$. 
+    Solving 
+    \begin{equation*}
+        \begin{cases}
+            u' - \xi u = v, & v\in C[0,1], \\
+            u(0) = ku(1).
+        \end{cases}\quad\Rightarrow\quad
+        \begin{cases}
+            (e^{-\xi x}u)' = e^{-\xi x}v, \\
+            u(0) = ku(1).
+        \end{cases}
+    \end{equation*}
+    So 
+    \begin{equation*}
+        u(x) = c_1 e^{\xi x}\int_0^x e^{-\xi t}v(t)dt + c_2 e^{\xi x}\int_x^1 e^{-\xi t}v(t)dt,
+    \end{equation*}
+    for some $c_1,c_2\in\R$ that should be determined. The 
+    boundary condition gives $c_2 = ke^\xi c_1$ and 
+    \begin{equation*}
+        u(x) = c_1e^{\xi x}\sbrc{\int_0^x e^{-\xi t}v(t)dt + ke^\xi\int_x^1 e^{-\xi t}v(t)dt}.
+    \end{equation*}
+    Then 
+    \begin{equation*}
+        (e^{-\xi x}u(x))' = c_1\sbrc{e^{-\xi x}v(x) - ke^\xi e^{-\xi x}v(x)} = e^{-\xi x}v(x) 
+        \quad\Rightarrow\quad 
+        c_1 = \frac{1}{1-ke^\xi}.  
+    \end{equation*}
+    Thus 
+    \begin{equation*}
+        R_T(\xi)v(x) = \frac{e^{\xi x}}{1-ke^\xi}\sbrc{\int_0^x e^{-\xi t}v(t)dt + ke^\xi\int_x^1 e^{-\xi t}v(t)dt}.
+    \end{equation*}
+    We see that 
+    \begin{equation*}
+        \sigma(T) = \Set{\xi\in\C}{1 - ke^\xi = 0} = \Set{\xi\in\C}{\xi = -\log k + 2\pi i n, n\in\Z}
+        \quad\text{and}\quad 
+        \rho(T) = \C\setminus\sigma(T).
+    \end{equation*}
+\end{example}
+
+\begin{definition}
+    An operator is said to be with \textbf{compact resolvent} if there exists 
+    $\xi\in\rho(T)$ such that $R_T(\xi)$ is compact.
+\end{definition}
+\begin{remark}
+    If $T$ has compact resolvent, then for any $\xi\in\rho(T)$, 
+    $R_T(\xi)$ is compact. This is because of the first resolvent identity. 
+    If $R_T(\xi)$ is compact, then 
+    \begin{equation*}
+        R_T(\xi) = \sbrc{I + (\xi - \xi_0)R_T(\xi)}R_T(\xi_0)
+    \end{equation*}
+    is also compact. 
+\end{remark}
+
+\begin{theorem}
+    $T\in B(X)$. Then $\sigma(T)$ is compact and 
+    \begin{equation*}
+        \sup_{\xi\in\sigma(T)}\abs{\xi} \leq \norm{T} < \infty. 
+    \end{equation*}
+\end{theorem}
+\begin{proof}
+    $\sigma(T)$ is closed if and only if $\rho(T)$ is open. 
+    Take $\xi_0\in\rho(T)$. Consider the ball 
+    \begin{equation*}
+        B = \Set{\lambda\in\C}{\abs{\lambda - \xi_0} < \norm{R_T(\xi_0)}^{-1}}. 
+    \end{equation*}
+    For $\lambda\in B$, 
+    \begin{equation*}
+        T - \lambda I = (T - \xi_0 I) + (\xi_0 - \lambda)I 
+        = (T - \xi_0 I)\sbrc{I + (\xi_0 - \lambda)R_T(\xi_0)}.
+    \end{equation*}
+    Using the Neumann series, $I + (\xi_0 - \lambda)R_T(\xi_0)$ 
+    is invertible since $\abs{\xi_0 - \lambda}\norm{R_T(\xi_0)} < 1$. 
+    Hence $(T - \lambda I)^{-1}$ exists and bounded by the bounded inverse 
+    theorem. Then $\lambda\in\rho(T)$. $\rho(T)$ is open and hence $\sigma(T)$ 
+    is closed. For arbitrary $\lambda>\norm{T}$, the Neumann series 
+    shows that $T - \lambda I$ is boundedly invertible. Hence $\lambda\notin\sigma(T)$. 
+    Thus 
+    \begin{equation*}
+        \sup_{\xi\in\sigma(T)}\abs{\xi} \leq \norm{T} < \infty.
+    \end{equation*}
+    Using Heine-Borel theorem, $\sigma(T)$ is compact.
+\end{proof}
+
+\begin{theorem}\label{thm:transpose_inverse_commute}
+    Let $T:D(T)\dsubset X\to Y$ be a closed linear operator. 
+    \begin{thmenum}
+        \item If $T^{-1}$ exists and is bounded, then $(T')^{-1}$ 
+        exists and is bounded, and $(T')^{-1} = (T^{-1})'$. 
+        \item If $(T')^{-1}$ exists and is bounded, then $T^{-1}$ exists and is bounded, 
+        and $T^{-1} = (T')^{-1}$. 
+    \end{thmenum}
+\end{theorem}
+\begin{proof}
+    (a) Assume first that $T^{-1}$ exists and is bounded. We first check 
+    the identity $(T')^{-1} = (T^{-1})'$. For $g\in D(T')$, 
+    \begin{equation*}
+        (T^{-1})'T'g = (T'g)T^{-1} = gTT^{-1} = g\quad\Rightarrow\quad 
+        (T^{-1})'T' = I.
+    \end{equation*}
+    For the other side, let $f\in X'$.
+    \begin{equation*}
+        T'(T^{-1})'f = ((T^{-1})'f)T = f(T^{-1}T) = fI = f.
+        \quad\Rightarrow\quad 
+        T'T^{-1} = I.
+    \end{equation*}
+    Hence $(T')^{-1} = (T^{-1})'$. Now we show that $(T')^{-1}$ is bounded. 
+    \begin{equation*}
+        \begin{split}
+            \norm{(T')^{-1}} &= \sup_{\norm{f} = 1} \norm{(T')^{-1}f}
+            = \sup_{\norm{f} = 1}\sup_{\norm{y} = 1} \abs{(T')^{-1}f(y)} 
+            = \sup_{\norm{f} = 1}\sup_{\norm{y} = 1} \abs{f(T^{-1}y)} \\
+            &\leq \sup_{\norm{f} = 1}\sup_{\norm{y} = 1} \norm{f}\norm{T^{-1}}\norm{y} 
+            = \norm{T^{-1}}.
+        \end{split}
+    \end{equation*}
+    (b) can be shown in a similar way.
+\end{proof}
+
+\begin{theorem}
+    Let $T:D(T)\dsubset X\to X$ be closed linear operator. Then 
+    \begin{thmenum}
+        \item $R_{T'}(\overline{\xi}) = R_T(\xi)'$ for all $\xi\in\rho(T)$. 
+        \item $\rho(T') = \Set{\overline{\lambda}}{\lambda\in\rho(T)}$ and 
+        $\sigma(T') = \Set{\overline{\lambda}}{\lambda\in\sigma(T)}$.
+    \end{thmenum}
+\end{theorem}
+\begin{proof}
+    We first prove (a). Let $\lambda\in\rho(T)$. For all $f\in X'$, 
+    \begin{equation*}
+        \inp{\lambda f}{x} = \inp{f}{\overline{\lambda}Ix}\quad\forall x\in X. 
+        \quad\Rightarrow\quad 
+        f(\lambda I) = \overline{\lambda}f = \overline{\lambda}If.
+    \end{equation*}
+    Thus 
+    \begin{equation*}
+        (T-\lambda I)'f = f(T-\lambda I) = fT - f(\lambda I) 
+        = fT - \overline{\lambda}If = (T'-\overline{\lambda}I)f.
+    \end{equation*}
+    Hence $(T-\lambda I)' = (T'-\overline{\lambda}I)$. Let $x_n\to x$ 
+    in $X$ and $(T-\lambda I)x_n\to y$ in $X$. $x$ lies in $D(T-\lambda I) 
+    = D(T)$. By the closedness of $T$, 
+    \begin{equation*}
+        (T-\lambda I)x_n = Tx_n - \lambda x_n \to Tx - \lambda x = (T-\lambda I)x.
+    \end{equation*}
+    On the other hand, $(T-\lambda I)x_n\to y$ so $(T-\lambda I)x = y$ and 
+    $T-\lambda I$ is closed. Since $T-\lambda I$ is closed, densely defined 
+    and invertible, 
+    \begin{equation*}
+        R_{T'}(\overline{\lambda}) = (T'-\overline{\lambda}I)^{-1} 
+        = \pth{(T-\lambda I)'}^{-1} = ((T-\lambda I)^{-1})' = R_T(\lambda)'.
+    \end{equation*}
+
+    For (b), let $\lambda\in\rho(T)$. Then $R_T(\lambda)$ exists 
+    and is bounded. Then $R_T(\lambda)':X'\to X'$ defined by 
+    $R_T(\lambda)'f = fR_T(\lambda)$ also exists and 
+    \begin{equation*}
+        \norm{R_T(\lambda)'f} = \sup_{\norm{x}=1}\abs{fR_T(\lambda)x} 
+        \leq \sup_{\norm{x}=1}\norm{f}\norm{R_T(\lambda)}\norm{x} 
+        = \norm{f}\norm{R_T(\lambda)},
+    \end{equation*} 
+    so $R_T(\lambda)'$ is bounded. It now follows from (b) that 
+    $R_{T'}(\overline{\lambda}) = R_T(\lambda)'$ exists and is bounded. 
+    Thus $\overline{\lambda}\in\rho(T')$. 
+
+    Now let $\lambda\in\sigma(T)$. If $\lambda$ is an eigenvalue, then 
+    $T-\lambda I$ is not invertible. Thus from \cref{thm:transpose_inverse_commute}, 
+    $T' - \overline{\lambda}I = (T-\lambda I)'$ is not invertible. 
+    Hence $\overline{\lambda}\in\sigma(T')$. If $\lambda$ is such that 
+    $R_T(\lambda)$ exists but is not bounded, then $R_T(\lambda)'$ exists 
+    but is not bounded either, since 
+    \begin{equation*}
+        \infty = \norm{R_T(\lambda)x} = \sup_{\norm{f}=1}\abs{fR_T(\lambda)x} 
+        \leq \sup_{\norm{f}=1} \abs{(R_T(\lambda)'f)x} 
+        \leq \sup_{\norm{f}=1}\norm{R_T(\lambda)'f}\norm{x} 
+        = \norm{R_T(\lambda)'}\norm{x}.
+    \end{equation*}
+    From the proof of (b), we have seen that $(T-\lambda I)' = (T'-\overline{\lambda}I)$. 
+    Thus by exercise 5.1 (b), 
+    \begin{equation*}
+        R_{T'}(\overline{\lambda}) = (T'-\overline{\lambda}I)^{-1} 
+        = \pth{(T-\lambda I)'}^{-1} = ((T-\lambda I)^{-1})' = R_T(\lambda)'
+    \end{equation*}
+    is not bounded either. Hence $\overline{\lambda}\in\sigma(T')$. 
+    It follows that $\rho(T')$ contains the mirror image of $\rho(T)$ 
+    and also $\sigma(T')$ contains the mirror image of $\sigma(T)$. Since 
+    $\rho(T)\cap\sigma(T) = \varnothing$ and $\rho(T)\cup\sigma(T) = \C$, 
+    we conclude that $\rho(T')$ and $\sigma(T')$ are exactly the mirror 
+    images of $\rho(T)$ and $\sigma(T)$ with respect to the real axis.
+\end{proof}
+\begin{remark}
+    If $X = \H$, then $T' = T^*$, and if $\lambda\in\sigma(T)$, 
+    then $\overline{\lambda}\in\sigma(T^*) = \sigma(T')$.
+\end{remark}
+
+\begin{lemma}[Riesz]
+    Let $X$ be a normed vector space with $\dim X = \infty$. 
+    Let $Y$ be a proper closed subspace of $X$. Then for all 
+    $\alpha\in(0,1)$, there exists $x\in X$ with $\norm{x} = 1$ 
+    such that $\norm{x-y}\geq \alpha$ for all $y\in Y$.
+\end{lemma}
+\begin{proof}
+    Fix $v\in X\setminus Y$. Let $\beta = \inf_{y\in Y} \norm{v - y}$. 
+    Since $y$ is closed, $\beta > 0$. For all $\alpha\in (0,1)$, 
+    there is a $y_0\in Y$ such that $\beta\leq\norm{v - y_0}\leq \beta/\alpha$. 
+    Let $z = \frac{v-y_0}{\norm{v-y_0}}$ so $\norm{z} = 1$. We claim 
+    that $\norm{z-y}\geq \alpha$ for all $y\in Y$. Indeed, 
+    \begin{equation*}
+        \norm{z-y} = \frac{1}{\norm{v-y_0}}\norm{v - y_0 - \norm{v-y_0}y} 
+        = \frac{1}{\norm{v-y_0}}\norm{v - (y_0 + \norm{v-y_0}y)} 
+        \geq \frac{1}{\norm{v-y_0}}\beta
+    \end{equation*}
+    by the definition of $\beta$. Hence, 
+    \begin{equation*}
+        \norm{z-y} \geq \frac{\beta}{\norm{v-y_0}} 
+        \geq \frac{\beta}{\beta/\alpha} = \alpha. 
+    \end{equation*}
+    Since $y$ is arbitrary, $z$ is the desired vector.
+\end{proof}
+
+\begin{proposition}\label{prop:compact_image_closed}
+    Let $T\in B(X)$ be a compact operator. Then $(T-I)(X)$ is closed. 
+\end{proposition}
+\begin{proof}
+    Let $x_n\in X$ be a sequence such that $(T-I)x_n\to y$. We first 
+    show that $d(x_n, \ker(T-I))$ is bounded. Suppose not. We can 
+    find a divergent subsequence, say $x_n$, and define 
+    $z_n = x_n/\norm{x_n + \ker(T-I)}_{X/\ker(T-I)}$. Now 
+    \begin{equation*}
+        \norm{x_n + \ker(T-I)}_{X/\ker(T-I)} = d(x_n, \ker(T-I))
+    \end{equation*}
+    is unbounded. Then 
+    \begin{equation*}
+        (T-I)z_n = \frac{(T-I)x_n}{\norm{x_n + \ker(T-I)}_{X/\ker(T-I)}} 
+        \to 0.
+    \end{equation*}
+    Notice that $z_n = Tz_n - (T-I)z_n$. By the compactness of $T$,
+    we may choose a subsequence $z_{n_k}$ such that $Tz_{n_k}\to z\in X$ 
+    and thus $z_{n_k}\to z$. It follows that $(T-I)z = 0$ and 
+    $z\in\ker(T-I)$, so $z+\ker(T-I)$ is a zero vector in 
+    $X/\ker(T-I)$. On the other hand, $z_n$ is a sequence of unit vectors 
+    in $X/\ker(T-I)$, a contradiction. Hence $d(x_n, \ker(T-I))$ is bounded. 
+
+    Now for $x_n$, since $d(x_n, \ker(T-I))$ is bounded, we can 
+    find a sequence $y_n\in\ker(T-I)$ such that $x_n-y_n$ is bounded. 
+    Since $T$ is compact, we can find a subsequence $x_{n_k} - y_{n_k}$ such that 
+    \begin{equation*}
+        x_{n_k} - y_{n_k} = T(x_{n_k} - y_{n_k}) - (T-I)(x_{n_k} - y_{n_k}) 
+        = T(x_{n_k} - y_{n_k}) - (T-I)x_{n_k}
+    \end{equation*}
+    is convergent, say to $x$. Then
+    \begin{equation*}
+        (T-I)x = \lim_{k\to\infty} (T-I)x_{n_k} = y
+    \end{equation*}
+    lies in $(T-I)(X)$. Hence $(T-I)(X)$ is closed.
+\end{proof}
+
+\begin{theorem}[Spectral Theorem for Compact Operators]
+    Let $T\in B(X)$ be a compact operator. Then 
+    \begin{thmenum}
+        \item Every non-zero $\lambda\in\sigma(T)$ is an eigenvalue 
+        of $T$. 
+        \item For each non-zero $\lambda\in\sigma(T)$, $\dim(E_\lambda)<\infty$. 
+        \item $\sigma(T)$ is at most countable. 
+        \item $\sigma(T)$ has no limit point except possibly $0$. 
+        \item If $\dim(X) = \infty$, then $0\in\sigma(T)$.
+    \end{thmenum}
+\end{theorem}
+\begin{proof}
+    For (a), let $\lambda\in\sigma(T)$ be non-zero. $T-\lambda I = \lambda(\lambda^{-1}T - I)$. 
+    $T$ is compact if and only if $\lambda^{-1}T$ is compact and 
+    hence the case reduced to the case where $\lambda = 1$. 
+
+    Now suppose that $\lambda = 1$. If $1$ is not an eigenvalue, then 
+    $T-I$ is injective and has no bounded inverse. It follows from the 
+    bounded inverse theorem and \cref{prop:compact_image_closed} that 
+    $(T-I)(X)$ is a proper closed subspace of $X$. 
+
+    Put $Y_1 = (T-I)(X)$ and $Y_2 = (T-I)^2(X)$. Since $T-I$ is injective, 
+    $Y_2$ is a proper closed subspace of $Y_1$. Define $Y_n = (T-I)^n(X)$ for $n\geq 1$. 
+    We obtain a sequence of proper closed subspaces 
+    \begin{equation*}
+        Y_1\supset Y_2\supset Y_3\supset \cdots.
+    \end{equation*}
+    By the Riesz lemma, we can choose a sequence of unit vectors 
+    $y_n\in Y_n$ such that $d(y_n, Y_{n+1})\geq 1/2$. For $m>n$, 
+    \begin{equation*}
+        \norm{Ty_m - Ty_n} = \norm{(T-I)y_m + y_m - (T-I)y_n - y_n} 
+        \geq d(y_n, Y_{n+1}) \geq \frac{1}{2}.
+    \end{equation*}
+    On the other hand, $y_n$ is a bounded sequence and hence $Ty_n$ has 
+    a Cauchy subsequence, which is absurd. Hence $1$ is an eigenvalue 
+    of $T$. Thus every non-zero $\lambda\in\sigma(T)$ is an eigenvalue of $T$. 
+
+    For (b), let $\lambda\in\sigma(T)$ be a non-zero eigenvalue. 
+\end{proof}

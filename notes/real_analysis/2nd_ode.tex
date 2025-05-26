@@ -1,0 +1,105 @@
+The goal of this section is to present some solution techniques for solving 
+the second order ODEs that will be intensively used in the next section. 
+The techniques are presnted without proofs. 
+
+We first introduce the variation of parameters method. Consider the 
+second order ODE of the form 
+\begin{equation*}
+    y'' + p(x)y' + q(x)y = f(x),
+\end{equation*}
+where $a\leq x \leq b$. The first step is to find the solutions of the homogeneous version 
+\begin{equation*}
+    y'' + p(x)y' + q(x)y = 0.
+\end{equation*}
+Assume that we can find two linearly independent solutions $y_1(x)$ and $y_2(x)$. 
+Then a particular solution of the non-homogeneous equation is 
+\begin{equation*}
+    y_p(x) = -y_1(x)\int_a^x \frac{y_2(t)f(t)}{W(y_1,y_2)(t)}dt 
+    + y_2(x)\int_a^x \frac{y_1(t)f(t)}{W(y_1,y_2)(t)}dt,
+\end{equation*}
+where the \textbf{Wronskian} $W$ is defined as 
+\begin{equation*}
+    W(y_1,y_2)(t) = \begin{vmatrix}
+        y_1(t) & y_2(t) \\
+        y_1'(t) & y_2'(t)
+    \end{vmatrix}.
+\end{equation*}
+The general solution of the non-homogeneous equation is 
+\begin{equation*}
+    y(x) = c_1y_1(x) + c_2y_2(x) + y_p(x),
+\end{equation*}
+for some constants $c_1$ and $c_2$ that should be determined by the boundary 
+conditions. 
+
+The difficulty of the variation of parameters method is that it is not always easy to find 
+two linearly independent solutions of the homogeneous equation. If the coefficients 
+are actually constant, we can consider the corresponding characteristic polynomial 
+\begin{equation*}
+    \lambda^2 + p\lambda + q = 0.
+\end{equation*}
+If the roots $\lambda_1$ and $\lambda_2$ are distinct, then the two linearly independent 
+can be found as 
+\begin{equation*}
+    y_1(x) = e^{\lambda_1 x}, \quad y_2(x) = e^{\lambda_2 x}.
+\end{equation*}
+If $\lambda = \lambda_1 = \lambda_2$, the two linearly independent solutions can 
+be found as 
+\begin{equation*}
+    y_1(x) = e^{\lambda x}, \quad y_2(x) = xe^{\lambda x}.
+\end{equation*}
+
+The next method is using the Green's function. Consider the second order ODE 
+\begin{equation*}
+    y'' + p(x)y' + q(x)y = f(x).
+\end{equation*}
+The differential operator $L$ is defined as 
+\begin{equation*}
+    L = D^2 + p(x)D + q(x)I,
+\end{equation*}
+with boundary conditions 
+\begin{equation*}
+    Ry = 0,
+\end{equation*} 
+where $D$ is the differential operator and $R$ is a linear operator that 
+represents the boundary conditions. Suppose that the solution has the form 
+\begin{equation*}
+    y(x) = \int_a^b G(x,t)f(t)dt,
+\end{equation*}
+where $G(x,t)$ is the \textbf{Green's function} characterized by the following 
+differential equation 
+\begin{equation*}
+    \begin{cases}
+        L G(x,t) = \delta(x-t), & x\in[a,b], \\ 
+        R G(x,t) = 0, \\ 
+        G(t^+,t) = G(t^-,t), \\
+        G_x(t^+,t) - G_x(t^-,t) = \frac{1}{r(t)},
+    \end{cases}
+\end{equation*}
+where $r$ is the function with 
+\begin{equation*}
+    L = D(r(x)D) + s(x)
+\end{equation*}
+being the result of factorization. This form is called the \textbf{Sturm-Liouville form} 
+operator. The form of $r$ and $s$ can be found by the following 
+\begin{equation*}
+    \sbrc{D(rD) + s}y = ry'' + r'y' + sy = 0 \quad\Leftrightarrow\quad 
+    y'' + \frac{r'}{r}y' + \frac{s}{r}y = 0.
+\end{equation*}
+This means that 
+\begin{equation*}
+    p = \frac{r'}{r}, \quad q = \frac{s}{r}.
+\end{equation*}
+So 
+\begin{equation*}
+    r(x) = e^{\int_a^x p(t)dt}.
+\end{equation*}
+We can rewrite the characterization of the Green's function as 
+\begin{equation*}
+    \begin{cases}
+        L G(x,t) = 0, & x\in[a,b], \\ 
+        R G(x,t) = 0, \\ 
+        G(t^+,t) = G(t^-,t), \\
+        G_x(t^+,t) - G_x(t^-,t) = \exp\pth{-\int_a^t p(s)ds}.
+    \end{cases}
+\end{equation*}
+

@@ -301,3 +301,74 @@
     \end{equation*}
     Thus $T'f_n\to T'f$ in $X'$. Hence $T'$ is compact.
 \end{proof}
+
+\begin{definition}
+    Let $X,Y$ be Banach spaces. A linear operator $T$ is said 
+    to be \textbf{densely defined} if $D(T) = \Set{x\in X}{Tx\in Y}$ 
+    is dense in $X$. We denote it as $T:D(T)\dsubset X\to Y$.
+\end{definition} 
+
+\begin{definition}
+    A linear operator $T:D(T)\dsubset X\to Y$ is said to be 
+    \textbf{bounded} if there is $c < \infty$ such that 
+    \begin{equation*}
+        \norm{Tx}_Y\leq c\norm{x}_X
+    \end{equation*}
+    for all $x\in D(T)$; $T$ is \textbf{unbounded} if for all 
+    $c>0$, there exists $x\in D(T)$ such that 
+    \begin{equation*}
+        \norm{Tx}_Y > c\norm{x}_X.
+    \end{equation*}
+\end{definition}
+\begin{remark}
+    $T$ is bounded if and only if $T$ is continuous on every 
+    point in $D(T)$; $T$ is unbounded if and only if $T$ is not 
+    continuous on every point in $D(T)$.
+\end{remark}
+
+\begin{definition}
+    $T:D(T)\subset X\to Y$ is \textbf{closed} if its graph 
+    \begin{equation*}
+        G(T) = \Set{(x,y)\in X\times Y}{x\in D(T), Tx = y}
+    \end{equation*}
+    is closed in the norm $\norm{(x,y)}_{X\times Y} = \norm{x}_X + \norm{y}_Y$.
+\end{definition}
+\begin{remark}
+    $T$ is closed if $x_n\to x$ in $X$, where $x_n\in D(T)$ and 
+    $Tx_n\to y$ in $Y$ implies that $x\in D(T)$ and $Tx = y$.
+\end{remark}
+
+\begin{definition}
+    $T_1:D(T_1)\subset X\to Y$ and $T_2:D(T_2)\subset X\to Y$ are 
+    linear unbounded operators. We say that $T_2$ is an \textbf{extension} 
+    of $T_1$ if $D(T_1)\subset D(T_2)$ and $T_2x = T_1x$ for all 
+    $x\in D(T_1)$. Denote it as $T_1\subset T_2$.
+\end{definition}
+
+\begin{definition}
+    A linear operator $T:D(T)\subset X\to Y$ is said to be 
+    \textbf{closable} if there is a closed extension of $T$. 
+\end{definition}
+\begin{remark}
+    $T$ is closable if and only if for $x_n\in D(T)$, $x_n\to 0$ 
+    and $Tx_n\to y$ in $Y$ implies that $y = 0$.
+\end{remark}
+
+\begin{example}
+    $f:D(T)\in\ell^2\to\R$, where $D(T) = \spanby(\Set{e_n}{n\in\N})$ 
+    is defined by $Te_n = n$ and extended by linearity. Then 
+    $T$ is unbounded. Since $T$ is unbounded, we may take 
+    $x_n\to 0$ in $D(T)$ and $\abs{f(x_n)}\geq \epsilon$ for some 
+    $\epsilon>0$. 
+    \begin{equation*}
+        z_n = \frac{x_n}{Tx_n}\to 0\quad\text{and}\quad 
+        Tz_n = 1.
+    \end{equation*}
+    Thus $T$ is not closable.
+\end{example}
+
+\begin{example}
+    $T:f\mapsto f'$ on $X = C[0,1]$ and $D(T) = C^1[0,1]$. 
+    Then $T$ is closed. If $D(T) = C^\infty[0,1]$, then $T$ is 
+    not closed while closable. 
+\end{example}

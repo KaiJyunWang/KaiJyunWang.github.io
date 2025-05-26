@@ -1,0 +1,135 @@
+\begin{definition}
+    An \textbf{affine hyperplane} in a vector space $X$ is a set 
+    of the form 
+    \begin{equation*}
+        H = \Set{x\in X}{f(x) = \alpha}
+    \end{equation*}
+    where $f$ is a linear functional on $X$ and $\alpha\in \R$. 
+    We denote the affine hyperplane by $H(f, \alpha)$.
+\end{definition}
+\begin{remark}
+    The linear functional $f$ need not be continuous. 
+\end{remark}
+
+\begin{proposition}
+    The hyperplane $H(f,\alpha)$ is closed if and only if $f$ is continuous.
+\end{proposition}
+\begin{proof}
+    Suppose first that $f$ is continuous. Clearly $\set{\alpha}\subset\R$ is 
+    closed. It follows that $f^{-1}(\set{\alpha}) = H(f,\alpha)$ is closed. 
+    
+    Conversely, assume that $H(f,\alpha)$ is closed. If $H(f,\alpha) = X$, then 
+    $f = 0$ and is continuous. If not, then $H(f,\alpha)^c\neq\varnothing$. Let 
+    $x_0\in H(f,\alpha)^c$ and $f(x_0) \neq \alpha$. Without loss of generality, 
+    assume that $f(x_0) < \alpha$. 
+    
+    Fix $r > 0$ such that $B_r(x_0)\subset H(f,\alpha)^c$. We claim that 
+    $f(x) <\alpha$ for all $x\in B_r(x_0)$. Suppose not. Then there is $x_1\in B_r(x_0)$ 
+    such that $f(x_1) > \alpha$. We have that the segment 
+    \begin{equation*}
+        \Set{x_t\in X}{x_t = (1-t)x_0 + tx_1, t\in [0,1]}
+    \end{equation*}
+    lies in $B_r(x_0)$ and $f(x_t)\neq \alpha$ for all $t\in [0,1]$. However, 
+    it is clear that 
+    \begin{equation*}
+        t = \frac{f(x_1) - \alpha}{f(x_1) - f(x_0)} \in [0,1] 
+        \quad\text{and} \quad 
+        f(x_t) = (1-t)f(x_0) + tf(x_1) = \alpha,
+    \end{equation*}
+    a contradiction. Thus $f(x) < \alpha$ for all $x\in B_r(x_0)$. It follows 
+    that $f(x_0 + rz) < \alpha$ for all $\norm{z} < 1$. Then 
+    \begin{equation*}
+        \norm{f} = \sup_{\norm{z}\leq 1} \abs{f(z)} \leq \frac{1}{r}(\alpha - f(x_0)) < \infty.
+    \end{equation*}
+    Hence $f$ is continuous.
+\end{proof}
+
+\begin{definition}
+    Let $A,B\subset X$ be two subsets of $X$. We say that a hyperplane $F(f,\alpha)$ 
+    \textbf{weakly separates} $A$ and $B$ if 
+    \begin{equation*}
+        \sup_{x\in A} f(x) \leq \alpha \leq \inf_{x\in B} f(x).
+    \end{equation*}
+\end{definition}
+
+\begin{definition}
+    Let $A,B\subset X$ be two subsets of $X$. We say that a hyperplane $F(f,\alpha)$ 
+    \textbf{strictly separates} $A$ and $B$ if 
+    \begin{equation*}
+        \sup_{x\in A} f(x) \leq \alpha - \epsilon < \alpha + \epsilon \leq \inf_{x\in B} f(x)
+    \end{equation*}
+    for some $\epsilon > 0$.
+\end{definition}
+
+\begin{lemma}\label{lem:minkowski_functional}
+    Let $C\subset X$ be an open convex set containing $0$. For every $x\in X$, set 
+    \begin{equation*}
+        p(x) = \inf\Set{\alpha > 0}{\frac{1}{\alpha}x\in C}.
+    \end{equation*}
+    Then 
+    \begin{thmenum}
+        \item $p(\lambda x) = \lambda p(x)$ for all $\lambda > 0$ and $x\in X$,
+        \item $p(x+y) \leq p(x) + p(y)$ for all $x,y\in X$, 
+        \item there is $M<\infty$ such that $0\leq p(x) \leq M\norm{x}$ for all $x\in X$, 
+        \item $C = \Set{x\in X}{p(x) < 1}$. 
+    \end{thmenum}
+\end{lemma}
+\begin{proof}
+    For (c), let $r > 0$ be such that $B_r(0)\subset C$. 
+    $x\in B_{\norm{x}}(0)$ implies that $rx/\norm{x}\in B_r(0)\subset C$. Thus 
+    \begin{equation*}
+        p(x) \leq \frac{1}{r}\norm{x}
+    \end{equation*}
+    for all $x\in X$. 
+
+    For (d), let $x\in C$. Since $C$ is open, there is $\delta > 0$ such that 
+    $(1+\delta)x\in C$. Thus 
+    \begin{equation*}
+        p(x) \leq \frac{1}{1+\delta} < 1. 
+    \end{equation*}
+    Conversely, suppose $p(x)<1$. There is $\alpha\in (0,1)$ such that $\frac{1}{\alpha}x\in C$. 
+    Then $x = \alpha(x/\alpha) + (1-\alpha)\cdot 0\in C$ by convexity of $C$. 
+    We conclude that $C = \Set{x\in X}{p(x) < 1}$. 
+
+    (a) is obvious. For (b), let $x,y\in X$ be given. For $\epsilon > 0$, from 
+    the definition of $p$, $\frac{x}{p(x) + \epsilon}\in C$ and $\frac{y}{p(y) + \epsilon}\in C$. 
+    Now for $t\in [0,1]$, 
+    \begin{equation*}
+        t\frac{x}{p(x) + \epsilon} + (1-t)\frac{y}{p(y) + \epsilon} \in C
+    \end{equation*}
+    by the convexity of $C$. Thus 
+    \begin{equation*}
+        t = \frac{p(x) + \epsilon}{p(x) + p(y) + 2\epsilon}\in [0,1] 
+        \quad\Rightarrow\quad 
+        \frac{x+y}{p(x) + p(y) + 2\epsilon} \in C. 
+    \end{equation*}
+    Hence 
+    \begin{equation*}
+        p(x+y) \leq p(x) + p(y) + 2\epsilon
+    \end{equation*}
+    for all $\epsilon > 0$. Thus $p(x+y) \leq p(x) + p(y)$.
+\end{proof}
+
+\begin{theorem}[Hahn-Banach Separation Theorem \rom{1}]
+    Let $A, B\subset X$ be two non-empty convex sets such that $A\cap B = \varnothing$. 
+    If one of the sets is open, there is a closed hyperplane $H(f,\alpha)$ separating 
+    $A$ and $B$. 
+\end{theorem}
+\begin{proof}
+    We first prove the case where $A = \set{x_0}$ is a singleton and $B$ is open. 
+    By translation we may assume without loss of generality that $B$ contains $0$. 
+    Consider the set $G = \spanby(\set{x_0})$. Define the functional $g$ on $G$ by 
+    \begin{equation*}
+        g(tx_0) = t
+    \end{equation*}
+    for $t\in R$. Apply \cref{lem:minkowski_functional} to the open convex set 
+    $B$ to obtain the corresponding $p$. We claim that $g(x) \leq p(x)$ for all 
+    $x\in G$. 
+
+    Indeed, let $x = tx_0$. If $t > 0$, then $g(x) = t$ and 
+    \begin{equation*}
+        p(x) = p(tx_0) = tp(x_0) \geq t = g(x).
+    \end{equation*}
+    If $t\leq 0$, then $g(x) = t\leq 0$ and by definition $p(x) \geq 0$. We 
+    conclude that $g(x) \leq p(x)$ for all $x\in G$.
+\end{proof}
