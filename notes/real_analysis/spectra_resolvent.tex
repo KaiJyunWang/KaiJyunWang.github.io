@@ -180,7 +180,7 @@
     is also compact. 
 \end{remark}
 
-\begin{theorem}
+\begin{theorem}\label{thm:bd_cpt_spectrum}
     $T\in B(X)$. Then $\sigma(T)$ is compact and 
     \begin{equation*}
         \sup_{\xi\in\sigma(T)}\abs{\xi} \leq \norm{T} < \infty. 
@@ -304,7 +304,7 @@
         = \norm{R_T(\lambda)'}\norm{x}.
     \end{equation*}
     From the proof of (b), we have seen that $(T-\lambda I)' = (T'-\overline{\lambda}I)$. 
-    Thus by exercise 5.1 (b), 
+    Thus by (b), 
     \begin{equation*}
         R_{T'}(\overline{\lambda}) = (T'-\overline{\lambda}I)^{-1} 
         = \pth{(T-\lambda I)'}^{-1} = ((T-\lambda I)^{-1})' = R_T(\lambda)'
@@ -389,8 +389,8 @@
         \item Every non-zero $\lambda\in\sigma(T)$ is an eigenvalue 
         of $T$. 
         \item For each non-zero $\lambda\in\sigma(T)$, $\dim(E_\lambda)<\infty$. 
-        \item $\sigma(T)$ is at most countable. 
-        \item $\sigma(T)$ has no limit point except possibly $0$. 
+        \item $\sigma(T)$ has no limit point except possibly $0$.
+        \item $\sigma(T)$ is at most countable.  
         \item If $\dim(X) = \infty$, then $0\in\sigma(T)$.
     \end{thmenum}
 \end{theorem}
@@ -421,4 +421,431 @@
     of $T$. Thus every non-zero $\lambda\in\sigma(T)$ is an eigenvalue of $T$. 
 
     For (b), let $\lambda\in\sigma(T)$ be a non-zero eigenvalue. 
+    Suppose that $\dim(E_\lambda) = \infty$. Then we can find a 
+    sequence of unit vectors $x_n\in E_\lambda$ such that $Tx_n 
+    = \lambda x_n$ for all $n$ and $\norm{x_n - x_m}\geq \epsilon > 0$ 
+    for all distinct $m,n$. Then 
+    \begin{equation*}
+        \norm{Tx_n - Tx_m} = \norm{\lambda x_n - \lambda x_m} 
+        = \abs{\lambda}\norm{x_n - x_m} \geq \abs{\lambda}\epsilon > 0.
+    \end{equation*}
+    This shows that $Tx_n$ cannot have a Cauchy subsequence, 
+    and $T$ is not compact, a contradiction. Hence $\dim(E_\lambda)<\infty$.  
+
+    For (c), suppose that $\lambda_n\in\sigma(T)$ is a sequence of 
+    distinct eigenvalues of $T$ such that $\abs{\lambda_n}\to\abs{\lambda} > 0$. 
+    By (a), each $\lambda_n$ corresponds to an eigenvector $x_n$. 
+    Set $Y_n = \spanby\set{x_1,\ldots,x_n}$. Then $Y_n$ forms a 
+    strictly increasing sequence of closed subspaces of $X$. 
+    For each $Y_n$, we can pick a unit vector $y_n\in Y$ 
+    such that $d(y_n, Y_{n-1})\geq 1/2$. For $m>n$,
+    \begin{equation*}
+        \norm{Ty_m - Ty_n} = \norm{(T-\lambda_n I)y_m + \lambda_my_m - (T-\lambda_n I)y_n + \lambda_ny_n} 
+    \end{equation*}
+    Since 
+    \begin{equation*}
+        (T-\lambda_mI)y_m\in Y_{m-1},\quad  
+        (T-\lambda_nI)y_n\in Y_{n-1}\subset Y_{m-1},\quad\text{and}\quad 
+        \lambda_ny_n\in Y_n\subset Y_{m-1},
+    \end{equation*}
+    we have
+    \begin{equation*}
+        \norm{Ty_m - Ty_n} \geq d(y_n, Y_{n-1}) \geq \frac{1}{2}.
+    \end{equation*}
+    This contradicts to the compactness of $T$. Hence $\sigma(T)$ has 
+    no limit point except possibly $0$. 
+
+    For (d), we claim a fact that every uncountable set in a separable 
+    metric space must have infinitely many limit points. Suppose not. 
+    Let $A\subset X$ be an uncountable set. Since $X$ is separable, 
+    we can consider a countable dense subset $D\subset X$. Let 
+    \begin{equation*}
+        \B = \Set{B_r(d)}{r\in\Q^+, d\in D}. 
+    \end{equation*} 
+    Consider $A_0 = \Set{a\in A}{a\not\in A'}$, the set of isolated points of $A$.
+    For each $a\in A_0$, there is a ball $B_a\in\B$ such that 
+    $B_a\cap A = \set{a}$. Since $\B$ is countable and each $B_a$ corresponds to 
+    only one $a\in A_0$, we conclude that $A = A'\cup A_0$ is at most countable, 
+    a contradiction. The fact follows. Now suppose that $\sigma(T)$ is 
+    uncountable, it must have infinitely many limit points, contradicting 
+    (c). Hence $\sigma(T)$ is at most countable.
+
+    For (e), if $\sigma(T)$ contains no $0$, then $T^{-1}$ exists and 
+    is bounded and $I = TT^{-1}$ is compact. This only happens if 
+    $\dim(X) < \infty$. 
 \end{proof}
+
+\begin{example}
+    $X = \ell^2(\N)$, $T:X\to X$ defined by $T(x_n) = (nx_n)$. 
+    Then $T$ is compact. Consider $T_N:(x_n)\mapsto (x_1,\ldots,x_N/N,0,\ldots)$. 
+    \begin{equation*}
+        \norm{T_Nx - Tx} = \sum_{j=N+1}^\infty \frac{\abs{a_j}^2}{j^2} 
+        \leq \frac{\norm{x}^2}{(N+1)^2}. 
+    \end{equation*}
+    Then $\norm{T_N - T}\leq \frac{1}{N+1}\to 0$ as $N\to\infty$. 
+    Let $x_n\in X$ with $\norm{x_n} \leq 1$. Since $R(T_N)$ is 
+    finite dimensional, we can find a subsequence $x_{n_k}$ such that 
+    $T_Nx_{n_k}$ is Cauchy. Then 
+    \begin{equation*}
+        \begin{split}
+            \norm{Tx_{n_k} - Tx_{n_l}} 
+            &\leq \norm{Tx_{n_k} - T_Nx_{n_k}} + \norm{T_Nx_{n_k} - T_Nx_{n_l}} 
+            + \norm{T_Nx_{n_l} - Tx_{n_l}} \\
+            &\leq \norm{T_N - T}\pth{\norm{x_{n_k}} + \norm{x_{n_l}}} + \norm{T_Nx_{n_k} - T_Nx_{n_l}}\to 0. 
+        \end{split}
+    \end{equation*}
+\end{example}
+
+\begin{theorem}\label{thm:compact_resolvent}
+    Let $T$ be a closed operator on $X$ with compact resolvent. 
+    Then
+    \begin{thmenum}
+        \item $\sigma(T)$ consists entirely of eigenvalues of $T$, 
+        \item $\dim(E_\lambda)<\infty$ for all eigenvalues $\lambda$ of $T$, 
+        \item $R_T(\xi)$ is compact for all $\xi\in\rho(T)$.
+    \end{thmenum}
+\end{theorem}
+\begin{proof}
+    We first show (c). Let $\xi_0\in\rho(T)$ such that 
+    $R_T(\xi_0)$ is compact. By the resolvent equation, 
+    \begin{equation*}
+        R_T(\xi) - R_T(\xi_0) = (\xi - \xi_0)R_T(\xi)R_T(\xi_0)
+        \quad\Rightarrow\quad 
+        R_T(\xi) = (I + (\xi - \xi_0)R_T(\xi))R_T(\xi_0)
+    \end{equation*}
+    for any $\xi\in\rho(T)$. Since $R_T(\xi_0)$ is compact and 
+    \begin{equation*}
+        \norm{I+(\xi - \xi_0)R_T(\xi)} \leq \norm{I} + \abs{\xi - \xi_0}\norm{R_T(\xi)} < \infty
+    \end{equation*}
+    for all $\xi\in\rho(T)$, we conclude that $R_T(\xi)$ is also 
+    compact. 
+
+    Next, we claim that $\sigma(R_T(\xi_0)) = f(\sigma(T))$, where $f(\xi) = \frac{1}{\xi-\xi_0}$.
+    Let $\xi_0\in\rho(T)$ be such that $R_T(\xi_0)$ is compact. Observe that 
+    \begin{equation*}
+        T-\xi I = (T-\xi_0 I) - (\xi - \xi_0)I = (T-\xi_0 I)(I - (\xi - \xi_0)R_T(\xi_0)) 
+        = -(\xi - \xi_0)(T - \xi_0 I)\pth{R_T(\xi_0) - \frac{1}{\xi-\xi_0}I}.
+    \end{equation*}
+    Then $T-\xi I$ has bounded inverse if and only if $R_T(\xi_0) - \frac{1}{\xi-\xi_0}I$ 
+    has bounded inverse. Thus $\xi\in\rho(T)$ if and only if $(\xi - \xi_0)^{-1} \in\rho(R_T(\xi_0))$. 
+    The claim follows. 
+
+    Now let $f(\lambda) = \frac{1}{\lambda - \xi_0}\in\sigma(R_T(\xi_0))$. 
+    Then if $f(\lambda) = 0$, $\lambda$ cannot be finite. We only need to 
+    deal with the case where $f(\lambda)\neq 0$. We claim that if $\mu\in\sigma(R_T(\xi_0))$ 
+    is non-zero, then $\mu$ is an eigenvalue of $R_T(\xi_0)$. 
+
+    Suppose not. Then $\ker(R_T(\xi_0) - \mu I) = \set{0}$. We shall 
+    deduce that $(R_T(\xi_0) - \mu I)(X) = X$. Assume again that 
+    this is not the case. Then $X_1 = (R_T(\xi_0) - \mu I)(X)\subset X$ is 
+    a proper closed subspace since $R_T(\xi_0)$ is compact. Also, 
+    $R_T(\xi_0)(X_1) \subset X_1$ since if $x\in X_1$, then there is $y\in X_1$ 
+    and $z\in X$ such that 
+    \begin{equation*}
+        x = R_T(\xi_0)y = (R_T(\xi_0) - \mu I)y + \mu y = (R_T(\xi_0) - \mu I)y + \mu(R_T(\xi_0) - \mu I)z \in X_1.   
+    \end{equation*}
+    So $R_T(\xi_0)(X_1) \subset X_1$. Put $X_2 = (R_T(\xi_0) - \mu I)(X_1)$. 
+    Then $X_2$ is a subspace of $X_1$ since if $x\in (R_T(\xi_0) - \mu I)(X_1)$, 
+    there is $y\in X_1$ such that 
+    \begin{equation*}
+        x = (R_T(\xi_0) - \mu I)y = R_T(\xi_0)y - \mu y \in X_1.
+    \end{equation*} 
+    It is also a proper subspace of $X_1$ since if not, then we may 
+    pick $y\in X\setminus X_1$ and there is $z\in X_1$ such that 
+    \begin{equation*}
+        (R_T(\xi_0) - \mu I)z = (R_T(\xi_0) - \mu I)y\quad\Rightarrow\quad 
+        y = z\in X_1
+    \end{equation*}
+    since $R_T(\xi_0) - \mu I$ is injective. This is a contradiction 
+    and $X_2\subset X_1$ is a proper closed subspace. Continue this 
+    process, we can find a sequence of strictly decreasing closed subsapces 
+    $X_1\supset X_2\supset\cdots$ such that $X_{n+1} = (R_T(\xi_0) - \mu I)(X_n)$. 
+    Applying the Riesz lemma, we can construct a sequence $x_n\in X_n$, 
+    $\norm{x_n} = 1$ and $d(\mu x_n, X_{n+1}) \geq 1/2$. 
+    \begin{equation*}
+        R_T(\xi_0)x_n - R_T(\xi_0)x_m 
+        = (R_T(\xi_0)x_n - \mu x_n) + \mu(x_n - x_m) - (R_T(\xi_0)x_m - \mu x_m)
+    \end{equation*}
+    Suppose $n> m$. Then $X_{n+1}\subset X_n\subset X_{m+1}$ and 
+    we conclude that 
+    \begin{equation*}
+        \norm{R_T(\xi_0)x_n - R_T(\xi_0)x_m} \geq d(\mu x_m, X_{m+1}) 
+        \geq 1/2. 
+    \end{equation*}
+    This contradicts the fact that $R_T(\xi_0)$ is compact. Thus 
+    $(R_T(\xi_0) - \mu I)(X) = X$ and by the bounded inverse theorem, 
+    $R_T(\xi_0) - \mu I$ has bounded inverse and $\mu\in\rho(R_T(\xi_0))$, 
+    a contradiction. Thus $\mu$ must be an eigenvalue of $R_T(\xi_0)$. 
+    Thus for $\lambda\in\sigma(T)$, 
+    \begin{equation*}
+        (T - \xi_0 I)^{-1}x = \frac{1}{\lambda - \xi_0}x
+        \quad\Rightarrow\quad 
+        x = \frac{1}{\lambda - \xi_0}(Tx - \xi_0 x)
+        \quad\Rightarrow\quad
+        Tx - \xi_0 x = \lambda x - \xi_0 x
+        \quad\Rightarrow\quad
+        Tx = \lambda x.
+    \end{equation*}
+    Hence $\lambda$ is an eigenvalue of $T$ and (a) follows. 
+
+    For any eigenvalue $\lambda$ of $T$ lies in $\sigma(T)$, 
+    $(\lambda - \xi_0)^{-1}\in\sigma(R_T(\xi_0))$. 
+    \begin{equation*}
+        \begin{split}
+            T-\lambda I = (T - \xi_0 I) - (\lambda - \xi_0)I 
+            &\quad\Rightarrow\quad 
+            R_T(\xi_0)(T-\lambda I) = I - (\lambda - \xi_0)R_T(\xi_0) \\
+            &\quad\Rightarrow\quad
+            \frac{1}{\xi_0 - \lambda}R_T(\xi_0)(T-\lambda I) = R_T(\xi_0) - \frac{1}{\lambda - \xi_0}I.
+        \end{split}
+    \end{equation*}
+    $R_T(\xi_0)$ is invertible and the right hand side has finite nullity 
+    since $R_T(\xi_0)$ is compact. Thus $\dim(\ker(T-\lambda I)) 
+    = \dim(\ker(R_T(\xi_0) - \frac{1}{\lambda - \xi_0}I)) < \infty$. 
+\end{proof}
+\begin{remark}
+    If $T$ is a bounded closed operator with compact resolvent, 
+    then $\dim(X) < \infty$. Indeed, suppose that $\dim(X) = \infty$. 
+    Let $\xi\in\rho(T)$. Since $\xi\in\rho(T)$, we shall write 
+    $T = \xi I + (T-\xi I)$. Then $R_T(\xi)T = \xi R_T(\xi) + I$. 
+    Hence $I = R_T(\xi)(T-\xi I)$ is compact. Thus $\dim(X) < \infty$, 
+    a contradiction. Hence $\dim(X) < \infty$.
+\end{remark}
+
+\begin{theorem}[Riesz Projection]
+    Let $T$ be a closed operator on $X$ and $\lambda\in\sigma(T)$ 
+    is an isolated point of $\sigma(T)$. Then there is an associated 
+    eigen-projection 
+    \begin{equation*}
+        Pv = -\frac{1}{2\pi i}\oint_{\Gamma} R_T(\zeta)vd\zeta,
+    \end{equation*}
+    where $\Gamma$ is a simple closed curve enclose only $\lambda$.
+\end{theorem}
+\begin{proof}
+    We verify that $P$ is indeed a projection, i.e. $P^2 = P$. 
+    \begin{equation*}
+        P^2 = \pth{\frac{1}{2\pi i}}^2\oint_{\Gamma}\oint_{\Gamma} R_T(\zeta)R_T(\eta)d\zeta d\eta 
+        = \pth{\frac{1}{2\pi i}}^2\oint_{\Gamma}\oint_{\Gamma} \frac{R_T(\zeta)-R_T(\eta)}{\zeta - \eta}d\zeta d\eta.
+    \end{equation*}
+    We can shrink one of the contours, say $\Gamma_1$ enclosed by $\Gamma_2$, and 
+    \begin{equation*}
+        \begin{split}
+            P^2 &= \pth{\frac{1}{2\pi i}}^2\oint_{\Gamma_2}R_T(\zeta)\oint_{\Gamma_1} \frac{1}{\zeta - \eta}d\eta d\zeta 
+            - \pth{\frac{1}{2\pi i}}^2\oint_{\Gamma_1}R_T(\eta)\oint_{\Gamma_2} \frac{1}{\zeta - \eta}d\zeta d\eta \\
+            &= - \pth{\frac{1}{2\pi i}}^2\oint_{\Gamma_1}R_T(\eta)(2\pi i) d\eta = P.
+        \end{split}
+    \end{equation*}
+    Hence $P^2 = P$ and $P$ must be some projection on some subspace. 
+\end{proof}
+\begin{remark}
+    With the eigen-projection $P$, we may write $X = M_1\oplus M_2$ 
+    and decompose $T = T_1 + T_2$, where $M_1 = P(X)$, 
+    and $M_2 = (I-P)(X)$, and $T_1 = TP$, $T_2 = T(I-P)$. 
+    Now expanding $R_{T_1}(\lambda)$ by the Neumann series, 
+    \begin{equation*}
+        R_{T_1}(\xi) = R_T(\xi)P = \frac{-P}{\xi - \lambda} - \sum_{n=1}^\infty \frac{D^n}{(\xi - \lambda)^{n+1}},
+    \end{equation*}
+    where 
+    \begin{equation*}
+        D = (T-\lambda I)P = -\frac{1}{2\pi i}\oint_{\Gamma}(\xi - \lambda)R_T(\xi)d\xi.
+    \end{equation*}
+    To see this expression, we can expand $R_T(\xi)$ by the Laurent series 
+    \begin{equation*}
+        R_T(\xi) = \sum_{n=-k}^\infty C_n(\xi - \lambda)^n, 
+        \quad\text{where } C_n = \frac{1}{2\pi i}\oint_{\Gamma} (\xi - \lambda)^{-n-1}R_T(\xi)d\xi. 
+    \end{equation*}
+    Note that $C_{-1} = -P$. Thus 
+    \begin{equation*}
+        R_T(\xi)P = \frac{C_{-k}P}{(\xi - \lambda)^{k}} + \cdots + \frac{C_{-2}P}{(\xi-\lambda)^2} + \frac{C_{-1}P}{\xi - \lambda} + C_0P + \cdots
+    \end{equation*}
+    Since $C_{-1}P = -P$, matching the $C_{-2}P$ term, 
+    \begin{equation*}
+        D = -C_{-2} = -\frac{1}{2\pi i}\oint_{\Gamma}(\xi - \lambda)R_T(\xi)d\xi.
+    \end{equation*}
+\end{remark}
+\begin{remark}
+    For the case where we have several isolated eigenvalues $\lambda_1,\ldots,\lambda_K$, 
+    \begin{equation*}
+        TP = \sum_{k=1}^K \lambda_k P_k + D_k, 
+    \end{equation*}
+    with $P_k$ and $D_k$ defined with respect to $\lambda_k$. We also have 
+    \begin{thmenum}
+        \item $P_kD_k = D_kP_k = D_k$.
+        \item $P_kP_j = \delta_{kj}P_k$.
+    \end{thmenum}
+\end{remark}
+
+\begin{example}
+    Let $X = C[0,\pi]$ and $D(T) = \Set{u\in C^2[0,\pi]}{u'(0) = u'(\pi) = 0}$.
+    Define $T:D(T)\to X$ by $Tu = -u''$. We solve the differential equation 
+    \begin{equation*}
+        \begin{cases}
+            -u'' - \lambda u = v,\\
+            u'(0) = u'(\pi) = 0.
+        \end{cases}
+    \end{equation*}
+    i.e. 
+    \begin{equation*}
+        u = R_T(\lambda)v = (T-\lambda I)^{-1}v.
+    \end{equation*}
+    For suitable $\lambda$, we seek to write 
+    \begin{equation*}
+        R_T(\lambda)v = (T-\lambda I)^{-1}v = \int_0^\pi G(x,t)v(t)dt,
+    \end{equation*}
+    where $G(x,t)$ is the Green's function. We characterize 
+    $G$ by the following differential equation
+    \begin{equation*}
+        \begin{cases}
+            -G_{xx}(x,t)-\lambda G(x,t) = \delta(x-t) \\ 
+            G_x(0,t) = G_x(\pi,t) = 0 \\ 
+            G_x(t^+,t) - G_x(t^-,t) = -1 \\
+            G(t^+,t) = G(t^-,t).
+        \end{cases}
+    \end{equation*}
+    For $x\neq t$, we have 
+    \begin{equation*}
+        -G_{xx}(x,t)-\lambda G(x,t) = 0\quad\Rightarrow\quad 
+        G(x,t) = \begin{cases}
+            A(t)\cos(\sqrt{\lambda}x) + B(t)\sin(\sqrt{\lambda}x) & x<t,\\
+            C(t)\cos(\sqrt{\lambda}x) + D(t)\sin(\sqrt{\lambda}x) & x>t.
+        \end{cases}
+    \end{equation*}
+    Taking the derivative and using the boundary conditions,
+    \begin{equation*}
+        \begin{cases}
+            G_x(0,t) = -A(t)\sqrt{\lambda}\sin(\sqrt{\lambda}0) + B(t)\sqrt{\lambda}\cos(\sqrt{\lambda}0) = 0 \quad\Rightarrow\quad B(t) = 0,\\ 
+            G_x(\pi,t) = -C(t)\sqrt{\lambda}\sin(\sqrt{\lambda}\pi) + D(t)\sqrt{\lambda}\cos(\sqrt{\lambda}\pi) = 0 \quad\Rightarrow\quad D(t) = C(t)\tan(\sqrt{\lambda}\pi).\\
+        \end{cases}
+    \end{equation*}
+    Also, 
+    \begin{equation*}
+        G_x(t^+,t) - G_x(t^-,t) = -C(t)\sqrt{\lambda}\sin(\sqrt{\lambda}t) + C(t)\tan(\sqrt{\lambda}\pi)\sqrt{\lambda}\cos(\sqrt{\lambda}t) 
+        + A(t)\sqrt{\lambda}\sin(\sqrt{\lambda}t)  = -1.
+    \end{equation*}
+    Thus 
+    \begin{equation*}
+        \sqrt{\lambda}\sin(\sqrt{\lambda}t)A(t) = C(t)\pth{\sqrt{\lambda}\sin(\sqrt{\lambda}t) - \sqrt{\lambda}\tan(\sqrt{\lambda}\pi)\cos(\sqrt{\lambda}t)} - 1
+    \end{equation*}
+    The last condition gives 
+    \begin{equation*}
+        A(t)\cos(\sqrt{\lambda}t) = C(t)\cos(\sqrt{\lambda}t) + D(t)\sin(\sqrt{\lambda}t).
+    \end{equation*}
+    \begin{equation*}
+        A(t) = C(t) + D(t)\tan(\sqrt{\lambda}t)
+        = C(t)(1 + \tan(\sqrt{\lambda}\pi)\tan(\sqrt{\lambda}t))
+    \end{equation*}
+    Thus 
+    \begin{equation*}
+        C(t) = \frac{-\cos(\sqrt{\lambda}t)}{\sqrt{\lambda}\tan(\sqrt{\lambda}\pi)}.
+    \end{equation*}
+    \begin{equation*}
+        A(t) = \frac{-1}{\sqrt{\lambda}}\pth{\frac{\cos(\sqrt{\lambda}t)}{\tan(\sqrt{\lambda}\pi)} + \sin(\sqrt{\lambda}t)}. 
+    \end{equation*}
+    \begin{equation*}
+        D(t) = \frac{-\cos(\sqrt{\lambda}t)}{\sqrt{\lambda}}
+    \end{equation*}
+    Plugging the solution back into the Green's function, 
+    \begin{equation*}
+        G(x,t) = \begin{cases}
+            -\frac{\cos(\sqrt{\lambda}(\pi-t))\cos(\sqrt{\lambda}x)}{\sqrt{\lambda}\sin(\sqrt{\lambda}\pi)}, & x\leq t,\\
+            -\frac{\cos(\sqrt{\lambda}t)\cos(\sqrt{\lambda}(\pi - x))}{\sqrt{\lambda}\sin(\sqrt{\lambda}\pi)}, & x\geq t.
+        \end{cases}
+    \end{equation*}
+    Hence 
+    \begin{equation*}
+        u(x) = \int_0^\pi G(x,t)v(t)dt.
+    \end{equation*}
+    The resolvent exists and is bounded if and only if $\lambda \neq k^2$ 
+    for $k\in\Z$. Thus 
+    \begin{equation*}
+        \rho(T) = \C\setminus\Set{k^2}{k\in\Z}\quad\text{and}\quad 
+        \sigma(T) = \Set{k^2}{k\in\Z}.
+    \end{equation*}
+    Now notice that for any bounded sequence $v_n\in C^2[0,\pi]$, $\norm{v_n}_\infty\leq M$, 
+    \begin{equation*}
+        \begin{split}
+            \sup_{x\in[0,\pi]}\abs{\int_0^\pi G(x,t)v_n(t)dt}
+            &\leq M\int_0^\pi \sup_{x\in[0,\pi]}\abs{G(x,t)}dt \\
+        \end{split}
+    \end{equation*}
+    by the Cauchy-Schwarz inequality. Pick $\lambda = 1/4$. Then $\abs{G(x,t)} \leq 2$ 
+    and 
+    \begin{equation*}
+        \norm{R_T(\lambda)v_n}_\infty \leq 2\pi M.
+    \end{equation*}
+    Thus $R_T(\lambda)v_n$ is bounded in $\norm{\cdot}_\infty$. In order 
+    to apply the Arzelà-Ascoli theorem, we need to show that $R_T(\lambda)v_n$ 
+    is equicontinuous. For any $x\in[0,\pi]$ and $x_k\to x$, 
+    \begin{equation*}
+        \abs{G(x_k,t) - G(x,t)} \leq 2\sup_{(x,t)\in[0,\pi]^2}\abs{G(x,t)} < \infty.
+    \end{equation*}
+    The right hand side is integrable on $[0,\pi]$. LDCT gives 
+    \begin{equation*}
+        \int_0^\pi \abs{G(x_k,t) - G(x,t)}dt \to 0\quad\text{as } k\to\infty
+    \end{equation*}
+    since $G(x,t)$ is continuous in $x$ by construction. Thus 
+    \begin{equation*}
+        \begin{split}
+            \abs{\int_0^\pi G(x_k,t)v_n(t)dt - \int_0^\pi G(x,t)v_n(t)dt} 
+            &\leq \int_0^\pi \abs{G(x_k,t) - G(x,t)}\abs{v_n(t)}dt \\ 
+            &\leq M\int_0^\pi \abs{G(x_k,t) - G(x,t)}dt\to 0
+        \end{split}
+    \end{equation*}
+    as $k\to\infty$. Since $x\mapsto \int_0^\pi G(x,t)v_n(t)dt$ is continuous 
+    on a compact set, we obtain the uniform equicontinuity of $R_T(\lambda)v_n$. 
+    From the Arzelà-Ascoli theorem, $R_T(\lambda)v_n$ has a subsequence Cauchy 
+    in $\norm{\cdot}_\infty$, and thus $R_T(\lambda)$ is compact. 
+    
+    We conclude that $T$ is a closed operator with compact resolvent. 
+    let $\lambda = k^2$ be an isolated eigenvalue. The 
+    eigen-projection associated to $\lambda$ is given by 
+    \begin{equation*}
+        P_\lambda v = -\frac{1}{2\pi i}\oint_{\Gamma_\lambda} R_T(z)vdz
+        = -\frac{1}{2\pi i}\oint_{\Gamma_\lambda} \int_0^\pi G_z(x,t)v(t)dt dz
+        = \int_0^\pi -\frac{1}{2\pi i}\oint_{\Gamma_\lambda} G_z(x,t)dz v(t)dt.
+    \end{equation*}
+    \begin{equation*}
+        -\frac{1}{2\pi i}\oint_{\Gamma_\lambda} G_z(x,t)dz = -\Res(G_z(x,t); z=k^2) 
+        = -\lim_{z\to k^2} (z-k^2)G_z(x,t).
+    \end{equation*}
+    For $x\leq t$, using the L'Hospital's rule, we have
+    \begin{equation*}
+        \begin{split}
+            &\lim_{z\to k^2} (z-k^2)G_z(x,t) 
+            = \lim_{z\to k^2} (z-k^2)\frac{-\cos(\sqrt{z}(\pi-t))\cos(\sqrt{z}x)}{\sqrt{z}\sin(\sqrt{z}\pi)} \\ 
+            &= \lim_{z\to k^2} \frac{-\cos(\sqrt{z}(\pi - t))\cos(\sqrt{z}x) + (z - k^2)\sbrc{\sin(\sqrt{z}(\pi - t))\cos(\sqrt{z}x)\frac{(\pi - t)}{2\sqrt{z}} + \cos(\sqrt{z}(\pi - t))\sin(\sqrt{z}x)\frac{x}{2\sqrt{z}}}}{\frac{\sin(\sqrt{z}\pi)}{2\sqrt{z}} + \sqrt{z}\cos(\sqrt{z}\pi)\frac{\pi}{2\sqrt{z}}} \\ 
+            &= \begin{cases}
+                (-1)^{k+1}\frac{2}{\pi}\cos(k(\pi - t))\cos(kx) & k\neq 0, x\leq t,\\
+                -\frac{1}{\pi} & k = 0, x\leq t.
+            \end{cases} \\ 
+            &= \begin{cases}
+                -\frac{2}{\pi}\cos(kt)\cos(kx) & k\neq 0, x\leq t,\\
+                -\frac{1}{\pi} & k = 0, x\leq t.
+            \end{cases}
+        \end{split}
+    \end{equation*}
+    For $x\geq t$, by similar arguments, 
+    \begin{equation*}
+        \lim_{z\to k^2} (z-k^2)G_z(x,t) 
+        = \begin{cases}
+            -\frac{2}{\pi}\cos(kt)\cos(kx) & k\neq 0, x\geq t,\\
+            -\frac{1}{\pi} & k = 0, x\geq t.
+        \end{cases}
+    \end{equation*}
+    Hence 
+    \begin{equation*}
+        -\frac{1}{2\pi i}\oint_{\Gamma_\lambda} G_z(x,t)dz 
+        = \begin{cases}
+            \frac{2}{\pi}\cos(kx)\cos(kt) & k\neq 0, \\ 
+            \frac{1}{\pi} & k = 0.
+        \end{cases}
+    \end{equation*}
+    So 
+    \begin{equation*}
+        P_\lambda v = \begin{cases}
+            \frac{2}{\pi}\int_0^\pi \cos(kt)v(t)dt\cos(kx) & k\neq 0, \\ 
+            \frac{1}{\pi}\int_0^\pi v(t)dt & k = 0,
+        \end{cases}
+    \end{equation*}
+    where $\lambda = k^2$. 
+\end{example}

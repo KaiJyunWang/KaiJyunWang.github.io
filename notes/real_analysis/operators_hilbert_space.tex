@@ -1,0 +1,771 @@
+\begin{proposition}
+    Let $u_n\wto u\H$ and $\limsup_{n\to\infty}\norm{u_n}\leq\norm{u}$. Then 
+    $u_n\to u\in\H$ strongly. 
+\end{proposition}
+\begin{proof}
+    Directly compute that 
+    \begin{equation*}
+        \norm{u_n-u}^2 = \norm{u_n}^2 + \norm{u}^2 - 2\Re\inp{u_n}{u} 
+        \leq \norm{u}^2 + \norm{u}^2 - 2\norm{u}^2 \leq 0
+    \end{equation*}
+    as $n\to\infty$. Thus, $u_n\to u$ strongly.
+\end{proof}
+
+\begin{proposition}
+    If $u_n$ converges weakly in $\H$, then $u_n\wto u$ for some $u\in\H$. 
+\end{proposition}
+\begin{proof}
+    $u_n$ is weakly converge. By the uniform boundedness principle, 
+    $\norm{u_n}\leq M$ for some $M>0$ and all $n$. Define $fv = \lim_{n\to\infty}\inp{u_n}{v}$ 
+    where $f\in\H'$. By the Riesz representation theorem, there is $w\in\H$ such that 
+    $Tv = \inp{w}{v}$ for all $v\in\H$. Hence $\inp{u_n - w}{v}\to 0$ for all $v\in\H$. 
+    Then $w$ is the weak limit of $u_n$.
+\end{proof}
+
+\begin{proposition}
+    Every bounded sequence in a separable Hilbert space $\H$ has a weakly convergent subsequence.
+\end{proposition}
+\begin{proof}
+    Consider a bounded sequence $\set{u_n}\subset\H$. Let $B$ be the closed unit ball 
+    in $\H$. Since $u_n$ is bounded, there is some $c>0$ such that $cB$ contains all 
+    $u_n$. By the Banach-Alaoglu theorem, $B$ is weakly* sequentially compact and hence 
+    $cB$. Since $\H$ is reflexive, $cB$ is weakly sequentially compact. Thus, there is a subsequence 
+    $u_{n_k}$ such that $u_{n_k}\wto u\in cB\subset\H$.
+\end{proof}
+
+\begin{definition}
+    $T\in B(\H_1,\H_2)$. The \textbf{adjoint} of $T$ is the operator $T^*\in B(\H_2,\H_1)$ such that 
+    \begin{equation*}
+        \inp{Tu}{v}_{\H_2} = \inp{u}{T^*v}_{\H_1}\quad\text{for all }u\in\H_1, v\in\H_2.
+    \end{equation*}
+\end{definition}
+\begin{remark}
+    $\H_1$ and $\H_2$ are reflexive. $T^{**} = T$ and $T' = T^*$.
+\end{remark}
+
+\begin{definition}
+    $T\in B(\H)$ is \textbf{symmetric} if $T = T^*$. 
+\end{definition}
+
+\begin{definition}
+    $T\in B(\H)$ is \textbf{normal} if $TT^* = T^*T$.
+\end{definition}
+
+\begin{definition}
+    $T\in B(\H)$ is \textbf{self-adjoint} if $T = T^*$.
+\end{definition}
+\begin{proposition}
+    $T:\H_1\to\H_2$. $T$ is compact if and only if $T^*$ is compact.
+\end{proposition}
+\begin{proof}
+    Suppose $T$ is compact. Since $T$ is bounded, $T^*$ is also bounded. For any 
+    bounded sequence $u_n\in\H_2$, since $TT^*$ is compact, there is a subsequence 
+    $u_{n_k}$ such that $TT^*u_{n_k}$ is Cauchy. Hence 
+    \begin{equation*}
+        \begin{split}
+            \norm{T^*(u_{n_k} - u_{n_l})}^2 &= \inp{T^*(u_{n_k} - u_{n_l})}{T^*(u_{n_k} - u_{n_l})} 
+            = \inp{u_{n_k} - u_{n_l}}{TT^*(u_{n_k} - u_{n_l})} \\
+            &\leq \norm{u_{n_k} - u_{n_l}}\norm{TT^*(u_{n_k} - u_{n_l})}\to 0
+        \end{split}
+    \end{equation*}
+    as $k,l\to\infty$ by the Cauchy-Schwarz inequality. Thus, $T^*$ is compact. 
+    If $T^*$ is compact, then $T = T^{**}$ is compact.
+\end{proof}
+
+\begin{definition}
+    The \textbf{spectral radius} of $T\in B(X)$, where $X$ is a Banach space, is defined as 
+    \begin{equation*}
+        r(T) = \sup\set{\abs{\lambda}:\lambda\in\sigma(T)}.
+    \end{equation*}
+\end{definition}
+
+\begin{theorem}[Gelfand's Spectral Radius Theorem]
+    Let $T\in B(X)$. Then $\norm{T^n}^{1/n}$ admits a limit and 
+    \begin{equation*}
+        \lim_{n\to\infty}\norm{T^n}^{1/n} = r(T) = \sup\set{\abs{\lambda}:\lambda\in\sigma(T)}.
+    \end{equation*}
+\end{theorem}
+\begin{proof}
+    Fix $T\in B(X)$ and let $n\in\N$, $\lambda\in\C$ and $\lambda^n\in\rho(T^n)$. 
+    \begin{equation*}
+        (T^n - \lambda^nI) = (T-\lambda I)(T^{n-1} + T^{n-2}\lambda + \cdots + T\lambda^{n-2} + \lambda^{n-1}I)
+    \end{equation*}
+    Since $\lambda^n\in\rho(T^n)$, the left-hand side is invertible. Multiplying 
+    both sides by $(T^n-\lambda^n I)$ shows that $(T-\lambda I)$ is also invertible 
+    and $\lambda\in\rho(T)$ by the bounded inverse theorem. 
+
+    If $\lambda\in\sigma(T)$, then $\lambda^n\in\sigma(T^n)$ for all $n\in\N$. The
+    \cref{thm:bd_cpt_spectrum} shows that $\abs{\lambda^n}\leq\norm{T^n}$ and 
+    $\abs{\lambda}\leq\norm{T^n}^{1/n}$. We arrive at 
+    \begin{equation*}
+        r(T) = \sup\set{\abs{\lambda}:\lambda\in\sigma(T)} \leq \liminf_{n\to\infty}\norm{T^n}^{1/n}.
+    \end{equation*}
+
+    Now suppose $\abs{\lambda}>\norm{T}$. Neumann series gives 
+    \begin{equation*}
+        (T - \lambda I)^{-1} = -\sum_{n=0}^\infty \lambda^{-n-1}T^n.
+    \end{equation*}
+    For any $\Phi\in B(X)'$, 
+    \begin{equation*}
+        \Phi(T-\lambda I)^{-1} = -\sum_{n=0}^\infty \lambda^{-n-1}\Phi(T^n).
+    \end{equation*}
+    In particular, 
+    \begin{equation*}
+        \sup_{n} \abs{\lambda^{-n}\Phi(T^n)} \leq C_\lambda < \infty
+    \end{equation*}
+    for any $\Phi\in B(X)'$. Applying the uniform boundedness principle, we have 
+    \begin{equation*}
+        \norm{\lambda^{-n}T^n} = \sup_{\Phi\in B(X)'}\abs{\lambda^{-n}\Phi(T^n)} 
+        \leq C_\lambda \quad\Rightarrow\quad 
+        \norm{T^n}^{1/n} \leq \abs{\lambda}C_\lambda^{1/n}.
+    \end{equation*}
+    Thus 
+    \begin{equation*}
+        \limsup_{n\to\infty}\norm{T^n}^{1/n} \leq \abs{\lambda}.
+    \end{equation*}
+    Since $\abs{\lambda}$ can be arbitrary close to $r(T)$, 
+    \begin{equation*}
+        \limsup_{n\to\infty}\norm{T^n}^{1/n} \leq r(T).
+    \end{equation*}
+    Combining the two inequalities, we have
+    \begin{equation*}
+        r(T) = \lim_{n\to\infty}\norm{T^n}^{1/n} = \sup\set{\abs{\lambda}:\lambda\in\sigma(T)}.
+    \end{equation*}
+\end{proof}
+
+\begin{lemma}\label{lem:normal_spectral_radius}
+    Let $T\in B(\H)$ be a normal operator. Then $r(T) = \norm{T}$. 
+\end{lemma}
+\begin{proof}
+    We start by proving the case for $T$ being self-adjoint. Let 
+    $v\in\H$ be a unit vector. Then
+    \begin{equation*}
+        \norm{Tv}^2 = \inp{Tv}{Tv} = \inp{v}{T^*Tv} = \inp{v}{T^2v} 
+        \leq \norm{T^2v} \leq \norm{T}^2.
+    \end{equation*}
+    Taking supremum over all unit vectors $v\in\H$, we have 
+    $\norm{T}^2 = \norm{T^2}$. By induction, we have $\norm{T^{2^n}}^{2^{-n}} = \norm{T}$. 
+    Gelfand's spectral radius theorem gives 
+    \begin{equation*}
+        r(T) = \lim_{n\to\infty}\norm{T^{2^n}}^{1/2^n} = \norm{T}.
+    \end{equation*}
+    Now if $T$ is normal, then $T^*T$ is self-adjoint and 
+    \begin{equation*}
+        \norm{(T^*T)^nv} = \inp{(T^*T)^nv}{(T^*T)^nv} = \inp{v}{(T^*)^nT^nv} 
+        = \inp{T^nv}{T^nv} = \norm{T^nv}^2.
+    \end{equation*}
+    Taking supremum over all unit vectors $v\in\H$, we have $\norm{(T^*T)^n} = \norm{T^n}^2$. 
+    Now, by Gelfand's spectral radius theorem, 
+    \begin{equation*}
+        r(T^*T) = \lim_{n\to\infty}\norm{(T^*T)^n}^{1/n} = \lim_{n\to\infty}\norm{T^n}^{2/n} = r(T)^2 = \norm{T}^2.
+    \end{equation*}
+    So $r(T) = \norm{T}$. 
+\end{proof}
+
+\begin{lemma}\label{lem:adjoint_eigenvalue}
+    Let $T\in B(\H)$ be a normal operator. 
+    If $T$ has an eigenvalue $\lambda$, then $\overline{\lambda}$ is an 
+    eigenvalue of $T^*$.
+\end{lemma}
+\begin{proof}
+    For any $u\in\H$, 
+    \begin{equation*}
+        \begin{split}
+            \norm{(T-\lambda I)u}^2 &= \inp{Tu}{Tu} - \lambda\inp{u}{Tu} 
+            - \overline{\lambda}\inp{Tu}{u} + \abs{\lambda}^2\inp{u}{u} \\
+            &= \inp{u}{T^*Tu} - \lambda\inp{u}{Tu} - \overline{\lambda}\inp{Tu}{u} 
+            + \abs{\lambda}^2\inp{u}{u} \\
+            &= \inp{u}{TT^*u} - \lambda\inp{T^*u}{u} - \overline{\lambda}\inp{u}{T^*u} 
+            + \abs{\lambda}^2\inp{u}{u} \\ 
+            &= \inp{T^*u}{T^*u} - \lambda\inp{T^*u}{u} - \overline{\lambda}\inp{u}{T^*u} 
+            + \abs{\lambda}^2\inp{u}{u} 
+            = \norm{(T^*-\overline{\lambda}I)u}^2.
+        \end{split}
+    \end{equation*}
+    The lemma follows. 
+\end{proof}
+
+\begin{theorem}[Spectral Theorem for Compact Normal Operators]
+    Let $T\in B(\H)$ be a compact normal operator. Then 
+    \begin{thmenum}
+        \item $T$ admits a spectral representation 
+        \begin{equation*}
+            T = \sum_n \lambda_n P_n,
+        \end{equation*}
+        where $P_n$ is the eigen-projection on $E_{\lambda_n}$. 
+        \item For distinct eigenvalue $\lambda,\mu$, $E_\lambda\perp E_\mu$. 
+        \item $I = \sum_n P_n + P_0$, where $P_0$ is the projection onto $\ker(T)$. 
+        \item $P_mP_n = \delta_{mn}P_n$ for all $m,n$.
+    \end{thmenum}
+\end{theorem}
+\begin{proof}
+    If $T$ is zero, then the theorem is trivial. Suppose now that 
+    $T$ is non-zero. Since $T$ is normal, if there is no $\lambda\in\sigma(T)$ 
+    such that $\lambda\neq 0$, then $\norm{T} = r(T) = 0$ by 
+    \cref{lem:normal_spectral_radius} contradicting to the hypothesis that $T$ 
+    is non-zero. Hence there is a non-zero $\lambda\in\sigma(T)$ and 
+    by the compactness of $T$, $\lambda$ is an eigenvalue. 
+
+    Now let $\lambda_n$ be the non-zero eigenvalues of $T$. Put 
+    \begin{equation*}
+        M = \overline{\spanby\Set{x}{x\in E_{\lambda_n}}}.
+    \end{equation*}
+    Then $M$ is a closed subspace. 
+
+    Next, if $\lambda\neq\mu$ are two distinct eigenvalues of $T$, associated with 
+    the eigenvectors $u$ and $v$, then \cref{lem:adjoint_eigenvalue} shows that
+    \begin{equation*}
+        \lambda\inp{u}{v} = \inp{Tu}{v} = \inp{u}{T^*v} = \mu\inp{u}{v}.
+    \end{equation*}
+    This implies that $\inp{u}{v} = 0$ and hence $E_\lambda\perp E_\mu$. 
+
+    Hence we may also write $M = \overline{\bigoplus_n E_{\lambda_n}}$. 
+    Now consider $T|_{M^\perp}$. If $\mu\neq 0$ is an eigenvalue of 
+    $T|_{M^\perp}$, then there is a nonzero $v\in M^\perp$ such that 
+    $T|_{M^\perp}v = Tv = \mu v$. Hence $\mu\in\sigma(T)$ is non-zero 
+    and $v \in M$. Then $v = 0$ contradicting to the assumption that $v$ is non-zero. 
+    Thus $T|_{M^\perp}$ has no non-zero eigenvalue. It follows that 
+    by \cref{lem:normal_spectral_radius}, $T|_{M^\perp} = 0$. The 
+    Riesz projection gives the projection on $E_{\lambda_n}$ since 
+    every non-zero eigenvalue of a compact operator is isolated. 
+    Now we can write $\H = M\oplus M^\perp$ and for all $x\in\H$, 
+    decompose $x = y + z$ where $y\in M$ and $z\in M^\perp$. 
+    Then 
+    \begin{equation*}
+        Tx = Ty + Tz = \sum_n \lambda_n P_ny + 0 = \sum_n \lambda_n P_nx.
+    \end{equation*}
+    This shows (a). (c), (d) follows immediately from $\H = M\oplus M^\perp$ 
+    and (b). 
+\end{proof}
+\begin{remark}
+    Note that if $T:\H_1\to\H_2$ is compact. $T^*T$ is always 
+    symmteric compact and thus admits a orthonormal basis of 
+    eigenvectors $\set{u_n}$ with non-negative eigenvalues 
+    $\set{\lambda_n\overline{\lambda_n}} = \set{\abs{\lambda_n}^2}$. 
+    The spectral representation of $T^*T$ can be written as 
+    \begin{equation*}
+        T^*Tv = \sum_n \abs{\lambda_n}^2\inp{v}{u_n}u_n. 
+    \end{equation*}
+    We can rearrange the eigenvalues so that $\abs{\lambda_1}\geq
+    \abs{\lambda_2}\geq\cdots >0$. Set 
+    \begin{equation*}
+        u'_n = \frac{1}{\lambda_n}Tu_n,\quad 
+        \inp{u_n'}{u_m'} = \frac{1}{\lambda_n\overline{\lambda_m}}\inp{Tu_n}{Tu_m} 
+        = \frac{1}{\lambda_n\overline{\lambda_m}}\inp{T^*Tu_n}{u_m} 
+        = \frac{\overline{\lambda_n}}{\overline{\lambda_m}}\delta_{nm}.
+    \end{equation*}
+    So $\set{u_n'}$ is an orthonormal set in $\H_2$. In fact, 
+    \begin{equation*}
+        Tv = \sum_n \lambda_n\inp{v}{u_n'}u_n'.
+    \end{equation*}
+    The right-hand side converges since 
+    \begin{equation*}
+        \norm{\sum_{n\geq N} \lambda_n\inp{v}{u_n'}u_n'}^2 
+        \leq \sum_{n\geq N} \abs{\lambda_n}^2\abs{\inp{v}{u_n'}}^2 
+        \leq \abs{\lambda_N}^2\sum_{n\geq N}\abs{\inp{v}{u_n'}}^2 
+        \leq \abs{\lambda_N}^2\norm{v}^2\to 0.
+    \end{equation*}
+\end{remark}
+
+\begin{definition}
+    Let $\H_1$ and $\H_2$ be two separable Hilbert spaces. 
+    The \textbf{Hilbert-Schmidt operator} is the class of operators 
+    \begin{equation*}
+        B_2(\H_1,\H_2) = \Set{T\in B(\H_1,\H_2)}{\norm{T}_{HS}<\infty}
+    \end{equation*}
+    with the inner product defined as 
+    \begin{equation*}
+        \inp{S}{T}_{HS} = \sum_i \inp{Se_i}{Te_i}, 
+    \end{equation*}
+    where $\set{e_i}$ is an orthonormal basis of $\H_1$ and the norm 
+    is defined as $\norm{T}_{HS} = \sqrt{\inp{T}{T}_{HS}}$.
+\end{definition}
+\begin{remark}
+    The Hilbert-Schmidt inner product is well-defined, i.e., independent 
+    of the choice of orthonormal basis. To see this, fix an orthonormal 
+    basis $\set{f_i}\subset\H_2$. For arbitrary orthonormal basis 
+    $\set{e_i}\subset\H_1$, 
+    \begin{equation*}
+        Se_i = \sum_j \inp{Se_i}{f_j}f_j,
+    \end{equation*}
+    and 
+    \begin{equation*}
+        \inp{Se_i}{Te_i} = \sum_j \inp{Se_i}{f_j}\overline{\inp{Te_i}{f_j}}.
+    \end{equation*}
+    Now, 
+    \begin{equation*}
+        \begin{split}
+            \inp{S}{T}_{HS} &= \sum_i \inp{Se_i}{Te_i} 
+            = \sum_i \sum_j \inp{Se_i}{f_j}\overline{\inp{Te_i}{f_j}} 
+            = \sum_j \sum_i \overline{\inp{f_j}{Se_i}}\inp{f_j}{Te_i} \\ 
+            &= \sum_j \overline{\inp{S^*f_j}{e_i}}\inp{T^*f_j}{e_i} 
+            = \sum_j \inp{T^*f_j}{S^*f_j}
+        \end{split}
+    \end{equation*}
+    which is independent of the choice of $\set{e_i}$. The exchange 
+    of the order of summation is justified by the fact that it is 
+    absolutely convergent. 
+    \begin{equation*}
+        \sum_j \inp{T^*f_j}{T^*f_j} = \norm{T^*}^2_{HS} < \infty 
+        \quad\text{and}\quad \sum_j \inp{S^*f_j}{S^*f_j} = \norm{S^*}^2_{HS} < \infty.
+    \end{equation*}
+    So 
+    \begin{equation*}
+        \sum_j \inp{T^*f_j}{S^*f_j} \leq \sum_j \frac{1}{2}(\norm{T^*f_j}^2 + \norm{S^*f_j}^2) < \infty,
+    \end{equation*}
+    permitting the exchange of the order of summation.
+\end{remark}
+
+\begin{proposition}\label{prop:hs_norm_bound}
+    Let $T\in B_2(\H_1,\H_2)$, then $\norm{T}_{HS}\leq\norm{T}$. 
+\end{proposition}
+\begin{proof}
+    For any unit vector $u\in\H_1$, write $u = \sum_i c_ie_i$ where 
+    $\set{e_i}$ is an orthonormal basis of $\H_1$. 
+    \begin{equation*}
+        \norm{Tu} = \norm{\sum_i c_iTe_i} 
+        \leq \pth{\sum_i \abs{c_i}^2}^{1/2}\pth{\sum_i \norm{Te_i}^2}^{1/2} 
+        = \norm{u}\norm{T}_{HS} = \norm{T}_{HS}.
+    \end{equation*}
+    Taking supremum over all unit vectors $u\in\H_1$, we have 
+    $\norm{T}\leq\norm{T}_{HS}$.
+\end{proof}
+
+\begin{proposition}
+    $(B_2(\H_1,\H_2), \inp{\cdot}{\cdot}_{HS})$ is a Hilbert space.
+\end{proposition}
+\begin{proof}
+    We first show that $\inp{\cdot}{\cdot}_{HS}$ is indeed an inner product. 
+    \begin{equation*}
+        \inp{T}{T}_{HS} = \sum_k \inp{T\phi_k}{T\phi_k} \geq 0, 
+    \end{equation*}
+    and $\inp{T}{T}_{HS} = 0$ if and only if $T\phi_k = 0$ for all $k$, 
+    if and only if $T = 0$. 
+    \begin{equation*}
+        \inp{cT+S}{U}_{HS} = \sum_k \inp{(cT+S)\phi_k}{U\phi_k} 
+        = \sum_k c\inp{T\phi_k}{U\phi_k} + \inp{S\phi_k}{U\phi_k} 
+        = c\inp{T}{U}_{HS} + \inp{S}{U}_{HS}
+    \end{equation*}
+    for all $c\in\C$, $T,S,U\in L_2(\H,\H')$. Also, 
+    \begin{equation*}
+        \inp{S}{T}_{HS} = \sum_k \inp{S\phi_k}{T\phi_k} 
+        = \sum_k \overline{\inp{T\phi_k}{S\phi_k}} 
+        = \overline{\inp{T}{S}_{HS}}.
+    \end{equation*}
+    Hence $\inp{\cdot}{\cdot}_{HS}$ is an inner product. It now remains 
+    to show the completeness. Let $T_n\in B_2(\H_1,\H_2)$ be a Cauchy 
+    sequence in $B_2(\H_1,\H_2)$. Then $\norm{T_m - T_n}_{HS}\to 0$ 
+    and $\norm{T_m - T_n}\to 0$ as $m,n\to\infty$ by \cref{prop:hs_norm_bound}. 
+    Hence there is a $T\in B(\H_1,\H_2)$ such that $\norm{T_n - T}\to 0$. 
+    For any $\epsilon>0$, there is $N\in\N$ such that 
+    \begin{equation*}
+        \sum_{k=1}^s \norm{T_m\phi_k - T_n\phi_k}^2 
+        \leq \norm{T_m - T_n}^2 < \epsilon^2 
+    \end{equation*}
+    for all $m,n\geq N$. Let $m\to\infty$ and then $s\to\infty$, 
+    \begin{equation*}
+        \sum_{k=1}^\infty \norm{T\phi_k - T_n\phi_k}^2 <\epsilon^2.
+    \end{equation*}
+    Thus $\norm{T_n - T}_{HS} \leq \epsilon$ for all $n\geq N$. 
+    Then $T\in B_2(\H_1,\H_2)$ and $T_n\to T$ in the Hilbert-Schmidt norm.
+\end{proof}
+
+\begin{theorem}
+    Every Hilbert-Schmidt operator is compact.
+\end{theorem}
+\begin{proof}
+    Let $T\in B_2(\H_1,\H_2)$ be a Hilbert-Schmidt operator. Consider 
+    the orthonormal basis $\set{e_i}\subset\H_1$. Define the truncated 
+    operator 
+    \begin{equation*}
+        T_nx = \sum_{i=1}^{n}\inp{x}{e_i}Te_i.
+    \end{equation*}
+    $R(T_n) = \spanby(\set{Te_1,\ldots,Te_n})$ is finite-dimensional and 
+    thus $T_n$ is compact. 
+    \begin{equation*}
+        \begin{split}
+            \norm{(T_n-T)x} &= \norm{\sum_{i=n+1}^\infty \inp{x}{e_i}e_i}
+            \leq \pth{\sum_{i=n+1}^\infty \abs{\inp{x}{e_i}}^2}^{1/2}\pth{\sum_{i=n+1}^\infty \norm{Te_i}^2}^{1/2} \\
+            &\leq \norm{x}\pth{\sum_{i=n+1}^\infty \norm{Te_i}^2}^{1/2}\to 0
+        \end{split}
+    \end{equation*}
+    as $n\to\infty$ since $T$ is of Hilbert-Schmidt class. 
+    Hence $T_n\to T$ in the operator norm. For any bounded sequence 
+    $x_n\in\H_1$, there is a subsequence $x_n^1$ such that $T_1x_n^1$ 
+    converges. Extracting a subsequence $x_n^2$ from $x_n^1$ such that 
+    $T_2x_n^2$ converges. Continuing this process, we obtain a 
+    series of subsequences $x_n^k$ such that $T_jx_n^k$ converges 
+    for $j\leq k$. Take the diagonal subsequence $x_n^n$, then 
+    $T_kx_n^n$ converges for all $k\in\N$. Thus $Tx_n^n$ converges 
+    and $T$ is compact.
+\end{proof}
+
+\begin{theorem}
+    Let $\H$ be a separable Hilbert space and $\set{e_i}$ be an orthonormal 
+    basis of $\H$. Consider a set $\set{f_i}\subset\H$ and 
+    \begin{equation*}
+        r^2 = \sum_i \norm{f_i - e_i}^2.
+    \end{equation*}
+    Then $\set{f_i}$ forms a complete basis if one of the following 
+    conditions holds: 
+    \begin{thmenum}
+        \item $r^2 < 1$. 
+        \item $r^2 < \infty$ and $\set{f_i}$ is linearly independent.
+    \end{thmenum}
+\end{theorem}
+\begin{proof}
+    Set $T:\H\to\H$ defined by $T:e_i\mapsto f_i$ and extended by linearity. 
+    We have that $T$ is bounded since for $u = \sum_i c_ie_i$,
+    \begin{equation*}
+        \begin{split}
+            \norm{Tu} &\leq \norm{(T-I)u} + \norm{u}
+            = \norm{\sum_i c_i(f_i - e_i)} + \norm{u} \\
+            &\leq \pth{\sum_i \abs{c_i}^2}^{1/2}\pth{\sum_i \norm{f_i - e_i}^2}^{1/2} + \norm{u} 
+            = \norm{u}r + \norm{u} = (1+r)\norm{u}.
+        \end{split}
+    \end{equation*}
+    Also, $T-I$ is a Hilbert-Schmidt operator: 
+    \begin{equation*}
+        \norm{T-I}_{HS}^2 = \sum_i \norm{(T-I)e_i}^2 = \sum_i \norm{f_i - e_i}^2 = r^2 < \infty.
+    \end{equation*}
+
+    Now, if (a) holds, then $\norm{T-I} \leq r < 1$ and hence $T = (I-(T-I))$ is invertible. 
+    $T^{-1}$ exists and $T^{-1}(\H) = \H$. For any $x\in\H$, if $x = \sum_i c_if_i = \sum_i d_if_i$, 
+    then 
+    \begin{equation*}
+        \sum_i (c_i - d_i)f_i = 0 \quad\Rightarrow\quad 
+        \sum_i (c_i - d_i)T^{-1}f_i = \sum_i (c_i - d_i)e_i = 0.
+    \end{equation*}
+    Thus $c_i = d_i$ for all $i$ and $\set{f_i}$ is a complete basis. 
+
+    Suppose (b) holds. Set $S = T-I$. Then $S$ is Hilbert-Schmidt and thus 
+    compact. Now Consider the equation $(S+I)x = y$ for $y\in\H$. Fredholm 
+    alternative asserts that either the equation has a solution for all $y\in\H$ or 
+    $(S+I)x = 0$ has a non-zero solution. Since $f_i$ are linearly independent, 
+    the latter fails to hold. It follows that $S+I$ is invertible and thus $T$. 
+    Bounded inverse theorem shows that $T^{-1}$ is bounded. The rest follows from the 
+    same argument as in (a).
+\end{proof}
+
+\begin{definition}
+    Let $T:D(T)\dsubset\H_1\to\H_2$ be a linear operator. The \textbf{adjoint} of $T$ 
+    is defined as $T^*:D(T^*)\H_2\to\H_1$ such that $T^*y = \tilde{x}$ where 
+    $\tilde{x}\in\H_1$ satisfies $\inp{Tx}{y}_{\H_2} = \inp{x}{\tilde{x}}_{\H_1}$ for all 
+    $x\in D(T)$. The domain of $T^*$ is defined as 
+    \begin{equation*}
+        D(T^*) = \Set{y\in\H_2}{\text{ there exists }\tilde{x}\in\H_1 \text{ such that }\inp{Tx}{y}_{\H_2} = \inp{\tilde{x}}{x}_{\H_1}\;\forany x\in D(T)}.
+    \end{equation*}
+\end{definition}
+\begin{remark}
+    $D(T^*)$ consists of $y\in\H_2$ such that $x\mapsto\inp{Tx}{y}_{\H_2}$ is a continuous 
+    linear functional on $D(T)$. Since $D(T)$ is dense in $\H_1$, Riesz representation theorem 
+    shows that $T^*$ is well-defined. 
+\end{remark}
+
+\begin{proposition}
+    Let $T:D(T)\dsubset\H_1\to\H_2$ be a closed linear operator. Then 
+    \begin{thmenum}
+        \item $\ker(T^*) = R(T)^\perp$. 
+        \item $\ker(T) = R(T^*)^\perp$.
+    \end{thmenum}
+\end{proposition}
+\begin{proof}
+    For (a), if $y\in\ker(T^*)$, then $T^*y = 0$. For all $z\in R(T)$, 
+    there is $x\in D(T)$ such that $z = Tx$. 
+    \begin{equation*}
+        0 = \inp{x}{T^*y} = \inp{Tx}{y} = \inp{z}{y}
+    \end{equation*}
+    for all $z\in R(T)$, which implies $y\in R(T)^\perp$ so 
+    $\ker(T^*) \subset R(T)^\perp$. Conversely, if $y\in R(T)^\perp$, 
+    then $\inp{z}{y} = 0$ for all $z\in R(T)$. For such $z$, there 
+    is $x\in D(T)$ such that $z = Tx$. Hence
+    \begin{equation*}
+        0 = \inp{Tx}{y} = \inp{x}{T^*y}
+    \end{equation*}
+    for all $x\in D(T)$. Since $D(T)$ is dense in $\H_1$, we have 
+    \begin{equation*}
+        T^*y = 0 \quad \Rightarrow\quad y\in\ker(T^*).
+    \end{equation*}
+    Thus $\ker(T^*) \supset R(T)^\perp$ and $\ker(T^*) = R(T)^\perp$. 
+
+    For (b), suppose $y\in\ker(T)$. Then $Ty = 0$ and for all 
+    $x\in D(T^*)$, $\inp{y}{T^*x} = \inp{Ty}{x} = 0$. Thus 
+    $y\in R(T^*)^\perp$ and $\ker(T) \subset R(T^*)^\perp$. 
+    Conversely, if $y\in R(T^*)^\perp$, then for all $z\in R(T^*)$, 
+    $T^*x = z$ for some $x\in D(T^*)$ and $\inp{y}{z} = \inp{y}{T^*x} 
+    = \inp{Ty}{x} = 0$ for all $x\in D(T^*)$. Notice that 
+    $D(T^*) = \Set{y\in\H_2}{x\mapsto\inp{Tx}{y} \text{ is continuous}}$. 
+    Since $T$ is densely defined, $D(T^*)$ is dense in $\H_2$. 
+    Thus $Ty = 0$ and $y\in\ker(T)$. Hence 
+    $\ker(T) \supset R(T^*)^\perp$ and $\ker(T) = R(T^*)^\perp$.
+\end{proof}
+
+\begin{definition}
+    $T:D(T)\in\H\to\H$ is \textbf{symmetric} if $\inp{Tx}{y} = \inp{x}{Ty}$ for all 
+    $x\in D(T)$. 
+\end{definition}
+\begin{remark}
+    $D(T)\subset D(T^*)$. 
+\end{remark}
+
+\begin{definition}
+    $T:D(T)\to\H$ is \textbf{self-adjoint} if $T = T^*$. 
+\end{definition}
+\begin{remark}
+    In such case, $D(T) = D(T^*)$. 
+\end{remark}
+
+\begin{proposition}
+    Suppose $S,T$ and $ST$ are densely defined operators in $\H$. 
+    Then $T^*S^*\subset (ST)^*$ and if in addition $S\in\L(H)$, 
+    then $T^*S^* = (ST)^*$.
+\end{proposition}
+\begin{proof}
+    Write $D((ST)^*) = \Set{y\in\H}{L_y: x\mapsto \inp{STx}{y}\text{ is continuous}}$. 
+    If $y\in D(T^*S^*)$, then $y\in D(S^*)$ and $S^*y\in D(T^*)$. Hence 
+    \begin{equation*}
+        \abs{L_y(x)} = \abs{\inp{STx}{y}} = \abs{\inp{Tx}{S^*y}} 
+        = \abs{\inp{x}{T^*S^*y}} \leq \norm{T^*S^*y}\norm{x} < \infty
+    \end{equation*}
+    for all $x\in D(ST)$. Since $D(ST)$ is dense in $\H$, $L_y$ is continuous. 
+    Hence $y\in D((ST)^*)$ and $D(T^*S^*) \subset D((ST)^*)$. For $y\in D(T^*S^*)$, 
+    \begin{equation*}
+        \inp{x}{T^*S^*y} = \inp{Tx}{S^*y} = \inp{STx}{y} = \inp{x}{(ST)^*y} 
+        \quad\Rightarrow\quad 
+        \inp{x}{T^*S^*y - (ST)^*y} = 0
+    \end{equation*} 
+    for all $x\in D(ST)$. Since $D(ST)$ is dense in $\H$, $\inp{x}{T^*S^*y - (ST)^*y} = 0$ 
+    for all $x\in\H$ and thus $T^*S^*y = (ST)^*y$. We conclude that 
+    $T^*S^* \subset (ST)^*$.
+
+    Now further assume that $S\in\L(\H)$ so $D(S) = \H$ and $D(S^*) = \H$. 
+    Suppose $y\in D((ST)^*)$. $y\in D(S^*)$. Then
+    \begin{equation*}
+        \inp{x}{(ST)^*y} = \inp{STx}{y} = \inp{Tx}{S^*y}
+    \end{equation*}
+    is continuous for all $x\in D(ST)$. Thus $S^*y\in D(T^*)$ and $y\in D(T^*S^*)$.
+    Hence $D((ST)^*) \subset D(T^*S^*)$ and $T^*S^* = (ST)^*$.
+\end{proof}
+
+\begin{definition}
+    Let $T:D(T)\subset\H_1\to\H_2$ be a densely defined operator. 
+    The \textbf{V-transform} $V:\H_1\times\H_2\to\H_2\times\H_1$ 
+    is defined as 
+    \begin{equation*}
+        V(x,y) = (y, -x).
+    \end{equation*}
+\end{definition}
+
+\begin{lemma}\label{lem:v-transform}
+    Let $V$ be the V-transform with respect to a densely defined
+    operator $T:D(T)\subset\H_1\to\H_2$. 
+    \begin{thmenum}
+        \item $G(T^*) = \sbrc{VG(T)}^\perp = V(G(T)^\perp)$.
+        \item If in addition $T$ is closed, then $\H_2\times\H_1 = V(G(T))\oplus G(T^*)$. 
+    \end{thmenum} 
+\end{lemma}
+\begin{proof}
+    For (a), write 
+    \begin{equation*}
+        \sbrc{VG(T)}^\perp = \Set{(v,u)\in\H_2\times\H_1}{\inp{(v,u)}{(Tx,-x)} = \inp{v}{Tx}_{\H_2} + \inp{u}{-x}_{\H_1} = 0 \quad\forany x\in D(T)}.
+    \end{equation*}
+    If $(y,T^*y)\in G(T^*)$, then 
+    \begin{equation*}
+        \inp{(y,T^*y)}{(Tx,-x)} = \inp{y}{Tx}_{\H_2} + \inp{T^*y}{-x}_{\H_1} 
+        = \inp{y}{Tx}_{\H_2} - \inp{x}{T^*y}_{\H_1} = 0
+    \end{equation*}
+    for all $x\in D(T)$. Hence $(y,T^*y)\in \sbrc{VG(T)}^\perp$ and 
+    $G(T^*) \subset \sbrc{VG(T)}^\perp$.  
+
+    Next, write 
+    \begin{equation*}
+        V(G(T)^\perp) = \Set{(v,u)\in\H_2\times\H_1}{\inp{(-u,v)}{(x,Tx)} = 0 \quad\forany x\in D(T)}.
+    \end{equation*}
+    If $(v,u)\in \sbrc{VG(T)}^\perp$, then 
+    \begin{equation*}
+        \inp{(-u,v)}{(x,Tx)} = -\inp{u}{x}_{\H_1} + \inp{v}{Tx}_{\H_2} = 0 
+        = \inp{(v,u)}{(Tx,-x)}.
+    \end{equation*}
+    Thus $(v,u)\in V(G(T)^\perp)$ and $\sbrc{VG(T)}^\perp \subset V(G(T)^\perp)$. 
+
+    Finally, if $(v,u)\in V(G(T)^\perp)$, then 
+    \begin{equation*}
+        0 = \inp{(-u,v)}{(x,Tx)} = -\inp{u}{x}_{\H_1} + \inp{v}{Tx}_{\H_2} 
+        = \inp{T^*v - u}{x}_{\H_1}
+    \end{equation*}
+    for all $x\in D(T)$ dense in $\H_1$. Thus $T^*v = u$ and $(v,u)\in G(T^*)$. 
+    We conclude that 
+    \begin{equation*}
+        G(T^*) = \sbrc{VG(T)}^\perp = V(G(T)^\perp).
+    \end{equation*}
+
+    For (b), it suffices to show that $V(G(T))$ is a closed subspace. Indeed, 
+    $T$ is closed and so is $G(T)$. Note that 
+    \begin{equation*}
+        \norm{V(x,y)}^2 = \inp{(y,-x)}{(y,-x)} = \inp{y}{y} + \inp{x}{x} = \norm{(x,y)}^2.
+    \end{equation*}
+    Hence $V$ is an isometry and $V(G(T))$ is closed. It follows that
+    \begin{equation*}
+        \H_2\times\H_1 = V(G(T))\oplus V(G(T)^\perp) 
+        = V(G(T))\oplus G(T^*)
+    \end{equation*}
+    by (a).
+\end{proof}
+
+\begin{proposition}
+    $T:D(T)\dsubset\H\to\H$ is closable if and only if $D(T^*)$ is dense in $\H$.
+\end{proposition}
+\begin{proof}
+    Suppose that $D(T^*)$ is dense in $\H$. Then $T^{**}$ is well-defined. 
+    Since $V^2 = -I$, 
+    \begin{equation*}
+        \cl(G(T)) = G(T)^{\perp\perp} = \sbrc{VV(G(T)^\perp)}^\perp 
+        = V(\sbrc{VG(T)}^\perp)^\perp = V(G(T^*))^\perp = G(T^{**})
+    \end{equation*}
+    by \cref{lem:v-transform}. Hence $G(T^{**})$ is closed and 
+    $G(T)\subset G(T^{**})$. So $T^{**}$ is the closed extension of 
+    $T$ and thus $T$ is closable. 
+
+    Suppose that $T$ is closable. For $D(T^*)$ to be dense, it 
+    suffices to show that $D(T^*)^\perp = \set{0}$. Let $x\in D(T^*)^\perp$. 
+    For each $y\in D(T^*)$, we have $\inp{x}{y} = 0$. Thus 
+    \begin{equation*}
+        \inp{(x,0)}{(y,T^*y)} = \inp{x}{y} + \inp{0}{T^*y} = 0.
+    \end{equation*}
+    Then $(x,0)\in G(T^*)^\perp$ and $(0,x)\in V(G(T^*)\perp) = \sbrc{VG(T^*)}^\perp$ by 
+    \cref{lem:v-transform}. 
+\end{proof}
+
+\begin{proposition}\label{prop:adjoint_closed}
+    $T:D(T)\dsubset\H\to\H$. Then $T^*$ is always closed. 
+\end{proposition}
+\begin{proof}
+    For any subspace $M$, $M^\perp$ is always closed. 
+    It follows that $G(T^*) = \sbrc{VG(T)}^\perp$ is closed 
+    in $\H\times\H$ by \cref{lem:v-transform}.
+\end{proof}
+
+\begin{theorem}
+    Let $T:D(T)\dsubset\H\to\H$ be symmetric. Then 
+    \begin{thmenum}
+        \item If $D(T) = \H$, then $T$ is self-adjoint and bounded. 
+        \item If $T$ is self-adjoint and injective, then $R(T)$ 
+        is dense in $\H$ and $T^{-1}$ is self-adjoint. 
+        \item If $R(T)$ is dense in $\H$, then $T$ is injective. 
+        \item If $R(T) = \H$, then $T$ is self-adjoint and $T^{-1}$ 
+        is bounded.
+    \end{thmenum}
+\end{theorem}
+\begin{proof}
+    We start from (a). Since $T$ is symmteric, $D(T)\subset D(T^*)$. 
+    If $D(T) = \H$, then $D(T^*) = \H$ and $T$ is self-adjoint. 
+    Thus \cref{prop:adjoint_closed} shows that $T = T^*$ is closed.
+
+    For (b), to show that $R(T)$ is dense in $\H$, we can 
+    show that $R(T)^\perp = \set{0}$. Let $y\in R(T)^\perp$, 
+    $0 = \inp{Tx}{y} = \inp{x}{T^*y}$ for all $x\in D(T)$. 
+    Hence $T^*y = Ty = 0$ since $D(T)$ is dense in $\H$. $T$ 
+    is injective so $y = 0$. Thus $R(T)^\perp = \set{0}$ and 
+    $R(T)$ is dense in $\H$. It follows that $T^{-1}$ exists 
+    and is densely defined. 
+    
+    Consider now the $V$-transform. Note that $G(T^{-1}) 
+    = V(G(-T))$ by definition. So $V(G(T^{-1})) = G(-T)$. 
+    Now since $T$ is self-adjoint, it is closed 
+    (\cref{prop:adjoint_closed}) and so is $T^{-1}$. 
+    \begin{equation*}
+        \H\times\H = VG(T^{-1})\oplus G((T^{-1})^*)
+    \end{equation*}
+    and 
+    \begin{equation*}
+        \H\times\H = V(G(-T))\oplus G(-T) = G(T^{-1})\oplus V(G(T^{-1})).
+    \end{equation*}
+    We see that $G(T^{-1}) = G((T^{-1})^*)$ and thus
+    $(T^{-1})^* = T^{-1}$. Hence $T^{-1}$ is self-adjoint.
+
+    For (c), suppose $Tx = 0$. For all $y\in D(T)$, 
+    \begin{equation*}
+        \inp{Tx}{y} = \inp{x}{Ty} = 0. 
+    \end{equation*}
+    Hence $x\in R(T)^\perp$. Since $R(T)$ is dense in $\H$, $x = 0$ and 
+    $\ker(T) = \set{0}$. Thus $T$ is one-to-one. 
+
+    For (d), from (c), $T$ is one-to-one and $D(T^{-1}) = \H$. Suppose 
+    $x = Tu$ and $y = Tv$ for some $u,v\in D(T)$. Then
+    \begin{equation*}
+        \inp{T^{-1}x}{y} = \inp{u}{Tv} = \inp{Tu}{v} = \inp{x}{T^{-1}y}.
+    \end{equation*}
+    Thus $T^{-1}$ is symmetric. Thus $T^{-1}$ is self-adjoint and bounded; 
+    $T = (T^{-1})^{-1}$ is also self-adjoint by (b).  
+\end{proof}
+
+\begin{theorem}[Spectral Theorem for Operators with Compact Resolvent in $\H$]
+    Let $T:D(T)\dsubset\H\to\H$ be a closed operator with compact 
+    resolvent. Then 
+    \begin{thmenum}
+        \item $\sigma(T)$ consists only of isolated eigenvalues.
+        \item $\sigma(T)$ is at most countable and accumulates only at infinity. 
+        \item $\dim(E_\lambda) < \infty$ for all $\lambda\in\sigma(T)$. 
+        \item If $\H$ is separable and $T$ is self-adjoint, all eigenvalues 
+        are real and there is a complete orthonormal basis $\set{e_i}$ consisting 
+        of eigenvectors of $T$ and 
+        \begin{equation*}
+            Tx = \sum_{i=1}^\infty \lambda_i\inp{x}{e_i}e_i,
+        \end{equation*}
+        for all $x\in\H$, where $\lambda_i$ are the eigenvalues of $T$.
+    \end{thmenum}
+\end{theorem}
+\begin{proof}
+    We have already seen in \cref{thm:compact_resolvent} that the resolvent 
+    consists only of isolated eigenvalues and each eigenspace is 
+    finite-dimensional. Now by the proof of \cref{thm:compact_resolvent}, 
+    $f(z) = (z-\xi_0)^{-1}$, $\xi_0\in\rho(T)$, satisfies 
+    $f(\sigma(T)) = \sigma(R_T(\xi_0))$. Since $R_T(\xi_0)$ is compact 
+    and $f$ is injective, $\sigma(T)$ is at most countable as well. 
+    Furthermore, since $R_T(\xi_0)$ is compact, it accumulates only 
+    at $0$ and thus $\sigma(T)$ accumulates only at infinity. 
+
+    For (d), let $\xi_0$ be a point such that $R_T(\xi_0)$ is compact. 
+    In fact, $R_T(\xi_0)$ is normal.
+    \begin{equation*}
+        R_T(\xi_0) = (T-\xi_0 I)^{-1} = (T^*-\xi_0 I)^{-1} 
+        = ((T-\overline{\xi_0} I)^*)^{-1} = ((T-\overline{\xi_0} I)^{-1})^*.
+    \end{equation*}
+    Now 
+    \begin{equation*}
+        R_T(\xi_0)R_T(\xi_0)^* = (T-\xi_0 I)^{-1}(T-\overline{\xi_0} I)^{-1} 
+        = \sbrc{(T-\xi_0 I)(T-\overline{\xi_0} I)}^{-1} 
+        = \sbrc{T^2 - 2\Re(\xi_0)T + \abs{\xi_0}^2I}^{-1}.
+    \end{equation*}
+    On the other hand, 
+    \begin{equation*}
+        R_T(\xi_0)^*R_T(\xi_0) = (T-\overline{\xi_0} I)^{-1}(T-\xi_0 I)^{-1} 
+        = \sbrc{(T-\overline{\xi_0} I)(T-\xi_0 I)}^{-1} 
+        = \sbrc{T^2 - 2\Re(\xi_0)T + \abs{\xi_0}^2I}^{-1}.
+    \end{equation*}
+    So $R_T(\xi_0)$ is compact and normal. The spectral theorem for 
+    compact normal operators applies and there is an orthonormal basis 
+    $\set{e_i}$ consisting of eigenvectors of $R_T(\xi_0)$ such that 
+    \begin{equation*}
+        R_T(\xi_0)x = \sum_{i=1}^\infty \mu_i\inp{x}{e_i}e_i,
+    \end{equation*}
+    for every $x\in\H$. Now note that if $\mu$ is a non-zero eigenvalue of 
+    $R_T(\xi_0)$ and $v$ is the corresponding eigenvector, then 
+    \begin{equation*}
+        R_T(\xi_0)v = (T-\xi_0 I)^{-1}v = \mu v
+        \quad\Rightarrow\quad
+        (T-\xi_0 I)v = \frac{1}{\mu}v
+        \quad\Rightarrow\quad
+        Tv = \pth{\xi_0 + \frac{1}{\mu}}v.
+    \end{equation*}
+    We see that the eigenspaces are exactly the same for $T$ and 
+    $R_T(\xi_0)$, with the eigenvalues of $T$ being $\lambda_i = \xi_0 + \frac{1}{\mu_i}$.
+    Hence, 
+    \begin{equation*}
+        Tx = \sum_{i=1}^\infty \lambda_i\inp{x}{e_i}e_i.
+    \end{equation*}
+    Finally, we check that $\lambda_i$ are real. Since $T = T^*$, 
+    $\lambda = \overline{\lambda}$ for every eigenvalue $\lambda$ of $T$. 
+    Hence $\lambda$ is real.
+\end{proof}
+

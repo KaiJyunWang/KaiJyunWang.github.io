@@ -350,15 +350,32 @@
     \textbf{closable} if there is a closed extension of $T$. 
 \end{definition}
 \begin{remark}
-    $T$ is closable if and only if for $x_n\in D(T)$, $x_n\to 0$ 
-    and $Tx_n\to y$ in $Y$ implies that $y = 0$.
+    There are three criteria for $T$ being closable. 
+    \begin{thmenum}
+        \item there is a closed extension of $T$; 
+        \item $\overline{G(T)}\subset X\times Y$ is a graph of some operators; 
+        \item for any $x_n\to 0$, $x_n\in D(T)$ and $Tx_n\to y\in Y$, we have 
+        $y = 0$.
+    \end{thmenum}
+\end{remark}
+
+\begin{definition}
+    Let $T$ be a closable operator. The \textbf{closure} of $T$ 
+    is the smallest closed extension of $T$, denoted by $\cl(T)$.
+\end{definition}
+\begin{remark}
+    The closure of $T$ is well-defined. We can consider the 
+    closure of the graph $G(T)\in X\times Y$. For $T$ being 
+    closable, the closure of $G(T)$ is a graph of some operator 
+    $T$. Since the closure of a graph is unique, the closure is 
+    well-defined. 
 \end{remark}
 
 \begin{example}
     $f:D(T)\in\ell^2\to\R$, where $D(T) = \spanby(\Set{e_n}{n\in\N})$ 
     is defined by $Te_n = n$ and extended by linearity. Then 
     $T$ is unbounded. Since $T$ is unbounded, we may take 
-    $x_n\to 0$ in $D(T)$ and $\abs{f(x_n)}\geq \epsilon$ for some 
+    $x_n\to 0$ in $D(T)$ and $\abs{T(x_n)}\geq \epsilon$ for some 
     $\epsilon>0$. 
     \begin{equation*}
         z_n = \frac{x_n}{Tx_n}\to 0\quad\text{and}\quad 
@@ -368,7 +385,28 @@
 \end{example}
 
 \begin{example}
-    $T:f\mapsto f'$ on $X = C[0,1]$ and $D(T) = C^1[0,1]$. 
-    Then $T$ is closed. If $D(T) = C^\infty[0,1]$, then $T$ is 
-    not closed while closable. 
+    Here is an example of a closable operator while not closed. 
+    Let $X = \ell^2$ and $D(T) = c_{00} = \Set{x\in\ell^2}{x_n = 0\text{ for $n > $ some $N\in\N$}}$. 
+    Then the $T:(x_n)\mapsto (n x_n)$ is a closable operator while not closed. 
+    Let $x^k = (1,\ldots,\frac{1}{k^2},0,\ldots)\in D(T)$, 
+    then $Tx^k = (1,\ldots,\frac{1}{k},0,\ldots)\to (1,1/2,1/3,\ldots)\in\ell^2$ as $k\to\infty$. 
+    However, $x^k\to (1,1/4,1/9,\ldots)\notin D(T)$ as $k\to\infty$. 
+    So $T$ is not closed. $T$ admits a closure $\cl(T):D(\cl(T))\to\ell^2$ 
+    with $D(\cl(T)) = \Set{x\in\ell^2}{(n x_n)\in\ell^2}$ and 
+    $\cl(T)x = (n x_n)$ for all $x\in D(\cl(T))$. 
 \end{example}
+
+\begin{definition}
+    The \textbf{transpose} of a densely defined operator $T:D(T)\dsubset X\to Y$ is 
+    $T': D(T')\dsubset Y'\to X'$ with 
+    \begin{equation*}
+        D(T') = \Set{m\in Y'}{\text{ there is $\ell\in X'$ such that $m(Tx) = \ell(x)$ for all $x\in X$}}.
+    \end{equation*}
+\end{definition}
+\begin{remark}
+    The transpose is well-defined since $T$ is densely defined. If $\ell_1,\ell_2$ are 
+    two candidates in $X'$ such that $m(Tx) = \ell_1(x) = \ell_2(x)$. Being densely 
+    defined implies that $\ell_1 = \ell_2$ on $X$. 
+\end{remark}
+
+
