@@ -110,7 +110,7 @@
     for all $\epsilon > 0$. Thus $p(x+y) \leq p(x) + p(y)$.
 \end{proof}
 
-\begin{theorem}[Hahn-Banach Separation Theorem \rom{1}]
+\begin{theorem}[Hahn-Banach Separation Theorem \rom{1}]\label{thm:hahn_banach_separation_1}
     Let $A, B\subset X$ be two non-empty convex sets such that $A\cap B = \varnothing$. 
     If one of the sets is open, there is a closed hyperplane $H(f,\alpha)$ separating 
     $A$ and $B$. 
@@ -131,5 +131,66 @@
         p(x) = p(tx_0) = tp(x_0) \geq t = g(x).
     \end{equation*}
     If $t\leq 0$, then $g(x) = t\leq 0$ and by definition $p(x) \geq 0$. We 
-    conclude that $g(x) \leq p(x)$ for all $x\in G$.
+    conclude that $g(x) \leq p(x)$ for all $x\in G$. 
+
+    Now we can extend $g$ to $f$ on $X$ with $f(x)\leq p(x)$ for 
+    all $x\in X$. In particular, $f(x_0) = 1$ and is bounded and thus 
+    continuous. $f(x) < 1$ for every $x\in B$ by \cref{lem:minkowski_functional} 
+    (d). 
+
+    Now we turn back to the general case. Set $C = \Set{x-y}{x\in A, y\in B}$. 
+    We check that $C$ is an convex set. Indeed, if $x_0-y_0, x_1-y_1\in C$, then 
+    \begin{equation*}
+        t(x_0-y_0) + (1-t)(x_1-y_1) = (tx_0 + (1-t)x_1) - (ty_0 + (1-t)y_1)\in C
+    \end{equation*}
+    since $tx_0 + (1-t)x_1\in A$ and $ty_0 + (1-t)y_1\in B$ by convexity of $A$ and $B$. 
+    In fact, $C$ is open sicne we may write $C = \cup_{y\in B}(A-y)$ and $A-y$ is open 
+    for every $y\in B$. Also, $0\in C$ since $A\cap B = \varnothing$. 
+    Now apply the previous result to $C$ and $\set{0}$ to obtain a 
+    linear functional $f$ on $X$ such that $f(x) < 0$ for all $x\in C$. 
+    Then $f(x) < f(y)$ for all $x\in A$ and $y\in B$. Then 
+    \begin{equation*}
+        \sup_{x\in A} f(x) \leq \alpha\leq \inf_{y\in B} f(y)
+    \end{equation*}
+    for some $\alpha$. $H(f,\alpha)$ is the desired separating hyperplane. 
+\end{proof}
+
+\begin{theorem}[Hahn-Banach Separation Theorem \rom{2}]\label{thm:hahn_banach_separation_2}
+    Let $A, B\subset X$ be two non-empty convex sets such that $A\cap B = \varnothing$. 
+    Assume that $A$ is closed and $B$ is compact. Then there is a 
+    a closed hyperplane $H(f,\alpha)$ strictly separating $A$ and $B$.
+\end{theorem}
+\begin{proof}
+    Set $C = \Set{x-y}{x\in A, y\in B}$. Then $C$ is convex by the proof 
+    of \cref{thm:hahn_banach_separation_1}. Thus there is some $r>0$ 
+    and $B_r(0)\cap C = \varnothing$. By \cref{thm:hahn_banach_separation_1}, 
+    there is a closed hyperplane $H(f,\alpha)$ that weakly separates 
+    $B_r(0)$ and $C$. There is a bounded linear functional $f$ such that 
+    \begin{equation*}
+        f(x-y) \leq f(rz)
+    \end{equation*}
+    for all $x\in A$, $y\in B$ and $z\in B_1(0)$. Then $f(x-y) \leq -r\norm{f}$. 
+    Pick $\epsilon = \frac{r}{2}\norm{f}>0$. 
+    \begin{equation*}
+        f(x) + \epsilon \leq f(y) - \epsilon
+    \end{equation*} 
+    for any $x\in A$ and $y\in B$. Thus 
+    \begin{equation*}
+        \sup_{x\in A} f(x) \leq \alpha - \epsilon < \alpha + \epsilon \leq \inf_{y\in B} f(y)
+    \end{equation*}
+    for some $\alpha$ and we see that $H(f,\alpha)$ strictly separates $A$ and $B$.
+\end{proof}
+
+\begin{corollary}
+    Let $M\subset X$ be a proper subspace such that $\overline{M} \neq X$. 
+    Then there is some non-zero $f\in X'$ such that $f(x) = 0$ for all $x\in M$. 
+\end{corollary}
+\begin{proof}
+    Fix $x_0\in X\setminus \overline{M}$. By \cref{thm:hahn_banach_separation_2}, 
+    there is a closed hyperplane $H(f,\alpha)$ such that 
+    \begin{equation*}
+        \sup_{x\in M} f(x) \leq \alpha - \epsilon < \alpha + \epsilon \leq f(x_0)
+    \end{equation*}
+    It follows that $f(x) = 0$ for all $x\in M$ or otherwise $\lambda x\in M$ and 
+    $\lambda f(x) < f(x_0)$ for every $\lambda$, which is absurd. 
 \end{proof}
