@@ -1,0 +1,111 @@
+\begin{exercise}{2.1}
+    Suppose that $X:\Omega\to\R$ is a function which takes only countably 
+    many values $a_1, a_2, \ldots\in\R$. 
+    \begin{thmenum}
+        \item Show that $X$ is a random variable if and only if 
+        \begin{equation*}
+            X^{-1}(a_i) \in \F \text{ for all } i\in\N.
+        \end{equation*}
+        \item Suppose that $X$ is a random variable. Show that 
+        \begin{equation*}
+            E\sbrc{\abs{X}} = \sum_{i=1}^\infty \abs{a_i} P(X = a_i).
+        \end{equation*}
+        \item If $X$ is a random variable and $E\sbrc{\abs{X}}<\infty$, 
+        show that 
+        \begin{equation*}
+            E\sbrc{X} = \sum_{i=1}^\infty a_i P(X = a_i).
+        \end{equation*}
+        \item If $X$ is a random variable and $f:\R\to\R$ is measurable and 
+        bounded, show that 
+        \begin{equation*}
+            E\sbrc{f(X)} = \sum_{i=1}^\infty f(a_i) P(X = a_i).
+        \end{equation*}
+    \end{thmenum}
+\end{exercise}
+\begin{solution}
+    For (a), suppose first that $X$ is a random variable. Since $\set{a_i}$ are 
+    Borel sets, $X^{-1}(a_i)\in\F$ for all $i\in\N$. Conversely, assume that 
+    $X^{-1}(a_i)\in\F$ for all $a_i$. Since the range of $X$ is $\set{a_i}_{i\in\N}$, 
+    for any Borel set $B\subset\R$, $X^{-1}(B) = \bigcup_{a_i\in B} X^{-1}(a_i)\in\F$, 
+    by the definition of $\sigma$-algebra. Thus, $X$ is a random variable. 
+
+    For (b), since $X$ takes only countably many values, so does $\abs{X}$ with 
+    $\set{\abs{a_i}}_{i\in\N}$. By the definition of expectation, we have 
+    \begin{equation*}
+        E\sbrc{\abs{X}} = \sum_{i=1}^\infty \abs{a_i} P(X = a_i)
+    \end{equation*}
+    in the extended sense. 
+
+    For (c), since $E\sbrc{\abs{X}} < \infty$ and $X$ is a random variable, 
+    the series converges absolutely and is well-defined. Hence 
+    \begin{equation*}
+        E\sbrc{X} = \sum_{i=1}^\infty a_i P(X = a_i).
+    \end{equation*}
+
+    For (d), since $f$ is measurable, $f^{-1}(B)$ is Borel and $X^{-1}f^{-1}(B)$ 
+    is measurable. $f(X)$ takes only countably many values, $f(a_1), f(a_2), \ldots$. 
+    The definition of expectation gives us 
+    \begin{equation*}
+        E\sbrc{f(X)} = \sum_{i=1}^\infty f(a_i) P(f(X) = f(a_i)) = \sum_{i=1}^\infty f(a_i) P(X = a_i).
+    \end{equation*}
+\end{solution}
+
+\begin{exercise}{2.2}
+    $X:\Omega\to\R$ is a random variable. The distribution function $F$ of $X$ is 
+    defined as 
+    \begin{equation*}
+        F(x) = P(X\leq x). 
+    \end{equation*}
+    \begin{thmenum}
+        \item Prove that $F$ has the following properties:
+        \begin{enumerate}[label=(\roman*)]
+            \item $0\leq F\leq 1$, $\lim_{x\to-\infty} F(x) = 0$ and $\lim_{x\to\infty} F(x) = 1$.
+            \item $F$ is non-decreasing. 
+            \item $F$ is right-continuous. 
+        \end{enumerate}
+        \item $g:\R\to\R$ is measurable such that $E\sbrc{\abs{g(X)}} < \infty$. Show 
+        that 
+        \begin{equation*}
+            E\sbrc{g(X)} = \int_{-\infty}^\infty g(x) dF(x).
+        \end{equation*}
+        \item Let $p(x)\geq 0$ be measurable on $\R$ be the density of $X$, i.e., 
+        \begin{equation*}
+            F(x) = \int_{-\infty}^x p(t) dt.
+        \end{equation*}
+        Find density of $B_t^2$. 
+    \end{thmenum}
+\end{exercise}
+\begin{solution}
+    For (a), since $P$ is a probability measure, $0\leq P(S)\leq 1$ for any $S\in\F$. 
+    In particular, $0\leq P(X\leq x)\leq 1$ for all $x\in\R$. Also, we can take 
+    $x_n\searrow-\infty$ and $\abs{X\leq x_n}\searrow\varnothing$ as $n\to\infty$. 
+    Hence 
+    \begin{equation*}
+        \lim_{x\to-\infty} F(x) = \lim_{n\to\infty} P(X\leq x_n) = P(\varnothing) = 0.
+    \end{equation*} 
+    Similarly, we can take $x_n\nearrow\infty$ and $\abs{X\leq x_n}\nearrow\Omega$ as
+    $n\to\infty$. Hence
+    \begin{equation*}
+        \lim_{x\to\infty} F(x) = \lim_{n\to\infty} P(X\leq x_n) = P(\Omega) = 1.
+    \end{equation*}
+    (i) is proved. For (ii), $F$ is non-decreasing because if $x_1 < x_2$, then 
+    \begin{equation*}
+        F(x_1) = P(X\leq x_1) \leq P(X\leq x_2) = F(x_2).
+    \end{equation*}
+    For (iii), let $h>0$. 
+    \begin{equation*}
+        F(x+h) - F(x) = P(X\leq x+h) - P(X\leq x) = P(x < X \leq x+h).
+    \end{equation*}
+    For any $y>x$, there exists $h>0$ such that $y > x+h$. Thus $(x, x+h]\searrow\varnothing$ as $h\to 0$. 
+    Hence 
+    \begin{equation*}
+        F(x+h) - F(x) = P(x < X \leq x+h) \to P(\varnothing) = 0
+    \end{equation*}
+    as $h\to 0$. Therefore, $F$ is right-continuous.
+
+    For (b), by definition of expectation, the left-hand side is
+    \begin{equation*}
+        E\sbrc{g(X)} = \int_\R g(x) d\mu_X(x), 
+    \end{equation*}
+    where $\mu_X(B) = P(X^{-1}(B))$ for any Borel set $B\subset\R$.
+\end{solution}
