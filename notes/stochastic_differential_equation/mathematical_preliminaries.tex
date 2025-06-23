@@ -108,4 +108,185 @@
         E\sbrc{g(X)} = \int_\R g(x) d\mu_X(x), 
     \end{equation*}
     where $\mu_X(B) = P(X^{-1}(B))$ for any Borel set $B\subset\R$.
+
+    For (c), 
+    \begin{equation*}
+        F(x) = P(B_t^2\leq x) = P(B_t \leq \sqrt{x}) = \int_{-\infty}^{\sqrt{x}} \frac{1}{\sqrt{2\pi t}}\exp\pth{-\frac{u^2}{2t}} du.
+    \end{equation*}
+    Hence, 
+    \begin{equation*}
+        p(u) = \od{}{x}F(x) = \frac{1}{\sqrt{2\pi t}}\exp\pth{-\frac{x}{2t}}\frac{1}{2\sqrt{x}}.
+    \end{equation*}
 \end{solution}
+
+\begin{exercise}{2.3}
+    Let $\set{\F_i}_{i\in\I}$ be a collection of $\sigma$-algebras on $\Omega$. Prove that 
+    \begin{equation*}
+        \F = \bigcap_{i\in\I} \F_i
+    \end{equation*}
+    is again a $\sigma$-algebra.
+\end{exercise}
+\begin{solution}
+    First, since $\F_i$ are $\sigma$-algebras, they contain $\varnothing$ and hence 
+    $\varnothing\in\F$. For any $A\in\F$, $A\in\F_i$ for all $i\in\I$ and hence 
+    $A^c\in\F_i$ for all $i\in\I$. Thus $A^c\in\F$. Finally, for any countable 
+    collection $\set{A_n}_{n\in\N}\subset\F$, we have $A_n\in\F_i$ for all 
+    $i\in\I$ and all $n\in\N$. Then $\bigcup_n A_n\in\F_i$ for all $i\in\I$. 
+    Hence $\bigcup_n A_n\in\F$. Therefore, $\F$ is a $\sigma$-algebra.
+\end{solution}
+
+\begin{exercise}{2.4}$ $\vspace{-1.5em}
+    \begin{thmenum}
+        \item Let $X:\Omega\to\R$ be a random variable such that $E\sbrc{\abs{X}^p}<\infty$ 
+        for some $p\in(0,\infty)$. Prove the Chebyshev's inequality:
+        \begin{equation*}
+            P(\abs{X}\geq \lambda) \leq \frac{1}{\lambda^p}E\sbrc{\abs{X}^p}
+        \end{equation*}
+        for any $\lambda>0$. 
+        \item Suppose there exists $k>0$ such that $M = E\sbrc{\exp(k\abs{X})}<\infty$. 
+        Prove that $P(\abs{X}\geq \lambda)\leq Me^{-k\lambda}$ for any $\lambda>0$.
+    \end{thmenum}
+\end{exercise}
+\begin{solution}
+    For (a), directly estimate that 
+    \begin{equation*}
+        P(\abs{X}\geq \lambda) = \int_\Omega \chi_{\set{\abs{X}^p\geq \lambda^p}}dP 
+        \leq \int_\Omega \frac{\abs{X}^p}{\lambda^p}dP = \frac{1}{\lambda^p}E\sbrc{\abs{X}^p}.
+    \end{equation*}
+
+    (b) is similar: 
+    \begin{equation*}
+        P(\abs{X}\geq \lambda) = \int_\Omega \chi_{\set{\exp(k\abs{X})\geq \exp(k\lambda)}}dP 
+        \leq \int_\Omega \exp(k\abs{X})\exp(-k\lambda)dP = M\exp(-k\lambda).
+    \end{equation*}
+\end{solution}
+
+\begin{exercise}{2.5}
+    Let $X,Y:\Omega\to\R$ be two independent random variables and assume for simplicity 
+    that $X,Y$ are bounded. Prove that 
+    \begin{equation*}
+        E\sbrc{XY} = E\sbrc{X}E\sbrc{Y}.
+    \end{equation*}
+\end{exercise}
+\begin{solution}
+    For any $\epsilon>0$, by definition of the expectation, we can find simple functions 
+    $s$ and $t$ on $\Omega$ such that 
+    \begin{equation*}
+        \int\abs{s-X}dP < \epsilon, \quad
+        \int\abs{t-Y}dP < \epsilon, \quad\Rightarrow\quad
+        \abs{E\sbrc{X} - \int s dP} < \epsilon, \quad
+        \abs{E\sbrc{Y} - \int t dP} < \epsilon,
+    \end{equation*}
+    where $s$ and $t$ can be written as 
+    \begin{equation*}
+        s = \sum_{i=1}^n s_i \chi_{X^{-1}[s_i,s_{i+1})}\quad\text{and}\quad
+        t = \sum_{j=1}^m t_j \chi_{Y^{-1}[t_j,t_{j+1})},
+    \end{equation*}
+    with $s_i$ and $t_j$ being arranged in ascending order. Thus, 
+    \begin{equation*}
+        \begin{split}
+            \int st dP &= \sum_{i=1}^n\sum_{j=1}^m s_i t_j P(\set{X\in [s_i,s_{i+1})}\cap \set{Y\in [t_j,t_{j+1})}) \\
+            &= \sum_{i=1}^n\sum_{j=1}^m s_i t_j P(X\in [s_i,s_{i+1}))P(Y\in [t_j,t_{j+1})) \\
+            &= \pth{\sum_{i=1}^n s_i P(X\in [s_i,s_{i+1}))}\pth{\sum_{j=1}^m t_j P(Y\in [t_j,t_{j+1}))} 
+            = \pth{\int s dP} \pth{\int t dP}.
+        \end{split}
+    \end{equation*}
+    Also, 
+    \begin{equation*}
+        \abs{E\sbrc{XY} - \int stdP} 
+        \leq \abs{\int \abs{X-s}\abs{t}dP} + \abs{\int \abs{Y-t}\abs{X}dP}.
+    \end{equation*}
+    $X$ and $Y$ are bounded, say by $M$ and $N$ respectively. Then $t$ is also 
+    bounded by $N$ from our construction. Thus 
+    \begin{equation*}
+        \abs{E\sbrc{XY} - \int stdP} \leq M\epsilon + N\epsilon.
+    \end{equation*}
+    Combine the results above, we arrive at
+    \begin{equation*}
+        \begin{split}
+            \abs{E\sbrc{XY} - E\sbrc{X}E\sbrc{Y}} 
+            &\leq \abs{E\sbrc{XY} - \int stdP} + \abs{E\sbrc{X}E\sbrc{Y} - \int s dP \int t dP} \\ 
+            &\leq (M+N)\epsilon + \abs{E\sbrc{X} - \int sdP}\abs{\int t dP} + \abs{E\sbrc{Y} - \int tdP}\abs{E\sbrc{X}} \\ 
+            &\leq (M+N)\epsilon + \epsilon N + \epsilon M.
+        \end{split}
+    \end{equation*}
+    Since $\epsilon$ is arbitrary, we conclude that $E\sbrc{XY} = E\sbrc{X}E\sbrc{Y}$.
+\end{solution}
+
+\begin{exercise}{2.6}
+    Let $(\Omega,\F,P)$ be a probability space and $A_1,\ldots\in\F$ be sets such that 
+    \begin{equation*}
+        \sum_{i=1}^\infty P(A_i) < \infty.
+    \end{equation*}
+    Prove the Borel-Cantelli lemma:
+    \begin{equation*}
+        P\pth{\bigcap_{m=1}^\infty\bigcup_{i=m}^\infty A_i} = 0.
+    \end{equation*}
+\end{exercise}
+\begin{solution}
+    Set $B_m = \bigcup_{i=m}^\infty A_i$ be measurable. Then 
+    \begin{equation*}
+        P(B_m) \leq \sum_{i=m}^\infty P(A_i) \to 0
+    \end{equation*}
+    as $m\to\infty$ by the assumption. Thus 
+    \begin{equation*}
+        P\pth{\bigcap_{m=1}^\infty B_m} \leq \lim_{n\to\infty} P\pth{\bigcap_{m=1}^n B_m}
+        \leq \lim_{n\to\infty} P(B_n) = 0.
+    \end{equation*}
+\end{solution}
+
+\begin{exercise}{2.7}$ $\vspace{-1.5em}
+    \begin{thmenum}
+        \item Suppose $G_1,\ldots,G_n$ are disjoint sets in $\F$ such that $\bigcup_{i=1}^n G_i = \Omega$.
+        Prove that the family 
+        \begin{equation*}
+            \G = \Set{G}{\text{$G$ is a union of some $G_i$}}\cup\set{\varnothing}
+        \end{equation*}
+        is a $\sigma$-algebra.
+        \item Prove that every finite $\sigma$-algebra is of type $\G$ as in (a).
+        \item Let $\F$ be a finite $\sigma$-algebra on $\Omega$ and $X:\Omega\to\R$ 
+        be $\F$-measurable. Prove that $X$ is simple. 
+    \end{thmenum}
+\end{exercise}
+\begin{solution}
+    For (a), first, $\varnothing\in\G$ by definition. Let $G\in\G$. Then $G = 
+    \cup_{i\in\I}G_i$ for some $\I\subset\set{1,\ldots,n}$, with the convention that 
+    $\cup_{i\in\varnothing}G_i = \varnothing$. Then $G^c = \bigcup_{i\notin\I}G_i\in\G$. 
+    Lastly, for countably many $G_i\in\G$, since $\G$ is finite, there are in fact 
+    finitely many distinct $G_i$ and the union must lie in $\G$ by the definition. 
+    Hence $\G$ is a $\sigma$-algebra. 
+
+    For (b), let $\F$ be a finite $\sigma$-algebra. Consider the collection 
+    \begin{equation*}
+        \S = \Set{S\in\F}{\text{$S\cap F = \varnothing$ or $S$ for all $F\in\F$}}.
+    \end{equation*}
+    Since $\F$ is finite, $\S$ is also finite. We first check that every distinct 
+    sets in $\S$ are disjoint. Suppose not. There are $S_1, S_2\in\S$ such that 
+    $S_1\cap S_2$ is non-empty. Then $S_1\cap S_2 = S_1 = S_2$, contradicting the 
+    assumption that $S_1$ and $S_2$ are distinct. Thus every distinct sets in 
+    $\S$ are disjoint. Next, we check that $\bigcup_{S\in\S} S = \Omega$. If not, 
+    let $A = \Omega\setminus\bigcup_{S\in\S} S$ be non-empty and $A\cap F$ is a 
+    non-empty proper subset of $A$ for some $F\in\F$. But then $A\cap F$ or 
+    $A\cap F^c$ must satisfy the condition that there is some $F'\in\F$ such that
+    $A\cap F\cap F'$ or $A\cap F^c\cap F'$ is non-empty, proper subset of 
+    $A\cap F$ or $A\cap F^c$ respectively. Note that $F'\neq F$ and the process 
+    continues. In the end, we can find a infinite sequence of distinct sets lying 
+    in $\F$, contradicting the finiteness of $\F$. Thus $\bigcup_{S\in\S} S = \Omega$.
+    Finally, by (a),
+    \begin{equation*}
+        \G = \Set{G}{G\text{ is a union of some } S\in\S}\cup\set{\varnothing}
+    \end{equation*}
+    is a $\sigma$-algebra. It remains to show that $\G = \F$. Clearly, $\G\subset\F$ since 
+    $\S\subset\F$. For any $F\in\F$, we can write $F = \bigcup_{i=1}^n S_i$ for some 
+    $S_i\in\S$. Thus $F\in\G$. We end up with $\G = \F$. 
+    
+    For (c), suppose that $X$ can take infinitely many values $\set{a_i}_{i\in\I}$. 
+    Since $X$ is $\F$-measurable, $X^{-1}(\set{a_i})\in\F$ for all $i\in\I$. In particular, 
+    $X^{-1}(\set{a_i})$ and $X^{-1}(\set{a_j})$ are disjoint for all $i\neq j$. This 
+    implies that $\F$ contains infinitely many disjoint sets, contradicting the 
+    finiteness of $\F$. Thus $X$ can only take finitely many values and is simple. 
+\end{solution}
+
+\begin{exercise}{2.8}
+    Let $B_t$ be Brownian motion on $\R$, $B_0 = 0$. Put $E = E^0$.
+\end{exercise}
