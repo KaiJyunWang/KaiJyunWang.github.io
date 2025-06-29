@@ -288,5 +288,193 @@
 \end{solution}
 
 \begin{exercise}{2.8}
-    Let $B_t$ be Brownian motion on $\R$, $B_0 = 0$. Put $E = E^0$.
+    Let $B_t$ be Brownian motion on $\R$, $B_0 = 0$. Put $E = E^0$. 
+    \begin{thmenum}
+        \item Prove that 
+        \begin{equation*}
+            E\sbrc{e^{iuB_t}} = e^{-\frac{u^2t}{2}} \text{ for all } u\in\R.
+        \end{equation*}
+        \item Use the power series expansion of the exponential function to show that
+        \begin{equation*}
+            E\sbrc{B_t^{2k}} = \frac{(2k)!}{2^k k!} t^k \text{ for all } k\in\N.
+        \end{equation*}
+        \item Prove that 
+        \begin{equation*}
+            E\sbrc{f(B_t)} = \int_{\R} f(x) \frac{1}{\sqrt{2\pi t}} e^{-\frac{x^2}{2t}} dx
+        \end{equation*}
+        for all measurable functions $f$ on $\R$ such that the integral is finite. Deduce (b) by 
+        setting $f(x) = x^{2k}$.
+        \item Now suppose that $B_t$ is a $n$-dimensional Brownian motion. Prove that 
+        \begin{equation*}
+            E^x\sbrc{\abs{B_t - B_s}^4} = n(n+2)\abs{t-s}^2
+        \end{equation*}
+        for all $n\in\N$ and $0\leq s,t\leq T$.
+    \end{thmenum}
+\end{exercise}
+\begin{solution}
+    For (a), directly compute the expectation:
+    \begin{equation*}
+        \begin{split}
+            E\sbrc{e^{iuB_t}} &= \int_{-\infty}^\infty e^{iux}\frac{1}{\sqrt{2\pi t}}e^{-\frac{x^2}{2t}}dx 
+            = e^{-\frac{u^2t}{2}}\int_{-\infty}^\infty \frac{1}{\sqrt{2\pi t}}e^{-\frac{(x - iut)^2}{2t}}dx
+            = e^{-\frac{u^2t}{2}}. 
+        \end{split}
+    \end{equation*}
+
+    For (b), note that the power series expansion of the exponential function 
+    gives 
+    \begin{equation*}
+        e^{iuB_t} = \sum_{k=0}^\infty \frac{(iuB_t)^k}{k!} 
+        \quad\Rightarrow\quad
+        E\sbrc{e^{iuB_t}} = \sum_{k=0}^\infty \frac{(iu)^k}{k!} E\sbrc{B_t^k}.
+    \end{equation*}
+    The right-hand side is 
+    \begin{equation*}
+        e^{-\frac{u^2t}{2}} = \sum_{k=0}^\infty \frac{1}{k!}\pth{-\frac{u^2t}{2}}^k 
+        = \sum_{k=0}^\infty \frac{(-1)^{k}u^{2k}}{2^k k!} t^k.
+    \end{equation*}
+    For those two expressions to be equal, as a function of $u$, $E\sbrc{B_t^k} = 0$ 
+    for odd $k$ and we may rewrite the first expression as 
+    \begin{equation*}
+        E\sbrc{e^{iuB_t}} = \sum_{k=0}^\infty \frac{(-1)^ku^{2k}}{(2k)!}E\sbrc{B_t^{2k}}. 
+    \end{equation*}
+    By comparing the coefficients, 
+    \begin{equation*}
+        E\sbrc{B_t^{2k}} = \frac{(-1)^kt^k}{2^k k!}\cdot\frac{(2k)!}{(-1)^k} 
+        = \frac{(2k)!}{2^k k!}t^k.
+    \end{equation*}
+
+    For (c), it is clear that $B_t$ has the density $p(x) = \frac{1}{\sqrt{2\pi t}} e^{-\frac{x^2}{2t}}$.
+    It follows that 
+    \begin{equation*}
+        E\sbrc{f(B_t)} = \int f(x)\frac{1}{\sqrt{2\pi t}} e^{-\frac{x^2}{2t}}dx. 
+    \end{equation*}
+    By setting $f:x\mapsto x^{2k}$, we have
+    \begin{equation*}
+        \begin{split}
+            E\sbrc{B_t^{2k}} &= \int x^{2k}\frac{1}{\sqrt{2\pi t}} e^{-\frac{x^2}{2t}}dx \\
+            &= x^{2k+1}\frac{1}{\sqrt{2\pi t}}e^{-\frac{x^2}{2t}}\Big|_{-\infty}^\infty 
+            - \int 2kx^{2k}\frac{1}{\sqrt{2\pi t}}e^{-\frac{x^2}{2t}} - x^{2k}\frac{1}{\sqrt{2\pi t}}e^{-\frac{x^2}{2t}}\frac{x^2}{t}dx \\
+            &= \frac{1}{t}E\sbrc{B_t^{2(k+1)}} - 2kE\sbrc{B_t^{2k}}
+            \quad\Rightarrow\quad 
+            E\sbrc{B_t^{2(k+1)}} = (2k+1)tE\sbrc{B_t^{2k}}.
+        \end{split}
+    \end{equation*}
+    And also when $k = 1$, $E\sbrc{B_t^2} = t$. Suppose $E\sbrc{B_t^{2k}} = 
+    \frac{(2k)!}{2^k k!}t^k$. Then 
+    \begin{equation*}
+        E\sbrc{B_t^{2(k+1)}} = (2k+1)t\frac{(2k)!}{2^k k!}t^k 
+        = \frac{(2(k+1))!}{2^{k+1}(k+1)!}t^{k+1}. 
+    \end{equation*}
+    The conclusion follows by induction. 
+
+    For (d), if $n = 1$, $B_t - B_s\sim N(0, \abs{t-s})$ and $E^x\sbrc{\abs{B_t - B_s}^4} = 3\abs{t-s}^2$.  
+    Now suppose that for $n$-dimensional $B_t$, $E^x\sbrc{\abs{B_t-B_s}^4} = n(n+2)\abs{t-s}^2$. 
+    Then for $n+1$-dimensional $B_t$,
+    \begin{equation*}
+        \begin{split}
+            E^x\sbrc{\abs{B_t-B_s}^4} &= \int_{\R^n}\int_{\R}(\abs{y}^2 + z^2)^2\frac{1}{\sqrt{(2\pi)^{n+1}\abs{t-s}^{n+1}}}\exp\pth{-\frac{\abs{y}^2 + z^2}{2\abs{t-s}}} dy dz \\ 
+            &= \int_{\R^n}\abs{y}^4\frac{1}{\sqrt{(2\pi)^n\abs{t-s}^n}}\exp\pth{-\frac{\abs{y}^2}{2\abs{t-s}}} dy \\
+            &\quad+ 2\abs{t-s}\int_{\R^n} \abs{y}^2\frac{1}{\sqrt{(2\pi)^n\abs{t-s}^n}}\exp\pth{-\frac{\abs{y}^2}{2\abs{t-s}}} dy 
+            + 3\abs{t-s}^2 \\ 
+            &= n(n+2)\abs{t-s}^2 + 2n\abs{t-s}^2 + 3\abs{t-s}^2 = (n+1)(n+3)\abs{t-s}^2.
+        \end{split}
+    \end{equation*}
+    Thus by induction, the conclusion holds for all $n\in\N$. It follows from 
+    the Kolmogorov's continuity theorem that we can always set $B_t$ to be a 
+    continuous process. 
+\end{solution}
+
+\begin{exercise}{2.9}
+    Let $(\Omega, \F, P) = ([0,\infty),\B,\mu)$ be a probability space where 
+    $\mu$ is a probability measure such that there is no mass at single points. 
+    Define 
+    \begin{equation*}
+        X_t(\omega) = \begin{cases*}
+            1 & if $t = \omega$, \\ 
+            0 & if $t\neq \omega$.
+        \end{cases*}\quad\text{and}\quad 
+        Y_t(\omega) = 0\text{ for all } (t,\omega)\in[0,\infty)\times[0,\infty).
+    \end{equation*} 
+    Prove that $\set{X_t}$ and $\set{Y_t}$ have the same distributions and $X_t$ 
+    is a version of $Y_t$. And yet $t\mapsto Y_t(\omega)$ is continuous for     all $\omega$, while $t\mapsto X_t(\omega)$ is discontinuous for all $\omega$. 
+\end{exercise}
+\begin{solution}
+    First, given any $t$, $X_t$ and $Y_t$ are both random variables. For $t_1,\ldots,t_k\in[0,\infty)$, 
+    consider the sets $F_1,\ldots,F_k\in\B$. Since $Y_t$ is constant, 
+    \begin{equation*}
+        P(Y_{t_1}\in F_1,\ldots,Y_{t_k}\in F_k) = \mathds{1}\set{0\in \cap_{i=1}^k F_i}.
+    \end{equation*}
+    Also, since $\mu$ has no mass at single points, 
+    \begin{equation*}
+        P(X_{t_1}\in F_1,\ldots,X_{t_k}\in F_k) = \mathds{1}\set{0\in \cap_{i=1}^k F_i}.
+    \end{equation*}
+    Thus, $X_t$ and $Y_t$ have the same distributions. Furthermore, for any 
+    $t\in[0,\infty)$, $\set{X_t = Y_t} = \Omega\setminus\set{t}$, which has 
+    zero measure and hence $X_t$ is a version of $Y_t$. Now since $Y_t$ is 
+    constant, $t\mapsto Y_t(\omega)$ is continuous for all $\omega$. On the other 
+    hand, for any $\omega\in[0,\infty)$, $X(t, \omega)$ is discontinuous at $t = \omega$, 
+    proving that $t\mapsto X_t(\omega)$ is discontinuous for all $\omega$.
+\end{solution}
+
+\begin{exercise}{2.10}
+    Prove that the Brownian motion $B_t$ has stationary increments, i.e., 
+    given $h>0$, the process $\set{B_{t+h}-B_t}$ has the same distribtuions 
+    for all $t$. 
+\end{exercise}
+\begin{solution}
+    For any $h>0$, $B_{t+h}-B_t\sim N(0, h)$. The stationarity follows immediately.
+\end{solution}
+
+\begin{exercise}{2.11}
+    If $B_t = (B_t^{(1)},\ldots,B_t^{(n)})$ is an $n$-dimensional Brownian motion, 
+    then the component processes $B_t^{(i)}$, $1\leq i\leq n$, are 
+    independent Brownian motions. 
+\end{exercise}
+\begin{solution}
+    Since the $B_t$ is continuous almost surely, the component processes 
+    $B_t^{(i)}$ are continuous almost surely as well. Now we may regard 
+    the component processes as projections of $B_t$ and hence they are 
+    normally distributed. $E\sbrc{B_t^{(i)}} = 0$ since $E\sbrc{B_t} = 0$. 
+    Also, $\Cov(B_t^{(i)}, B_t^{(j)}) = t\delta_{ij}$ as $\Var(B_t) = tI$. 
+    Since for $i\neq j$ the covariance is zero, the component processes 
+    are independent. 
+\end{solution}
+
+\begin{exercise}{2.12}
+    Let $B_t$ be a Brownian motion and fix $t_0\geq 0$. Prove that the process 
+    $\tilde{B}_t = B_{t+t_0} - B_{t_0}$ is a Brownian motion. 
+\end{exercise}
+\begin{solution}
+    Since $B_t$ is almost surely continuous, $B_{t+t_0} - B_{t_0}$ is also 
+    almost surely continuous. Also, $B_{t+t_0} - B_{t_0}\sim N(0, t)$. For 
+    $s<t<u$, 
+    \begin{equation*}
+        \Cov(\tilde{B}_u - \tilde{B}_t, \tilde{B}_t - \tilde{B}_s) 
+        = \Cov(B_{u+t_0}-B_{t+t_0}, B_{t+t_0}-B_{s+t_0}) = 0. 
+    \end{equation*}
+    Thus $\tilde{B}_t$ has independent increments. This shows that 
+    $\tilde{B}_t$ is a Brownian motion.
+\end{solution}
+
+\begin{exercise}{2.13}
+    Let $B_t$ be $2$-dimensional Brownian motion and put 
+    \begin{equation*}
+        D_\rho = \Set{x\in\R^2}{\abs{x}<\rho}
+    \end{equation*}
+    for $\rho > 0$. Compute $P^0(B_t\in D_\rho)$. 
+\end{exercise}
+\begin{solution}
+    Since $B_t\sim N(0, tI)$, 
+    \begin{equation*}
+        P^0(B_t\in D_\rho) = \int_{D_\rho} \frac{1}{2\pi t}\exp\pth{-\frac{\abs{x}^2}{2t}}dx 
+        = \int_0^{2\pi}\int_0^\rho \frac{1}{2\pi t}\exp\pth{-\frac{r^2}{2t}}rdrd\theta 
+        = 1 - \exp\pth{-\frac{\rho^2}{2t}}.
+    \end{equation*}
+\end{solution}
+
+\begin{exercise}{2.14}
+    Let $B_t$ be $n$-dimensional Brownian motion and $K\subset\R^n$ be a measure 
+    zero set under the Lebesgue measure. Prove that the expected total length 
+    of time that $B_t$ spends in $K$ is zero. 
 \end{exercise}
