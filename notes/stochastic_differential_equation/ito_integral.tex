@@ -1,0 +1,208 @@
+\begin{exercise}{3.1}\label{ex:3.1}
+    Prove that 
+    \begin{equation*}
+        \int_0^t sdB_s = tB_t - \int_0^t B_sds.
+    \end{equation*}
+\end{exercise}
+\begin{solution}
+    Let $\P_k = \set{0 = t_0 < t_1 < \ldots < t_k = t}$ be a partition of the 
+    interval $[0, t]$. Denote $B_{t_i}$ as $B_i$. We have 
+    that 
+    \begin{equation*}
+        \sum_i t_i\Delta B_i = t_{k-1}B_k - \sum_i \Delta t_i B_{i+1}.
+    \end{equation*}
+    Now take $\norm{\P_k}\to 0$. Then 
+    \begin{equation*}
+        \int_0^t sdB_s = tB_t - \int_0^t B_sds.
+    \end{equation*}
+\end{solution}
+
+\begin{exercise}{3.2}\label{ex:3.2}
+    Prove that 
+    \begin{equation*}
+        \int_0^t B_s^2dB_s = \frac{1}{3}B_t^3 - \int_0^t B_sds. 
+    \end{equation*}
+\end{exercise}
+\begin{solution}
+    Let $\P_k = \set{0 = t_0 < \ldots < t_k = t}$ be a partition. Denote $B_{t_i}$ as 
+    $B_i$ and $\Delta B_i = B_{t_{i+1}} - B_{t_i}$. Now 
+    \begin{equation*}
+        \begin{split}
+            B_t^3 &= \sum_i B_{i+1}^3 - B_i^3 = \sum_i (B_i + \Delta B_i)^3 - B_i^3 \\ 
+            &= \sum_i B_i^3 + 3B_i^2\Delta B_i + 3B_i(\Delta B_i)^2 + (\Delta B_i)^3 - B_i^3 \\ 
+            &= \sum_i 3B_i^2\Delta B_i + 3B_i(\Delta B_i)^2 + (\Delta B_i)^3. 
+        \end{split}
+    \end{equation*}
+    Now take $\norm{\P_k}\to 0$. Then 
+    \begin{equation*}
+        \sum_i 3B_i^2(\Delta B_i) \to 3\int_0^t B_s^2dB_s
+    \end{equation*}
+    by the definition. For the second term, let $X_t = 3B_t$. Notice that by (d) of \cref{ex:2.8}, 
+    \begin{equation*}
+        \begin{split}
+            E\sbrc{\pth{\sum_i X_i(\Delta B_i)^2 - \sum_i X_i\Delta t_i}^2} 
+            &= E\sbrc{\sum_i X_i^2\pth{(\Delta B_i)^2 - \Delta t_i}^2 + 2\sum_{i>j} X_iX_j\pth{(\Delta B_i)^2 - \Delta t_i}\pth{(\Delta B_j)^2 - \Delta t_j}} \\
+            &= \sum_i E\sbrc{X_i^2\pth{(\Delta B_i)^2 - \Delta t_i}^2} 
+            = \sum_i E\sbrc{X_i^2}(3(\Delta t_i)^2 - 2(\Delta t_i)^2 + (\Delta t_i)^2) \\
+            &= \sum_i E\sbrc{X_i^2}(\Delta t_i)^2 \to 0
+        \end{split}
+    \end{equation*}
+    as $\norm{\P_k}\to 0$ since $E\sbrc{X_i^2}$ is bounded. But $\sum_i X_i\Delta t_i \to \int_0^t X_sds$ 
+    by definition, so 
+    \begin{equation*}
+        \sum_i 3B_i(\Delta B_i)^2 \to 3\int_0^t B_sds. 
+    \end{equation*}
+    Finally, we note that 
+    \begin{equation*}
+        \begin{split}
+            E\sbrc{\pth{\sum_i (\Delta B_i)^3}^2} &= E\sbrc{\sum_i (\Delta B_i)^6 + 2\sum_{i>j} (\Delta B_i)^3(\Delta B_j)^3} \\
+            &= \sum_i E\sbrc{(\Delta B_i)^6} = 15\sum_i (\Delta t_i)^3 \to 0
+        \end{split}
+    \end{equation*}
+    as $\norm{\P_k}\to 0$. Hence we see that 
+    \begin{equation*}
+        B_t^3 = 3\int_0^t B_s^2dB_s + 3\int_0^t B_sds \quad \Rightarrow\quad
+        \int_0^t B_s^2dB_s = \frac{1}{3}B_t^3 - \int_0^t B_sds.
+    \end{equation*}
+\end{solution}
+
+\begin{exercise}{3.3}\label{ex:3.3}
+    Let $X_t:\Omega\to\R^n$ is a stochastic process and $\H_t$ is the filtration of 
+    $X_t$. 
+    \begin{thmenum}
+        \item Show that if $X_t$ is a martingale with respect to some filtration $\mathcal{N}_t$, 
+        then it is also a martingale with respect to $\H_t$.
+        \item Show that if $X_t$ is a martingale with respect to $\H_t$, then 
+        \begin{equation*}
+            E\sbrc{X_t} = E\sbrc{X_0}
+        \end{equation*}
+        for all $t\geq 0$. 
+        \item Give an example of stochastic process $X_t$ such that $E\sbrc{X_t} = E\sbrc{X_0}$ for 
+        all $t\geq 0$ but $X_t$ is not a martingale with respect to $\H_t$. 
+    \end{thmenum}
+\end{exercise}
+\begin{solution}
+    For (a), for $X_t$ being a martingale with respect to $\mathcal{N}_t$, we have 
+    $\H_t\subset \mathcal{N}_t$ for all $t\geq 0$. Also, $X_t$ is integrable. 
+    Finally, 
+    \begin{equation*}
+        E\sbrc{X_s\mid \H_t} = E\sbrc{E\sbrc{X_s\mid \mathcal{N}_t}\mid \H_t} = E\sbrc{X_t\mid \H_t} = X_t
+    \end{equation*}
+    for all $s\geq t$ by the tower property. Hence $X_t$ is a martingale with respect to 
+    $\H_t$ as well. 
+
+    For (b), note that $E\sbrc{X_t\mid \H_0} = X_0$. Hence $E\sbrc{X_t} = E\sbrc{E\sbrc{X_t\mid \H_0}} = E\sbrc{X_0}$. 
+
+    For (c), consider the process defined by 
+    \begin{equation*}
+        X_0 = \begin{cases*}
+            -1 & with prob. = 0.5 \\
+            1 & with prob. = 0.5
+        \end{cases*}, \quad
+        X_t = (t+1)\sgn(X_0) \text{ for } t>0.
+    \end{equation*}
+    Then $E\sbrc{X_t} = t \cdot 0.5 + (-t) \cdot 0.5 = 0$ for all $t \geq 0$, but
+    $E\sbrc{X_t\mid X_0} = E\sbrc{(t+1)\sgn(X_0)\mid X_0} = (t+1)\sgn(X_0) \neq X_0$ for $t>0$. 
+    Hence $X_t$ is not a martingale with respect to $\H_t$.
+\end{solution}
+
+\begin{exercise}{3.4}\label{ex:3.4}
+    Check whether the following processes are martingale with respect to $\set{\F_t}$. 
+    \begin{thmenum}
+        \item $X_t = B_t + 4t$. 
+        \item $X_t = B_t^2$. 
+        \item $X_t = t^2B_t - 2\int_0^t sB_s ds$.
+        \item $X_t = B_1(t)B_2(t)$, where $(B_1(t), B_2(t))$ is a 2-dimensional Brownian motion.
+    \end{thmenum} 
+\end{exercise}
+\begin{solution}
+    For (a), 
+    \begin{equation*}
+        E\sbrc{X_s\mid\F_t} = E\sbrc{B_s\mid\F_t} + 4s = B_t + 4s \neq X_t.
+    \end{equation*}
+    Hence $X_t$ is not a martingale.
+
+    For (b), 
+    \begin{equation*}
+        \begin{split}
+            E\sbrc{X_s\mid\F_t} &= E\sbrc{B_s^2\mid\F_t} = E\sbrc{(B_t + (B_s - B_t))^2\mid\F_t} \\
+            &= E\sbrc{B_t^2 + 2B_t(B_s - B_t) + (B_s - B_t)^2\mid\F_t} \\
+            &= B_t^2 + (s-t) \neq X_t.
+        \end{split}
+    \end{equation*}
+    Hence $X_t$ is not a martingale.
+
+    For (c), 
+    \begin{equation*}
+        \begin{split}
+            E\sbrc{X_s\mid\F_t} &= E\sbrc{s^2B_s - 2\int_0^s uB_udu\mid\F_t} 
+            = s^2B_t - 2\int_0^t uB_udu - 2\int_t^s uE\sbrc{B_u\mid\F_t}du \\ 
+            &= s^2B_t - 2\int_0^t uB_udu - 2B_t\int_t^s udu
+            = t^2B_t - 2\int_0^t uB_udu = X_t.
+        \end{split}
+    \end{equation*}
+    Hence $X_t$ is a martingale. 
+
+    For (d), 
+    \begin{equation*}
+        E\sbrc{B_1(s)B_2(s)\mid\F_t} = E\sbrc{B_1(s)\mid\F_t}E\sbrc{B_2(s)\mid\F_t} = B_1(t)B_2(t).
+    \end{equation*}
+    Hence $X_t$ is a martingale.
+\end{solution}
+
+\begin{exercise}{3.5}\label{ex:3.5}
+    Prove that $M_t = B_t^2 - t$ is an $\F_t$-martingale.
+\end{exercise}
+\begin{solution}
+    Compute that 
+    \begin{equation*}
+        E\sbrc{M_s\mid\F_t} = E\sbrc{B_s^2\mid\F_t} - s 
+        = E\sbrc{(B_t + (B_s - B_t))^2\mid\F_t} - s 
+        = B_t^2 + (s-t) - s = B_t^2 - t = M_t.
+    \end{equation*}
+    Hence $M_t$ is a martingale.
+\end{solution}
+
+\begin{exercise}{3.6}\label{ex:3.6}
+    Prove that $N_t = B_t^3 - 3tB_t$ is a martingale.
+\end{exercise}
+\begin{solution}
+    Compute that 
+    \begin{equation*}
+        \begin{split}
+            E\sbrc{N_s\mid\F_t} &= B_t^3 - 3tB_t + E\sbrc{B_s^3-B_t^3\mid\F_t} - 3E\sbrc{sB_s-tB_t\mid\F_t} \\ 
+            &= N_t + E\sbrc{(B_s - B_t)^3 + 3B_s^2B_t - 3B_sB_t^2\mid\F_t} - 3B_t(s-t) \\ 
+            &= N_t + 3E\sbrc{B_s^2B_t - B_sB_t^2\mid\F_t} - 3B_t(s-t) \\  
+            &= N_t + 3B_tE\sbrc{(B_s - B_t)^2 - 2B_t(B_s - B_t) + B_t^2\mid\F_t} - 3B_t^3 - 3B_t(s-t) \\ 
+            &= N_t + 3B_t(s-t) + 3B_t^3 - 3B_t^3 - 3B_t(s-t) = N_t.
+        \end{split}
+    \end{equation*}
+    Hence $N_t$ is a martingale.
+\end{solution}
+
+\begin{exercise}{3.7}\label{ex:3.7}
+    A famous result from It\^o gives the following formula
+    \begin{equation*}
+        n!\int_{0\leq u_1\leq u_2\leq\cdots\leq u_n\leq t} dB_{u_1}dB_{u_2}\cdots dB_{u_n} = t^{n/2}h_n\pth{\frac{B_t}{\sqrt{t}}}, 
+    \end{equation*}
+    where $h_n$ is the Hermite polynomial of degree $n$, defined by 
+    \begin{equation*}
+        h_n(x) = (-1)^ne^{x^2/2}\frac{d^n}{dx^n}\sbrc{e^{-x^2/2}}.
+    \end{equation*}
+    \begin{thmenum}
+        \item Verify that for each $n\in\N$, the integrand satisfies the requirement of
+        definition 3.1.4; in other words, the It\^o integral is well-defined. 
+        \item Verify the formula for $n=1, 2, 3$.
+        \item Use (b) to give another proof of \cref{ex:3.6}. 
+    \end{thmenum}
+\end{exercise}
+\begin{solution}
+    For (a), we show this by induction. If $n = 1$, the integral becomes $\int_0^t dB_{u_1}$ 
+    and the integrand is constant. Since $(t,\omega)\to 1$ is clearly $\B\times\F$-measurable, 
+    $\omega\to 1$ is also $\F_t$-measurable for each $t\geq 0$ and thus $\F_t$-adapted. Finally, 
+    $E\sbrc{\int_0^t 1^2 dt} = t < \infty$, so the integrand is in $L^2$ and the Itô integral is well-defined. 
+    Suppose the claim holds for $n$, for $n+1$, the integrand is 
+    \begin{equation*}
+        f(u_1,\omega) = \int_{u_1}^t\int_{u_2}^t\cdots\int_{u_n}^t dB_{u_{n+1}}\cdots dB_{u_3}dB_{u_2}.
+    \end{equation*}
+\end{solution}

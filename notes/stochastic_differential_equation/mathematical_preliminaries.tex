@@ -1,4 +1,4 @@
-\begin{exercise}{2.1}
+\begin{exercise}{2.1}\label{ex:2.1}
     Suppose that $X:\Omega\to\R$ is a function which takes only countably 
     many values $a_1, a_2, \ldots\in\R$. 
     \begin{thmenum}
@@ -50,7 +50,7 @@
     \end{equation*}
 \end{solution}
 
-\begin{exercise}{2.2}
+\begin{exercise}{2.2}\label{ex:2.2}
     $X:\Omega\to\R$ is a random variable. The distribution function $F$ of $X$ is 
     defined as 
     \begin{equation*}
@@ -119,7 +119,7 @@
     \end{equation*}
 \end{solution}
 
-\begin{exercise}{2.3}
+\begin{exercise}{2.3}\label{ex:2.3}
     Let $\set{\F_i}_{i\in\I}$ be a collection of $\sigma$-algebras on $\Omega$. Prove that 
     \begin{equation*}
         \F = \bigcap_{i\in\I} \F_i
@@ -135,7 +135,7 @@
     Hence $\bigcup_n A_n\in\F$. Therefore, $\F$ is a $\sigma$-algebra.
 \end{solution}
 
-\begin{exercise}{2.4}$ $\vspace{-1.5em}
+\begin{exercise}{2.4}\label{ex:2.4}$ $\vspace{-1.5em}
     \begin{thmenum}
         \item Let $X:\Omega\to\R$ be a random variable such that $E\sbrc{\abs{X}^p}<\infty$ 
         for some $p\in(0,\infty)$. Prove the Chebyshev's inequality:
@@ -161,7 +161,7 @@
     \end{equation*}
 \end{solution}
 
-\begin{exercise}{2.5}
+\begin{exercise}{2.5}\label{ex:2.5}
     Let $X,Y:\Omega\to\R$ be two independent random variables and assume for simplicity 
     that $X,Y$ are bounded. Prove that 
     \begin{equation*}
@@ -213,7 +213,7 @@
     Since $\epsilon$ is arbitrary, we conclude that $E\sbrc{XY} = E\sbrc{X}E\sbrc{Y}$.
 \end{solution}
 
-\begin{exercise}{2.6}
+\begin{exercise}{2.6}\label{ex:2.6}
     Let $(\Omega,\F,P)$ be a probability space and $A_1,\ldots\in\F$ be sets such that 
     \begin{equation*}
         \sum_{i=1}^\infty P(A_i) < \infty.
@@ -235,7 +235,7 @@
     \end{equation*}
 \end{solution}
 
-\begin{exercise}{2.7}$ $\vspace{-1.5em}
+\begin{exercise}{2.7}\label{ex:2.7}$ $\vspace{-1.5em}
     \begin{thmenum}
         \item Suppose $G_1,\ldots,G_n$ are disjoint sets in $\F$ such that $\bigcup_{i=1}^n G_i = \Omega$.
         Prove that the family 
@@ -287,7 +287,7 @@
     finiteness of $\F$. Thus $X$ can only take finitely many values and is simple. 
 \end{solution}
 
-\begin{exercise}{2.8}
+\begin{exercise}{2.8}\label{ex:2.8}
     Let $B_t$ be Brownian motion on $\R$, $B_0 = 0$. Put $E = E^0$. 
     \begin{thmenum}
         \item Prove that 
@@ -385,7 +385,7 @@
     continuous process. 
 \end{solution}
 
-\begin{exercise}{2.9}
+\begin{exercise}{2.9}\label{ex:2.9}
     Let $(\Omega, \F, P) = ([0,\infty),\B,\mu)$ be a probability space where 
     $\mu$ is a probability measure such that there is no mass at single points. 
     Define 
@@ -417,7 +417,7 @@
     proving that $t\mapsto X_t(\omega)$ is discontinuous for all $\omega$.
 \end{solution}
 
-\begin{exercise}{2.10}
+\begin{exercise}{2.10}\label{ex:2.10}
     Prove that the Brownian motion $B_t$ has stationary increments, i.e., 
     given $h>0$, the process $\set{B_{t+h}-B_t}$ has the same distribtuions 
     for all $t$. 
@@ -426,7 +426,7 @@
     For any $h>0$, $B_{t+h}-B_t\sim N(0, h)$. The stationarity follows immediately.
 \end{solution}
 
-\begin{exercise}{2.11}
+\begin{exercise}{2.11}\label{ex:2.11}
     If $B_t = (B_t^{(1)},\ldots,B_t^{(n)})$ is an $n$-dimensional Brownian motion, 
     then the component processes $B_t^{(i)}$, $1\leq i\leq n$, are 
     independent Brownian motions. 
@@ -441,13 +441,14 @@
     are independent. 
 \end{solution}
 
-\begin{exercise}{2.12}
+\begin{exercise}{2.12}\label{ex:2.12}
     Let $B_t$ be a Brownian motion and fix $t_0\geq 0$. Prove that the process 
     $\tilde{B}_t = B_{t+t_0} - B_{t_0}$ is a Brownian motion. 
 \end{exercise}
 \begin{solution}
-    Since $B_t$ is almost surely continuous, $B_{t+t_0} - B_{t_0}$ is also 
-    almost surely continuous. Also, $B_{t+t_0} - B_{t_0}\sim N(0, t)$. For 
+    First, it is clear that $\tilde{B}_0 = B_{t_0}-B_{t_0} = 0$. Since $B_t$ 
+    is almost surely continuous, $B_{t+t_0} - B_{t_0}$ is also almost surely 
+    continuous. Also, $B_{t+t_0} - B_{t_0}\sim N(0, t)$. For 
     $s<t<u$, 
     \begin{equation*}
         \Cov(\tilde{B}_u - \tilde{B}_t, \tilde{B}_t - \tilde{B}_s) 
@@ -457,7 +458,7 @@
     $\tilde{B}_t$ is a Brownian motion.
 \end{solution}
 
-\begin{exercise}{2.13}
+\begin{exercise}{2.13}\label{ex:2.13}
     Let $B_t$ be $2$-dimensional Brownian motion and put 
     \begin{equation*}
         D_\rho = \Set{x\in\R^2}{\abs{x}<\rho}
@@ -473,8 +474,167 @@
     \end{equation*}
 \end{solution}
 
-\begin{exercise}{2.14}
+\begin{exercise}{2.14}\label{ex:2.14}
     Let $B_t$ be $n$-dimensional Brownian motion and $K\subset\R^n$ be a measure 
     zero set under the Lebesgue measure. Prove that the expected total length 
     of time that $B_t$ spends in $K$ is zero. 
 \end{exercise}
+\begin{solution}
+    Given $\omega\in\Omega$, the process $B_t(\omega)$ spends 
+    \begin{equation*}
+        \int_0^\infty \mathds{1}\set{B_t(\omega)\in K}dt
+    \end{equation*} 
+    amount of time in $K$. The expected total length of time that $B_t$ spends 
+    in $K$ is 
+    \begin{equation*}
+        \int_{\Omega}\int_0^\infty\mathds{1}\set{B_t(\omega)\in K}dtdP(\omega) 
+        = \int_0^\infty\int_{\Omega}\mathds{1}\set{B_t(\omega)\in K}dP(\omega)dt 
+        = 0
+    \end{equation*}
+    by the Fubini-Tonelli theorem, since $K$ has measure zero under the Lebesgue measure 
+    and $B_t^{-1}(K)$ is measure zero under the probability measure $P$ for all $t\geq 0$.
+\end{solution}
+
+\begin{exercise}{2.15}\label{ex:2.15}
+    Let $B_t$ be an $n$-dimensional Brownian motion starting at $0$ and let 
+    $U\in\R^{n\times n}$ be a orthogonal matrix, i.e., $U^TU = I$. Prove that 
+    $\tilde{B}_t = UB_t$ is also a Brownian motion. 
+\end{exercise}
+\begin{solution}
+    Since $B_t$ is a Brownian motion and $U$ is a linear transformation on a 
+    finite-dimensional space, $\tilde{B}_t$ must be contiuous almost surely 
+    and $\tilde{B}_0 = UB_0 = 0$. Also, since $B_t\sim N(0, tI)$, we have 
+    $\tilde{B}_t\sim N(0, tU^TU) = N(0, tI)$. For $s<t<u$, 
+    \begin{equation*}
+        \Cov(\tilde{B}_u - \tilde{B}_t, \tilde{B}_t - \tilde{B}_s) 
+        = \Cov(UB_u - UB_t, UB_t - UB_s) 
+        = U\Cov(B_u - B_t, B_t - B_s)U^T = 0.
+    \end{equation*}
+    Thus $\tilde{B}_t$ has independent increments. Therefore, $\tilde{B}_t$ 
+    is a Brownian motion.
+\end{solution}
+
+\begin{exercise}{2.16}\label{ex:2.16}
+    Let $B_t$ be a Brownian motion on $\R$ and $c>0$. Prove that the process 
+    $X_t = \frac{1}{c}B_{c^2t}$ is a Brownian motion. 
+\end{exercise}
+\begin{solution}
+    First, $X_0 = \frac{1}{c}B_0 = 0$. Suppose $\omega\in\Omega$ is such that 
+    $B_t(\omega)$ is continuous. For $\epsilon>0$, there exists $\delta>0$ such 
+    that $\abs{B_{t}(\omega)-B_{s}(\omega)}<c\epsilon$ as long as $\abs{t-s}<\delta$. 
+    Then we may set $\delta' = \delta/c^2$ and see that 
+    \begin{equation*}
+        \abs{X_t(\omega) - X_s(\omega)} = \frac{1}{c}\abs{B_{c^2t}(\omega) - B_{c^2s}(\omega)} 
+        < \epsilon
+    \end{equation*}
+    whenever $\abs{t-s}<\delta'\Leftrightarrow \abs{c^2t-c^2s}<\delta$. 
+    Thus $X_t$ is continuous almost surely. Also, since $B_{c^2t}\sim N(0, c^2tI)$, 
+    $X_t\sim N(0, tI)$. For $s<t<u$, 
+    \begin{equation*}
+        \Cov(X_u - X_t, X_t - X_s) = \Cov\pth{\frac{1}{c}B_{c^2u} - \frac{1}{c}B_{c^2t}, 
+        \frac{1}{c}B_{c^2t} - \frac{1}{c}B_{c^2s}} 
+        = \frac{1}{c^2}\Cov(B_{c^2u} - B_{c^2t}, B_{c^2t} - B_{c^2s}) = 0.
+    \end{equation*}
+    We conclude that $X_t$ is a Brownian motion.
+\end{solution}
+
+\begin{exercise}{2.17}\label{ex:2.17}
+    Let $B_t$ be a Brownian motion on $\R$. Show that the quadratic variation 
+    process is $\inp{B}{B}_t^2(\omega) = t$ almost surely by the following steps: 
+    \begin{thmenum}
+        \item Define $\Delta B_k = B_{t_{k+1}} - B_{t_k}$ and put $Y(t,\omega) 
+        = \sum_{t_k\leq t} (\Delta B_k)^2$ for a partition $\set{t_k}_{k=1}^n$ of $[0,t]$. 
+        Show that 
+        \begin{equation*}
+            E\sbrc{(Y_t - t)^2} = 2\sum_{t_k\leq t} (\Delta t_k)^2
+        \end{equation*}
+        and deduce that $Y(t,\cdot)\to t$ in $L^2$ as $\Delta t_k\to 0$. 
+        \item Use (a) to show that almost every paths of $B_t$ does not have a bounded 
+        total variation on $[0,t]$.
+    \end{thmenum}
+\end{exercise}
+\begin{solution}
+    For (a), note that $\Delta B_k$ are independent and $\Delta B_k\sim N(0, \Delta t_k)$. 
+    \begin{equation*}
+        \begin{split}
+            E\sbrc{(Y_t - t)^2} &= E\sbrc{\pth{\sum_{t_k\leq t} (\Delta B_k)^2 - \Delta t_k}^2} 
+            = E\sbrc{\sum_{t_k\leq t} ((\Delta B_k)^2 - \Delta t_k)^2} \\ 
+            &= \sum_{t_k\leq t} E\sbrc{(\Delta B_k)^4} - 2E\sbrc{(\Delta B_k)^2}\Delta t_k + (\Delta t_k)^2 \\
+            &= \sum_{t_k\leq t} 3(\Delta t_k)^2 - 2(\Delta t_k)^2 + (\Delta t_k)^2  \\
+            &= 2\sum_{t_k\leq t} (\Delta t_k)^2\leq 2\max_{k}\Delta t_k\sum_{t_k\leq t} \Delta t_k 
+            = 2t\max_{k}\Delta t_k\to 0
+        \end{split}
+    \end{equation*}
+    as $\max_{k}\Delta t_k\to 0$, the right-hand side converges to $0$ and hence $Y(t, \cdot)\to t$ 
+    in $L^2(P)$. Hence $\inp{B}{B}_t^2(\omega) = t$ almost surely. 
+
+    For (b), let $\P$ be a partition of $[0,t]$. With respect to $\P$, define 
+    the total variation of $B_t$ as 
+    \begin{equation*}
+        Z^\P_t(\omega) = \sum_{t_k\leq t} \abs{B_{t_{k+1}}(\omega) - B_{t_k}(\omega)} 
+        \leq N(\P)\sum_{t_k\leq t} \abs{B_{t_{k+1}}(\omega) - B_{t_k}(\omega)}^2\to\infty
+    \end{equation*}
+    as $\norm{\P}\to 0$ by the Cauchy inequality and (a) that $Y(t, \cdot)\to t$ in $L^2(P)$.
+\end{solution}
+
+\begin{exercise}{2.18}\label{ex:2.18}
+    Let $\Omega = \set{1,2,3,4,5}$ and $\U = \set{\set{1,2,3}, \set{3,4,5}}$ 
+    be a collection of subsets of $\Omega$.
+    \begin{thmenum}
+        \item Find $\sigma(\U)$. 
+        \item Define $X:\Omega\to\R$ by
+        \begin{equation*}
+            X(1) = X(2) = 0,\quad X(3) = 10,\quad X(4) = X(5) = 1. 
+        \end{equation*}
+        Is $X$ $\sigma(\U)$-measurable?
+        \item Define $Y:\Omega\to\R$ by
+        \begin{equation*}
+            Y(1) = 0,\quad Y(2) = Y(3) = Y(4) = Y(5) = 1.
+        \end{equation*}
+        Find $\sigma(Y)$. 
+    \end{thmenum}
+\end{exercise}
+\begin{solution}
+    For (a), 
+    \begin{equation*}
+        \sigma(\U) = \set{\varnothing, \set{1,2}, \set{3}, \set{4,5}, \set{1,2,3}, \set{3,4,5}, \set{1,2,4,5}, \Omega}.
+    \end{equation*}
+    
+    For (b), it is not hard to verify that $X$ is $\sigma(\U)$-measurable. 
+
+    For (c), 
+    \begin{equation*}
+        \sigma(Y) = \set{\varnothing, \set{1}, \set{2,3,4,5}, \Omega}. 
+    \end{equation*}
+\end{solution}
+
+\begin{exercise}{2.19}\label{ex:2.19}
+    Prove that every convergent sequence is a Cauchy sequence.
+\end{exercise}
+\begin{solution}
+    Let $\set{x_n}$ be a convergent sequence with limit $x$. For any $\epsilon > 0$, 
+    we may find $N\in\N$ such that for all $n\geq N$, $d(x_n, x)<\epsilon/2$. 
+    Then for all $m,n\geq N$,
+    \begin{equation*}
+        d(x_n,x_m)\leq d(x_n, x) + d(x_m, x) < \epsilon/2 + \epsilon/2 = \epsilon.
+    \end{equation*}
+    Hence $\set{x_n}$ is a Cauchy sequence.
+\end{solution}
+
+\begin{exercise}{2.20}\label{ex:2.20}
+    Let $B_t$ be a $1$-dimensional Brownian motion, $\sigma\in\R$ and 
+    $0\leq s < t$. Prove that
+    \begin{equation*}
+        E\sbrc{\exp\pth{\sigma(B_s - B_t)}} = \exp\pth{\frac{\sigma^2(s-t)}{2}}.
+    \end{equation*}
+\end{exercise}
+\begin{solution}
+    Since $B_s-B_t\sim N(0, t-s)$, 
+    \begin{equation*}
+        \begin{split}
+            E\sbrc{\exp\pth{\sigma(B_s - B_t)}} &= \int_{-\infty}^\infty e^{\sigma x}\frac{1}{\sqrt{2\pi(t-s)}}e^{-\frac{x^2}{2(t-s)}}dx \\
+            &= e^{\frac{\sigma^2(t-s)}{2}}\int_{-\infty}^\infty \frac{1}{\sqrt{2\pi(t-s)}}e^{-\frac{(x - \sigma(t-s))^2}{2(t-s)}}dx 
+            = e^{\frac{\sigma^2(t-s)}{2}}.
+        \end{split}
+    \end{equation*}
+\end{solution}

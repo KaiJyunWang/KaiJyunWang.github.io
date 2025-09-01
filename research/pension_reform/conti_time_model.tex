@@ -1,0 +1,163 @@
+\documentclass[a4paper, 12pt]{article}
+\input{prefix_pension.tex}%
+\input{symbols_pension.tex} 
+
+\title{Continuous Time Model for Pension Reform}
+\author{Kai-Jyun Wang\thanks{National Taiwan University, Department of Economics.}}
+\date{Fall 2024}
+
+\begin{document} 
+\setstretch{1.15}
+\maketitle
+
+\section{Model}
+
+Time is continuous and starts from $t = 0$ to $T$. The model consists of four states: asset 
+$a_t$, income level $y_t$, labor supply $\set{e,u}$ in extensive margin. The utility flow is 
+given by $u^e(c) = \frac{\alpha_e}{1-\gamma}c^{1-\gamma}$ for employed agents and 
+$u^u(c) = \frac{1}{1-\gamma}c^{1-\gamma}$ for unemployed. The agents die at rate $h_t$, when 
+the death occurs, the agents receive utility from bequest $b(a) = \frac{\alpha_b}{1-\gamma}
+(\kappa + a)^{1-\gamma}$.
+
+The asset states and the income level are governed by the following laws of 
+motions: 
+\begin{align}
+    da_t &= \sbrc{ra_t + y_t - c_t}dt, \\
+    dy_t &= y_t(\exp(\mu_t + \sigma e_t) - 1)dJ_t, 
+\end{align}
+where $J_t$ is the Poisson process. $y_t$ is modelled as a compound Poisson 
+process with intensity $\lambda_y$ and $e_t$ drawn from $N(0,1)$. If the agent 
+is unemployed, then $y_t = y_f$ is fixed. 
+
+Now assume that the quit opportunity comes at rate $\lambda^e$ and the job offer 
+arrives at rate $\lambda^u$ with the income level drawn from $F$. We can write the 
+value function recursively as
+\begin{equation}\label{eq:value}
+    \begin{split}
+        &(\rho + h_t)\begin{bmatrix}
+        V^e(t, a_t, y_t) \\
+        V^u(t, a_t) \\
+        \end{bmatrix} \\
+        &= \begin{bmatrix}
+            \max_{c_t^e} u^e(c_t^e) + h_tb(a_t) + \lambda_y\int V^e(t, a_t, y_t\exp(\mu_t + \sigma e)) - V^e(t, a_t, y_t) d\Phi(e) \\
+            \qquad+ \lambda^e\max\set{V^u(t, a_t) - V^e(t, a_t, y_t), 0} + V_t^e + V_a^e(ra_t + y_t - c_t^e) \\
+            \max_{c_t^u} u^u(c_t^u) + h_tb(a_t) + \lambda^u\int \max\set{V^e(t, a_t, y) - V^u(t, a_t), 0}dF(y) + V_t^u + V_a^u(ra_t + y_f - c_t^u) \\
+        \end{bmatrix}.
+    \end{split}
+\end{equation}
+
+Solving the maximization problem in \cref{eq:value} gives us the optimal consumption 
+when the asset is not binding, i.e., $a>0$. The first-order conditions yield that 
+\begin{equation}
+    V_a^e = \alpha_e c^{-\gamma}, \quad V_a^u = c^{-\gamma} 
+    \quad \Rightarrow\quad 
+    c^e = \pth{\frac{\alpha_e}{V^e_a}}^{1/\gamma}, \quad 
+    c^u = \pth{\frac{1}{V^u_a}}^{1/\gamma}.
+\end{equation}
+Hence, 
+\begin{align}
+    (\rho + h_t + \lambda_y + \lambda^e)V^e &= \frac{\alpha_e}{1-\gamma}\pth{\frac{\alpha_e}{V^e_a}}^{1/\gamma - 1} + h_tb(a) + \lambda_y\int V^e(t,a,y\exp(\mu_t + \sigma e))d\Phi(e) \nonumber \\
+    &\qquad + \lambda^e\max\set{V^u, V^e} + V^e_t + V^e_a\pth{ra + y - \pth{\frac{\alpha_e}{V^e_a}}^{1/\gamma}}, \label{eq:value_e}\\
+    (\rho + h_t + \lambda^u)V^u &= \frac{1}{1-\gamma}\pth{\frac{1}{V^u_a}}^{1/\gamma - 1} + h_tb(a) + \lambda^u\int \max\set{V^e(t,a,y), V^u(t,a)}dF(y) \nonumber \\
+    &\qquad + V^u_t + V^u_a\pth{ra + y_f - \pth{\frac{1}{V^u_a}}^{1/\gamma}}. \label{eq:value_u}
+\end{align}
+The terminal conditions are given by the bequest. 
+\begin{equation}
+    \lim_{t\to T} V^e(t,a,y) = b(a), \quad 
+    \lim_{t\to T} V^u(t,a) = b(a) \text{ for all } a,y.
+\end{equation}
+Also, the asset constraint leads to that 
+\begin{equation}
+    V^e_a(t,0,y) \geq (u^e)'(y) = \alpha_e y^{-\gamma}, \quad
+    V^u_a(t,0) \geq (u^u)'(y_f) = y_f^{-\gamma} \text{ for all } t,y. 
+\end{equation}
+
+In practice, the terminal condition at infinity is imposed by setting a sufficiently 
+large $T$. We use the following terminal condition at $T$: 
+\begin{equation}
+    (\rho + h_T)V^e(T, a, y) = \frac{\alpha_e}{1-\gamma}(c^e)^{1-\gamma} + h_Tb(a), \quad 
+    (\rho + h_T)V^u(T, a) = \frac{1}{1-\gamma}(c^u)^{1-\gamma} + h_Tb(a).
+\end{equation}
+
+\section{Solution Method}
+We are going to solve the model using PINN (Physics-Informed Neural Network). 
+Since the model is a time-inhomogeneous PDE, we will assume that for sufficiently 
+large $T$, the value function is closed enough to the bequest utility $b(a)$. Also, 
+to avoid the local minimum, we first train the neural network on the domain closed 
+to the terminal time and then gradually expand the domain to the whole time interval. 
+
+The PINN loss function is composed of three parts, 
+\begin{align}
+    \begin{split}
+        \L_{DE} = \frac{1}{N_{DE}}\sum_{i=1}^{N_{DE}} E_1(x_i) + E_2(x_i), 
+    \end{split}\\
+    \begin{split}
+        \L_{a} &= \frac{1}{N_a}\sum_{i=1}^{N_a} \abs{V^e_a(x^{a}_i) - \alpha_e (c^e(x^{a}_i))^{-\gamma}} + \abs{V^u_a(x^{a}_i) - (c^u(x^{a}_i))^{-\gamma}} \\
+        &\qquad + \max\set{0, c^e(x^{a}_i) - y_i}^2 + \max\set{0, c^u(x^{a}_i) - y_f}^2, \\
+    \end{split}\\
+    \begin{split}
+        \L_{t} &= \frac{1}{N_t}\sum_{i=1}^{N_t} \abs{V^e(x^t_i) - b(a_i)}^2 + \abs{V^u(x^t_i) - b(a_i)}^2 \\
+        &\qquad + \abs{V^e_a(x^t_i) - \alpha_e (c^e(x^t_i))^{-\gamma}} + \abs{V^u_a(x^{t}_i) - (c^u(x^{t}_i))^{-\gamma}} \\
+        &\qquad + \abs{b'(a_i) - \alpha_e (c^e(x^{a}_i))^{-\gamma}}^2 + \abs{b'(a_i) - (c^u(x^{a}_i))^{-\gamma}}^2,  
+    \end{split}
+\end{align}
+with $E_1$ and $E_2$ defined as the residuals of the PDEs \cref{eq:value_e,eq:value_u}. To avoid the issue 
+that the approximator may have negative derivatives so that the residuals are not properly 
+defined, we use the consumption combined with the first order conditions to compute the 
+residuals and add loss terms to ensure that the first order conditions are satisfied.
+\footnote{Which loss to use is somewhat debatable. In general the $L^2$ loss is preferrable, 
+while it is possible to use the $L^1$ loss shrinking some parts in the loss function, for 
+example, the first order condition parts.} 
+
+\subsection{Hard-Constraint Boundary}
+Sometimes the neural network may struggle to learn the boundary conditions. In such
+case, we use the hard-constraint method. By taking some transformation of our neural
+network, we may enforce the boundary conditions exactly. In our case, we take the 
+following: 
+\begin{align}
+    V^e(t,a,y) &= f^e(t,a,y) - af^e_a(t,0,y) + a(\alpha\exp(-\gamma y) + \exp(f^e_a(t,0,y))), \\
+    V^u(t,a) &= f^u(t,a) - af^u_a(t,0) + a(\alpha\exp(-\gamma y_f) + \exp(f^u_a(t,0))).
+\end{align}
+One can easily verify that the asset boundary conditions are satisfied, and 
+\begin{align}
+    V^e_t &= f^e_t - af^e_{ta}(t,0,y) + a\exp(f^e_a(t,0,y))f^e_{ta}(t,0,y), \\
+    V^u_t &= f^u_t - af^u_{ta}(t,0) + a\exp(f^u_a(t,0))f^u_{ta}(t,0).
+\end{align}
+To deal with the second order derivatives, we use the FO-PINN method proposed by 
+\cite{gladstone2023}. 
+
+\subsection{Quasi-Finite Difference Physics-Informed Neural Network}
+In this subsection, we introduce a new approach for solving the PDE with terminal 
+conditions, the Quasi-Finite Difference Physics-Informed Neural Network (QFD-PINN). 
+The key idea is to combine the finite difference method with the neural network to 
+conquer the curse of dimensionality. 
+
+Given a small, prespecified length of time, $dt$, we rewrite our PDE into the following 
+semi-discretized form. To avoid the issue of negative derivatives, we replace $V^e_a$ 
+and $V^u_a$ with the consumption policy and the first order conditions. The 
+consumption policies are transformed to ensure that they are always positive. 
+\begin{align}
+    V^e(t+dt) &= V^e + dt\sbrc{(\rho + h_t + \lambda_y + \lambda^e)V^e - \frac{\alpha_e}{1-\gamma}(c^e)^{1 - \gamma} - h_tb(a) - \lambda_y\int V^e(t,a,y\exp(\mu_t + \sigma e))d\Phi(e)} \nonumber \\
+    &\qquad - dt\sbrc{\lambda^e\max\set{V^u, V^e} + \alpha_e(c^e)^{-\gamma}\pth{ra + y - c^e}}, \label{eq:implicit_qfd_e}\\
+    V^u(t+dt) &= V^u + dt\sbrc{(\rho + h_t + \lambda^u)V^u - \frac{1}{1-\gamma}(c^u)^{1 - \gamma} - h_tb(a) - \lambda^u\int \max\set{V^e(t,a,y), V^u(t,a)}dF(y)} \nonumber \\
+    &\qquad - dt\sbrc{(c^u)^{-\gamma}\pth{ra + y_f - c^u}}, \label{eq:implicit_qfd_u} \\
+    V_a^e &= \alpha_e (c^e)^{-\gamma}, \label{eq:implicit_foc_e} \\ 
+    V_a^u &= (c^u)^{-\gamma}. \label{eq:implicit_foc_u} 
+\end{align}
+We use the auto-differentiation to compute the derivative in the state space. 
+
+Alternatively, we can use the explicit scheme as well, which gives 
+\begin{align}
+    V^e(t) &= V^e - dt\sbrc{(\rho + h_t + \lambda_y + \lambda^e)V^e - \frac{\alpha_e}{1-\gamma}(c^e)^{1 - \gamma} - h_tb(a) - \lambda_y\int V^e(t+dt,a,y\exp(\mu_t + \sigma e))d\Phi(e)} \nonumber \\
+    &\qquad + dt\sbrc{\lambda^e\max\set{V^u, V^e} + \alpha_e(c^e)^{-\gamma}\pth{ra + y - c^e}}, \label{eq:explicit_qfd_e}\\
+    V^u(t) &= V^u - dt\sbrc{(\rho + h_t + \lambda^u)V^u - \frac{1}{1-\gamma}(c^u)^{1 - \gamma} - h_tb(a) - \lambda^u\int \max\set{V^e(t+dt,a,y), V^u(t+dt,a)}dF(y)} \nonumber \\
+    &\qquad + dt\sbrc{(c^u)^{-\gamma}\pth{ra + y_f - c^u}}, \label{eq:explicit_qfd_u} \\
+    V_a^e(t) &= \alpha_e (c^e(t))^{-\gamma}, \label{eq:explicit_foc_e} \\ 
+    V_a^u(t) &= (c^u(t))^{-\gamma}, \label{eq:explicit_foc_u} 
+\end{align}
+where the right hand sides are all evaluated at time $t+dt$.
+
+\bibliographystyle{apacite}
+\bibliography{conti_time}
+
+\end{document}
