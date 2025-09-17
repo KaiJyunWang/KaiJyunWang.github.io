@@ -1,0 +1,84 @@
+\documentclass[a4paper, 12pt]{article}
+\input{prefix_large_small_bank.tex}%
+\input{symbols_large_small_bank.tex}
+
+\title{Research Record for the Project "Large vs Small Banks"}
+\author{Kai-Jyun Wang\thanks{National Taiwan University, Department of Economics.}}
+\date{Fall 2024}
+
+\begin{document} 
+\setstretch{1.15}
+\maketitle
+
+\section{Main Idea} 
+This project aims to study the relation between the size of a 
+bank in terms of its balance sheet and the probability of the 
+bank run occurring. And, if the larger the bank, the more can 
+a bank immune itself from the bank run, then what is the 
+implication of this result? 
+
+Suppose that the banking market is oligopolistic, then there 
+is a dead weight loss in the market (under some kind of oligopolistic 
+competition), and the larger the bank, the more oligopolistic the 
+market is. However, if the size also prevents the bank from the 
+crisis, then the limitation of the size of the bank can increase 
+the financial fragility of the banking system. This is the 
+trade-off between the oligopoly and the financial fragility. 
+Consider the limitation of the size of the bank and the federal 
+deposit insurance. 
+
+\section{To Do}
+\begin{itemize}
+    \item See how to incorporate the bank run from \cite{diamond1983}.  
+    \item How to write a model having the feature that the bank size affects 
+    the probability of a bank run. 
+    \item Evidence of the bank size-bank run relation.
+\end{itemize}
+
+\section{Model} 
+\subsection{Household}
+The time is continuous, $t\in[0,\infty)$. There is a unit mass of households. 
+Each household solves the following problem:
+\begin{equation}
+    \max_{c_t, \theta_{n,t}} \E\sbrc{\int_0^\infty e^{-\rho t}u(c_t)dt}
+\end{equation}
+subject to
+\begin{align}
+    da_t &= \sbrc{r_{n,t}\theta_{n,t}a_t - c_t}dt - \sum_{n=1}^N a_{t^-}\theta_{n,t^-}dJ_{n,t}, \\
+    a_t &\geq 0, 
+\end{align}
+where $a_t$ is the total asset of the household at time $t$, 
+$\theta_{n,t}$ is the fraction of asset in bank $n$ savings with interest 
+rate $r_{n,t}$. The bank savings suffer from the risk of default, 
+with rate $\lambda_{n,t}$, so that $J_{n,t}$ is a Poisson process with intensity 
+$\lambda_{n,t}$. The process $\lambda_{n,t}$ is determined in a similar manner 
+as \cite{moreira2017}, equation (10).
+
+\textcolor{red}{Think about the information shocks.}
+
+\subsection{Bank}
+There are $N$ banks, competing in the deposit market in a oligopoly 
+manner. What makes the depositors choosing different banks?
+
+The banks can choose to invest in a risky asset 
+$k$, which yields $y_t = Ak_t$ and follows the process 
+\begin{equation*}
+    dk_t = k_t\phi(\iota_t)dt - \kappa k_tdZ_t, 
+\end{equation*} 
+where $dZ_t$ is a compensated Poisson process with intensity $\lambda_t$.
+Let $p_t$ be the price of the risky asset, $E_t$ be the value of existing 
+equity and $D_t$ be the total deposits. 
+
+
+A bank falls when its net worth becomes negative. When a bank falls, the rest 
+of the banks can buy the failed bank's asset and the depositors can take their 
+deposits back according to the proportion. 
+
+A new bank enters the market with rate $\psi$. 
+
+
+
+\bibliographystyle{apacite}
+\bibliography{large_small_bank}
+
+\end{document}

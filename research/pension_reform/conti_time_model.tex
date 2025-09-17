@@ -72,12 +72,16 @@ Also, the asset constraint leads to that
     V^u_a(t,0) \geq (u^u)'(y_f) = y_f^{-\gamma} \text{ for all } t,y. 
 \end{equation}
 
-In practice, the terminal condition at infinity is imposed by setting a sufficiently 
-large $T$. We use the following terminal condition at $T$: 
-\begin{equation}
-    (\rho + h_T)V^e(T, a, y) = \frac{\alpha_e}{1-\gamma}(c^e)^{1-\gamma} + h_Tb(a), \quad 
-    (\rho + h_T)V^u(T, a) = \frac{1}{1-\gamma}(c^u)^{1-\gamma} + h_Tb(a).
-\end{equation}
+Note that the $V_a$ may be negative while solving it numerically, 
+which becomes problematic. To prevent such issue, we can augment the 
+above equation. 
+\begin{equation*}
+    f^e = \log(c^e) = \frac{1}{\gamma}\log(\alpha_e) - \frac{1}{\gamma}\log(V^e_a). 
+\end{equation*}
+So 
+\begin{equation*}
+    V^e_a = \log(\alpha_e) - \gamma f^e
+\end{equation*}
 
 \section{Solution Method}
 We are going to solve the model using PINN (Physics-Informed Neural Network). 
@@ -156,6 +160,12 @@ Alternatively, we can use the explicit scheme as well, which gives
     V_a^u(t) &= (c^u(t))^{-\gamma}, \label{eq:explicit_foc_u} 
 \end{align}
 where the right hand sides are all evaluated at time $t+dt$.
+
+\section{Methods to Try} 
+\begin{enumerate}
+    \item DeepONet for the inversion problem in the implicit scheme iteration. 
+    \item Hard-constraint QFD-PINN with quasi-implicit scheme to speed up. 
+\end{enumerate}
 
 \bibliographystyle{apacite}
 \bibliography{conti_time}
