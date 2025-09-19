@@ -1,0 +1,52 @@
+\begin{definition}
+    Let $(\Omega,\F,\P)$ be a probability space. Suppose $\F_\beta\subset\F$, 
+    $\beta\in B$ are a collection of sub-$\sigma$-algebras. Then $\set{\F_\beta}$ 
+    are \textbf{independent} if for all finite $\set{\F_i}_{i=1}^n\subset\set{\F_\beta}$, 
+    \begin{equation*}
+        \P(\cap_{i=1}^n A_i) = \prod_{i=1}^{n}\P(A_i) 
+    \end{equation*}
+    where $A_i\in\F_i$. 
+\end{definition}
+
+\begin{definition}
+    A collection of random variables $\Set{X_\beta}{\beta\in B}$ on $(\Omega,\F,\P)$ 
+    is \textbf{independent} if the collection of the generating $\sigma$-algebras 
+    $\Set{\sigma(X_\beta)}{\beta\in B}$ is. 
+\end{definition}
+\begin{remark}
+    In other words, 
+    \begin{equation*}
+        \P(\cap_i \set{X_{\beta_i}\in A_i}) = \prod_i \P(X_{\beta_i}\in A). 
+    \end{equation*}
+    Note that these random variables can map into different measurable space. 
+\end{remark}
+
+\begin{definition}
+    A collection of events $\S$ is \textbf{independent} if $\Set{\one_A}{A\in\S}$ is. 
+\end{definition}
+
+\begin{proposition}
+    Let $X_1,\dots,X_n$ be independent random variables and $g_1,\ldots g_n$ 
+    are measurable functions. Then $g_1(X_1),\ldots,g_n(X_n)$ are independent. 
+\end{proposition}
+\begin{proof}
+    Suppose $g_i:(S_i,\S_i)\to (T_i,\T_i)$. For $A_i\in\T_i$, $g^{-1}(A_i)\in\S_i$ 
+    and 
+    \begin{equation*}
+        \P(\cap_i \set{g_i(X_i)\in A_i}) = \P(\cap_i \set{X_i\in g^{-1}(A_i)}) 
+        = \prod_i \P(X_i\in g^{-1}(A_i)) = \prod_i \P(g_i(X_i)\in A_i).
+    \end{equation*}
+    $g_1(X_1),\ldots,g_n(X_n)$ are independent. 
+\end{proof}
+
+\begin{theorem}
+    Let $\S_1,\ldots\S_n$ be a collection of $\pi$-system. If $\Omega\in \S_i$ 
+    for all $i = 1,\ldots,n$ and for all $A_i\in\S_i$, 
+    \begin{equation*}
+        \P(\cap_i A_i) = \prod_i \P(A_i), 
+    \end{equation*}
+    then $\sigma(\S_1),\ldots,\sigma(\S_n)$ are independent. 
+\end{theorem}
+\begin{proof}
+    
+\end{proof}

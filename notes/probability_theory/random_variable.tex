@@ -1,0 +1,306 @@
+\begin{definition}
+    Let $\Omega$ be a probability space. A \textbf{random variable} 
+    $X$ is a measurable function $X:\Omega\to (S,\S)$, where $(S,\S)$ 
+    is a measurable space.
+\end{definition}
+\begin{remark}
+    The codomain is often taken to be $(\R,\B)$ or $(\R^d,\B(\R^d))$, 
+    but it is also possible to define random functions, i.e., 
+    $(S,\S)$ is a function space. 
+\end{remark}
+
+\begin{definition}
+    Let $X:(\Omega,\F)\to (S,\S)$ be a random variable. The \textbf{distribution} 
+    of $X$ is the pushforward measure of $\P$ under $X$, i.e., 
+    \begin{equation*}
+        \mu_X(A) = \P(X\in A) = \P(X^{-1}(A)),\quad A\in\S.
+    \end{equation*} 
+\end{definition}
+
+\begin{definition}
+    Let $X:(\Omega,\F)\to (\R^d,\B)$ be a random variable. The 
+    \textbf{cumulative distribution function} of $X$ is defined as 
+    \begin{equation*}
+        F_X(x) = \P(X\leq x) = \P(X_1\leq x_1,\ldots,X_d\leq x_d),\quad x=(x_1,\ldots,x_d)\in\R^d.
+    \end{equation*} 
+\end{definition}
+
+\begin{proposition}
+    Let $X:(\Omega,\F)\to (\R,\B)$ be a random variable and $F$ be 
+    its cumulative distribution function. Then, 
+    \begin{thmenum}
+        \item $F$ is non-decreasing, i.e., $x\leq y$ implies $F(x)\leq F(y)$; 
+        \item $F(-\infty) = 0$ and $F(\infty) = 1$; 
+        \item $F$ is right-continuous, i.e., $\lim_{y\to x^+} F(y) = F(x)$; 
+        \item $F(x^-) = \P(X < x)$; 
+        \item $\P(X = x) = F(x) - F(x^-)$.
+    \end{thmenum}
+\end{proposition}
+\begin{proof}
+    (a) comes from that $\set{X\leq x}\subset\set{X\leq y}$ for $x\leq y$. 
+
+    Take $a_n\to\infty$. Then $\set{X\leq a_n}\nearrow\Omega$ and 
+    $\set{X\leq -a_n}\searrow\emptyset$. By \cref{thm:monotone_conv_measure}, 
+    we have that 
+    \begin{equation*}
+        F(a_n) = \P(X\leq a_n)\to\P(\Omega) = 1,\quad F(-a_n) = \P(X\leq -a_n)\to\P(\emptyset) = 0.
+    \end{equation*} 
+
+    (c) is similar to (b). Take $y_n\to x^+$, then $\set{X\leq y_n}\searrow\set{X\leq x}$. 
+    By \cref{thm:monotone_conv_measure}, we have that 
+    \begin{equation*}
+        F(y_n) = \P(X\leq y_n)\to\P(X\leq x) = F(x).
+    \end{equation*}
+
+    For (d), take $x_n\to x^-$, then $\set{X \leq x_n}\nearrow\set{X < x}$. 
+    By \cref{thm:monotone_conv_measure}, we have that
+    \begin{equation*}
+        F(x_n) = \P(X\leq x_n)\to\P(X < x).
+    \end{equation*}
+
+    For (e), $\P(X = x) = \P(X\leq x) - \P(X < x) = F(x) - F(x^-)$.
+\end{proof}
+
+\begin{theorem}
+    Let $F$ be a non-decreasing, right-continuous function satisfying that 
+    $F(-\infty) = 0$ and $F(\infty) = 1$. Then there is a random variable 
+    $X$ such that 
+    \begin{equation*}
+        F(x) = \mu_X((-\infty, x]).
+    \end{equation*}
+\end{theorem}
+\begin{proof}
+    Put $\Omega = (0,1)$, $\F = \B$, $\P$ be the Lebesgue measure and 
+    $X(\omega) = \sup\Set{x}{F(x)< \omega}$. Notice that 
+    \begin{equation*}
+        \begin{split}
+            \set{X\leq x} &= \Set{\omega\in\Omega}{\sup\Set{y}{F(y)<\omega}\leq x} \\ 
+            &= \Set{\omega\in\Omega}{\text{for all } y>x, F(y)\geq \omega} \\
+            &= \Set{\omega\in\Omega}{F(x)\geq \omega}.
+        \end{split}
+    \end{equation*}
+    Hence $\P(X\leq x) = \P(\Set{\omega\in\Omega}{\omega \leq F(x)}) = F(x)$.
+\end{proof}
+
+\begin{definition}
+    If $X$ and $Y$ are random variables mapping to some measurable space 
+    $(S,\S)$, then $X$ and $Y$ are said to be \textbf{equal in distribution} 
+    if $\mu_X = \mu_Y$, denoted by $X\deq Y$. 
+\end{definition}
+
+\begin{definition}
+    Let $X:\Omega\to \R$ be a random variable with distribution $F$. $f:\R\to\R$ 
+    is said to be the \textbf{density} of $X$ if
+    \begin{equation*}
+        F(x) = \int_{-\infty}^x f(y)dy 
+    \end{equation*}
+    for all $x\in\R$.
+\end{definition}
+\begin{remark}
+    If $f$ and $g$ are both densities of $X$, then $f = g$ a.e. 
+\end{remark}
+\begin{remark}
+    If $\mu_X\ll \lambda$, where $\lambda$ is the Lebesgue measure, then by Radon-Nikodym 
+    theorem, there is a density $f$ such that
+    \begin{equation*}
+        \mu_X(A) = \int_A f(x)d\lambda(x)
+    \end{equation*}
+    for all $A\in\B$. Or equivalently, $F$ is absolutely continuous. 
+\end{remark}
+
+\begin{example}
+    Not all random variables have densities, even when its CDF is continuous. 
+    Consider the Cantor function 
+    \begin{equation*}
+        F(x) = \begin{cases}
+            \sum_n \frac{a_n}{2^n}, & x = \sum_n \frac{2a_n}{3^n}\in C\text{ for some } \set{a_n}\in\set{0,1}^\mathbb{N} \\ 
+            \sup_{y\leq x, y\in C} F(y), & x\in[0,1]-C \\
+            0, & x<0 \\
+            1, & x>1
+        \end{cases}
+    \end{equation*}
+    where $C$ is the Cantor set. Then $F$ is a valid CDF, but has no density.
+\end{example}
+
+\begin{definition}
+    A probability measure $\P$ is said to be \textbf{discrete} if there is a countable 
+    set $S$ such that $\P(S^c) = 0$. A random variable $X$ is said to be \textbf{discrete} 
+    if its distribution is. 
+\end{definition}
+
+\begin{theorem}
+    Suppose $X:(\Omega, \F)\to (S,\sigma(\A))$ and $\A$ is a collection of subsets 
+    in $S$. If $X^{-1}(A)\in\F$ for all $A\in\A$, then $X$ is a random variable.
+\end{theorem}
+\begin{proof}
+    Set $\G = \Set{A\subset S}{X^{-1}(A)\in\F}$. Clearly $\varnothing\in\G$ and 
+    if $A\in\G$, $X^{-1}(A^c) = (X^{-1}(A))^c\in\F$, so $A^c\in\G$. If $A_n\in\G$, 
+    then $X^{-1}(\cup_n A_n) = \cup_n X^{-1}(A_n)\in\F$, so $\cup_n A_n\in\G$. 
+    Hence $\G$ is a $\sigma$-algebra containing $\A$, so $\sigma(\A)\subset\G$. 
+    It follows that $X^{-1}(B)\in\F$ for all $B\in\sigma(\A)$, so $X$ is a 
+    random variable.
+\end{proof}
+
+\begin{corollary}
+    If $X_i$ are random variables, then 
+    \begin{equation*}
+        \inf_i X_i,\quad \sup_i X_i,\quad \liminf_{i\to\infty} X_i,\quad \limsup_{i\to\infty} X_i
+    \end{equation*} 
+    are all random variables.
+\end{corollary}
+\begin{proof}
+    Since the sets of the form $(-\infty, x]$ generate $\B$, it suffices to check 
+    that the inverse images of these sets are in $\F$. For $\inf_i X_i$, 
+    \begin{equation*}
+        \set{\inf_i X_i \leq x} = \cup_i \set{X_i \leq x}\in\F.
+    \end{equation*} 
+    For $\sup_i X_i$, since $\sup_i X_i = -\inf_i (-X_i)$, it is also a random 
+    variable. Finally, write 
+    \begin{equation*}
+        \liminf_i X_i = \sup_n \inf_{i\geq n} X_i,\quad \limsup_i X_i = \inf_n \sup_{i\geq n} X_i.
+    \end{equation*}
+    The results follow from the measurability of $\inf_i X_i$ and $\sup_i X_i$. 
+\end{proof}
+
+\begin{definition}
+    Let $X$ be a random variable. $\sigma(X)$ is the smallest $\sigma$-algebra 
+    such that $X$ is measurable. 
+\end{definition}
+\begin{remark}
+    If $X:\Omega\to (S,\S)$, then $\sigma(X) = X^{-1}(\S)$. 
+\end{remark}
+
+\begin{definition}
+    Let $X$ be a random variable. The \textbf{expectation} of $X$ is defined as 
+    \begin{equation*}
+        \E\sbrc{X} = \int Xd\P.
+    \end{equation*}
+\end{definition}
+
+\begin{theorem}[Jensen's Inequality]
+    Let $X:\Omega\to\R^d$ be a random variable such that $\E[\norm{X}_1]<\infty$ 
+    and $\phi:\R^d\to\R$ be a convex function. Then 
+    \begin{equation*}
+        \phi(\E[X]) \leq \E[\phi(X)].
+    \end{equation*}
+\end{theorem}
+\begin{proof}
+    For any given $y\in\R^d$, note that $\Set{x\in\R^d}{\phi(x)> \phi(y)}$ is
+    a open convex set. By the Hahn-Banach seperation theorem, there is a hyperplane
+    $\set{f(x) = a + \inp{b}{x}}$ separating $\Set{(x,\phi(x))\in\R^{d+1}}{\phi(x)> \phi(y)}$ and 
+    $\set{(y,\phi(y))}$. Note that $\phi(y) = f(y)$ and $\phi(x)\geq f(x)$ for all 
+    $x\in\R^d$. Take $y = \E[X]$, then 
+    \begin{equation*}
+        \phi(\E[X]) = f(\E[X]) = \E[f(X)] \leq \E[\phi(X)].
+    \end{equation*}
+\end{proof}
+
+\begin{theorem}[Hölder's Inequality]
+    Let $X,Y$ be random variables and $p,q\in[1,\infty]$ such that
+    $\frac{1}{p} + \frac{1}{q} = 1$. Then 
+    \begin{equation*}
+        \E[\abs{XY}] \leq \E[\abs{X}^p]^{1/p} \E[\abs{Y}^q]^{1/q}.
+    \end{equation*}
+\end{theorem}
+\begin{proof}
+    If $\E[\abs{X}^p]$ and $\E[\abs{Y^q}]$ are zero or infinite, the result is trivial.
+    We assume that $\E[\abs{X}^p] = \E[\abs{Y}^q] = 1$. For fixed $y\geq 0$, set 
+    $\phi(x) = x^p/p + y^p/p - xy$ for $x\geq 0$. 
+    \begin{equation*}
+        \phi'(x) = x^{p-1} - y,\quad \phi''(x) = (p-1)x^{p-2}\geq 0.
+    \end{equation*}
+    Thus $\phi$ is convex and minimized at $x = y^{1/(p-1)}$ with minimum 
+    $\phi(y^{1/(p-1)}) = 0$. Hence $x^p/p + y^q/q\geq xy$ for all $x,y\geq 0$.
+    \begin{equation*}
+        \E[\abs{XY}] \leq \E\sbrc{\frac{\abs{X}^p}{p} + \frac{\abs{Y}^q}{q}} 
+        = \frac{1}{p} + \frac{1}{q} = 1 = \E[\abs{X}^p]^{1/p} \E[\abs{Y}^q]^{1/q}.
+    \end{equation*}
+\end{proof}
+
+\begin{theorem}[Markov's Inequality]
+    If $X\geq 0$ is a random variable, then for any $c>0$, 
+    \begin{equation*}
+        \P(X\geq c) \leq \frac{1}{c}\E[X].
+    \end{equation*}
+\end{theorem}
+\begin{proof}
+    \begin{equation*}
+        \P(X\geq c) = \int \one\set{X\geq c}d\P\leq \int\frac{X}{c}d\P 
+        = \frac{1}{c}\E[X].
+    \end{equation*}
+\end{proof}
+
+\begin{example}
+    Suppose $\phi:\R\to\R$ is a non-negative function. Put 
+    \begin{equation*}
+        I_A = \inf_{y\in A}\phi(y), 
+    \end{equation*}
+    where $A$ is some measurable set. Then for any random variable $X$, 
+    \begin{equation*}
+        I_A\one\set{X\in A}\leq \phi(x)\one\set{X\in A}\leq\phi(x).
+    \end{equation*}
+    Thus 
+    \begin{equation*}
+        I_A\P(X\in A) \leq \E\sbrc{\phi(X)}. 
+    \end{equation*}
+\end{example}
+
+\begin{corollary}[Chebyshev's Inequality]
+    Let $X$ be a random variable. Then for any $c>0$ and $\alpha\in\R$, 
+    \begin{equation*}
+        \P(\abs{X - \alpha}\geq c) \leq \frac{1}{c^2}\E\sbrc{(X-\alpha)^2}.
+    \end{equation*}
+\end{corollary}
+\begin{proof}
+    By the Markov's inequality,
+    \begin{equation*}
+        \P(\abs{X - \alpha}\geq c) = \P((X-\alpha)^2\geq c^2) \leq \frac{1}{c^2}\E\sbrc{(X-\alpha)^2}.
+    \end{equation*}
+\end{proof}
+
+\begin{theorem}
+    Suppose $X$ is a random variable of $(S,\S)$ with distribution $\mu$ and 
+    $f:(S,\S)\to(\R,\B)$ is measurable. If either 
+    \begin{thmenum}
+        \item $f\geq 0$, or 
+        \item $\E\sbrc{\abs{f(X)}}<\infty$, 
+    \end{thmenum} 
+    then 
+    \begin{equation*}
+        \E\sbrc{f(X)} = \int f(x)d\mu(x).
+    \end{equation*}
+\end{theorem}
+\begin{proof}
+    Suppose first that $f = \one_A$ for some $A\in\S$. Then 
+    \begin{equation*}
+        \E\sbrc{f(X)} = \P(X\in\A) = \P(X^{-1}(A)) = \mu(A) = \int \one_Ad\mu.
+    \end{equation*}
+    By linearity we can extend this result to simple functions. Now suppose 
+    first that (a) holds. For such $f$, there is a sequence of simple functions 
+    $s_n\nearrow f$ and $s_n\circ X\nearrow f\circ X$. By LMCT, 
+    \begin{equation*}
+        \E\sbrc{f(X)} = \E\sbrc{\lim_n s_n(X)} = \lim_n\E\sbrc{s_n(X)} 
+        = \lim_n\int s_nd\mu = \int fd\mu. 
+    \end{equation*}
+    Suppose that (b) is the case. Write $f = f^+ - f^-$ and apply the previous 
+    result. 
+    \begin{equation*}
+        \E\sbrc{f(X)} = \E\sbrc{f^+(X)} - \E\sbrc{f^-(X)} 
+        = \int f^+d\mu - \int f^-d\mu = \int fd\mu. 
+    \end{equation*}
+\end{proof}
+
+\begin{definition}
+    The \textbf{$k$-th moment} of a random variable $X$ is $\E\sbrc{X^k}$. 
+\end{definition}
+
+\begin{definition}
+    The \textbf{variance} of a random variable $X$ is $\Var\E\sbrc{(X - \E\sbrc{X})^2}$.
+\end{definition}
+
+\begin{definition}
+    The \textbf{covariance} of two integrable random variables $X,Y$ is 
+    \begin{equation*}
+        \Cov(X,Y) = \E\sbrc{(X - \E\sbrc{X})(Y - \E\sbrc{Y})}. 
+    \end{equation*}
+\end{definition}

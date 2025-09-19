@@ -45,7 +45,7 @@
     as $\sigma(\S)$. 
 \end{definition}
 
-\begin{theorem}
+\begin{theorem}\label{thm:monotone_conv_measure}
     Let $(\Omega, \F, \P)$ be a probability space. Then 
     \begin{thmenum}
         \item If $A, B\in\F$ and $A\subset B$, then $\P(A)\leq\P(B)$. 
@@ -172,7 +172,7 @@
     \end{thmenum}
 \end{definition}
 
-\begin{theorem}
+\begin{theorem}\label{thm:premeasure}
     Let $\nu$ be a set function on a semi-algebra $\S$ such that 
     $\nu(\varnothing) = 0$. Suppose that 
     \begin{thmenum}
@@ -189,7 +189,7 @@
     know that $\S$ generates an algebra $\A = 
     \set{\text{finite disjoint union of sets in }\S}$. Define 
     our candidate $\mu_0$ by $\mu_0(A) = \sum_i\nu(A_i)$ 
-    for $A = \cup_i A_i$ where $A_i$ are disjoint. To see that 
+    for $A = \cup_i A_i$ where $A_i\in\S$ are disjoint. To see that 
     $\mu_0$ is well-defined, suppose $A = \cup_i B_i$ 
     for disjoint $B_i\in\S$. Observe that 
     \begin{equation*}
@@ -204,14 +204,312 @@
     by (a). Thus $\mu_0$ is well-defined. 
     
     Now we check that $\mu_0$ is a premeasure. Clearly 
-    $\mu_0(\varnothing) = 0$. For countably many disjoint 
-    $A_i\in\A$, if $A = \cup_i A_i\in\A$, 
+    $\mu_0(\varnothing) = 0$. For finitely many disjoint 
+    $A_i\in\A$ such that $\cup_i A_i\in\A$, we can write 
+    $A_i = \cup_j B_{ij}$ for disjoint $B_{ij}\in\S$. Then 
+    (a) implies that 
+    \begin{equation*}
+        \mu_0(\cup_i A_i) = \mu_0(\cup_{i,j} B_{ij})
+        = \sum_{i,j} \nu(B_{ij}) = \sum_i\sum_j \mu_0(B_{ij})
+        = \sum_i \mu_0(A_i).
+    \end{equation*}
+
+    Next, for countably many disjoint $A_i\in\A$ such that 
+    $A = \cup_i A_i\in\A$, write $A_i = \cup_j B_{ij}$, where 
+    $B_{ij}\in\S$ are finite disjoint for each $i$. Then 
+    $\mu_0(A_i) = \sum_j \nu(B_{ij})$ and
+    \begin{equation*}
+        \sum_i \mu_0(A_i) = \sum_i\sum_j \nu(B_{ij}).
+    \end{equation*}
+    Without loss of generality, we may choose $A_i$ to be those in $\S$
+    since otherwise we can replace $A_i$ by $B_{ij}$. We assume that $A_i\in\S$ 
+    from now on. Since $A\in\A$, $A = \cup_i C_i$ for finite disjoint 
+    $C_i\in\S$. $C_i = \cup_j (C_i\cap A_j)$. Thus (b) gives that 
+    \begin{equation*}
+        \nu(C_i) \leq \sum_j \nu(C_i\cap A_j).
+    \end{equation*}
+    Then 
+    \begin{equation*}
+        \mu_0(A) = \sum_i \nu(C_i) \leq \sum_i\sum_j \nu(C_i\cap A_j) 
+        = \sum_j\sum_i \nu(C_i\cap A_j) = \sum_j \nu(A_j) = \sum_j \mu_0(A_j).
+    \end{equation*}
+    For the opposite inequality, set $B_n = \cup_{i=1}^n A_i$ and $C_n = A - B_n$. 
+    Since $\A$ is an algebra, $C_n\in\A$ and the finite additivity shows that 
+    \begin{equation*}
+        \mu_0(A) = \sum_{i=1}^n\mu_0(A_i) + \mu_0(C_n) \geq \sum_{i=1}^n \mu_0(A_i).
+    \end{equation*}
+    Taking $n\to\infty$ gives the desired inequality and thus $\mu_0$ is $\sigma$-additive 
+    on $\A$. 
+
+    Finally, if $\mu_1$ is another premeasure on $\A$ extending $\nu$, then for
+    $A = \cup_i A_i$ for disjoint $A_i\in\S$,
+    \begin{equation*}
+        \mu_1(A) = \sum_i \nu(A_i) = \mu_0(A).
+    \end{equation*}
 \end{proof}
+
+\begin{definition}
+    A collection of sets $\mathcal{P}$ is called a \textbf{$\pi$-system} if
+    $A, B\in\mathcal{P}$ implies $A\cap B\in\mathcal{P}$.
+\end{definition}
+
+\begin{definition}
+    A collection of sets $\L$ is called a \textbf{$\lambda$-system} if 
+    \begin{thmenum}
+        \item $\Omega\in\L$. 
+        \item If $A, B\in\L$ and $A\subset B$, then $B - A\in\L$. 
+        \item If $A_i\in\L$ and $A_i\nearrow A$, then $A\in\L$.
+    \end{thmenum}
+\end{definition}
+
+\begin{theorem}[Sierpi\'nski-Dynkin $\pi$-$\lambda$]
+    If $\mathcal{P}$ is a $\pi$-system and $\L$ is a $\lambda$-system
+    containing $\mathcal{P}$, then $\sigma(\mathcal{P})\subset\L$.
+\end{theorem}
+\begin{proof}
+    First we show that a collection $\S$ is a $\sigma$-algebra if and only if 
+    it is both a $\pi$-system and a $\lambda$-system. Suppose first that $\S$ 
+    is a $\pi$-system and a $\lambda$-system. $\varnothing = \Omega - \Omega\in\S$. 
+    If $A\in\S$, then $A^c = \Omega - A\in\S$. For $A, B\in\S$, $A\cup B = (A^c\cap B^c)^c\in\S$
+    since we have shown that $\S$ is closed under complement and intersection by 
+    being a $\pi$-system. Thus $\S$ is also closed under finite unions. If 
+    $A_i\in\S$ are countably many sets, let $B_n = \cup_{i=1}^n A_i\in\S$. Then 
+    $B_n\nearrow \cup_i A_i$ and thus $\cup_i A_i\in\S$. 
+
+    Conversely, if $\S$ is a $\sigma$-algebra, then for $A, B\in\S$, 
+    $A\cap B = (A^c\cup B^c)^c\in\S$. Thus $\S$ is a $\pi$-system. 
+    If $A, B\in\S$ and $A\subset B$, then $B - A = B\cap A^c\in\S$. 
+    Finally, if $A_i\in\S$ and $A_i\nearrow A$, then $A = \cup_i (A_i - A_{i-1})\in\S$ 
+    with $A_0 = \varnothing$. Thus $\S$ is a $\lambda$-system. 
+
+    Now set $\L$ to be the smallest $\lambda$-system containing $\mathcal{P}$. 
+    It suffices to show that $\L$ is also a $\pi$-system and thus by the above 
+    conclusion, $\L$ is a $\sigma$-algebra containing $\mathcal{P}$; hence 
+    $\sigma(\mathcal{P})\subset\L$. 
+
+    To show that $\L$ is a $\pi$-system, let $A,B\in\L$. If $A, B\in\mathcal{P}$, 
+    $A\cap B\in\mathcal{P}\subset\L$. To extend the result for general $A, B\in\L$, 
+    we first fix $B\in\mathcal{P}$ and define 
+    \begin{equation*}
+        \L_B = \Set{A}{A\cap B\in\L}.
+    \end{equation*}
+    We claim that $\L_B$ is a $\lambda$-system containing $\mathcal{P}$. For 
+    $A\in\mathcal{P}$, $A\cap B\in\L$. Thus $\mathcal{P}\subset\L_B$.
+    Clearly $\Omega\in\L_B$. If $E,F\in\L_B$ and $E\subset F$, then
+    \begin{equation*}
+        (F-E)\cap B = (F\cap B) - (E\cap B)\in\L.  
+    \end{equation*}
+    Thus $F-E\in\L_B$. Finally, if $E_i\in\L_B$ and $E_i\nearrow E$, then
+    \begin{equation*}
+        E\cap B = \cup_i (E_i\cap B)\in\L.
+    \end{equation*}
+    Hence $E\in\L_B$ and we conclude that $\L_B$ is a $\lambda$-system. 
+    Since it is a $\lambda$-system containing $\mathcal{P}$, it also contains 
+    the smallest $\lambda$-system $\L$ with the intersection property. Thus 
+    $A\cap B\in\L$ whenever $A\in\L$ and $B\in\mathcal{P}$. 
+
+    Next, fix $A\in\L$ and define $\L_A = \Set{B}{A\cap B\in\L}$. Clearly 
+    $\L_A$ contains $\L$ and $\Omega\in\L_A$. If $E, F\in\L_A$ and $E\subset F$, then
+    \begin{equation*}
+        (F-E)\cap A = (F\cap A) - (E\cap A)\in\L. 
+    \end{equation*}
+    Thus $F-E\in\L_A$. Finally, if $E_i\in\L_A$ and $E_i\nearrow E$, then 
+    \begin{equation*}
+        E\cap A = \cup_i (E_i\cap A)\in\L. 
+    \end{equation*}
+    Hence $E\in\L_A$ and we conclude that $\L_A$ is a $\lambda$-system. 
+    Since it contains $\mathcal{L}$, $A,B\in\L$ implies $A\cap B\in\L$; 
+    in other words, $\L$ is a $\pi$-system and the proof is complete.
+\end{proof}
+
+\begin{corollary}\label{cor:measure_agree}
+    Let $\mu$ and $\nu$ be two probability measures agreeing on a $\pi$-system 
+    $\mathcal{P}$, i.e., $\mu(A) = \nu(A)$ for all $A\in\mathcal{P}$. 
+    Then $\mu(A) = \nu(A)$ for all $A\in\sigma(\mathcal{P})$. 
+\end{corollary}
+\begin{proof}
+    Put 
+    \begin{equation*}
+        \L = \Set{A}{\mu(A) = \nu(A)}.
+    \end{equation*}
+    We claim that $\L$ is a $\lambda$-system containing $\mathcal{P}$. 
+    It is clear that by our assumption, $\mathcal{P}\subset\L$ and 
+    $\Omega\in\L$. If $A,B\in\L$ and $A\subset B$, then 
+    \begin{equation*}
+        \mu(B-A) = \mu(B) - \mu(A) = \nu(B) - \nu(A) = \nu(B-A).
+    \end{equation*}
+    Thus $B-A\in\L$. Finally, if $A_i\in\L$ and $A_i\nearrow A$, then 
+    \begin{equation*}
+        \mu(A) = \lim_{i\to\infty} \mu(A_i) = \lim_{i\to\infty} \nu(A_i) = \nu(A).
+    \end{equation*}
+    Hence $A\in\L$ and we conclude that $\L$ is a $\lambda$-system. 
+    By the Sierpi\'nski-Dynkin $\pi$-$\lambda$ theorem, 
+    $\sigma(\mathcal{P})\subset\L$; in other words, $\mu$ and $\nu$ agree 
+    on $\sigma(\mathcal{P})$.
+\end{proof}
+
+\begin{definition}
+    A measure $\mu$ on a measurable space $(\Omega, \F)$ is 
+    called \textbf{$\sigma$-finite} if there exists countable 
+    $A_i\in\F$ such that $\cup_i A_i = \Omega$ and $\mu(A_i)<\infty$.
+\end{definition}
+
+\begin{definition}
+    A set function $\mu^*: 2^\Omega\to[0,\infty]$ is called an \textbf{outer measure} if 
+    \begin{thmenum}
+        \item $\mu^*(\varnothing) = 0$. 
+        \item If $A\subset B$, then $\mu^*(A)\leq \mu^*(B)$. 
+        \item For countably many $A_i\subset\Omega$, $\mu^*(\cup_i A_i) \leq \sum_i \mu^*(A_i)$.
+    \end{thmenum}
+\end{definition}
+
+\begin{definition}
+    Let $\mu^*$ be an outer measure. A set $A\subset\Omega$ is said to be 
+    \textbf{Carath\'eodory measurable} or \textbf{$\mu^*$-measurable} if for 
+    all $E\subset\Omega$, 
+    \begin{equation*}
+        \mu^*(E) = \mu^*(E\cap A) + \mu^*(E\cap A^c).
+    \end{equation*}
+\end{definition}
+
+\begin{lemma}\label{lem:caratheodory}
+    Let $\mu^*$ be an outer measure on $\Omega$. Then the collection of all
+    $\mu^*$-measurable sets forms a $\sigma$-algebra $\F$ and $\mu^*|_\F$ is 
+    a measure.
+\end{lemma}
+\begin{proof}
+    Put 
+    \begin{equation*}
+        \F = \Set{A\subset\Omega}{\mu^*(E) = \mu^*(E\cap A) + \mu^*(E\cap A^c) \text{ for all } E\subset\Omega}.
+    \end{equation*}
+    We first show that $\F$ is a $\sigma$-algebra. Clearly $\varnothing\in\F$ and
+    if $A\in\F$, then $A^c\in\F$. For $A, B\in\F$, let $C = A\cup B$. The property of
+    outer measure gives that $\mu^*(E)\leq \mu^*(E\cap C) + \mu^*(E\cap C^c)$.
+    To see the opposite inequality, note that $C = A\cup (B\cap A^c)$ and
+    \begin{equation*}
+        \begin{split}
+            \mu^*(E\cap C) + \mu^*(E\cap C^c) 
+            &\leq \mu^*(E\cap A) + \mu^*(E\cap B\cap A^c) + \mu^*(E\cap A^c\cap B^c) \\
+            &= \mu^*(E\cap A) + \mu^*(E\cap A^c) = \mu^*(E).
+        \end{split}
+    \end{equation*}
+    Hence $C\in\F$ and $\F$ is closed under finite unions. For countable disjoint 
+    $A_i\in\F$ with $A = \cup_i A_i$, let $B_n = \cup_{i=1}^n A_i\in\F$. Then 
+    \begin{equation*}
+        \mu^*(E\cap A) = \mu^*(E\cap B_n) + \mu^*(E\cap B_n^c)
+        \geq \mu^*(E\cap B_n) = \sum_{i=1}^n \mu^*(E\cap A_i).
+    \end{equation*} 
+    Taking $n\to\infty$ gives that 
+    \begin{equation*}
+        \mu^*(E\cap A) \geq \sum_i \mu^*(E\cap A_i) 
+        \geq \mu^*(E\cap A)
+    \end{equation*}
+    by the $\sigma$-subadditivity of outer measure. Hence 
+    $\mu^*(E\cap A) = \sum_i \mu^*(E\cap A_i)$. Note also 
+    that $E\cap A^c\subset E\cap B_n^c$ so 
+    $\mu^*(E\cap A^c)\leq \mu^*(E\cap B_n^c)$. 
+    Thus 
+    \begin{equation*}
+        \mu^*(E) = \mu^*(E\cap B_n) + \mu^*(E\cap B_n^c) 
+        \geq \sum_{i=1}^n \mu^*(E\cap A_i) + \mu^*(E\cap A^c) 
+        \to \mu^*(E\cap A) + \mu^*(E\cap A^c)
+        \geq \mu^*(E)
+    \end{equation*}
+    by the $\sigma$-subadditivity of outer measure. We conclude that 
+    $\F$ is a $\sigma$-algebra. 
+
+    Finally, denote $\mu^*|_\F$ by $\mu$. Clearly $\mu(\varnothing) = 0$. 
+    For countably many disjoint $A_i\in\F$ such that $A = \cup_i A_i\in\F$, 
+    let $B_n = \cup_{i=1}^n A_i\in\F$. Then 
+    \begin{equation*}
+        \mu(A) = \mu(B_n) + \mu(A\cap B_n^c) 
+        \geq \mu(B_n) = \sum_{i=1}^n \mu(A_i) 
+        \to \sum_i \mu(A_i) \geq \mu(A).
+    \end{equation*}
+    Hence $\mu(A) = \sum_i \mu(A_i)$ and $\mu$ is a measure on $\F$. 
+\end{proof}
+
+\begin{theorem}[Carath\'eodory Extension]
+    Let $\nu$ be a finitely additive, $\sigma$-subadditive 
+    set function on a semi-algebra $\S$ such that $\nu(\varnothing) = 0$. 
+    Then $\nu$ can be extended to a measure on $\sigma(\S)$. 
+\end{theorem}
+\begin{proof}
+    By \cref{thm:premeasure}, $\nu$ can be extended to a premeasure $\mu_0$ 
+    on the algebra $\A$ generated by $\S$. Define the outer measure by 
+    \begin{equation*}
+        \mu^*(A) = \inf\Set{\sum_i \mu_0(E_i)}{A\subset \cup_i E_i, E_i\in\A}
+    \end{equation*}
+    for all $A\subset\Omega$ with the convention that $\inf\varnothing = \infty$. 
+    We check that $\mu^*$ is indeed an outer measure. Clearly $\mu^*(\varnothing) = 0$. 
+    If $A\subset B$, then any cover of $B$ by sets in $\A$ is also a cover of 
+    $A$ and hence $\mu^*(A)\leq \mu^*(B)$. For countably many $A_i\subset\Omega$, 
+    we can find $\set{E_{ij}}_j$ covering $A_i$ such that 
+    \begin{equation*}
+        \sum_j \mu_0(E_{ij}) \leq \mu^*(A_i) + 2^{-i}\epsilon
+    \end{equation*}
+    for some $\epsilon>0$. Then $\cup_{i,j} E_{ij}$ covers $\cup_i A_i$ 
+    and 
+    \begin{equation*}
+        \mu^*(\cup_i A_i)\leq \sum_i\sum_j \mu_0(E_{ij})
+        \leq \sum_i \mu^*(A_i) + \epsilon.
+    \end{equation*}
+    Since $\epsilon$ is arbitrary, we conclude that 
+    $\mu^*(\cup_i A_i)\leq \sum_i \mu^*(A_i)$ and $\mu^*$ is 
+    indeed an outer measure. 
+
+    It follows from \cref{lem:caratheodory} that the collection
+    of all $\mu^*$-measurable sets forms a $\sigma$-algebra $\F$ and
+    $\mu^*$ restricted on $\F$ is a measure. It is clear that $\A\subset\F$
+    and $\sigma(\S)\subset\sigma(\A)\subset\F$ and $\mu = \mu^*|_{\sigma(\S)}$
+    is also a measure. Finally, for $A, A_i\in\S$ where $A_i$ covers 
+    $A$, 
+    \begin{equation*}
+        \mu(A) = \mu^*(A) \leq \nu(A) \leq \sum_i \nu(A\cap A_i) 
+        \leq \sum_i \nu(A_i).
+    \end{equation*}
+    Taking the infimum over all such covers, we get $\nu(A) = \mu^*(A)$ 
+    and $\mu$ is indeed an extension of $\nu$. 
+\end{proof}
+\begin{remark}
+    If the measures are probability measures, then we have that the extension 
+    is unique by \cref{cor:measure_agree}. 
+\end{remark}
+
 
 \begin{theorem}
     If $F$ is non-decreasing, right-continuous and satisfies that $F(-\infty) = 0$, 
-    $F(\infty) = 1$, then there is a probability measure such that 
+    $F(\infty) = 1$, then there is a unique probability measure such that 
     \begin{equation*}
         \P((-\infty, x]) = F(x). 
     \end{equation*}
 \end{theorem}
+\begin{proof}
+    Define 
+    \begin{equation*}
+        \S = \Set{(a, b]}{-\infty \leq a < b \leq \infty} \cup \set{\varnothing}.
+    \end{equation*}
+    It is clear that $\S$ is a semi-algebra. Define the set function $\P:\S\to[0,1]$ 
+    by 
+    \begin{equation*}
+        \P((a,b]) = F(b) - F(a)
+    \end{equation*}
+    and $\P(\varnothing) = 0$. For disjoint, at most countable $(a_i, b_i]\in\S$, we define
+    \begin{equation*}
+        \P\pth{\cup_i (a_i, b_i]} = \sum_i \P((a_i, b_i]) 
+        = \sum_i F(b_i) - F(a_i).
+    \end{equation*}
+    It is clear that $\P$ is finitely additive. If $(a,b] = \cup_i (a_i, b_i]$ for disjoint 
+    $(a_i, b_i]\in\S$, we may assume without loss of generality that $a = a_1 < b_1 < b_2 < \cdots < b_n = b$ 
+    and 
+    \begin{equation*}
+        \P((a,b]) = F(b) - F(a) = \sum_i F(b_i) - F(a_i) = \sum_i \P((a_i, b_i]).
+    \end{equation*}
+    Hence $\P$ is $\sigma$-additive. It now follows from the Carath\'eodory extension theorem that 
+    $\P$ can be extended uniquely to a probability measure on $\sigma(\S) = \B$.
+\end{proof}
+\begin{remark}
+    This theorem shows that the distribution function completely characterizes the 
+    probability measure. In other words, the term ``distribution function'' can 
+    refer to either the CDF or the probability measure.
+\end{remark}
