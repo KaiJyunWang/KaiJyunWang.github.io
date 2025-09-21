@@ -39,7 +39,7 @@
     $g_1(X_1),\ldots,g_n(X_n)$ are independent. 
 \end{proof}
 
-\begin{theorem}
+\begin{theorem}\label{thm:pi-system_independence}
     Let $\S_1,\ldots\S_n$ be a collection of $\pi$-system. If $\Omega\in \S_i$ 
     for all $i = 1,\ldots,n$ and for all $A_i\in\S_i$, 
     \begin{equation*}
@@ -48,5 +48,103 @@
     then $\sigma(\S_1),\ldots,\sigma(\S_n)$ are independent. 
 \end{theorem}
 \begin{proof}
-    
+    Fix $\S_2,\ldots,\S_n$. Put 
+    \begin{equation*}
+        \L = \Set{A\in\F}{\P(A\cap (\cap_{i=2}^n A_i)) = \P(A)\prod_{i=2}^n \P(A_i), A_i\in\S_i\text{ for $i = 2,\ldots,n$}}.
+    \end{equation*}
+    We claim that $\L$ forms a $\lambda$-system. First, by assumption we can 
+    pick $A_i = \Omega$ for $i=2,\ldots,n$ to see that $\Omega\in\L$. Suppose 
+    that $A\subset B$, $A,B\in\L$, 
+    \begin{equation*}
+        \begin{split}
+            \P((B-A)\cap(\cap_{i=2}^n A_i)) 
+            &= \P((B\cap(\cap_{i=2}^n A_i)) - (A\cap(\cap_{i=2}^n A_i))) \\ 
+            &= \P(B)\prod_{i=2}^n\P(A_i) - \P(A)\prod_{i=2}^n\P(A_i) 
+            = \P(B-A)\prod_{i=2}^n\P(A_i).
+        \end{split}
+    \end{equation*}
+    Hence $B-A\in\L$. Let $S_j\nearrow S$, $S_j\in\L$. Then 
+    \begin{equation*}
+        \P(S\cap(\cap_{i=2}^nA_i)) = \lim_{j\to\infty} \P(S_j\cap(\cap_{i=2}^nA_i)) 
+        = \lim_{j\to\infty}\P(S_j)\prod_{i=2}^n\P(A_i) 
+        = \P(S)\prod_{i=2}^n\P(A_i).
+    \end{equation*} 
+    Thus $S\in\L$ and $\L$ is a $\lambda$-system. By Dynkin's $\pi$-$\lambda$, 
+    $\sigma(\S_1),\S_2,\ldots,\S_n$ satisfies the product property. Repeat the 
+    procedure for $\S_2,\ldots,\S_n$. We have that $\sigma(\S_1),\ldots,\sigma(\S_n)$ 
+    satisfies the product property. That is, they are independent. 
 \end{proof}
+
+\begin{corollary}
+    Let $X_1,\ldots,X_n$ be $\R$-valued random variables. Then they are independent 
+    if and only if 
+    \begin{equation*}
+        \P(X_1\leq s_1,\ldots, X_n\leq s_n) = \prod_{i=1}^n \P(X_i\leq s_i)
+    \end{equation*}
+    for all $s_i\in\R$, $1\leq i\leq n$.
+\end{corollary}
+\begin{proof}
+    The sufficient part is trivial. For the converse, put 
+    $\S_i = \Set{\set{X_i\leq t}}{t\in\R}\cup\set{\Omega}$. Clearly $\S_i$ 
+    are $\pi$-system and $\Omega\in\S_i$ for all $i$. $\sigma(\S_i)$ are 
+    independent and $\S_i$ generates $\sigma(X_i)$. Applying \cref{thm:pi-system_independence} 
+    shows that $X_i$ are independent.  
+\end{proof}
+
+\begin{corollary}\label{cor:group_independence}
+    If $\F_{ij}$, $1\leq i\leq n, 1\leq j\leq m(i)$ are independent $\sigma$-algebras, 
+    then $\G_i = \sigma(\cup_j \F_{ij})$ are independent. 
+\end{corollary}
+\begin{proof}
+    Put $\H_i = \Set{\cap_j A_j}{A_j\in\F_{{ij}}}$. We claim that $\sigma(\H_i) = \G_i$. 
+    Indeed, by choosing sets of the form 
+    \begin{equation*}
+        (\Omega,\ldots,\Omega,A_j,\Omega,\ldots,\Omega)\in\F_{i1}\times\cdots\times\F_{im(i)}, 
+    \end{equation*}
+    it is clear that $\cup_j\F_{ij} \subset \H_i$. Also, if $A\in\H_i$, then 
+    \begin{equation*}
+        A = \cap_j A_j = (\cup_j(A_j^c))^c \in\sigma(\cup_j\F_{ij}). 
+    \end{equation*}
+    Thus $\cup_j \F_{ij}\subset\H_i\subset\sigma(\cup_j \F_{ij})$ and 
+    $\sigma(\H_i) = \sigma(\cup_j \F_{ij}) = \G_i$. Also notice that $\H_i$ 
+    contain $\Omega$ and form $\pi$-systems. For $A_i\in\H_i$, write $A_i = \cap_j A_{ij}$. 
+    Then 
+    \begin{equation*}
+        \P(\cap_i A_i) = \P(\cap_{ij}A_{ij}) = \prod_{ij}\P(A_{ij}) = \prod_i\P(\cap_j A_{ij}) 
+        = \prod_i \P(A_i).
+    \end{equation*}
+    From \cref{thm:pi-system_independence} we know that $\G_i = \sigma(\H_i)$ are 
+    independent. 
+\end{proof}
+
+\begin{corollary}
+    If $X_{ij}, 1\leq i\leq n, 1\leq j\leq m(i)$ are independent random variables, then 
+    $Y_i = h_i(X_{i1},\ldots,X_{im(i)})$ are independent provided that $h_i$ are measurable. 
+\end{corollary}
+\begin{proof}
+    Write $\F_{ij} = \sigma(X_{ij})$. We claim that $\sigma(Y_i) \subset \sigma(\cup_j \F_{ij})$. 
+    Indeed, if $B_i$ is a measurable set, $h_i^{-1}(B_i)$ is measurable. Write 
+    $h_i^{-1}(B_i) = C_{i1}\times\cdots\times C_{im(i)}$ and since each 
+    $X_{ij}^{-1}(C_{ij})\in\F_{ij}$, we see that $\sigma(Y_i)\subset\sigma(\cup_{j}\F_{ij})$. 
+    It then follows from \cref{cor:group_independence} that $\sigma(Y_i)$ are independent 
+    and $Y_i$ are independent. 
+\end{proof}
+
+\begin{definition}
+    Let $(\Omega_i,\F_i,\P_i)$ be a sequence of probability spaces. Then the 
+    \textbf{product space} is defined as $(\Omega_1\times\cdots,\motimes_i\F_i,\motimes_i\P_i)$, 
+    where the product $\sigma$-algebra is defined as 
+    \begin{equation*}
+        \motimes_i\F_i = \sigma(\Set{A_1\times\cdots}{A_i\in\F_i})
+    \end{equation*} 
+    and 
+    \begin{equation*}
+        (\motimes_i\P_i)(A_1\times\cdots) = \prod_i\P_i(A_i).
+    \end{equation*} 
+\end{definition}
+
+\begin{theorem}
+    If $X_1,\ldots X_n$ are independent random variables and the distribution 
+    of $X_i$ is $\mu_i$. Then the joint distribution of $(X_1,\ldots,X_n)$ is 
+    $\motimes_{i=1}^n\mu_i$. 
+\end{theorem}
