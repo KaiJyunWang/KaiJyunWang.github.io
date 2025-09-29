@@ -44,12 +44,12 @@ Each household solves the following problem:
 \end{equation}
 subject to
 \begin{align}
-    da_t &= \sbrc{r_{n,t}\theta_{n,t}a_t - c_t}dt - \sum_{n=1}^N a_{t^-}\theta_{n,t^-}dJ_{n,t}, \\
+    da_t &= \sbrc{r_t\sum_{n=1}^N\theta_{n,t}a_t - c_t}dt - \sum_{n=1}^N a_{t^-}\theta_{n,t^-}dJ_{n,t}, \\
     a_t &\geq 0, 
 \end{align}
 where $a_t$ is the total asset of the household at time $t$, 
 $\theta_{n,t}$ is the fraction of asset in bank $n$ savings with interest 
-rate $r_{n,t}$. The bank savings suffer from the risk of default, 
+rate $r_t$. The bank savings suffer from the risk of default, 
 with rate $\lambda_{n,t}$, so that $J_{n,t}$ is a Poisson process with intensity 
 $\lambda_{n,t}$. The process $\lambda_{n,t}$ is determined in a similar manner 
 as \cite{moreira2017}, equation (10).
@@ -57,8 +57,9 @@ as \cite{moreira2017}, equation (10).
 \textcolor{red}{Think about the information shocks.}
 
 \subsection{Bank}
-There are $N$ banks, competing in the deposit market in a oligopoly 
-manner. What makes the depositors choosing different banks?
+There are $N$ banks, competing in the deposit market in Cournot's fashion. 
+
+What makes the depositors choosing different banks?
 
 The banks can choose to invest in a risky asset 
 $k$, which yields $y_t = Ak_t$ and follows the process 

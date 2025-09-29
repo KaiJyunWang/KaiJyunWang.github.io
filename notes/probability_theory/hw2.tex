@@ -1,0 +1,262 @@
+\documentclass[a4paper, 12pt]{article}
+\input{prefix_probability_theory.tex}%
+\input{symbols_probability_theory.tex}
+
+\begin{document} 
+\setstretch{1.15}
+
+\begin{center}
+    \Large
+    \textbf{Probability Theory \rom{1} -- Homework 2}\\
+    \large{Kai-Jyun Wang}
+\end{center}
+
+\begin{exercise}{2.1}
+    Let $X$ be a random variable that takes values in $[0,1]$. 
+    Find $\lim_{n\to\infty}\E\sbrc{X^n}$. 
+\end{exercise}
+\begin{solution}
+    Since $\abs{X^n}\leq 1$, which is integrable on $[0,1]$, 
+    the LDCT gives 
+    \begin{equation*}
+        \lim_{n\to\infty}\E\sbrc{X^n} = \E\sbrc{\lim_{n\to\infty} X^n} 
+        = \P(X = 1). 
+    \end{equation*}
+    The last equality follows from the fact that $X^n\to 0$ for 
+    every $0\leq X < 1$. 
+\end{solution}
+
+\begin{exercise}{2.2}
+    Let $A_1,\ldots A_n$ be events and let $A = \cup_{i=1}^n A_i$. 
+    First, prove that $\one_A = 1 - \prod_{i=1}^n(1 - \one_{A_i})$. 
+    Then, expand the RHS and take expectations to conclude that 
+    \begin{equation*}
+        \P(\cup_{i=1}^n A_i) = \sum_{i=1}^n \P(A_i) - \sum_{i<j}\P(A_i\cap A_j) 
+        + \cdots + (-1)^{n-1}\P(\cap_{i=1}^n A_i). 
+    \end{equation*} 
+\end{exercise}
+\begin{solution}
+    $A = \cup_i A_i = (\cap_i A_i^c)^c = \Omega - \cap_i (\Omega - A_i)$. 
+    Thus $\one_A = 1 - \prod_{i=1}^n (1 - \one_{A_i})$. The RHS is 
+    \begin{equation*}
+        1 - (1 - \sum_{i=1}^n\one_{A_i} + \sum_{i<j}\one_{A_i}\one_{A_j} - \cdots + (-1)^n\one_{A_1}\cdots\one_{A_n}) 
+        = \sum_{i=1}^n\one_{A_i} - \sum_{i<j}\one_{A_i}\one_{A_j} + \cdots + (-1)^{n+1}\one_{A_1}\cdots\one_{A_n}. 
+    \end{equation*}
+    Note that $\one_{A_1}\cdots\one_{A_n} = \one_{\cap_{i=1}^n A_n}$. 
+    We have that the RHS is 
+    \begin{equation*}
+        \sum_{i=1}^n\one_{A_i} - \sum_{i<j}\one_{A_i\cap A_j} + \cdots + (-1)^{n-1}\one_{A_1\cap\cdots\cap A_n}. 
+    \end{equation*} 
+    Taking expectation gives 
+    \begin{equation*}
+        \begin{split}
+            \P(A) &= \E\sbrc{\one_A} = \E\sbrc{\sum_{i=1}^n\one_{A_i} - \sum_{i<j}\one_{A_i\cap A_j} + \cdots + (-1)^{n-1}\one_{A_1\cap\cdots\cap A_n}} \\ 
+            &= \sum_{i=1}^n \P(A_i) - \sum_{i<j}\P(A_i\cap A_j) 
+            + \cdots + (-1)^{n-1}\P(\cap_{i=1}^n A_i). 
+        \end{split}
+    \end{equation*}
+\end{solution}
+
+\begin{exercise}{2.3}
+    Let $\pi_n$ be a uniformly chosen random permutation of $\set{1,\ldots,n}$. 
+    Let $X_n$ be the number of fixed points of $\pi_n$. Find $\P(X_n = 0)$ 
+    and evaluate its limit as $n\to\infty$. 
+\end{exercise}
+\begin{solution}
+    Take $A_i = \set{\pi_n(i) = i}$ for $i=1,\ldots,n$. $\set{X_n = 0} = (\cup_i A_i)^c$. 
+    Hence 
+    \begin{equation*}
+        \P(X_n = 0) = 1 - \P(\cup_i A_i).
+    \end{equation*} 
+    By the previous exercise, 
+    \begin{equation*}
+        \begin{split}
+            \P(\cup_i A_i) &= \sum_{i=1}^n \P(A_i) - \sum_{i<j}\P(A_i\cap A_j) 
+            + \cdots + (-1)^{n-1}\P(\cap_{i=1}^n A_i) \\
+            &= \sum_{i=1}^n \frac{(n-1)!}{n!} - \sum_{i<j}\frac{(n-2)!}{n!} + \cdots 
+            + (-1)^{n-1}\frac{1}{n!}.
+        \end{split}
+    \end{equation*}
+    Note that for $k\leq n$, 
+    \begin{equation*}
+        \sum_{1\leq i_1<\cdots<i_k\leq n}1 
+        = \binom{n}{k}. 
+    \end{equation*}
+    Thus 
+    \begin{equation*}
+        \P(\cup_i A_i) = \binom{n}{1}\frac{(n-1)!}{n!} - \binom{n}{2}\frac{(n-2)!}{n!} + \cdots + (-1)^{n-1}\frac{1}{n!} 
+        = 1 - \frac{1}{2!} + \frac{1}{3!} - \cdots + (-1)^{n-1}\frac{1}{n!}. 
+    \end{equation*}
+    So 
+    \begin{equation*}
+        \P(X_n = 0) = 1 - \frac{1}{1!} + \cdots + (-1)^n\frac{1}{n!}. 
+    \end{equation*}
+    When $n\to\infty$, 
+    \begin{equation*}
+        \P(X_n = 0) = 1 - \frac{1}{1!} + \cdots + (-1)^n\frac{1}{n!} 
+        \to e^{-1}
+    \end{equation*}
+    by the Taylor expansion of $e^x$. 
+\end{solution}
+
+\begin{exercise}{2.4}
+    Suppose that $\E\sbrc{\abs{X}}<\infty$ and that $A_n$ are disjoint sets with 
+    $\cup_n A_n = A$. Show that 
+    \begin{equation*}
+        \sum_{n=1}^\infty \E\sbrc{X\one_{A_n}} = \E\sbrc{X\one_A}. 
+    \end{equation*}
+\end{exercise}
+\begin{solution}
+    Put $E_n = \cup_{i=1}^nA_i$. Then $E_n\nearrow A$ and $\one_{E_n} = \sum_{i=1}^n\one_{A_i} 
+    \to \one_A$ pointwisely since $A_i$ are disjoint. Then 
+    \begin{equation*}
+        \begin{split}
+            \sum_{i=1}^\infty\E\sbrc{X\one_{A_i}} 
+            &= \lim_{n\to\infty}\sum_{i=1}^n\E\sbrc{X\one_{A_i}} 
+            = \lim_{n\to\infty}\E\sbrc{X\sum_{i=1}^n\one_{A_i}} \\
+            &= \lim_{n\to\infty}\E\sbrc{X\one_{E_n}} = \E\sbrc{X\lim_{n\to\infty}\one_{E_n}} 
+            = \E\sbrc{X\one_A},  
+        \end{split}
+    \end{equation*}
+    where the second last equality follows from LDCT, since $\abs{X\one_{E_n}}\leq\abs{X}$ is integrable. 
+\end{solution}
+
+\begin{exercise}{2.5}
+    Let our sample space $\Omega = \set{1,2,3,4}$, $\F = 2^\Omega$, and suppose that 
+    $\P(\set{k}) = \frac{1}{4}$ for each $k\in\Omega$. Find two collection of subsets 
+    $\A_1, \A_2$ such that they are independent while $\sigma(\A_1), \sigma(\A_2)$ are not. 
+\end{exercise}
+\begin{solution}
+    Let $\A_1 = \set{\set{1,2},\set{2,4}}$ and $\A_2 = \set{\set{2,3}}$. Then
+    \begin{equation*}
+        \sigma(\A_1) = 2^\Omega, \quad\text{and}\quad 
+        \sigma(\A_2) = \set{\varnothing, \set{2,3}, \set{1,4}, \Omega}. 
+    \end{equation*} 
+    Let $A_2 = \set{2,3}\in\A_2$. For each $A_1\in\A_1$, 
+    \begin{equation*}
+        \P(A_1\cap A_2) = \P(\set{2}) = \frac{1}{4} = \frac{1}{2}\times\frac{1}{2} 
+        = \P(A_1)\P(A_2). 
+    \end{equation*}
+    Hence they are independent. However, we can take $\set{2,3}\in\sigma(\A_1)\cap\sigma(\A_2)$ 
+    and 
+    \begin{equation*}
+        \P(\set{2,3}\cap\set{2,3}) = \frac{1}{2} \neq \frac{1}{4} = \P(\set{2,3})\P(\set{2,3}).
+    \end{equation*}
+    Hence $\sigma(\A_1)$ and $\sigma(\A_2)$ are not independent. 
+\end{solution}
+
+\begin{exercise}{2.6}\hspace{1em}\vspace{-1.5em}
+    \begin{thmenum}
+        \item Show that if $X$ and $Y$ are independent, integer-valued random variables, 
+        then for any integer $n$, 
+        \begin{equation*}
+            \P(X + Y = n) = \sum_{m=-\infty}^{\infty} \P(X = m)\P(Y = n - m).  
+        \end{equation*}
+        \item Recall that a random variable $Y$ has a Poisson distribution with 
+        parameter $\lambda$ if 
+        \begin{equation*}
+            \P(Y = k) = e^{-\lambda}\frac{\lambda^k}{k!}
+        \end{equation*}
+        for $k = 0,1,\ldots$ and is zero otherwise. Show that if $X = \Poisson(\lambda)$ 
+        and $Y = \Poisson(\mu)$, then $X + Y = \Poisson(\lambda + \mu)$. 
+    \end{thmenum}
+\end{exercise}
+\begin{solution}
+    For (a), write 
+    \begin{equation*}
+        \set{X + Y = n} = \cup_{m=-\infty}^\infty(\set{X = m}\cap\set{Y = n - m}), 
+    \end{equation*}
+    where the union is disjoint. Thus 
+    \begin{equation*}
+        \P(X + Y = n) = \sum_{m=-\infty}^\infty\P(X = m, Y = n - m) 
+        = \sum_{m=-\infty}^\infty\P(X = m)\P(Y = n - m)
+    \end{equation*}
+    by the independence. 
+
+    For (b), apply (a). 
+    \begin{equation*}
+        \begin{split}
+            \P(X + Y = n) &= \sum_{m=0}^n\P(X = m)\P(Y = n-m) 
+            = \sum_{m=0}^n e^{-\lambda}\frac{\lambda^m}{m!}e^{-\mu}\frac{\mu^{n-m}}{(n-m)!} \\ 
+            &= e^{-(\lambda + \mu)}\frac{1}{n!}\sum_{m=0}^n n!\frac{\lambda^m}{m!}\frac{\mu^{n-m}}{(n-m)!} 
+            = e^{-(\lambda + \mu)}\frac{1}{n!}\sum_{m=0}^n \binom{n}{m}\lambda^m\mu^{n-m} 
+            = e^{-(\lambda + \mu)}\frac{(\lambda + \mu)^n}{n!}. 
+        \end{split}
+    \end{equation*}
+    We conclude that $X+Y = \Poisson(\lambda + \mu)$. 
+\end{solution}
+
+\begin{exercise}{2.7}
+    Suppose $\E\sbrc{X_n} = 0$ and $\E\sbrc{X_nX_m}\leq r(n-m)$ for $m\leq n$ 
+    with $r(k)\to 0$ as $k\to\infty$. Show that 
+    \begin{equation*}
+        \frac{1}{n}\sum_{i=1}^nX_i \pto 0.
+    \end{equation*}
+\end{exercise}
+\begin{solution}
+    Estimate that
+    \begin{equation*}
+        \begin{split}
+            0 &\leq \E\sbrc{\pth{\frac{1}{n}\sum_{i=1}^nX_i - 0}^2} 
+            = \frac{1}{n^2}\pth{\sum_{i=1}^n\E\sbrc{X_i^2} + 2\sum_{i<j}\E\sbrc{X_iX_j}} \\
+            &= \frac{1}{n^2}\sbrc{n(r(0)) + 2\pth{\sum_{i=1}^{n-1}(n-i)r(i)}} \\ 
+            &\leq \frac{1}{n}r(0) + \frac{2}{n}\sum_{i=1}^{n-1}r(i).
+        \end{split}
+    \end{equation*}
+    For any $\epsilon>0$, there is $N$ such that $r(n)<\epsilon$ for every $n>N$ and 
+    \begin{equation*}
+        \frac{2}{n}\sum_{i=1}^{n-1}r(i) = \frac{2}{n}\sum_{i=1}^Nr(i) + \frac{2}{n}\sum_{i=N+1}^{n-1}r(i) 
+        \leq \frac{2}{n}\sum_{i=1}^Nr(i) + \frac{2}{n}n\epsilon \to \epsilon. 
+    \end{equation*}
+    Since $\epsilon$ can be arbitrarily small, we have that $\frac{2}{n}\sum_{i=1}^{n-1}r(i)\to 0$ and 
+    \begin{equation*}
+        \E\sbrc{\pth{\frac{1}{n}\sum_{i=1}^nX_i - 0}^2} 
+        \leq \frac{1}{n}r(0) + \frac{2}{n}\sum_{i=1}^{n-1}r(i) \to 0
+    \end{equation*}
+    as $n\to\infty$. Thus 
+    \begin{equation*}
+        \frac{1}{n}\sum_{i=1}^nX_i \to 0
+    \end{equation*}
+    in $L^2$ and hence in probability. 
+\end{solution}
+
+\begin{exercise}{2.8}\hspace{1em}\vspace{-1.5em}
+    \begin{thmenum}
+        \item Let $f$ be a measurable function on $[0,1]$ with 
+        \begin{equation*}
+            \int_0^1 \abs{f(x)}dx <\infty. 
+        \end{equation*}
+        Let $U_1,\ldots$ be independent and uniformly distributed on $[0,1]$, and 
+        \begin{equation*}
+            I_n = \frac{1}{n}\sum_{i=1}^nf(U_i). 
+        \end{equation*}
+        Show that $I_n\pto I\coloneq\int_0^1 f(x)dx$. 
+        \item Suppose that $\int_0^1\abs{f(x)}^2dx < \infty$. Use the Chebyshev 
+        inequality to estimate 
+        \begin{equation*}
+            \P\pth{\abs{I_n - I} > \frac{a}{\sqrt{n}}}. 
+        \end{equation*} 
+    \end{thmenum}
+\end{exercise}
+\begin{solution}
+    For (a), notice that $\E\sbrc{f(U_i)} = \int_0^1 f(x)dx = I$.  
+    By WLLN, 
+    \begin{equation*}
+        I_n = \frac{1}{n}\sum_{i=1}^nf(U_i) \pto \int_0^1f(x)dx = I. 
+    \end{equation*}
+
+    For (b), by the Chebyshev inequality, 
+    \begin{equation*}
+        \begin{split}
+            \P\pth{\abs{I_n - I} > \frac{a}{\sqrt{n}}} &= 
+            \P\pth{\abs{I_n - I}^2 > \frac{a^2}{n}} 
+            \leq \frac{n}{a^2}\E\sbrc{\pth{I_n - I}^2} \\ 
+            &= \frac{1}{na^2}\E\sbrc{\pth{\sum_{i=1}^n f(U_i) - I}^2} \\
+            &= \frac{1}{na^2}\sbrc{\sum_{i=1}^n\E\sbrc{(f(U_i) - I)^2} + \sum_{i<j}\E\sbrc{(f(U_i) - I)}\E\sbrc{(f(U_j) - I)}} \\ 
+            &= \frac{1}{a^2}\pth{\int_0^1 \abs{f(x)}^2dx - \pth{\int_0^1f(x)dx}^2}
+        \end{split}
+    \end{equation*}
+    by the independence. 
+\end{solution}
+
+\end{document}

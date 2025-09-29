@@ -130,21 +130,140 @@
     and $Y_i$ are independent. 
 \end{proof}
 
-\begin{definition}
-    Let $(\Omega_i,\F_i,\P_i)$ be a sequence of probability spaces. Then the 
-    \textbf{product space} is defined as $(\Omega_1\times\cdots,\motimes_i\F_i,\motimes_i\P_i)$, 
-    where the product $\sigma$-algebra is defined as 
-    \begin{equation*}
-        \motimes_i\F_i = \sigma(\Set{A_1\times\cdots}{A_i\in\F_i})
-    \end{equation*} 
-    and 
-    \begin{equation*}
-        (\motimes_i\P_i)(A_1\times\cdots) = \prod_i\P_i(A_i).
-    \end{equation*} 
-\end{definition}
-
 \begin{theorem}
-    If $X_1,\ldots X_n$ are independent random variables and the distribution 
-    of $X_i$ is $\mu_i$. Then the joint distribution of $(X_1,\ldots,X_n)$ is 
-    $\motimes_{i=1}^n\mu_i$. 
+    If $X_1,\ldots X_n$ are independent $\R$-valued random variables 
+    and the distribution of $X_i$ is $\mu_i$. Then the joint distribution 
+    of $(X_1,\ldots,X_n)$ is $\mu_1\times\cdots\times\mu_n$. 
 \end{theorem}
+\begin{proof}
+    Let $\mu$ be the distribution of $(X_1,\ldots,X_n)$. By definition, 
+    \begin{equation*}
+        \begin{split}
+            \mu((X_1,\ldots)\in A_1\times\cdots\times A_n)
+            &= \mu(X_1\in A_1,\ldots, X_n\in A_n) \\
+            &= \prod_{i=1}^n \mu_i(X_i\in A_i) 
+            = (\mu_1\times\cdots\times\mu_n)(A_1\times\cdots\times A_n).
+        \end{split} 
+    \end{equation*}
+    Now the sets of the forms $A = A_1\times\cdots\times A_n$ is a $\pi$-system 
+    generating the product $\sigma$-algebra. By \cref{cor:measure_agree}, 
+    the joint distribution is exactly $\mu_1\times\cdots\times\mu_n$. 
+\end{proof}
+
+\begin{theorem}\label{thm:mean_independence}
+    Let $X,Y$ be two independent random variables. If 
+    $h(x,y)$ satisfies either 
+    \begin{thmenum}
+        \item $\E\sbrc{\abs{h(X, Y)}}<\infty$, or 
+        \item $h$ is non-negative, 
+    \end{thmenum}
+    then 
+    \begin{equation*}
+        \E\sbrc{h(X,Y)} = \int\int hd\mu_Xd\mu_Y,
+    \end{equation*}
+    where $\mu_X,\mu_Y$ are the distributions of $X$ and $Y$, 
+    respectively.
+\end{theorem}
+\begin{proof}
+    The proof follows directly from Fubini-Tonelli theorem. If 
+    one of the assumptions is true, then 
+    \begin{equation*}
+        \E\sbrc{h(X,Y)} = \int_{\R^2}hd(\mu_X\times\mu_Y) 
+        = \int\int hd\mu_Xd\mu_Y. 
+    \end{equation*}
+\end{proof}
+\begin{remark}
+    If $h(x,y) = h_1(x)h_2(y)$, then 
+    \begin{equation*}
+        \E\sbrc{h_1(X)h_2(Y)} = \E\sbrc{h(X,Y)} 
+        = \int\int h_1h_2d\mu_Xd\mu_Y 
+        = \E\sbrc{h_1(X)}\E\sbrc{h_2(Y)}. 
+    \end{equation*}
+\end{remark}
+
+\begin{corollary}
+    If $X_1,\ldots X_n$ are independent random variables 
+    and 
+    \begin{thmenum}
+        \item $\E\sbrc{\abs{X_1\cdots X_n}} < \infty$ or 
+        \item $X_i\geq 0$ for all $i$,  
+    \end{thmenum}
+    then 
+    \begin{equation*}
+        \E\sbrc{X_1\cdots X_n} = \prod_{i=1}^n\E\sbrc{X_i}. 
+    \end{equation*}
+\end{corollary}
+\begin{proof}
+    Let $h(x,y) = xy$. By assumptions, we have either 
+    $\E\sbrc{\abs{h(X_1,X_2)}}<\infty$ or $h(X_1,X_2)\geq 0$. 
+    By \cref{thm:mean_independence}, $\E\sbrc{X_1X_2} = \E\sbrc{X_1}\E\sbrc{X_2}$. 
+    Substitute $X_1$ by $X_1X_2$ and $X_2$ by $X_3$, we see that 
+    $\E\sbrc{X_1X_2X_3} = \E\sbrc{X_1}\E\sbrc{X_2}\E\sbrc{X_3}$. 
+    Repeat the procedure $n$ times and the result follows. 
+\end{proof}
+
+\begin{definition}
+    Let $X, Y$ be independent random variables with CDF $F$ and $G$, respectively. 
+    The \textbf{convolution} of two CDF is defined as 
+    \begin{equation*}
+        (F*G)(z) = \int F(z-y)dG(y). 
+    \end{equation*}
+\end{definition}
+\begin{remark}
+    If $F$ and $G$ are absolutely continuous with respect to 
+    the Lebesgue measure, then they have Radon-Nikodym derivatives 
+    $f$ and $g$. The definition of convolution becomes 
+    \begin{equation*}
+        (F*G)(z) = \int F(z-y)dG(y) = \int_{-\infty}^\infty\int_{-\infty}^{z-y}f(x)g(y)dxdy. 
+    \end{equation*}
+    Then 
+    \begin{equation*}
+        (F*G)'(z) = \int f(z-y)g(y)dy = (f*g)(z),
+    \end{equation*}
+    which is exactly the definition of convolution of two functions. 
+\end{remark}
+
+\begin{proposition}
+    Let $X$ and $Y$ be independent random variables. Then 
+    \begin{equation*}
+        \P(X + Y \leq z) = (F*G)(z). 
+    \end{equation*}
+\end{proposition}
+\begin{proof}
+    By \cref{thm:mean_independence}, 
+    \begin{equation*}
+        \begin{split}
+            \P(X + Y \leq z) &= \E\sbrc{\one\set{X+Y\leq z}} 
+            = \int\int \one\set{x+y\leq z}dF(x)dG(y) \\
+            &= \int F(z-y)dG(y) = (F*G)(z). 
+        \end{split}
+    \end{equation*}
+\end{proof}
+\begin{remark}
+    Note that the convolution is commutative since 
+    \begin{equation*}
+        (F*G)(z) = \P(X+Y\leq z) = \P(Y+X\leq z) = (G*F)(z). 
+    \end{equation*}
+\end{remark}
+\begin{remark}
+    For discrete $X$ and $Y$, the convolution becomes 
+    \begin{equation*}
+        \P(X+Y = z) = \sum_y \P(X = z-y)\P(Y = y). 
+    \end{equation*}
+\end{remark}
+
+\begin{example}
+    Consider $X\sim \Gamma(\alpha_1, \beta)$ and $Y\sim\Gamma(\alpha_2, \beta)$. 
+    Then the density for $X+Y$ is 
+    \begin{equation*}
+        \begin{split}
+            f_{X+Y}(z) &= \int f_X(z-y)f_Y(y)dy \\ 
+            &= \int_0^z \frac{1}{\Gamma(\alpha_1)}\beta^{\alpha_1}(z-y)^{\alpha_1-1}e^{-\beta (z-y)}\frac{1}{\Gamma(\alpha_2)}\beta^{\alpha_2}y^{\alpha_2-1}e^{-\beta y}dy \\
+            &= \frac{1}{\Gamma(\alpha_1)\Gamma(\alpha_2)}\beta^{\alpha_1+\alpha_2}e^{-\beta z}\int_0^z (z-y)^{\alpha_1 - 1}y^{\alpha_2 - 1}dy \\ 
+            &= \frac{1}{\Gamma(\alpha_1)\Gamma(\alpha_2)}\beta^{\alpha_1+\alpha_2}e^{-\beta z}z^{\alpha_1+\alpha_2-1}\int_0^1(1-t)^{\alpha_1-1}t^{\alpha_2-1}dt \\ 
+            &= \frac{B(\alpha_1, \alpha_2)}{\Gamma(\alpha_1)\Gamma(\alpha_2)}\beta^{\alpha_1+\alpha_2}e^{-\beta z}z^{\alpha_1+\alpha_2-1} 
+            = \frac{1}{\Gamma(\alpha_1+\alpha_2)}\beta^{\alpha_1+\alpha_2}e^{-\beta z}z^{\alpha_1+\alpha_2-1}. 
+        \end{split}
+    \end{equation*} 
+    Hence $X+Y\sim \Gamma(\alpha_1 + \alpha_2, \beta)$. 
+\end{example}
