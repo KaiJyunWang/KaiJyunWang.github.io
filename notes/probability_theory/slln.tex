@@ -1,0 +1,244 @@
+\begin{definition}
+    Let $A_n$ be a sequence of events. 
+    \begin{equation*}
+        \limsup_{n\to\infty} A_n = \cap_{m=1}^\infty\cup_{n=m}^\infty A_n
+    \end{equation*}
+    and 
+    \begin{equation*}
+        \liminf_{n\to\infty} A_n = \cup_{m=1}^\infty\cap_{n=m}^\infty A_n. 
+    \end{equation*}
+\end{definition}
+\begin{remark}
+    Observe that 
+    \begin{equation*}
+        \limsup_{n\to\infty} A_n 
+        = \Set{\omega\in\Omega}{\omega\in A_n\text{ for infinitely many $n$}} 
+    \end{equation*}
+    and 
+    \begin{equation*}
+        \liminf_{n\to\infty}A_n 
+        = \Set{\omega\in\Omega}{\omega\in A_n\text{ for all but finitely many $n$}}. 
+    \end{equation*}
+\end{remark}
+
+\begin{theorem}[Borel-Cantelli \rom{1}]
+    Let $A_n$ be a sequence of events. If $\sum_n \P(A_n)<\infty$, then 
+    \begin{equation*}
+        \P\pth{\limsup_{n\to\infty}A_n} = 0.
+    \end{equation*}
+\end{theorem}
+\begin{proof}
+    Let $\epsilon>0$ be given. By assumption, there is $n_0$ such that 
+    $\sum_{n\geq n_0}\P(A_n)<\epsilon$. Then 
+    \begin{equation*}
+        \P\pth{\limsup_{n\to\infty}A_n} = \P(\cap_{m=1}^\infty\cup_{n=m}^\infty A_n) 
+        \leq \P(\cup_{n=n_0}^\infty A_n)\leq \sum_{n=n_0}^\infty \P(A_n)<\epsilon. 
+    \end{equation*}
+    Since $\epsilon$ can be arbitrarily small, $\P\pth{\limsup_{n\to\infty}A_n} = 0$. 
+\end{proof}
+
+\begin{corollary}\label{cor:summable_asconv}
+    Suppose for $\epsilon>0$, $\sum_n \P(\abs{X_n-X}>\epsilon)<\infty$. Then 
+    $X_n\to X$ almost surely. 
+\end{corollary}
+\begin{proof}
+    Let $E_k = \set{\abs{X_n-X}> k^{-1}\text{ for finitely many }n}$. Note that 
+    $E_{k+1}\subset E_k$ and $E_k\searrow E = \set{X_n\to X}$. Now we claim that 
+    $\P(E_k) = 1$. Consider $E_k^n = \set{\abs{X_n-X}>k^{-1}}$. For fixed $k$, 
+    by assumption we have $\sum_{n}\P(E_k^n)<\infty$. By Borel-Cantelli, 
+    $\P(\limsup_{n\to\infty}E_k^n) = 0$. Hence 
+    \begin{equation*}
+        \P(E_k) = \P(\set{\abs{X_n-X}>k^{-1}\text{ for infinitely many }n}^c) 
+        = 1 - \P(\limsup_{n\to\infty}E_k^n) = 1.
+    \end{equation*}
+    It now follows by the monotone convergence of measures that $\P(E) = 1$. 
+\end{proof}
+\begin{remark}
+    Intuitively, if the convergence is sufficiently fast, the convergence in 
+    probability may recover almost sure convergence. 
+\end{remark}
+
+\begin{theorem}[Strong Law of Large Number \rom{1}]
+    Let $X_i$ be independent and identically distributed with $\mu = \E\sbrc{X_1}$ 
+    and $\E\sbrc{X_1^4}<\infty$. Let $S_n = \sum_{i=1}^nX_i$. Then 
+    \begin{equation*}
+        \frac{1}{n}S_n\to\mu
+    \end{equation*}
+    almost surely. 
+\end{theorem}
+\begin{proof}
+    Note that 
+    \begin{equation*}
+        \begin{split}
+            \E\sbrc{\pth{\frac{1}{n}S_n - \mu}^4} &= \frac{1}{n^4}\pth{\sum_i \E\sbrc{(X_i-\mu)^4} + \sum_{i\neq j}\E\sbrc{(X_i-\mu)^2(X_j-\mu)^2}} \\
+            &\leq \frac{1}{n^3}\E\sbrc{(X_1-\mu)^4} + \frac{1}{n^4}\binom{n}{2}\binom{4}{2}\E\sbrc{(X_1-\mu)^2}^2 \leq \frac{C}{n^2}
+        \end{split}
+    \end{equation*}
+    for some constant $C$. By Checyshev's inequality, for $\epsilon>0$, 
+    \begin{equation*}
+        \P\set{\abs{\frac{1}{n}S_n - \mu}>\epsilon} \leq \frac{1}{\epsilon^4}\E\sbrc{\pth{\frac{1}{n}S_n - \mu}^4}\leq\frac{C}{\epsilon^2n^2}
+    \end{equation*}
+    is absolute summable. Hence by \cref{cor:summable_asconv}, 
+    \begin{equation*}
+        \frac{1}{n}S_n\to \mu
+    \end{equation*}
+    almost surely. 
+\end{proof}
+
+\begin{theorem}\label{thm:prob_conv_subseq_as}
+    $X_n\pto X$ if and only if every subsequence of $X_n$ has a further subsequence 
+    converging almost surely. 
+\end{theorem}
+\begin{proof}
+    Suppose first that $X_n\pto X$. Given a subsequence $X_{n(k)}$, we can 
+    choose $n(k_1)<n(k_2)<\cdots$ such that 
+    \begin{equation*}
+        \P\pth{\abs{X_{n(k_i)}-X}>2^{-i}} < 2^{-i}. 
+    \end{equation*} 
+    Since $2^{-i}$ is summable, by Borel-Cantelli we have 
+    \begin{equation*}
+        \P\pth{\abs{X_{n(k_i)}-X}>2^{-i}\text{ for infinitely many $i$}} = 0. 
+    \end{equation*}
+    In other words, 
+    \begin{equation*}
+        \P\set{X_{n(k_i)}\to X} = \P\set{\abs{X_{n(k_i)}-X}>2^{-i}\text{ for infinitely many $i$}}^c 
+        = 1. 
+    \end{equation*}
+
+    For the converse, suppose that $X_n\not\to X$ in probability. Then there exist 
+    $\epsilon, \delta>0$ and 
+    \begin{equation*}
+        \P\set{\abs{X_{n(k)} - X}>\epsilon} \geq \delta. 
+    \end{equation*}
+    By assumption there is a further subsequence converging almost surely 
+    and thus in probability, i.e., 
+    \begin{equation*}
+        \P\set{\abs{X_{n(k_j)} - X}>\epsilon} \to 0.
+    \end{equation*}
+    This is a contradiction. Hence $X_n\to X$ in probability. 
+\end{proof}
+
+\begin{corollary}
+    Suppose $X_n\pto X$. Then the followings are true: 
+    \begin{thmenum}
+        \item If $f$ is continuous, then $f(X_n)\pto f(X)$. 
+        \item If $\abs{X_n}\leq Y$ for some $Y\in\L^1$, then $\E\sbrc{X_n}\to\E\sbrc{X}$. 
+    \end{thmenum}
+\end{corollary}
+\begin{proof}
+    For (a), by \cref{thm:prob_conv_subseq_as}, every subsequence 
+    has a further subsequence $X_{n(k_j)}\to X$ almost surely and 
+    hence $f(X_{n(k_j)})\to f(X)$ almost surely. Then by \cref{thm:prob_conv_subseq_as} 
+    again we see that $f(X_n)\pto f(X)$. 
+
+    For (b), by \cref{thm:prob_conv_subseq_as}, every subsequence 
+    has a furhter subsequence $X_{n(k_j)}\to X$ almost surely and 
+    LDCT gives $\E\sbrc{X_{n(k_j)}}\to \E\sbrc{X}$. This implies 
+    that $\E\sbrc{X_n}\to \E\sbrc{X}$ as well. 
+\end{proof}
+
+\begin{definition}
+    Let $(\Omega,\F, \P)$ be a probability space. 
+    \begin{equation*}
+        \L^0(\Omega) = \Set{X:\Omega\to\R}{X\text{ is $\F$-measurable}}. 
+    \end{equation*}
+\end{definition}
+\begin{remark}
+    In general, the almost convergence notion on $\L^0$ is not metrizable, 
+    i.e., there is no metric $d$ on $\L^0$ such that 
+    \begin{equation*}
+        d(X_n, X)\to 0
+        \quad\Leftrightarrow\quad 
+        X_n\to X\quad\text{a.s.}
+    \end{equation*} 
+    To see this, suppose that the almost sure convergence is metrizable. 
+    If $X_n\pto X$, any subsequence $X_{n(k)}$ converges to $X$ in probability 
+    as well. By \cref{thm:prob_conv_subseq_as}, we can find a further subsequence 
+    converging almost surely and hence in metric $d$, but this implies that 
+    $d(X_n, X)\to 0$. Then $X_n\to X$ almost surely, which is absurd since 
+    convergence in probability does not imply almost sure convergence 
+    in general. 
+
+    However, convergence in probability on $\L^0$ can be metrized. For instance, 
+    \begin{equation*}
+        d(X,Y) = \E\sbrc{\max\set{\abs{X-Y}, 1}}. 
+    \end{equation*}
+\end{remark}
+
+\begin{theorem}[Borel-Cantelli \rom{2}]
+    Let $A_n$ be independent events and $\sum_{n=1}^\infty\P(A_n)=\infty$. 
+    Then 
+    \begin{equation*}
+        \P\pth{\limsup_{n\to\infty} A_n} = 1. 
+    \end{equation*}
+\end{theorem}
+\begin{proof}
+    By assumption we have that $\sum_{n\geq m}\P(A_n) = \infty$ for every 
+    $m\in\N$. Notice that $1+x\leq e^x$. Then  
+    \begin{equation*}
+        \begin{split}
+            \P(\limsup_{n\to\infty}A_n) &= \lim_{m\to\infty}\P(\cup_{n\geq m}A_n) 
+            = 1 - \lim_{m\to\infty}\P(\cap_{n\geq m}A_n^c) \\ 
+            &= 1 - \lim_{m\to\infty}\lim_{N\to\infty}\P(\cap_{n= m}^NA_n^c) 
+            = 1 - \lim_{m\to\infty}\lim_{N\to\infty}\prod_{n=m}^N\P(A_n^c) \\ 
+            &= 1 - \lim_{m\to\infty}\prod_{n=m}^\infty(1 - \P(A_n)) 
+            \geq 1 - \lim_{m\to\infty}\exp\pth{-\sum_{n=m}^\infty\P(A_n)}
+            = 1. 
+        \end{split}
+    \end{equation*}
+    Hence $\P(\limsup_{n\to\infty}A_n) = 1$. 
+\end{proof}
+
+\begin{lemma}\label{lem:expectation_tail_prob}
+    Let $X$ be a non-negative random variable and $h:\R\to\R$ be a differentiable 
+    function with $h(0)=0$ and $h'\geq 0$. Then 
+    \begin{equation*}
+        \E\sbrc{h(X)} = \int_0^\infty h'(t)\P(X>t)dt. 
+    \end{equation*}
+\end{lemma}
+\begin{proof}
+    By Fubini-Tonelli theorem, 
+    \begin{equation*}
+        \begin{split}
+            \E\sbrc{h(X)} &= \E\sbrc{\int_0^X h'(t)dt} 
+            = \E\sbrc{\int_0^\infty\one\set{t<X}h'(t)dt} \\
+            &= \int_0^\infty h'(t)\E\sbrc{\one\set{t<X}}dt 
+            = \int_0^\infty h'(t)\P(X>t)dt. 
+        \end{split}
+    \end{equation*}
+\end{proof}
+
+\begin{proposition}
+    Suppose that $X_i$ are independent and identically distributed random variables with 
+    $\E\sbrc{\abs{X_i}}=\infty$. Let $S_n = \sum_{i=1}^nX_i$. Then 
+    \begin{thmenum}
+        \item $\P\set{\abs{X_n}>n\text{ for infinitely many $n$}} = 1$. 
+        \item $\P\set{\frac{1}{n}S_n\text{ has finite limit}} = 0$. 
+    \end{thmenum}
+\end{proposition}
+\begin{proof}
+    For (a), using \cref{lem:expectation_tail_prob} with $h$ being identity, 
+    \begin{equation*}
+        \begin{split}
+            \infty &= \E\sbrc{\abs{X_1}} = \int_0^\infty\P(\abs{X_1}>t)dt  
+            \leq \sum_{n=0}^\infty\int_n^{n+1}\P(\abs{X_1}>t)dt \\
+            &\leq \sum_{n=0}^\infty\int_n^{n+1}\P(\abs{X_1}>n)dt 
+            = \sum_{n=0}^\infty\P(\abs{X_n}>n). 
+        \end{split}
+    \end{equation*}
+    Now by the second Borel-Cantelli, $\P\set{\abs{X_n}>n\text{ for infinitely many $n$}} = 1$. 
+
+    For (b), consider $\omega$ with $\frac{S_n(\omega)}{n}\to Y(\omega)\in\R$. 
+    Then for such $\omega$, 
+    \begin{equation*}
+        \frac{X_n}{n} = \frac{S_n - S_{n-1}}{n} = \frac{S_n}{n} - \frac{n-1}{n}\frac{S_{n-1}}{n-1}\to 0
+    \end{equation*}
+    as $n\to\infty$. Thus 
+    \begin{equation*}
+        \begin{split}
+            \P\set{\frac{1}{n}S_n\text{ has finite limit}} &\leq \P\set{\abs{X_n}>n\text{ for finitely many }n} \\
+            &= 1 - \P\set{\abs{X_n}>n\text{ for infinitely many $n$}} = 0.           
+        \end{split}
+    \end{equation*}
+    (b) follows. 
+\end{proof}

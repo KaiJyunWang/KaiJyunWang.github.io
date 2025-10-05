@@ -30,8 +30,6 @@ deposit insurance.
 \section{To Do}
 \begin{itemize}
     \item See how to incorporate the bank run from \cite{diamond1983}.  
-    \item How to write a model having the feature that the bank size affects 
-    the probability of a bank run. 
     \item Evidence of the bank size-bank run relation.
 \end{itemize}
 
@@ -40,19 +38,17 @@ deposit insurance.
 The time is continuous, $t\in[0,\infty)$. There is a unit mass of households. 
 Each household solves the following problem:
 \begin{equation}
-    \max_{c_t, \theta_{n,t}} \E\sbrc{\int_0^\infty e^{-\rho t}u(c_t)dt}
+    \rho Vdt = \max_{c,\theta,e} u(c)dt + \E_t\sbrc{dV}
 \end{equation}
-subject to
+subject to 
 \begin{align}
-    da_t &= \sbrc{r_t\sum_{n=1}^N\theta_{n,t}a_t - c_t}dt - \sum_{n=1}^N a_{t^-}\theta_{n,t^-}dJ_{n,t}, \\
-    a_t &\geq 0, 
+    da &= \sbrc{a\pth{\sum_{n=1}^N\theta_ndr_n + e_ndr^e_n}} - cdt \\
+    a &\geq 0
 \end{align}
-where $a_t$ is the total asset of the household at time $t$, 
-$\theta_{n,t}$ is the fraction of asset in bank $n$ savings with interest 
-rate $r_t$. The bank savings suffer from the risk of default, 
-with rate $\lambda_{n,t}$, so that $J_{n,t}$ is a Poisson process with intensity 
-$\lambda_{n,t}$. The process $\lambda_{n,t}$ is determined in a similar manner 
-as \cite{moreira2017}, equation (10).
+where $\theta_0$ is the asset proportion holding on hand, $\theta_n$ is the asset 
+proportion as deposits and $e_n$ is the proportion as equity. 
+
+Derive deposit supply. 
 
 \textcolor{red}{Think about the information shocks.}
 
@@ -61,15 +57,27 @@ There are $N$ banks, competing in the deposit market in Cournot's fashion.
 
 What makes the depositors choosing different banks?
 
-The banks can choose to invest in a risky asset 
-$k$, which yields $y_t = Ak_t$ and follows the process 
-\begin{equation*}
-    dk_t = k_t\phi(\iota_t)dt - \kappa k_tdZ_t, 
-\end{equation*} 
-where $dZ_t$ is a compensated Poisson process with intensity $\lambda_t$.
-Let $p_t$ be the price of the risky asset, $E_t$ be the value of existing 
-equity and $D_t$ be the total deposits. 
+The banks have two type of assets. One is a risk-free bond $B_t$ with fixed 
+return rate $r^f$. The others are risky assets $k_t$ that require costs to build. 
+A risky asset cannot be held by different banks so the single bank can 
+only hold $k_t\in\set{0,1,\ldots}$. The risky assets arrive at rate $\lambda_k$, 
+requiring cost $C$, and pays off $R$ stochastically at rate $\lambda_R$. After 
+$R$ arrives, the risky asset is destructed. Total asset value is 
+\begin{equation}
+    A_t = q_{B,t}B_t + q_{k,t}k_t. 
+\end{equation}
 
+$d$ and $e$ are the proportion of asset purchasing financed by deposit 
+and equity. 
+\begin{equation}
+    \begin{split}
+        \mu_eEdt &= \max_{d,e,B,k} r^fBdt + \E\sbrc{dA} - \E\sbrc{Ad\cdot dr + (Ae - E)dr^e} \\
+        &+ \lambda_k\int \one\set{C\leq q_BB}\max\set{E(k+1,q_BB-C)-E, 0}dF(C) \\ 
+        &+ \lambda_Rk(E(k-1, q_BB+R) - E)
+    \end{split}
+\end{equation}
+
+Bank run and competition. 
 
 A bank falls when its net worth becomes negative. When a bank falls, the rest 
 of the banks can buy the failed bank's asset and the depositors can take their 

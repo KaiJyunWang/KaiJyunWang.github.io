@@ -304,3 +304,27 @@
         \Cov(X,Y) = \E\sbrc{(X - \E\sbrc{X})(Y - \E\sbrc{Y})}. 
     \end{equation*}
 \end{definition}
+
+\begin{definition}
+    For $1\leq p <\infty$, the $\L^p(\Omega,\P)$ space is defined as 
+    \begin{equation*}
+        \L^p(\Omega,\P) = \Set{X:\Omega\to S}{X\text{ measurable and }\E\sbrc{\abs{X}^p}<\infty}. 
+    \end{equation*}
+    For $p = \infty$, 
+    \begin{equation*}
+        \L^\infty(\Omega, \P) = \Set{X:\Omega\to S}{X\text{ measurable and }\esssup_{\omega\in\Omega} X(\omega) < \infty}. 
+    \end{equation*} 
+\end{definition}
+
+\begin{proposition}\label{prop:embedding}
+    Let $1\leq p<q\leq\infty$. Then $\L^q(\P)\subset\L^p(\P)$. 
+\end{proposition}
+\begin{proof}
+    Suppose first that $q < \infty$. If $X\in\L^q(\P)$, then 
+    \begin{equation*}
+        \E\sbrc{\abs{X}^p} \leq \E\sbrc{\abs{X}^q\one\set{\abs{X}\geq 1}} 
+        + \E\sbrc{\abs{X}^p\one\set{\abs{X}< 1}}\leq \E\sbrc{\abs{X}^q} + 1<\infty. 
+    \end{equation*}
+    Hence $X\in\L^p(\P)$. If $q = \infty$, $X$ is essentially bounded, i.e., 
+    $X\leq M$ for some $M\in\R$ almost surely. Hence $X\in\L^p$. 
+\end{proof}
