@@ -242,3 +242,118 @@
     \end{equation*}
     (b) follows. 
 \end{proof}
+
+\begin{definition}
+    A collection of $\sigma$-algebra $\set{\H_k}$ is \textbf{pairwise independent} 
+    if for any $\H_1, \H_2\in\set{\H_k}$, 
+    \begin{equation*}
+        \P(A\cap B) = \P(A)\P(B)
+    \end{equation*}
+    for any $A\in\H_1$ and $B\in\H_2$. 
+\end{definition}
+\begin{remark}
+    As before, a sequence of random variables $\set{X_k}$ is 
+    pairwise independent if $\set{\sigma(X_k)}$ is. 
+\end{remark}
+
+\begin{theorem}[Strong Law of Large Number \rom{2}, Kolmogorov]
+    Let $X_i$ be pairwise independent, identically distributed 
+    random variables with $\E\sbrc{\abs{X_1}}<\infty$ and 
+    $S_n = \sum_{i=1}^nX_i$. Then 
+    \begin{equation*}
+        \frac{1}{n}S_n \to \E\sbrc{X_1} = \mu
+    \end{equation*}
+    almost surely. 
+\end{theorem}
+\begin{proof}
+    Since we can always decompose $X_i = X_i^+ - X_i^-$ and 
+    $X_i^+, X_i^-$ satisfy the assumption of the theorem, 
+    we may assume without loss of generality that $X_i\geq 0$. 
+    Let $Y_i = X_i\one\set{X_i\leq i}$ and $T_n = \sum_{i=1}^nY_i$. 
+    Let $\alpha > 1$ and put $k_n = \floor{\alpha^n}$. 
+    By Chebyshev inequality, for any given $\epsilon>0$ we have 
+    \begin{equation*}
+        \begin{split}
+            \sum_{n=1}^\infty \P\pth{\abs{\frac{T_{k_n} - \E\sbrc{T_{k_n}}}{k_n}}>\epsilon} 
+            &\leq \frac{1}{\epsilon^2}\sum_{n=1}^\infty \frac{1}{k_n^2}\Var(T_{k_n}) \\
+            &= \frac{1}{\epsilon^2}\sum_{n=1}^{\infty}\frac{1}{k_n^2}\sum_{i=1}^{k_n}\Var(Y_i) 
+            = \frac{1}{\epsilon^2}\sum_{i=1}^\infty\Var(Y_i)\sum_{n:k_n\geq i}\frac{1}{k_n^2}. 
+        \end{split}
+    \end{equation*}
+    Since $1/k^2$ is summable and $k_n$ repeat at most $m_\alpha$ times, where 
+    $m_\alpha$ is an integer such that $\alpha^{m_\alpha+1}\geq \alpha^{m_\alpha} + 1$, 
+    we can find a constant $c_\alpha>0$ such that 
+    \begin{equation*}
+        \sum_{n:k_n\geq i}\frac{1}{k_n^2}\leq \frac{c_\alpha}{i^2}. 
+    \end{equation*} 
+    Let $F$ be the distribution of $X$. We have 
+    \begin{equation*}
+        \begin{split}
+            \sum_{n=1}^\infty \P\pth{\abs{\frac{T_{k_n} - \E\sbrc{T_{k_n}}}{k_n}}>\epsilon} 
+            &\leq \frac{c_\alpha}{\epsilon^2}\sum_{i=1}^\infty\frac{\Var(Y_i)}{i^2} 
+            \leq \frac{c_\alpha}{\epsilon^2}\sum_{i=1}^\infty\frac{\E\sbrc{Y_i^2}}{i^2} \\ 
+            &= \frac{c_\alpha}{\epsilon^2}\sum_{i=1}^\infty\frac{1}{i^2}\int_0^ix^2dF(x) 
+            = \frac{c_\alpha}{\epsilon^2}\sum_{i=1}^\infty\sum_{k=0}^{i-1}\frac{1}{i^2}\int_k^{k+1}x^2dF(x) \\ 
+            &= \frac{c_\alpha}{\epsilon^2}\sum_{k=0}^\infty\pth{\sum_{i=k+1}^\infty\frac{1}{i^2}}\int_k^{k+1}x^2dF(x)
+        \end{split}
+    \end{equation*}
+    Also, notice that there is a constant $C$ such that 
+    \begin{equation*}
+        \sum_{i=k+1}^\infty\frac{1}{i^2} \leq \frac{C}{k+1}. 
+    \end{equation*}
+    Hence, 
+    \begin{equation*}
+        \begin{split}
+            \sum_{n=1}^\infty \P\pth{\abs{\frac{T_{k_n} - \E\sbrc{T_{k_n}}}{k_n}}>\epsilon} 
+            &\leq \frac{c_\alpha C}{\epsilon^2}\sum_{k=0}^\infty\frac{1}{k+1}\int_k^{k+1}x^2dF(x) \\
+            &\leq \frac{c_\alpha C}{\epsilon^2}\sum_{k=0}^\infty\int_k^{k+1}xdF(x) 
+            = \frac{c_\alpha C}{\epsilon^2}\E\sbrc{X_1}<\infty. 
+        \end{split}
+    \end{equation*}
+    Note that for $\delta>0$ there is an integer $M$ such that 
+    $\E\sbrc{X_1\one\set{X_1> M}}\leq\delta\leq\E\sbrc{X_1}$. 
+    \begin{equation*}
+        \frac{\E\sbrc{T_{k_n}}}{k_n} = \frac{1}{k_n}\sum_{i=1}^{k_n} \E\sbrc{Y_i}
+        \geq \frac{1}{k_n}\sum_{i=1}^{M} \E\sbrc{Y_i} + \frac{1}{k_n}\sum_{i=M+1}^{k_n}\E\sbrc{X_1}-\delta.
+    \end{equation*}
+    Also, 
+    \begin{equation*}
+        \frac{1}{k_n}\sum_{i=1}^{k_n}\E\sbrc{Y_i}\leq \frac{1}{k_n}\sum_{i=1}^{k_n}\E\sbrc{X_1} = \E\sbrc{X_1}. 
+    \end{equation*}
+    Taking $n\to\infty$ and since $\delta$ is arbitrary, we 
+    conclude that 
+    \begin{equation*}
+        \frac{\E\sbrc{T_{k_n}}}{k_n}\to \E\sbrc{X_1}. 
+    \end{equation*}
+    Thus, by the Borel-Cantelli lemma, 
+    \begin{equation*}
+        \P\set{\frac{T_{k_n}}{k_n}\not\to\E\sbrc{X_1}} = \P\set{\abs{\frac{T_{k_n} - \E\sbrc{T_{k_n}}}{k_n}}>\epsilon\text{ for infinitely many $n$}} = 0. 
+    \end{equation*}
+    In other words, $T_{k_n}/k_n\to\E\sbrc{X_1}$ almost surely. 
+    Also, 
+    \begin{equation*}
+        \begin{split}
+            \sum_{k=1}^\infty \P\set{X_k\neq Y_k} &= \sum_{k=1}^\infty \P\set{X_k>k} 
+            \leq \sum_{k=1}^\infty \int_{k-1}^k\P(X_1>t)dt \\
+            &= \int_0^\infty \P(X_1>t)dt = \E\sbrc{X_1}<\infty
+        \end{split}
+    \end{equation*}
+    by \cref{lem:expectation_tail_prob}. Hence by Borel-Cantelli 
+    lemma, $X_k \neq Y_k$ for finitely many $k$ almost surely. 
+    This implies that 
+    \begin{equation*}
+        \lim_{n\to\infty}\frac{1}{k_n}S_{k_n} = \lim_{n\to\infty}\frac{T_{k_n}}{k_n} = \E\sbrc{X_1}
+    \end{equation*}
+    almost surely. Note that $S_m$ is monotone and for each $m$, 
+    we may find $k(n_m)\leq m\leq k(n_{m+1})$ so that 
+    \begin{equation*}
+        \frac{S_{k(n_m)}}{k(n_{m+1})}\leq \frac{S_m}{m} 
+        \leq \frac{S_{k(n_{m+1})}}{k(n_m)}.
+    \end{equation*} 
+    Take $m\to\infty$, we conclude that 
+    \begin{equation*}
+        \frac{1}{\alpha}\mu \leq \liminf_{m\to\infty}\frac{S_m}{m} 
+        \leq \limsup_{m\to\infty}\frac{S_m}{m}\leq \alpha\mu
+    \end{equation*}
+    almost surely. Taking $\alpha\to 1^+$ gives the desired result. 
+\end{proof}

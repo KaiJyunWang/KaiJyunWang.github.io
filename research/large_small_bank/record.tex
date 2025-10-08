@@ -10,29 +10,6 @@
 \setstretch{1.15}
 \maketitle
 
-\section{Main Idea} 
-This project aims to study the relation between the size of a 
-bank in terms of its balance sheet and the probability of the 
-bank run occurring. And, if the larger the bank, the more can 
-a bank immune itself from the bank run, then what is the 
-implication of this result? 
-
-Suppose that the banking market is oligopolistic, then there 
-is a dead weight loss in the market (under some kind of oligopolistic 
-competition), and the larger the bank, the more oligopolistic the 
-market is. However, if the size also prevents the bank from the 
-crisis, then the limitation of the size of the bank can increase 
-the financial fragility of the banking system. This is the 
-trade-off between the oligopoly and the financial fragility. 
-Consider the limitation of the size of the bank and the federal 
-deposit insurance. 
-
-\section{To Do}
-\begin{itemize}
-    \item See how to incorporate the bank run from \cite{diamond1983}.  
-    \item Evidence of the bank size-bank run relation.
-\end{itemize}
-
 \section{Model} 
 \subsection{Household}
 The time is continuous, $t\in[0,\infty)$. There is a unit mass of households. 
@@ -48,43 +25,59 @@ subject to
 where $\theta_0$ is the asset proportion holding on hand, $\theta_n$ is the asset 
 proportion as deposits and $e_n$ is the proportion as equity. 
 
-Derive deposit supply. 
+Derive deposit and equity demand. 
+
+$\chi = (\chi_1,\ldots,\chi_N)$ are the believes about 
+banks' risky asset holding proportion. At rate $\lambda$, 
+a bank's portfolio is going to be revealed. Let $\tilde{\chi}_t$ 
+be the underlying portfolio, 
+\begin{equation*}
+    \chi_t = \E\sbrc{\tilde{\chi}_t|\F_t}. 
+\end{equation*}
+Now let $d\zeta_t$ be the new signal. 
+\begin{equation*}
+    \begin{split}
+        d\chi_t &= \E\sbrc{\tilde{\chi}_{t+dt}|\F_t,d\zeta_t} - \E\sbrc{\tilde{\chi}_t|\F_t}
+        = \E\sbrc{\tilde{\chi}_t + d\tilde{\chi}_t|\F_t,d\zeta_t} - \E\sbrc{\tilde{\chi}_t|\F_t} \\ 
+        &= \E\sbrc{d\tilde{\chi}_t}
+    \end{split}
+\end{equation*}
 
 \textcolor{red}{Think about the information shocks.}
 
-\subsection{Bank}
-There are $N$ banks, competing in the deposit market in Cournot's fashion. 
-
-What makes the depositors choosing different banks?
-
+\subsection{Bank} 
 The banks have two type of assets. One is a risk-free bond $B_t$ with fixed 
 return rate $r^f$. The others are risky assets $k_t$ that require costs to build. 
 A risky asset cannot be held by different banks so the single bank can 
 only hold $k_t\in\set{0,1,\ldots}$. The risky assets arrive at rate $\lambda_k$, 
-requiring cost $C$, and pays off $R$ stochastically at rate $\lambda_R$. After 
+requiring cost $C$, and pays off $R$ at rate $\lambda_R$. After 
 $R$ arrives, the risky asset is destructed. Total asset value is 
 \begin{equation}
     A_t = q_{B,t}B_t + q_{k,t}k_t. 
 \end{equation}
 
-$d$ and $e$ are the proportion of asset purchasing financed by deposit 
+$d$ and $e$ are the proportion of asset holding financed by deposit 
 and equity. 
 \begin{equation}
     \begin{split}
-        \mu_eEdt &= \max_{d,e,B,k} r^fBdt + \E\sbrc{dA} - \E\sbrc{Ad\cdot dr + (Ae - E)dr^e} \\
-        &+ \lambda_k\int \one\set{C\leq q_BB}\max\set{E(k+1,q_BB-C)-E, 0}dF(C) \\ 
-        &+ \lambda_Rk(E(k-1, q_BB+R) - E)
+        \mu_eEdt &= \max_{d,e,B,k} r^fBdt + d(q_BB) + d(q_kk) - \E\sbrc{Ad\cdot dr + (Ae - E)dr^e} \\
+        &+ \lambda_k\int\one\set{x\leq q_BB}\max\set{q_k(k+1)+q_BB - C - E, 0}dF_C(x)\\ 
+        &+ \lambda_Rk\int q_k(k-1) + q_BB + x - EdF_R(x)
     \end{split}
 \end{equation}
 
-Bank run and competition. 
-
-A bank falls when its net worth becomes negative. When a bank falls, the rest 
-of the banks can buy the failed bank's asset and the depositors can take their 
-deposits back according to the proportion. 
-
-A new bank enters the market with rate $\psi$. 
-
+There are $N$ banks, competing in the security market in monopolistic 
+competition manner. The bank $n$ can issue two types of security,  
+deposit $d$ and equity $e$. The returns satisfying that 
+\begin{equation*}
+    dr^d = \mu^ddt
+    \quad\text{and}\quad 
+    dr^e = \mu^edt + dZ_t^n, 
+\end{equation*}
+where $dZ_t^n$ is a compensated Poisson process with rate 
+$\lambda_n$. Since the banks are risk neutral, they will 
+fund their investments through issuing as many deposits as 
+they can.
 
 
 \bibliographystyle{apacite}
