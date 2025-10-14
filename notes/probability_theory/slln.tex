@@ -357,3 +357,244 @@
     \end{equation*}
     almost surely. Taking $\alpha\to 1^+$ gives the desired result. 
 \end{proof}
+
+\begin{theorem}
+    Let $X_i$ be independent and identically distributed with $\E\sbrc{X_1^+} = \infty$ 
+    and $\E\sbrc{X_1^-} <\infty$. Let $S_n = \sum_{i=1}^n X_i$. Then 
+    \begin{equation*}
+        \frac{1}{n}S_n \to \infty 
+    \end{equation*}
+    almost surely. 
+\end{theorem}
+\begin{proof}
+    Write $X_i = X_i^+ - X_i^-$. For $X_i^+$, consider $Y_i^M = \min\set{X_i^+, M}$ 
+    for some $M>0$. Note that $Y_i^M$ is independent and identically distributed with 
+    finite mean. By the strong law of large number, 
+    \begin{equation*}
+        \frac{1}{n}\sum_{i=1}^nY_i^M\to \E\sbrc{Y_1^M}
+    \end{equation*}
+    almost surely. Hence, 
+    \begin{equation*}
+        \liminf_{n\to\infty}\frac{1}{n}\sum_{i=1}^nX_i^+ \geq \lim_{n\to\infty}\frac{1}{n}\sum_{i=1}^nY_i^M = \E\sbrc{Y_1^M}. 
+    \end{equation*}
+    Notice that $Y_1^M\nearrow X_1^+$ as $M\to\infty$. By LMCT, 
+    \begin{equation*}
+        \lim_{M\to\infty}\E\sbrc{Y_1^M} = \E\sbrc{X_1^+} = \infty. 
+    \end{equation*}
+    We conclude that $\liminf_{n\to\infty}\frac{1}{n}\sum_{i=1}^nX_i^+ = \infty$. 
+    On the other hand, by the strong law of large number, 
+    \begin{equation*}
+        \frac{1}{n}\sum_{i=1}^nX_i^-\to\E\sbrc{X_1^-}
+    \end{equation*}
+    almost surely. We end up with 
+    \begin{equation*}
+        \lim_{n\to\infty} \frac{1}{n}S_n = \lim_{n\to\infty}\frac{1}{n}\sum_{i=1}^nX_i^+ - \lim_{n\to\infty}\frac{1}{n}\sum_{i=1}^nX_i^- 
+        = \infty
+    \end{equation*}
+    almost surely. 
+\end{proof}
+
+\begin{example}
+    Let $Y_i$ be independent and identically distributed with density 
+    \begin{equation*}
+        f(y) = \one\set{y\geq 1}\frac{1}{c}\frac{1}{y^2}, 
+    \end{equation*}
+    where $c$ is some normalizing constant. Let $H_i\sim \Ber(2^{-i})$. 
+    Put $X_i = Y_iH_i$. Then $\E\sbrc{X_i} = \infty$ for all $i$, but  
+    since 
+    \begin{equation*}
+        \sum_i \P(X_i > 0) = \sum_i 2^{-i} <\infty, 
+    \end{equation*}
+    by the Borel-Cantelli lemma, $X_i\to 0$ almost surely 
+    and 
+    \begin{equation*}
+        \frac{1}{n}\sum_{i=1}^n X_i \to 0
+    \end{equation*} 
+    almost surely. 
+\end{example}
+
+\begin{example}
+    $Y\geq 0$ is a random variable with $\E\sbrc{Y} = \infty$. Put $X_i = Y$ 
+    for all $i$. Then $X_i$ are identically distributed with $\E\sbrc{X_i} = \infty$. 
+    But 
+    \begin{equation*}
+        \frac{1}{n}\sum_{i=1}^n X_i = Y\not\to \infty 
+    \end{equation*}
+    almost surely. 
+\end{example}
+
+\begin{example}[Event Streaks]
+    $X_i\iidsim\Ber(2^{-1})$. Let $L_n$ be the longest streaks of $1$ in the first $n$ 
+    trials. We have the following: 
+    \begin{equation*}
+        \lim_{n\to\infty}\frac{L_n}{\log_2(n)} = 1. 
+    \end{equation*}
+    To see this, let $\ell_n$ be the length of the current streaks. For 
+    instance, the following sequence 
+    \begin{equation*}
+        1,0,1,1,1,1,0,\ldots 
+    \end{equation*}
+    generates $\ell_1 = 1, \ell_2 = 0, \ell_6 = 4$. Observe that $L_n = \max_{m\leq n}\ell_m$. 
+    Now, 
+    \begin{equation*}
+        \P(\ell_n\geq k) = \sum_{m=k}^n \P(\ell_n = k) = \sum_{m=k}^n 2^{-k-1} 
+        \leq 2^{-k}
+    \end{equation*}
+    as $n\to\infty$. For $\epsilon>0$, 
+    \begin{equation*}
+        \P(\ell_n \geq (1+\epsilon)\log_2(n)) = \P(\ell_n \geq \ceil{(1+\epsilon)\log_2(n)}) 
+        \leq 2^{-\ceil{(1+\epsilon)\log_2(n)}} \leq 2^{-(1+\epsilon)\log_2(n)}
+        = \frac{1}{n^{1+\epsilon}}
+    \end{equation*}
+    is summable. By the Borel-Cantelli lemma, 
+    \begin{equation*}
+        \P\set{\ell_n \geq (1+\epsilon)\log_2(n)\text{ for infinitely many $n$}} = 0. 
+    \end{equation*}
+    Hence 
+    \begin{equation*}
+        \P\set{\ell_n < (1+\epsilon)\log_2(n)\text{ for all but finitely many $n$}} = 1. 
+    \end{equation*}
+    That is, for almost every $\omega$, there is $N(\omega)$ such that 
+    $\ell_n < (1+\epsilon)\log_2(n)$ for $n\geq N(\omega)$. For such $\omega$, 
+    we have 
+    \begin{equation*}
+        L_n(\omega) = \max_{m\leq n}\ell_n(\omega) \leq\max_{m\leq n}(1+\epsilon)\log_2(n) = (1+\epsilon)\log_2(n)
+    \end{equation*}
+    as $n > N(\omega)$. Thus
+    \begin{equation*}
+        \limsup_{n\to\infty} \frac{L_n}{\log_2(n)}\leq 1+\epsilon
+    \end{equation*}
+    almost surely. Note that 
+    \begin{equation*}
+        \set{\limsup_{n\to\infty}\frac{L_n}{\log_2(n)}\leq 1+\epsilon} 
+        \searrow 
+        \set{\limsup_{n\to\infty}\frac{L_n}{\log_2(n)}\leq 1}
+    \end{equation*}
+    as $\epsilon\to 0^+$ and by the monotone convergence of the measures, 
+    \begin{equation*}
+        \limsup_{n\to\infty} \frac{L_n}{\log_2(n)}\leq 1
+    \end{equation*}
+    almost surely. 
+
+    For the other side, note that for large $n$, we may split the sequence into 
+    blocks of size $\ceil{(1-\epsilon)\log_2(n)}$ and 
+    \begin{equation*}
+        \frac{n}{\ceil{(1-\epsilon)\log_2(n)}} \geq \frac{n}{\log_2(n)}
+    \end{equation*}
+    for large $n$. 
+    \begin{equation*}
+        \begin{split}
+            \P(L_n\leq (1-\epsilon)\log_2(n)) &\leq \P(\text{each block did not have all 1s}) \\
+            &\leq (1-2^{-\ceil{(1-\epsilon)\log_2(n)/2}})^{n/\ceil{(1-\epsilon)\log_2(n)/2}} \\ 
+            &\leq \pth{1 - \frac{1}{n^{1-\epsilon}}}^{n^{1-\epsilon}\frac{n^\epsilon}{\log_2(n)}} 
+            \leq \exp\pth{-\frac{n^\epsilon}{\log_2(n)}},
+        \end{split}
+    \end{equation*}
+    whcih is summable, so by the Borel Cantelli lemma, 
+    \begin{equation*}
+        \P\set{L_n\leq (1-\epsilon)\log_2(n)\text{ for infinitely many $n$}} = 0.
+    \end{equation*}
+    By a similar argument as above, 
+    \begin{equation*}
+        \liminf_{n\to\infty} \frac{L_n}{\log_2(n)} \geq 1-\epsilon
+    \end{equation*}
+    almost surely and by the monotone convergence of the measures 
+    \begin{equation*}
+        \liminf_{n\to\infty} \frac{L_n}{\log_2(n)} \geq 1
+    \end{equation*}
+    almost surely. We conclude that 
+    \begin{equation*}
+        1 \leq \liminf_{n\to\infty} \frac{L_n}{\log_2(n)} 
+        \leq \limsup_{n\to\infty} \frac{L_n}{\log_2(n)}\leq 1
+    \end{equation*}
+    and the claim follows. 
+\end{example}
+
+\begin{example}[Counting Process]
+    Let $X_i\in(0,\infty)$ be independent and identically distributed random variable. 
+    Put $\mu = \E\sbrc{X_1}$, $T_n = \sum_{i=1}^n X_i$ and $N_t = \sup\Set{n}{T_n\leq t}$. 
+    Then we have the following claim: 
+    \begin{equation*}
+        \lim_{t\to\infty} \frac{N_t}{t} = \frac{1}{\mu} 
+    \end{equation*}
+    almost surely. To see this, note that since $X_i<\infty$ for all $i$, 
+    \begin{equation*}
+        \lim_{t\to\infty} N_t = \lim_{t\to\infty}\sup\Set{n}{T_n\leq t} = \infty. 
+    \end{equation*}
+    Now, observe that $T_{N_t} \leq t\leq T_{N_t+1}$ and hence 
+    \begin{equation*}
+        \frac{T_{N_t}}{N_t}\leq \frac{t}{N_t} \leq \frac{T_{N_t+1}}{N_t+1}\frac{N_t+1}{N_t}. 
+    \end{equation*}
+    By the strong law of large number, $T_{N_t}/N_t\to \mu$ almost surely. 
+    Thus 
+    \begin{equation*}
+        \lim_{t\to\infty} \frac{N_t}{t} = \frac{1}{\mu}. 
+    \end{equation*}
+\end{example}
+
+\begin{theorem}[Glivenko-Cantelli]
+    Suppose that $X_i\iidsim F$ with $X_i\in(-\infty, \infty)$ and 
+    \begin{equation*}
+        F_n(x) = \frac{1}{n}\sum_{i=1}^n\one\set{X_i\leq x}
+    \end{equation*}
+    is the empirical CDF. Then 
+    \begin{equation*}
+        \norm{F_n - F}_{\infty} \to 0
+    \end{equation*}
+    almost surely when $n\to\infty$. 
+\end{theorem}
+\begin{proof}
+    We first claim that for $\epsilon>0$, we may find a finite partition 
+    $\set{t_j}$ such that $-\infty = t_0 <\cdots<t_j = \infty$ and 
+    \begin{equation*}
+        F(t_{j+1}^-) - F(t_j) \leq \epsilon
+    \end{equation*}
+    for all $j$. To see the existence of such partition, put 
+    $t_0 = -\infty$ and let 
+    \begin{equation*}
+        t_{j+1} = \sup\Set{t\in\R}{F(t)\leq F(t_j)+\epsilon}. 
+    \end{equation*}
+    Observe that $F(t_{j+1})\geq F(t_j) + \epsilon$. If not, 
+    then $F(t_{j+1}) < F(t_j) + \epsilon$. By the right-continuity 
+    of $F$, there is $\delta > 0$ such that $F(t_{j+1} + \delta)\leq F(t_j) + \epsilon$, 
+    contradicting to the definition of $t_{j+1}$. It now also 
+    follows from the definition that 
+    \begin{equation*}
+        F(t_{j+1}^-) \leq F(t_j) + \epsilon. 
+    \end{equation*}
+    Finally, since $F$ is of finite total variation, the 
+    jumps of sizes greater than $\epsilon$ can occur only 
+    finitely many times and we conclude the existence of such 
+    partition. 
+
+    Next, by the strong law of large number, for almost every $\omega$ 
+    there is $N(\omega)$ uniform in $j$ such that 
+    \begin{equation*}
+        \abs{F_n(t_j) - F(t_j)} \leq \epsilon
+    \end{equation*}
+    for all $n>N(\omega)$. For any $t\in[t_j, t_{j+1})$, we have 
+    \begin{equation*}
+        F(t) - F(t_j) \leq F(t_{j+1}^{-1}) - F(t_j) \leq \epsilon. 
+    \end{equation*}
+    Again, by the strong law of the large number, 
+    \begin{equation*}
+        F_n(t_{j+1}^-) - F_n(t_j) = \frac{1}{n}\sum_{i=1}^n\one\set{t_j < X_i < t_{j+1}}
+        \to \E\sbrc{\one\set{t_j < X_i < t_{j+1}}} = F(t_{j+1}^-) - F(t_j)
+    \end{equation*}
+    almost surely. That is, for almost every $\omega$, there is $N'(\omega)>N(\omega)$ 
+    such that for all $j$, 
+    \begin{equation*}
+        F_n(t_{j+1}^-) - F_n(t_j) \leq F(t_{j+1}^-) - F(t_j) + \epsilon
+    \end{equation*}
+    if $n\geq N'(\omega)$. Combining the above estimates, if $n\geq N'(\omega)$, 
+    \begin{equation*}
+        \begin{split}
+            \abs{F_n(t)-F(t)} &\leq \abs{F_n(t) - F_n(t_j)} + \abs{F_n(t_j) - F(t_j)} 
+            + \abs{F(t_j) - F(t)} \\
+            &\leq \abs{F_n(t_{j+1}^-) - F_n(t_j)} + 2\epsilon \\ 
+            &\leq F(t_{j+1}^-) - F(t_j) + 3\epsilon \leq 4\epsilon. 
+        \end{split}
+    \end{equation*}
+    Since $\epsilon$ is arbitrary, we conclude that $F_n\to F$ uniformly for 
+    almost every $\omega$ and the proof is complete. 
+\end{proof}

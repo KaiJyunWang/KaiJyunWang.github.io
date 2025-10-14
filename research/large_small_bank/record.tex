@@ -19,7 +19,7 @@ Each household solves the following problem:
 \end{equation}
 subject to 
 \begin{align}
-    da &= \sbrc{a\pth{\sum_{n=1}^N\theta_ndr_n + e_ndr^e_n}} - cdt \\
+    da &= \sbrc{a\pth{\int_0^N\theta_ndr_n + e_ndr^e_ndn}} - cdt \\
     a &\geq 0
 \end{align}
 where $\theta_0$ is the asset proportion holding on hand, $\theta_n$ is the asset 
@@ -45,13 +45,18 @@ Now let $d\zeta_t$ be the new signal.
 
 \textcolor{red}{Think about the information shocks.}
 
-\subsection{Bank} 
-The banks have two type of assets. One is a risk-free bond $B_t$ with fixed 
-return rate $r^f$. The others are risky assets $k_t$ that require costs to build. 
-A risky asset cannot be held by different banks so the single bank can 
-only hold $k_t\in\set{0,1,\ldots}$. The risky assets arrive at rate $\lambda_k$, 
-requiring cost $C$, and pays off $R$ at rate $\lambda_R$. After 
-$R$ arrives, the risky asset is destructed. Total asset value is 
+\subsection{Bank}
+Banks are indexed in $[0,N_t]$, competing in deposit market in monopolistic 
+competition fashion. The banks have two type of assets. One is a risk-free bond 
+$B_t$ with fixed return rate $r^f$. The others are risky assets $k_t$ that require 
+costs to build. A risky asset cannot be held by different banks so the single bank 
+can only hold $k_t\in\set{0,1,\ldots}$. The risky assets arrive at rate $\lambda_k$, 
+requiring cost $C$, and pays off $R$ stochastically at rate $\lambda_R$. 
+\begin{equation*}
+    dR_t = d(idiosyncratic) + d(systematic).
+\end{equation*}
+
+After $R$ arrives, the risky asset is destructed. Total asset value is 
 \begin{equation}
     A_t = q_{B,t}B_t + q_{k,t}k_t. 
 \end{equation}
@@ -60,7 +65,7 @@ $d$ and $e$ are the proportion of asset holding financed by deposit
 and equity. 
 \begin{equation}
     \begin{split}
-        \mu_eEdt &= \max_{d,e,B,k} r^fBdt + d(q_BB) + d(q_kk) - \E\sbrc{Ad\cdot dr + (Ae - E)dr^e} \\
+        \mu_eEdt &= \max_{dr,dr^e,B,k} r^fBdt + d(q_BB) + d(q_kk) - \E\sbrc{a\theta_n(dr)dr + ae_n(dr^e)dr^e} \\
         &+ \lambda_k\int\one\set{x\leq q_BB}\max\set{q_k(k+1)+q_BB - C - E, 0}dF_C(x)\\ 
         &+ \lambda_Rk\int q_k(k-1) + q_BB + x - EdF_R(x)
     \end{split}
