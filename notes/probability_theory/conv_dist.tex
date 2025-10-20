@@ -1,0 +1,106 @@
+\begin{definition}
+    Let $F_n$ and $F$ be CDFs. We say that $F_n\to F$ \textbf{in distrbution} 
+    or \textbf{weakly} if $F_n(x)\to F(x)$ for every $x$ such that 
+    $F$ is continuous at $x$, denoted as $F_n\dto F$. 
+\end{definition}
+
+\begin{definition}
+    Let $X_n$ and $X$ be random variables. $X_n\dto X$ if 
+    the corresponding distributions $F_n\dto F$. 
+\end{definition}
+
+\begin{remark}
+    If $X_n, X$ are integer-valued, then $X_n\dto X$ if and 
+    onliy if $\P(X_n = a)\to \P(X = a)$ for all $a\in\Z$. 
+\end{remark}
+
+\begin{theorem}[Scheff\'e]
+    If $f_n$ are density functions such that $f_n\to f$ almost 
+    everywhere, where $f$ is a density function, then 
+    \begin{equation*}
+        \sup_{B\in\B}\abs{\int_B f_ndx - \int_B fdx}\to 0
+    \end{equation*}
+    as $n\to 0$. In particular, taking $B = [-\infty, x]$ 
+    gives the uniform convergence of the CDFs. 
+\end{theorem}
+\begin{proof}
+    Since 
+    \begin{equation*}
+        \sup_{B\in\B}\abs{\int_B f_ndx-\int_Bfdx} 
+        \leq \sup_{B\in\B}\int_B \abs{f_n-f}dx
+        \leq \int\abs{f_n - f}dx, 
+    \end{equation*}
+    the theorem follows once we prove that $f_n\to f$ in $\L^1$. 
+    Now, since $\abs{f_n - f}\to 0$ almost everywhere and 
+    \begin{equation*}
+        \abs{f_n - f}\leq \abs{f_n} + \abs{f}
+        \quad\Rightarrow\quad 
+        0\leq \abs{f_n}+\abs{f}-\abs{f_n - f}. 
+    \end{equation*}
+    By the assumptions that $f_n$ and $f$ are density functions,  
+    \begin{equation*}
+        \int f_ndx = 1 = \int fdx. 
+    \end{equation*}
+    By the Fatou's lemma, 
+    \begin{equation*}
+        \begin{split}
+            2\int\abs{f}dx &= \int\liminf_{n\to\infty}\abs{f_n}+\abs{f}-\abs{f_n-f} \\
+            &\leq \liminf_{n\to\infty}\int f_ndx + \int fdx - \int\abs{f_n - f}dx \\ 
+            &= 2\int fdx - \limsup_{n\to\infty} \int\abs{f_n - f}dx.
+        \end{split}
+    \end{equation*} 
+    Hence 
+    \begin{equation*}
+        \limsup_{n\to\infty}\int\abs{f_n - f}dx\leq 0
+        \quad\Rightarrow\quad 
+        \int\abs{f_n - f}dx\to 0.
+    \end{equation*}
+    Hence $f_n\to f$ in $\L^1$ and the proof is complete. 
+\end{proof}
+
+\begin{proposition}
+    If $X_n\pto X$, then $X_n\dto X$. 
+\end{proposition}
+\begin{proof}
+    Let $F_n$ and $F$ be the corresponding CDFs for $X_n$ and $X$. Suppose that 
+    $x$ is a continuity point of $F$. For $\epsilon>0$, 
+    \begin{equation*}
+        \begin{split}
+            F_n(x) &= \P(X_n\leq x) \geq \P(X_n \leq X + \epsilon, X \leq x) 
+            \geq \P(\abs{X_n - X}\leq \epsilon, X\leq x) \\
+            &\geq \P(X\leq x) - \P(\abs{X_n - X}> \epsilon) = F(x) - \P(\abs{X_n - X}>\epsilon)
+        \end{split}
+    \end{equation*}
+    due to $\P(A) = \P(A\cap B) + \P(A\cap B^c) \leq \P(A\cap B) + \P(B^c)$ 
+    for measurable sets $A,B$. Taking $n\to\infty$ gives 
+    \begin{equation*}
+        \liminf_{n\to\infty}F_n(x)\geq F(x). 
+    \end{equation*}
+    Similarly, 
+    \begin{equation*}
+        \begin{split}
+            F(x+\epsilon) &= \P(X\leq x+\epsilon) \geq \P(X\leq X_n+\epsilon, X_n\leq x) \\
+            &\geq \P(X_n\leq x) - \P(\abs{X_n - X}>\epsilon) 
+            = F_n(x) - \P(\abs{X_n - X}>\epsilon). 
+        \end{split}
+    \end{equation*}
+    Taking $n\to\infty$ gives 
+    \begin{equation*}
+        \limsup_{n\to\infty} F_n(x) \leq F(x+\epsilon). 
+    \end{equation*}
+    Since $\epsilon$ is arbitrary, by the continuity of $F$ at $x$ we have 
+    \begin{equation*}
+        \limsup_{n\to\infty} F_n(x) \leq F(x). 
+    \end{equation*}
+    Hence 
+    \begin{equation*}
+        F(x)\leq \liminf_{n\to\infty}F_n(x)\leq \limsup_{n\to\infty} F_n(x) \leq F(x)
+    \end{equation*}
+    and we conclude that $F_n\dto F$, i.e., $X_n\dto X$. 
+\end{proof}
+
+\begin{theorem}[Skorokhod Representation]
+    Suppose $F_n\dto F$. Then there are corresponding random 
+    variables $X_n, X$ for $F_n$ and $F$ such that $X_n\sim X$,  
+    $X\sim F$ and $X_n\to X$ almost surely. 
+\end{theorem}

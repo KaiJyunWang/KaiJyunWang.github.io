@@ -1,4 +1,77 @@
 \begin{definition}
+    Let $X_i$ be random variables with $\E\sbrc{X_i^2}<\infty$. They are called 
+    \textbf{uncorrelated} if 
+    \begin{equation*}
+        \E\sbrc{X_iX_j} = \E\sbrc{X_i}\E\sbrc{X_j}. 
+    \end{equation*} 
+\end{definition}
+
+\begin{theorem}[Weak Law of Large Number \rom{1}]
+    Suppose that $X_n$ are uncorrelated random variables with $\Var\sbrc{X_n}\leq C\infty$ 
+    and $\E\sbrc{X_n} = \mu$ for all $n$. Let $S_n = \sum_{i=1}^n X_i$. Then 
+    \begin{equation*}
+        \frac{1}{n}S_n\to \mu
+    \end{equation*}
+    in $\L^2$ and hence in probability. 
+\end{theorem}
+\begin{proof}
+    Compute that 
+    \begin{equation*}
+        \E\sbrc{\pth{\frac{1}{n}S_n-\mu}^2} = \frac{1}{n^2}\sum_{i=1}^n\Var(X_i) 
+        \leq \frac{C}{n}\to 0. 
+    \end{equation*}
+    Hence $\frac{1}{n}S_n\to\mu$ in $\L^2$ and thus in probability. 
+\end{proof}
+
+\begin{theorem}[Weak Law of Large Number \rom{2}, Khinchin]
+    Suppose that $X_i$ is a sequence of independent and identically distributed random variables 
+    with $\E\sbrc{\abs{X_1}}<\infty$. Let $S_n = \sum_{i=1}^n X_i$ and $\mu = \E\sbrc{X_1}$. 
+    Then 
+    \begin{equation*}
+        \frac{1}{n}S_n\to\mu
+    \end{equation*}
+    in $\L^1$ and hence in probability. 
+\end{theorem}
+\begin{proof}
+    By replacing $X_i$ with $X_i-\mu$, we may assume without loss of generality 
+    that $\mu = 0$. Now, for $C>0$, 
+    \begin{equation*}
+        0 = \E\sbrc{X_i} = \E\sbrc{X_i\one\set{\abs{X_i}>C}} + \E\sbrc{X_i\one\set{\abs{X_i}\leq C}}. 
+    \end{equation*}
+    Also, 
+    \begin{equation*}
+        \begin{split}
+            \frac{1}{n}S_n &= 
+            \frac{1}{n}\sum_{i=1}^nX_i\one\set{\abs{X_i}>C}  
+            + \frac{1}{n}\sum_{i=1}^nX_i\one\set{\abs{X_i}\leq C} \\ 
+            &= \frac{1}{n}\sum_{i=1}^n\pth{X_i\one\set{\abs{X_i}>C} - \E\sbrc{X_i\one\set{\abs{X_i}>C}}} 
+            + \frac{1}{n}\sum_{i=1}^n\pth{X_i\one\set{\abs{X_i}\leq C} - \E\sbrc{X_i\one\set{\abs{X_i}\leq C}}}. 
+        \end{split}
+    \end{equation*}
+    Notice that by LDCT,
+    \begin{equation*}
+        \E\sbrc{\abs{\frac{1}{n}\sum_{i=1}^n\pth{X_i\one\set{\abs{X_i}>C} - \E\sbrc{X_i\one\set{\abs{X_i}>C}}}}} 
+        \leq 2\E\sbrc{\abs{X_1}\one\set{\abs{X_1}>C}}\to 0
+    \end{equation*}
+    as $C\to\infty$ since $\abs{X_1}\one\set{\abs{X_1}>C}\leq\abs{X_1}$ and 
+    $\E\sbrc{\abs{X_1}}<\infty$. Also, by H\"older inequality and the independence,  
+    \begin{equation*}
+        \E\sbrc{\abs{\frac{1}{n}\sum_{i=1}^n\pth{X_i\one\set{\abs{X_i}\leq C} - \E\sbrc{X_i\one\set{\abs{X_i}\leq C}}}}} 
+        \leq \sqrt{\frac{1}{n}\Var(X_i\one\set{\abs{X_i}\leq C})} \leq \frac{C}{\sqrt{n}} 
+    \end{equation*}
+    For any given $\epsilon>0$, there is $C$ such that $2\E\sbrc{\abs{X_1}\one\set{\abs{X_1}>C}} < \epsilon$ and 
+    \begin{equation*}
+        \begin{split}
+            \E\sbrc{\abs{\frac{1}{n}S_n}} &\leq \E\sbrc{\abs{\frac{1}{n}\sum_{i=1}^n\pth{X_i\one\set{\abs{X_i}>C} - \E\sbrc{X_i\one\set{\abs{X_i}>C}}}}} \\
+            &\quad + \E\sbrc{\abs{\frac{1}{n}\sum_{i=1}^n\pth{X_i\one\set{\abs{X_i}\leq C} - \E\sbrc{X_i\one\set{\abs{X_i}\leq C}}}}} \\ 
+            &\leq \epsilon + \frac{C}{\sqrt{n}}\to\epsilon
+        \end{split}
+    \end{equation*}
+    as $n\to\infty$. Since $\epsilon$ can be arbitrarily small, we conclude 
+    that $\frac{1}{n}S_n\to 0$ in $\L^1$ and hence in probability. 
+\end{proof}
+
+\begin{definition}
     Let $A_n$ be a sequence of events. 
     \begin{equation*}
         \limsup_{n\to\infty} A_n = \cap_{m=1}^\infty\cup_{n=m}^\infty A_n
@@ -597,4 +670,111 @@
     \end{equation*}
     Since $\epsilon$ is arbitrary, we conclude that $F_n\to F$ uniformly for 
     almost every $\omega$ and the proof is complete. 
+\end{proof}
+
+\begin{theorem}[Kolmogorov Maximal Inequality]
+    Suppose that $X_i$ are independent with $\E\sbrc{X_i} = 0$ and $\Var\sbrc{X_i}<\infty$. 
+    Let $S_n = \sum_{i=1}^n X_i$. Then 
+    \begin{equation*}
+        \P\pth{\max_{1\leq k\leq n}\abs{S_k}\geq x} \leq \frac{1}{x^2}\Var\sbrc{S_n}. 
+    \end{equation*}
+\end{theorem}
+\begin{proof}
+    Let $A_k = \set{\abs{S_k}\geq x\text{ and }\abs{S_j}<x\text{ for $1\leq j\leq k-1$}}$. 
+    Note that
+    \begin{equation*}
+        \sum_{k=1}^n\one_{A_k} = \one\set{\max_{1\leq k\leq n}\abs{S_k}\geq x}. 
+    \end{equation*} 
+    \begin{equation*}
+        \begin{split}
+            \E\sbrc{S_n^2} &\geq \E\sbrc{S_n^2\sum_{k=1}^n\one_{A_k}} 
+            = \sum_{k=1}^n\E\sbrc{S_n^2\one_{A_k}} 
+            = \sum_{k=1}^n\E\sbrc{(S_n - S_k + S_k)^2\one_{A_k}} \\
+            &= \sum_{k=1}^n \E\sbrc{(S_n-S_k)^2\one_{A_k}} + 2\E\sbrc{(S_n-S_k)S_k\one_{A_k}} + \E\sbrc{S_k^2\one_{A_k}} \\ 
+            &\geq \sum_{k=1}^n \E\sbrc{S_k^2\one_{A_k}} + 2\E\sbrc{(S_n-S_k)S_k\one_{A_k}}.
+        \end{split}
+    \end{equation*}
+    Notice that $S_n-S_k\in\sigma(X_{k+1},\ldots,X_n)$ and $S_k\one_{A_k}\in\sigma(X_1,\ldots,X_k)$ 
+    are independent. Thus 
+    \begin{equation*}
+        \begin{split}
+            \E\sbrc{S_n^2} &\geq \sum_{k=1}^n \E\sbrc{S_k^2\one_{A_k}} + 2\E\sbrc{(S_n-S_k)S_k\one_{A_k}} \\
+            &= \sum_{k=1}^n \E\sbrc{S_k^2\one_{A_k}}\geq x^2\sum_{k=1}^n \E\sbrc{\one_{A_k}}
+            = x^2\P\pth{\max_{1\leq k\leq n}\abs{S_k}\geq x}. 
+        \end{split} 
+    \end{equation*}
+    Hence 
+    \begin{equation*}
+        \P\pth{\max_{1\leq k\leq n}\abs{S_k}\geq x} \leq \frac{1}{x^2}\E\sbrc{S_n^2}. 
+    \end{equation*}
+\end{proof}
+
+\begin{definition}
+    Let $(\Omega,\F,\P)$ be a probability space. A sub-$\sigma$-algebra $\G$ 
+    is \textbf{$\P$-trivial} if for all $A\in\G$, $\P(A)\in\set{0,1}$. 
+\end{definition}
+
+\begin{theorem}[Kolmogorov Zero-One Law]
+    Let $\F_i$ be independent $\sigma$-algebras, $\G_n = \sigma(\F_n,\ldots)$ and 
+    $\G_{\infty} = \cap_{n=1}^\infty\G_n$. Then $\G_\infty$ is $\P$-trivial. 
+\end{theorem}
+\begin{proof}
+    Observe that a $\sigma$-algebra $\G$ satisfies that for $A\in\G$, $\P(A)\in\set{0,1}$ 
+    if $\G$ is independent of itself. Indeed, if $\G$ is independent of 
+    itself, then for any $A\in\G$, 
+    \begin{equation*}
+        \P(A) = \P(A\cap A) = \P(A)^2
+    \end{equation*}
+    implies that $\P(A) = 0$ or $1$. Now, for any given $n$, 
+    $\sigma(\F_1,\ldots,\F_{n-1})$ is independent with $\G_n$ and $\G_\infty\subset\G_n$. 
+    Hence $\G_\infty$ is independent of $\sigma(\F_1,\ldots,\F_{n-1})$ for all $n$. 
+    
+    In particular, $\G_\infty$ is independent of $\sigma(\cup_n\F_n)$. 
+    To see this, note that $\cup_n\sigma(\cup_{k=1}^n\F_k)$ is a $\pi$ system that 
+    generates $\sigma(\cup_n\F_n)$ and for $A\in\cup_n\sigma(\cup_{k=1}^n\F_k)$, 
+    $A\in\sigma(\cup_{k=1}^n\F_k)$ for some $n$. For $B\in\G_\infty$, 
+    \begin{equation*}
+        \P(A\cap B) = \P(A)\P(B)
+    \end{equation*}
+    since $\sigma(\cup_{k=1}^n\F_k)$ and $\G_\infty$ is independent. Now it 
+    follows from \cref{thm:pi-system_independence} that $\G_\infty$ and 
+    $\sigma(\cup_n\F_n)$ are independent. Notice that $\G_\infty\subset\sigma(\cup_n\F_n)$ 
+    and hence $\G_\infty$ is independent of itself. The proof is complete. 
+\end{proof}
+
+\begin{corollary}
+    Let $X_i$ be independent and identically distributed and 
+    put $S_n = \sum_{i=1}^n X_i$. Then 
+    \begin{thmenum}
+        \item $S_n$ is either almost surely convergent or almost surely divergent. 
+        \item If $\frac{1}{n}S_n$ converges almost surely, its limit is almost surely 
+        a constant. 
+    \end{thmenum}
+\end{corollary}
+\begin{proof}
+    Define $\F_i = \sigma(X_i)$ and note that $\set{S_n\text{ converges}}\in\G_{\infty} 
+    = \cap_{n}\sigma(\cup_{i\geq n}\F_i)$ since 
+    \begin{equation*}
+        \set{S_n\text{ converges}} = \set{\lim_{n\to\infty}\sum_{i\geq n}X_i = 0}
+    \end{equation*}
+    is $\G_\infty$-measurable. By the Kolmogorov zero-one law, 
+    \begin{equation*}
+        \P\set{S_n\text{ converges}}\in\set{0,1}. 
+    \end{equation*}
+    This proves (a). 
+    
+    For (b), note that by a similar argument, we have 
+    \begin{equation*}
+        \set{\frac{1}{n}S_n\text{ converges}}\in\G_\infty,
+    \end{equation*} 
+    where $\G_\infty$ is $\P$-trivial. Also, $\lim_{n\to\infty}\frac{1}{n}S_n$ 
+    is $\G_\infty$-measurable. Since $\G_\infty$ is $\P$-trivial, 
+    \begin{equation*}
+        F(t)\coloneq\P\set{\lim_{n\to\infty}\frac{1}{n}S_n\leq t} \in \set{0,1}. 
+    \end{equation*}
+    Thus 
+    \begin{equation*}
+        \lim_{n\to\infty}\frac{1}{n}S_n = \sup\Set{t}{F(t)= 0}
+    \end{equation*}
+    almost surely, proving that the limit is almost surely a constant. 
 \end{proof}
