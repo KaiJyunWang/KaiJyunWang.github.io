@@ -104,3 +104,149 @@
     variables $X_n, X$ for $F_n$ and $F$ such that $X_n\sim X$,  
     $X\sim F$ and $X_n\to X$ almost surely. 
 \end{theorem}
+\begin{proof}
+    Take $\Omega = [0,1]$, $\F = \B$ and $\P$ be the Lebesgue measure 
+    on $[0,1]$. Put 
+    \begin{equation*}
+        X_n(\omega) = \sup\Set{x\in\R}{F_n(x)<\omega} 
+        \quad\text{and}\quad 
+        X(\omega) = \sup\Set{x\in\R}{F(x)<\omega}
+    \end{equation*}
+    with the convention that $\sup\varnothing = -\infty$. 
+    Then 
+    \begin{equation*}
+        \P\set{X_n\leq x} = \P\Set{\omega}{\omega\leq F_n(x)} 
+        = F_n(x)
+        \quad\text{and}\quad 
+        \P\set{X\leq x} = \P\Set{\omega}{\omega\leq F(x)} 
+        = F(x). 
+    \end{equation*}
+
+    It now suffices to show that $X_n\to X$ almost surely. 
+    Indeed, since $F_n, F$ are CDFs, there are only at most 
+    countable discontinuities. Let $\omega$ be a point of continuity 
+    of $X$. We may find another continuity point such that 
+    $F(y)<\omega$. The convergence in distribution implies that 
+    $F_n(y)\to F(y)$. Hence for $n$ large enough, we have 
+    $F_n(y)<\omega$ and hence $X_n(\omega)>y$. Thus 
+    \begin{equation*}
+        \liminf_{n\to\infty} X_n(\omega) \geq y
+    \end{equation*}
+    for all $y\leq X(\omega)$. Thus 
+    \begin{equation*}
+        \liminf_{n\to\infty} X_n(\omega) \geq X(\omega). 
+    \end{equation*}
+
+    Similarly, pick a continuity point $y$ such that $F(y)\geq \omega$ 
+    would give 
+    \begin{equation*}
+        \limsup_{n\to\infty} X_n(\omega)\leq y
+    \end{equation*}
+    for all $y\geq X(\omega)$ and thus 
+    \begin{equation*}
+        \limsup_{n\to\infty} X_n(\omega)\leq X(\omega). 
+    \end{equation*}
+    Combining the above results gives that $X_n\to X$ almost 
+    surely, since $X$ is continuous almost surely. 
+\end{proof}
+
+\begin{corollary}
+    Let $g\geq 0$ be a continuous measurable function and $X_n\dto X$. Then 
+    \begin{equation*}
+        \E\sbrc{g(X)}\leq \liminf_{n\to\infty} \E\sbrc{g(X_n)}. 
+    \end{equation*}
+\end{corollary}
+\begin{proof}
+    Let $Y_n$ and $Y$ be the Skorokhod representations for 
+    $X_n$ and $X$, respectively. Since now $g(Y_n)\to g(Y)$ 
+    almost surely, the Fatou's lemma 
+    shows that 
+    \begin{equation*}
+        \E\sbrc{g(X)} = \E\sbrc{g(Y)} 
+        \leq \liminf_{n\to\infty}\E\sbrc{g(Y_n)} 
+        = \liminf_{n\to\infty}\E\sbrc{g(X_n)}. 
+    \end{equation*}
+\end{proof}
+
+\begin{theorem}[Helly-Bray]
+    Suppose that $X_n$ and $X$ are $\R$-valued random variables. 
+    Then $X_n\dto X$ if and only if 
+    \begin{equation*}
+        \E\sbrc{g(X_n)}\to \E\sbrc{g(X)}
+    \end{equation*}
+    for all $g\in C_b(\R)$. 
+\end{theorem}
+\begin{proof}
+    Assume first that $X_n\dto X$. By the Skorokhod representation 
+    theorem, we may assume that $X_n$ and $X$ are defined on 
+    the same probability space and $X_n\to X$ almost surely. 
+    Now, since for all $g\in C_b(\R)$, $g(X_n)\to g(X)$ almost surely 
+    and are uniformly bounded, the bounded convergence theorem implies 
+    that 
+    \begin{equation*}
+        \E\sbrc{g(X_n)}\to\E\sbrc{g(X)}. 
+    \end{equation*}
+
+    Conversely, suppose that $\E\sbrc{g(X_n)}\to\E\sbrc{g(X)}$ 
+    for all $g\in C_b(\R)$. Let $F_n$ and $F$ be the distribution 
+    functions for $X_n$ and $X$ respectively and $x$ be a continuity 
+    point of $F$. For $\epsilon>0$, consider 
+    \begin{equation*}
+        g_\epsilon(y) = \begin{cases}
+            1 & y\leq x \\  
+            1 - \frac{y-x}{\epsilon} & x < y \leq x+\epsilon \\ 
+            0 & y\geq x+\epsilon. 
+        \end{cases}
+    \end{equation*}
+    Clearly $g_\epsilon\in C_b(\R)$. Let $g(y) = \one\set{y\leq x}$. 
+    \begin{equation*}
+        \begin{split}
+            \limsup_{n\to\infty} F_n(x) 
+            &= \limsup_{n\to\infty}\E\sbrc{g(X_n)} 
+            \leq \limsup_{n\to\infty}\E\sbrc{g_\epsilon(X_n)} 
+            = \E\sbrc{g_\epsilon(X)} \leq F(x+\epsilon).
+        \end{split} 
+    \end{equation*}
+    Since $\epsilon$ is arbitrary and $F$ is continuous at $x$, 
+    we have 
+    \begin{equation*}
+        \limsup_{n\to\infty} F_n(x)\leq F(x). 
+    \end{equation*}
+    On the other hand, 
+    \begin{equation*}
+        \liminf_{n\to\infty} F_n(x) 
+        = \liminf_{n\to\infty} \E\sbrc{g(X_n)} 
+        \geq \liminf_{n\to\infty} \E\sbrc{g_\epsilon(X_n+\epsilon)} 
+        = \E\sbrc{g_\epsilon(X+\epsilon)} \geq F(x+\epsilon)\geq F(x). 
+    \end{equation*}
+    Hence $F_n(x)\to F(x)$ and the proof is complete. 
+\end{proof}
+\begin{remark}
+    The theorem gives an alternative characterization for 
+    the convergence in distribution. In particular, we can define 
+    the notion of convergence in distribution of general random 
+    element $X_n:\Omega\to (S,d)$ as $\E\sbrc{g(X_n)}\to \E\sbrc{g(X)}$ 
+    for all bounded $g:S\to\R$.  
+\end{remark}
+
+\begin{theorem}[Continuous Mapping Theorem]
+    Let $X_n\dto X$ and $g$ be a measurable function continuous 
+    $\mu_X$-almost surely. Then $g(X_n)\dto g(X)$. 
+\end{theorem}
+\begin{proof}
+    By the Skorokhod representation theorem, we may assume that $X_n$ and 
+    $X$ are on the same space and $X_n\to X$ almost surely. By the continuity 
+    of $g$, we have $g(X_n)\to g(X)$ almost surely. For all $f\in C_b(\R)$, 
+    $f(g(X_n))\to f(g(X))$ almost surely as well. Since $f\circ g$ is bounded, 
+    the bounded convergence theorem gives $\E\sbrc{f(g(X_n))}\to \E\sbrc{f(g(X))}$. 
+    By the Helly-Bray theorem, this implies that $g(X_n)\dto g(X)$.  
+\end{proof}
+\begin{remark}
+    If $g$ is bounded, then $\E\sbrc{g(X_n)}\to\E\sbrc{g(X)}$ directly by 
+    applying bounded convergence theorem on $g(X_n)$ and $g(X)$.  
+\end{remark}
+
+\begin{example}
+    $X_n\sim U[-\frac{1}{n},\frac{1}{n}]\dto \delta_0$. Let $g(x) = \one\set{x\geq 0}$. 
+    Then $g(X_n)\sim\Ber(\frac{1}{2})\not\dto g(X)\sim \delta_1$. 
+\end{example}
