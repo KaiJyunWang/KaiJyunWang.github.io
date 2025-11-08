@@ -1,0 +1,129 @@
+\documentclass[a4paper, 12pt]{article}
+\input{prefix_large_small_bank.tex}%
+\input{symbols_large_small_bank.tex}
+
+\title{Banking Competiotion Research Record}
+\author{Kai-Jyun Wang\thanks{National Taiwan University, Department of Economics.}}
+
+\begin{document} 
+\setstretch{1.15}
+\maketitle
+
+\section{Literature}
+\subsection{Bank Run and Banking Competition}
+\begin{itemize}
+    \item \cite{diamond1983}.
+    \item \cite{goldstein2005}.
+    \item \cite{egan2017}. 
+    \item \cite{gertler2015}. 
+    \item \cite{wang2022}. 
+    \item \cite{egan2025}. 
+\end{itemize}
+
+\subsection{Computation with Aggregate Distribution as State}
+\begin{itemize}
+    \item \cite{krusell1998}.
+    \item \cite{maliar2021}.
+    \item \cite{gu2024}.
+\end{itemize}
+
+\section{Monopolistic Bank with Liquidity Motive} 
+\subsection{Household}
+Time is continuous, starting from $t = 0$ and going on forever. 
+Following \cite{moreira2017}, we model the households with 
+liquidity needs. There is a unit measure of identical households 
+solving the following probelm 
+\begin{equation}\label{eq:hh_value}
+    V_t = \max\E_t\sbrc{\int_t^\infty e^{-\rho t}\log\pth{W_t\pth{\psi dC_t + dc_t}}}.
+\end{equation}
+where $C_t$ is the consumption fraction in liquidity event, $\psi > 1$ 
+is the marginal utility of liquidity event consumption and 
+$c_t$ is the consumption fraction outside of the liquidity event. 
+
+A liquidity event comes with rate $h$ with size $d\overline{C}_t$. 
+That is, $dC_t \leq d\overline{C}_t$. Conditional on the 
+occurence of a liquidity event, the size follows $\text{Exp}(\eta)$. 
+
+There are two type of securities issued by the bank, money $m$ 
+and equity $e$. The money can be used to finance both consumptions 
+while the equity can only finance $c_t$. The constraints are 
+\begin{align}
+    \frac{dW_t}{W_t} &= m_tdr^m_t + e_tdr^e_t - dC_t - dc_t \\ 
+    dC_t &\leq \min\set{m_t, d\overline{C}_t} \label{eq:liquidity_constraint}\\ 
+    m_t + e_t &= 1.
+\end{align}
+
+Recursify \cref{eq:hh_value}, 
+\begin{equation}
+    \rho V_t(W_t)dt = \log(W_t) + \max_{m_t, e_t, dC_t, dc_t} \E_t\sbrc{\log(\psi dC_t + dc_t)} + \E_t\sbrc{dV_t}. 
+\end{equation}
+where 
+\begin{equation}
+    dV_t = V_tdt + V_WdW_t + \frac{1}{2}V_{WW}(dW_t)^2.
+\end{equation}
+Given $m_t, e_t$, conditional on the liquidity event, the household decides 
+$(dC_t, dc_t)$: 
+\begin{equation}
+    \begin{split}
+        &\max_{dC_t, dc_t} \log(\psi dC_t + dc_t) + \theta_t(\min\set{m_t, d\overline{C}_t} - dC_t) \\
+        &\quad + V_tdt + V_W\E\sbrc{m_tdr^m_t + e_tdr^e_t - dC_t - dc_t} + \frac{1}{2}V_{WW}\E\sbrc{W_t^2(m_tdr^m_t + e_tdr^e_t - dC_t - dc_t)^2}
+    \end{split}
+\end{equation}
+The first order condition with complementary slackness is 
+\begin{align}
+    \frac{\psi}{\psi dC_t + dc_t} - \theta_t - V_WW_t - V_{WW}\E\sbrc{W_t^2(m_tdr^m_t + e_tdr^e_t - dC_t -dc_t)} &= 0 \\ 
+    \frac{1}{\psi dC_t + dc_t} - V_WW_t - V_{WW}\E\sbrc{W_t^2(m_tdr^m_t + e_tdr^e_t - dC_t -dc_t)} &= 0 \\ 
+    \theta_t(\min\set{m_t, d\overline{C}_t} - dC_t) &= 0. 
+\end{align}
+Thus 
+\begin{equation*}
+    \theta_t = \frac{\psi - 1}{\psi dC_t + dc_t} > 0
+\end{equation*}
+and the liquidity constraint always binds. 
+\begin{equation*}
+    dC_t = \min\set{m_t, d\overline{C}_t}.
+\end{equation*}
+Now, 
+\begin{equation*}
+    dc_t
+\end{equation*}
+
+\section{Monopolistic Bank with Full Information}
+\subsection{Households}
+Time is continuous, starting from $t = 0$ and going on forever. 
+The households can buy deposit from the bank to save. There is a unit 
+measure of households solving the problem: 
+\begin{equation*}
+    V_t = \max \E_t\sbrc{\int_t^\infty e^{-\rho(s-t)}\frac{c_s^{1-\gamma}}{1-\gamma}dt}
+\end{equation*}
+subject to the budget constraint 
+\begin{equation*}
+    dD_t = D_td\tilde{r}_t - c_tdt
+\end{equation*}
+where $D_t$ is the deposit, $d\tilde{r}_t$ is the realized deposit 
+rate.  
+
+\subsection{Bank}
+The bank issues deposits and equities to finance the investment. 
+There are two types of investment: a risk free investment 
+$b_t$ and a risky investment $k_t$. 
+\begin{align}
+    db_t &= (\mu_b - i_{b,t})b_tdt \\ 
+    dk_t &= \mu_kk_tdt - k_t\kappa dZ_t + i_{k,t}k_tdZ_{\lambda, t}
+\end{align}
+The bank's problem is 
+\begin{equation*}
+    \begin{split}
+        \rho_b E_t(k_t)dt &= \max_{dr_t, \theta_{\lambda}} - D(dr_t)dr_t + \mu_bD(dr_t)dt - 
+        (\mu_b - i_{b,t})
+        b_tdt + \phi dt \int k_tx + (E_t(k_t(1-x), b_t) - E_t(k_t, b_t))dF_{\phi}(x) \\ 
+        &\quad \lambda dt(-i_{k,t}k_t + E_t(i_{k,t}k_t, b_t) - E_t(k_t, b_t)) - D(dr_t)dr_t
+    \end{split}
+\end{equation*} 
+
+
+
+\bibliographystyle{apacite}
+\bibliography{large_small_bank}
+
+\end{document}

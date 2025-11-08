@@ -1,26 +1,40 @@
 \begin{definition}
-    Let $F_n$ and $F$ be CDFs. We say that $F_n\to F$ \textbf{in distrbution} 
-    or \textbf{weakly} if $F_n(x)\to F(x)$ for every $x$ such that 
-    $F$ is continuous at $x$, denoted as $F_n\dto F$. 
+    Let $\mu_n$ and $\mu$ be probability measures on $(S, d)$. We say that 
+    $\mu_n\to\mu$ \textbf{in distribution} or \textbf{weakly} if for all 
+    $f\in C_b(S, \R)$, 
+    \begin{equation*}
+        \int fd\mu_n\to \int fd\mu. 
+    \end{equation*}
+    We denote the convergence as $\mu_n\dto\mu$. 
 \end{definition}
+\begin{remark}
+    The notion of convergence is the smallest topology such that the linear 
+    functional of the form $\ell_f:\mu\to\int fd\mu$ where 
+    $f\in C_b(S)$ is continuous. 
+\end{remark}
 
 \begin{definition}
     Let $X_n$ and $X$ be random variables. $X_n\dto X$ if 
-    the corresponding distributions $F_n\dto F$. 
+    the corresponding distributions $\mu_n\dto \mu$. 
 \end{definition}
-
 \begin{remark}
-    If $X_n, X$ are integer-valued, then $X_n\dto X$ if and 
-    onliy if $\P(X_n = a)\to \P(X = a)$ for all $a\in\Z$. 
+    The convergence in distribution of the random variables does not 
+    depend on the space where the random variables are defined; in fact, 
+    they can be defined on different spaces. The definition can also be 
+    written as 
+    \begin{equation*}
+        \E\sbrc{f(X_n)}\to \E\sbrc{f(X)}
+    \end{equation*} 
+    for all $f\in C_b(S)$. 
 \end{remark}
 
 \begin{theorem}[Scheff\'e]
-    If $f_n$ are density functions such that $f_n\to f$ almost 
+    If $f_n:S\to\R$ are density functions such that $f_n\to f$ almost 
     everywhere, where $f$ is a density function, then 
     \begin{equation*}
         \sup_{B\in\B}\abs{\int_B f_ndx - \int_B fdx}\to 0
     \end{equation*}
-    as $n\to 0$. In particular, taking $B = [-\infty, x]$ 
+    as $n\to 0$. In particular, when $S = \R$, taking $B = [-\infty, x]$ 
     gives the uniform convergence of the CDFs. 
 \end{theorem}
 \begin{proof}
@@ -44,8 +58,8 @@
     By the Fatou's lemma, 
     \begin{equation*}
         \begin{split}
-            2\int\abs{f}dx &= \int\liminf_{n\to\infty}\abs{f_n}+\abs{f}-\abs{f_n-f} \\
-            &\leq \liminf_{n\to\infty}\int f_ndx + \int fdx - \int\abs{f_n - f}dx \\ 
+            2\int\abs{f}dx &= \int\liminf_{n\to\infty}\abs{f_n}+\abs{f}-\abs{f_n-f} 
+            \leq \liminf_{n\to\infty}\int f_ndx + \int fdx - \int\abs{f_n - f}dx \\ 
             &= 2\int fdx - \limsup_{n\to\infty} \int\abs{f_n - f}dx.
         \end{split}
     \end{equation*} 
@@ -59,52 +73,27 @@
 \end{proof}
 
 \begin{proposition}
-    If $X_n\pto X$, then $X_n\dto X$. 
+    Let $X_n, X$ be random variables on a separable metric space $(S, d)$. 
+    Then $X_n\pto X$ implies $X_n\dto X$. 
 \end{proposition}
 \begin{proof}
-    Let $F_n$ and $F$ be the corresponding CDFs for $X_n$ and $X$. Suppose that 
-    $x$ is a continuity point of $F$. For $\epsilon>0$, 
-    \begin{equation*}
-        \begin{split}
-            F_n(x) &= \P(X_n\leq x) \geq \P(X_n \leq X + \epsilon, X \leq x) 
-            \geq \P(\abs{X_n - X}\leq \epsilon, X\leq x) \\
-            &\geq \P(X\leq x) - \P(\abs{X_n - X}> \epsilon) = F(x) - \P(\abs{X_n - X}>\epsilon)
-        \end{split}
-    \end{equation*}
-    due to $\P(A) = \P(A\cap B) + \P(A\cap B^c) \leq \P(A\cap B) + \P(B^c)$ 
-    for measurable sets $A,B$. Taking $n\to\infty$ gives 
-    \begin{equation*}
-        \liminf_{n\to\infty}F_n(x)\geq F(x). 
-    \end{equation*}
-    Similarly, 
-    \begin{equation*}
-        \begin{split}
-            F(x+\epsilon) &= \P(X\leq x+\epsilon) \geq \P(X\leq X_n+\epsilon, X_n\leq x) \\
-            &\geq \P(X_n\leq x) - \P(\abs{X_n - X}>\epsilon) 
-            = F_n(x) - \P(\abs{X_n - X}>\epsilon). 
-        \end{split}
-    \end{equation*}
-    Taking $n\to\infty$ gives 
-    \begin{equation*}
-        \limsup_{n\to\infty} F_n(x) \leq F(x+\epsilon). 
-    \end{equation*}
-    Since $\epsilon$ is arbitrary, by the continuity of $F$ at $x$ we have 
-    \begin{equation*}
-        \limsup_{n\to\infty} F_n(x) \leq F(x). 
-    \end{equation*}
-    Hence 
-    \begin{equation*}
-        F(x)\leq \liminf_{n\to\infty}F_n(x)\leq \limsup_{n\to\infty} F_n(x) \leq F(x)
-    \end{equation*}
-    and we conclude that $F_n\dto F$, i.e., $X_n\dto X$. 
+    Let $X_n\pto X$. To show that $X_n\dto X$, we need to show that 
+    $\E\sbrc{f(X_n)}\to \E\sbrc{f(X)}$. Suppose that this does 
+    not hold. There is a subsequence $X_{n_k}$ such that $X_{n_k}\to X$ 
+    almost surely by \cref{thm:prob_conv_subseq_as}. By continuity we 
+    have $f(X_{n_k})\to f(X)$ almost surely. Since $f$ is bounded, the 
+    bounded convergence theorem implies that $\E\sbrc{f(X_{n_k})}\to\E\sbrc{f(X)}$, 
+    contradicting to our hypothesis. Hence $\E\sbrc{f(X_n)}\to \E\sbrc{f(X)}$ 
+    and $X_n\dto X$. 
 \end{proof}
 
 \begin{theorem}[Skorokhod Representation]
-    Suppose $F_n\dto F$. Then there are corresponding random 
-    variables $X_n, X$ for $F_n$ and $F$ such that $X_n\sim X$,  
-    $X\sim F$ and $X_n\to X$ almost surely. 
+    Suppose $\mu_n\dto \mu$ on $\R$. Then there are corresponding random 
+    variables $X_n, X$ for $\mu_n$ and $\mu$ such that $X_n\sim \mu_n$,  
+    $X\sim \mu$ and $X_n\to X$ almost surely. 
 \end{theorem}
 \begin{proof}
+    Let $F_n$ and $F$ be the CDFs for $\mu_n$ and $\mu$, respectively. 
     Take $\Omega = [0,1]$, $\F = \B$ and $\P$ be the Lebesgue measure 
     on $[0,1]$. Put 
     \begin{equation*}
@@ -151,7 +140,7 @@
 \end{proof}
 
 \begin{corollary}
-    Let $g\geq 0$ be a continuous measurable function and $X_n\dto X$. Then 
+    Let $g\geq 0$ be a continuous measurable function on $\R$ and $X_n\dto X$. Then 
     \begin{equation*}
         \E\sbrc{g(X)}\leq \liminf_{n\to\infty} \E\sbrc{g(X_n)}. 
     \end{equation*}
@@ -222,15 +211,12 @@
     Hence $F_n(x)\to F(x)$ and the proof is complete. 
 \end{proof}
 \begin{remark}
-    The theorem gives an alternative characterization for 
-    the convergence in distribution. In particular, we can define 
-    the notion of convergence in distribution of general random 
-    element $X_n:\Omega\to (S,d)$ as $\E\sbrc{g(X_n)}\to \E\sbrc{g(X)}$ 
-    for all bounded $g:S\to\R$.  
+    The theorem gives an equivalent definition for 
+    the convergence in distribution in $\R$-valued case. 
 \end{remark}
 
 \begin{theorem}[Continuous Mapping Theorem]
-    Let $X_n\dto X$ and $g$ be a measurable function continuous 
+    Let $X_n\dto X$ in $\R$ and $g$ be a measurable function continuous 
     $\mu_X$-almost surely. Then $g(X_n)\dto g(X)$. 
 \end{theorem}
 \begin{proof}
@@ -250,3 +236,286 @@
     $X_n\sim U[-\frac{1}{n},\frac{1}{n}]\dto \delta_0$. Let $g(x) = \one\set{x\geq 0}$. 
     Then $g(X_n)\sim\Ber(\frac{1}{2})\not\dto g(X)\sim \delta_1$. 
 \end{example}
+
+\begin{definition}
+    A metric space $(S, d)$ is \textbf{Polish} if it is complete and separable. 
+\end{definition}
+
+\begin{theorem}[Portmanteau]
+    Suppose that $(S, d)$ is a Polish space. Let $X_n, X:\Omega\to S$ be random variables. Then the followings are equivalent: 
+    \begin{thmenum}
+        \item $X_n\dto X$. 
+        \item If $G\subset S$ is an open set, then $\liminf_{n\to\infty} \P(X_n\in G)\geq \P(X\in G)$. 
+        \item If $F\subset S$ is a closed set, then $\limsup_{n\to\infty}\P(X_n\in F)\leq \P(X\in F)$. 
+        \item If $A\subset S$ satisfies $\P(X\in\partial A) = 0$, then $\lim_{n\to\infty}\P(X_n\in A) = \P(X\in A)$. 
+    \end{thmenum}
+\end{theorem}
+\begin{proof}
+    We start from proving (a) implies (b). Let $G\subset S$ be an open set. 
+    For any continuous function with $0\leq f\leq \one_G$, we have 
+    $\E\sbrc{f(X_n)}\to\E\sbrc{f(X)}$ and $\E\sbrc{f(X_n)}\leq \P(X_n\in G)$. 
+    Hence 
+    \begin{equation*}
+        \E\sbrc{f(X)} \leq \liminf_{n\to\infty}\P(X_n\in G). 
+    \end{equation*} 
+    Take $f\nearrow \one_G$ and by LMCT, since $f(X)\nearrow \one_G(X)$, 
+    $\E\sbrc{\one_G(X)}\leq\liminf_{n\to\infty}\P(X_n\in G)$. 
+
+    To see that (b) and (c) are equivalent, note that if 
+    $\liminf_{n\to\infty} \P(X_n\in G)\geq \P(X\in G)$ for all open $G$, 
+    for every closed $F$, 
+    \begin{equation*}
+        \begin{split}
+            \limsup_{n\to\infty} \P(X_n\in F) &= -\liminf_{n\to\infty} -\P(X_n\in F) 
+            = 1 - \liminf_{n\to\infty} \P(X_n\in F^c) \\
+            &\leq 1 - \P(X\in F^c) = \P(X\in F). 
+        \end{split}
+    \end{equation*}
+    Conversely, if $\limsup_{n\to\infty} \P(X_n\in F)\leq \P(X\in F)$ for 
+    every closed $F$, then 
+    \begin{equation*}
+        \liminf_{n\to\infty} \P(X_n\in G) = 1 - \limsup_{n\to\infty} \P(X_n\in G^c) 
+        \geq 1 - \P(X\in G^c) = \P(X\in G). 
+    \end{equation*}
+
+    Now, assume that (b) and (c) holds. If $A\subset S$ satisfies that $\P(X\in\partial A) = 0$, 
+    then we have $\P(X\in \overline{A}) = \P(X\in A^\circ)$. Now, 
+    \begin{equation*}
+        \begin{split}
+            \P(X\in A^\circ) 
+            &\leq \liminf_{n\to\infty}\P(X_n\in A^\circ)\leq \liminf_{n\to\infty} \P(X_n\in A) \\
+            &\leq \limsup_{n\to\infty} \P(X_n\in A) 
+            \leq \limsup_{n\to\infty} \P(X_n\in\overline{A}) 
+            \leq \P(X\in\overline{A}) = \P(X\in A^\circ). 
+        \end{split}
+    \end{equation*}
+    Hence $\lim_{n\to\infty} \P(X_n\in A) = \P(X\in A)$. 
+
+    Finally, assume (d) holds. We prove that (d) implies (c) and (b) implies 
+    (a). For any closed $F$, consider the closed $\epsilon$-neighborhood 
+    \begin{equation*}
+        F_\epsilon = \Set{s\in S}{d(F, s)\leq \epsilon}. 
+    \end{equation*}
+    Now $\partial F_\epsilon = \Set{s\in S}{d(F, s) = \epsilon}$ are disjoint 
+    for distinct $\epsilon>0$. Since $X$ can accumulate mass on only countably 
+    many such sets, $\P(X\in \partial F_\epsilon) = 0$ for almost every $\epsilon$. 
+    Picking $\epsilon_k\to 0$ such that $\P(X\in \partial F_{\epsilon_k}) = 0$, we 
+    have $\P(X_n\in F)\leq \P(X_n\in F_\epsilon)$. Taking $n\to\infty$, 
+    \begin{equation*}
+        \limsup_{n\to\infty} \P(X_n\in F) \leq \limsup_{n\to\infty}\P(X_n\in F_{\epsilon_k}) 
+        = \P(X\in F_{\epsilon_k}). 
+    \end{equation*} 
+    Now taking $\epsilon_k\to 0$, 
+    \begin{equation*}
+        \limsup_{n\to\infty} \P(X_n\in F) \leq \P(X\in F). 
+    \end{equation*}
+    To see that (b) implies (a), let $f\in C_b(S)$ with $f\geq 0$. By 
+    \cref{lem:expectation_tail_prob}, (b), and Fatou's lemma, 
+    \begin{equation*}
+        \begin{split}
+            \E\sbrc{f(X)} &= \int_0^\infty \P(f(X)>t)dt 
+            \leq \int_0^\infty \liminf_{n\to\infty}\P(f(X_n)>t)dt \\
+            &\leq \liminf_{n\to\infty} \int_0^\infty \P(f(X_n)>t)dt 
+            = \liminf_{n\to\infty} \E\sbrc{f(X_n)}. 
+        \end{split}
+    \end{equation*}
+    Suppose $f\leq C$, replacing $f$ with $C-f$ gives 
+    \begin{equation*}
+        C - \E\sbrc{f(X)} \leq \liminf_{n\to\infty} C - \E\sbrc{f(X_n)} 
+        = C - \limsup_{n\to\infty} \E\sbrc{f(X_n)}. 
+    \end{equation*}
+    Hence $\E\sbrc{f(X)} \geq \limsup_{n\to\infty} \E\sbrc{f(X_n)}$. 
+    We see that $\E\sbrc{f(X)} = \lim_{n\to\infty}\E\sbrc{f(X_n)}$ for 
+    $f\geq 0$, $f\in C_b(S)$. For general $f$, write $f = f^+ - f^-$ and 
+    the conclusion follows by applying above arguments to $f^+$ and $f^-$. 
+\end{proof}
+
+\begin{example}
+    For a random variable $X$ on $\R^d$, consider the perturbated version 
+    $X_n = X + \sigma_n Z$ with $\sigma_n\searrow 0$ and $Z$ being independent 
+    of $X$, $\mu_Z\ll\lambda$ where $\lambda$ is the Lebesgue measure. We 
+    claim that $X_n\dto X$. For any open $G$ and $\epsilon>0$, define 
+    \begin{equation*}
+        G_{-\epsilon} = \Set{x\in \R^d}{\overline{B_\epsilon(x)}\subset G}.
+    \end{equation*}
+    Then 
+    \begin{equation*}
+        \P(X_n\in G) \geq \P(X\in G_{-\epsilon}, \norm{\sigma_nZ}\leq \epsilon) 
+        = \P(X\in G_{-\epsilon})\P(\norm{\sigma_nZ}\leq \epsilon). 
+    \end{equation*}
+    Taking $n\to\infty$, $\liminf_{n\to\infty}\P(X_n\in G)\geq \P(X\in G_{-\epsilon})$. 
+    Then taking $\epsilon\to 0$ gives 
+    \begin{equation*}
+        \liminf_{n\to\infty}\P(X_n\in G)\geq \P(X\in G).
+    \end{equation*} 
+    By the portmanteau theorem, $X_n\dto X$. 
+\end{example}
+
+\begin{theorem}[Helly's Selection]
+    For every sequence of distribution $F_n$ on $\R$, there is a subsequence 
+    $F_{n_k}\to F$ pointwise at continuities where $F$ is a non-decreasing, 
+    right-continuous function. 
+\end{theorem}
+\begin{proof}
+    Since $\R$ is separable, there is a countable dense subset $D$. For 
+    $x_1\in D$, pick a subsequence $F_{n_1}$ such that $F_{n_1}$ converges 
+    at $x_1$. This is possible due to the Bolzano-Weierstrass theorem. 
+    Proceed with $x_2\in D$ and extract subsequence from $F_{n_1}$. 
+    Continue this process and take the diagonal. We obtain 
+    a subsequence $F_{n_k}$ such that for every $x_m\in D$, 
+    $F_{n_k}(x_m)$ converges. For general $x\in\R$, define 
+    \begin{equation*}
+        F(x) = \inf_{y\in D, y>x}\lim_{k\to\infty}F_{n_k}(y)
+    \end{equation*}
+    where $x_m\in D$ is such that $x_m\nearrow x$. It is clear 
+    that $F$ is non-decreasing. 
+
+    Next, for each $x\in\R$ and $\epsilon>0$, there is $y\in D$ with 
+    $y>x$ such that 
+    \begin{equation*}
+        F(y) = \lim_{k\to\infty}F_{n_k}(y) \leq F(x) + \epsilon. 
+    \end{equation*} 
+    Hence $F$ is right-continuous. 
+
+    If $x$ is a continuity of $F$, then for $\epsilon>0$ we 
+    can also choose $z\in D$ with $z<x$ such that $F(z)\geq F(x)-\epsilon$. 
+    Now 
+    \begin{equation*}
+        F_{n_k}(z)\leq F_{n_k}(x) \leq F_{n_k}(y).
+    \end{equation*}
+    Taking $k\to\infty$, 
+    \begin{equation*}
+        F(x)-\epsilon\leq F(z)\leq \liminf_{k\to\infty}F_{n_k}(x)
+        \leq \limsup_{k\to\infty}F_{n_k}(x)\leq F(y)\leq F(x)+\epsilon. 
+    \end{equation*}
+    Since $\epsilon$ is arbitrary, we conclude that $F_{n_k}(x)\to F(x)$. 
+    Hence $F$ is the desired function. 
+\end{proof}
+\begin{remark}
+    A sequence of distribution function $F_n$ converges pointwise at 
+    continuities to $F$ does not imply that $F$ is a distribution function. 
+    One may consider $F_n(x) = \one\set{x\geq n}$. As $n\to\infty$, 
+    $F_n$ converges pointwise at continuities to $F = 0$. 
+\end{remark}
+
+\begin{definition}
+    A collection of probability measures $\set{\mu_\alpha}$ on $S$ is 
+    \textbf{uniformly tight} or simply \textbf{tight} if for every 
+    $\epsilon>0$, there is a compact set $K\subset S$ such that 
+    $\mu_\alpha(K^c) < \epsilon$ for every $\alpha$. 
+\end{definition}
+\begin{remark}
+    An alternative definition is that 
+    \begin{equation*}
+        \liminf_{n\to\infty}\mu_n(B_r)\to 1
+    \end{equation*}
+    as $r\to\infty$ for $\set{\mu_n}$ with $\mu_n$ being defined on normed space. 
+\end{remark}
+
+\begin{definition}
+    A sequence of probability measures $\set{\mu_n}$ on $\R$ is 
+    said to converge \textbf{vaguely} if 
+    \begin{equation*}
+        \int fd\mu_n \to \int fd\mu
+    \end{equation*}
+    for all $f\in C_c(\R)$. 
+\end{definition}
+\begin{remark}
+    Since $C_c(\R)\subset C_b(\R)$, converging weakly 
+    implies converging vaguely. Also, the $\mu$ in the definition 
+    of the vague convergence is not necessarily a probability 
+    distribution. This is exactly what we see in the remark of 
+    Helly's selecetion theroem. 
+\end{remark}
+
+\begin{theorem}\label{thm:tight}
+    Let $\mu_n$ be probability measures on $\R^d$ such that 
+    $\mu_n\vto\mu$. Then the followings are equivalent: 
+    \begin{thmenum}
+        \item $\set{\mu_n}$ is tight. 
+        \item $\mu$ is a probability measure, i.e., $\mu(\R^d) = 1$. 
+        \item $\mu_n\dto \mu$. 
+    \end{thmenum}
+\end{theorem}
+\begin{proof}
+    Assuming (c), then 
+    \begin{equation*}
+        \int fd\mu_n \to \int fd\mu
+    \end{equation*}
+    for all $f\in C_b(\R^d)$. Take $f = 1$ shows (b). 
+
+    Suppose that (b) holds. For any open ball $B_r\subset \R^d$, consider 
+    $f\in C_c(\R^d)$ with $0\leq f\leq \one_{B_r}$. For every $n$, we have 
+    \begin{equation*}
+        \int fd\mu_n \leq \mu_n(B_r). 
+    \end{equation*}
+    Also, 
+    \begin{equation*}
+        \int fd\mu_n \to \int fd\mu \leq \mu(B_r)
+    \end{equation*}
+    by the vague convergence. Thus 
+    \begin{equation*}
+        \int fd\mu = \liminf_{n\to\infty} \int fd\mu \leq \liminf_{n\to\infty}\mu_n(B_r). 
+    \end{equation*}
+    Taking $f\nearrow \one_{B_r}$ gives $\mu(B_r)\leq \liminf_{n\to\infty}\mu_n(B_r)$. 
+    Now taking $r\to\infty$ gives $\liminf_{n\to\infty}\mu_n(B_r) \to 1$ as $r\to\infty$ 
+    and hence $\set{\mu_n}$ is tight. 
+
+    Suppose (a) is true. Fix any $f\in C_b(\R^d)$. For every open ball $B_r$, 
+    consider $g_r\in C_c(\R^d)$ with $f|_{B_r}\leq g_r\leq f$. Then 
+    \begin{equation*}
+        \abs{\int fd\mu_n - \int fd\mu} 
+        \leq \abs{\int g_rd\mu_n - \int g_rd\mu} + \int \abs{f-g_r}d\mu_n + \int\abs{f-g_r}d\mu.
+    \end{equation*}
+    Since $\set{\mu_n}$ is tight, for every $\epsilon>0$ there is some $M$ such that 
+    $r>M$ implies $\mu_n(B_r^c)<\epsilon$ and 
+    \begin{equation*}
+        \abs{\int fd\mu_n - \int fd\mu} \leq \abs{\int g_rd\mu_n - \int g_rd\mu} + \norm{f}_{\infty}\epsilon + \int\abs{f-g_r}d\mu. 
+    \end{equation*}
+    Taking $n\to\infty$ yields 
+    \begin{equation*}
+        \limsup_{n\to\infty} \abs{\int fd\mu_n - \int fd\mu} \leq \norm{f}_{\infty}\epsilon + \int\abs{f-g_r}d\mu. 
+    \end{equation*}
+    Taking $r\to\infty$ gives $g_r\to f$ and 
+    \begin{equation*}
+        \limsup_{n\to\infty} \abs{\int fd\mu_n - \int fd\mu} \leq \norm{f}_{\infty}\epsilon. 
+    \end{equation*}
+    Since $\epsilon$ is arbitrary, we conclude that $\int fd\mu_n\to\int fd\mu$ and 
+    $\mu_n\dto\mu$. 
+\end{proof}
+
+\begin{theorem}[Prokhorov]
+    Suppose $\mu_n$ is a sequence of probability measures on $\R$. 
+    $\set{\mu_n}$ is tight if and only if every subsequence of 
+    $\mu_n$ has a further subsequence converging weakly. 
+\end{theorem}
+\begin{proof}
+    Suppose that $\set{\mu_n}$ is tight. By Helly's selection theorem, for every 
+    subsequence of $\mu_n$ we may extract a further subsequence converging 
+    vaguely to a measure $\mu$. By the \cref{thm:tight}, $\mu$ is a probability measure. 
+
+    Conversely, suppose that $\set{\mu_n}$ is not tight. For every $\epsilon>0$ and 
+    $k\in\N$, we can pick $\mu_{n_k}$ such that $\mu_{n_k}(B_k^c)\geq \epsilon$. 
+    For this sequence, we may extract a further subsequence $\mu_{n(k_j)}$ such that 
+    it converges weakly to $\mu$ and it follows from \cref{thm:tight} that $\set{\mu_{n(k_j)}}$ 
+    is tight. However $\mu_{n(k_j)}(B_{k_j}^c)\geq \epsilon$ for every $k_j$, posing 
+    a contradiction. Hence $\set{\mu_n}$ is tight. 
+\end{proof}
+
+\begin{proposition}
+    Let $X_n$ be a sequence of random variables. If there is $\phi(x)\geq 0$ such that 
+    $\phi(x)\to\infty$ as $\norm{x}\to\infty$ and $\E\sbrc{\phi(X_n)}\leq C$ for all $n$, 
+    then $\set{X_n}$ is tight.
+\end{proposition}
+\begin{proof}
+    Notice that 
+    \begin{equation*}
+        C\geq \E\sbrc{\phi(X_n)}\geq \E\sbrc{\phi(X_n)\one\set{\norm{X_n}\geq r}} 
+        \geq \pth{\inf_{\norm{x}\geq r}\phi(x)}\P(\norm{X_n}\geq r). 
+    \end{equation*}
+    Hence 
+    \begin{equation*}
+        \P(\norm{X_n}\geq r) \leq \frac{C}{\inf_{\norm{x}\geq r}\phi(x)}\to 0
+    \end{equation*}
+    as $r\to\infty$. Thus $\set{X_n}$ tight. 
+\end{proof}
