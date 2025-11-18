@@ -1,310 +1,170 @@
-\begin{definition}
-    Let $X$ be an $\R$-valued random variable. The characteristic function of $X$ is 
-    defined as 
+\begin{theorem}[Central Limit Theorem \rom{1}, Lindeberg-Levy]
+    Let $X_i$ be independent and identically distributed 
+    random variables with $\E\sbrc{X_i} = 0$ and $\E\sbrc{X_i^2} = 1$. 
+    Let $X\sim N(0,1)$ and $S_n = \sum_{i\leq n} X_i$. Then 
     \begin{equation*}
-        \varphi_{X}(t) = \E\sbrc{e^{itX}} = \E\sbrc{\cos(tX)} + i\E\sbrc{\sin(tX)}. 
-    \end{equation*}
-\end{definition}
-\begin{remark}
-    The characteristic function always exists for every $t\in\R$ since $x\mapsto\cos(tx)$ and 
-    $x\mapsto\sin(tx)$ are bounded functions.  
-\end{remark}
-\begin{remark}
-    If $X$ has distribution $\mu$, we also write $\hat{\mu} = \varphi_X$. It is somtimes 
-    called the \textbf{Fourier transform} of the probability measure $\mu$. 
-\end{remark}
-
-\begin{example}
-    If $X\sim U[a,b]$, then 
-    \begin{equation*}
-        \varphi_X(t) = \E\sbrc{\cos(tX)} + i\E\sbrc{\sin(tX)} 
-        = \int_a^b\frac{\cos(tx)}{b-a}dx + i\int_a^b\frac{\sin(tx)}{b-a}dx 
-        = \frac{e^{ibt} - e^{iat}}{(b-a)it}. 
-    \end{equation*}
-\end{example}
-
-\begin{example}
-    If 
-    \begin{equation*}
-        X = \begin{cases}
-            n & \text{with prob. } \frac{1}{2} \\ 
-            -n & \text{with prob. } \frac{1}{2}, 
-        \end{cases}
-    \end{equation*}
-    then 
-    \begin{equation*}
-        \varphi_X(t) = \E\sbrc{e^{itX}} = \frac{1}{2}e^{int} + \frac{1}{2}e^{-int} = \cos(nt). 
-    \end{equation*}
-\end{example}
-
-\begin{proposition}
-    Let $X$ be an $\R$-valued random variable. Then the followings are true: 
-    \begin{thmenum}
-        \item $\varphi_X(0) = 1$. 
-        \item $\varphi_X(-t) = \overline{\varphi_X(t)}$. 
-        \item $\abs{\varphi_X(t)}\leq 1$. 
-        \item $\varphi_{aX+b}(t) = e^{ibt}\varphi_{X}(at)$. 
-        \item If $X$ and $Y$ are independent, then $\varphi_{X+Y}(t) = \varphi_{X}(t)\varphi_Y(t)$. 
-    \end{thmenum}
-\end{proposition}
+        \frac{1}{\sqrt{n}}S_n\dto X
+    \end{equation*}    
+    as $n\to\infty$. 
+\end{theorem}
 \begin{proof}
-    (a) is trivial. For (b), $\varphi_X(-t) = \E\sbrc{e^{-itX}} = \E\sbrc{\cos(tX)} - i\E\sbrc{\sin(tX)} 
-    = \overline{\varphi_X(t)}$. 
-
-    For (c), $\abs{\varphi_X(t)} \leq \E\sbrc{\abs{e^{itX}}}\leq \E\sbrc{1} = 1$. 
-
-    For (d), $\varphi_{aX+b}(t) = \E\sbrc{e^{iatX + ibt}} = e^{ibt}\E\sbrc{e^{iatX}} = e^{ibt}\varphi_X(at)$. 
-
-    For (e), $\varphi_{X+Y}(t) = \E\sbrc{e^{itX + itY}} = \E\sbrc{e^{itX}}\E\sbrc{e^{itY}} = \varphi_X(t)\varphi_Y(t)$. 
+    Notice that $\varphi_X(t) = \exp(-t^2/2)$ and by \cref{cor:char_taylor}, 
+    \begin{equation*}
+        \varphi_{\frac{1}{\sqrt{n}}S_n}(t) = \prod_{i=1}^n\varphi_{X_i}\pth{\frac{t}{\sqrt{n}}} 
+        = \pth{1 - \frac{t^2}{2n} + o(1/n)}^n\to \exp(-t^2/2)
+    \end{equation*}
+    as $n\to\infty$ for fixed $t$. Hence $\frac{1}{\sqrt{n}}S_n\dto X$ 
+    by the Levy's continuity theorem.  
 \end{proof}
-\begin{remark}
-    For (e), inductively we have that for independent variables $X_n$, 
-    \begin{equation*}
-        \varphi_{X_1+\cdots+X_n}(t) = \prod_{i=1}^n\varphi_{X_i}(t). 
-    \end{equation*}
-\end{remark}
 
-\begin{example}
-    $Z\sim N(0,1)$. Then 
+\begin{theorem}[Central Limit Theorem \rom{2}, Lindeberg-Feller]
+    For each $n$, let $X_{n,i}$, $1\leq i\leq n$ be random variables 
+    with mean $0$ and $S_n = \sum_{i\leq n}X_{n,i}$. Suppose
+    \begin{thmenum}
+        \item For given $n$, $X_{n,i}$ are independent. 
+        \item $\Var\sbrc{\sum_{i=1}^n X_{n,i}} = \sum_{i=1}^n\E\sbrc{X_{n,i}^2} \to \sigma^2$.
+        as $n\to\infty$. 
+        \item For all $\epsilon>0$, $\lim_{n\to\infty}\sum_{i=1}^n\E\sbrc{X_{n,i}^2\one\set{\abs{X_{n,i}}>\epsilon}} = 0$.
+    \end{thmenum}
+    Then $S_n\dto N(0, \sigma^2)$. 
+\end{theorem}
+\begin{proof}
+    We begin the proof of the theorem by the following claim. 
+    For $t\in\R$, we have 
     \begin{equation*}
-        \begin{split}
-            \varphi_Z(t) &= \E\sbrc{\cos(tZ)} + i\E\sbrc{\sin(tZ)} \\
-            &= \int \cos(tx)\frac{1}{\sqrt{2\pi}}\exp\pth{-\frac{x^2}{2}}dx + i\int\sin(tx)\frac{1}{\sqrt{2\pi}}\exp\pth{-\frac{x^2}{2}}dx \\ 
-            &= \int \cos(tx)\frac{1}{\sqrt{2\pi}}\exp\pth{-\frac{x^2}{2}}dx. 
-        \end{split}
+        \abs{e^{it} - \sum_{k=0}^n\frac{(it)^{k}}{k!}} \leq \min\set{\frac{2\abs{t}^n}{n!}, \frac{\abs{t}^{n+1}}{(n+1)!}}. 
     \end{equation*}
+    To see this, let $g_n(t)$ be the difference on the left 
+    hand side. For $n = 0$, the inequality holds trivially. 
+    Now suppose that the inequality holds for $n$. 
+    \begin{equation*}
+        g_{n+1}(t) = e^{it} - \sum_{k=0}^{n+1} \frac{(it)^{k}}{k!}
+        = i\int_{0}^t e^{is} - \sum_{k=0}^n\frac{(is)^{k}}{k!}ds 
+        = i\int_0^t g_n(s)ds.
+    \end{equation*} 
     Now 
     \begin{equation*}
-        \frac{\varphi_Z(t)-\varphi_Z(s)}{t-s} = \int \frac{\cos(tx)-\cos(sx)}{t-s}\frac{1}{\sqrt{2\pi}}\exp\pth{-\frac{x^2}{2}}dx.
+        \abs{g_{n+1}(t)} \leq \int_0^t\frac{2\abs{s}^n}{n!}ds 
+        = \frac{2\abs{t}^{n+1}}{(n+1)!} 
+        \quad\text{and}\quad 
+        \abs{g_{n+1}(t)} \leq \int_0^t\frac{\abs{s}^{n+1}}{(n+1)!}ds 
+        = \frac{\abs{t}^{n+2}}{(n+2)!}.
     \end{equation*}
-    By the mean value theorem, $\abs{\cos(tx)-\cos(sx)}\leq \abs{\sin(c)}\abs{tx-sx} \leq \abs{x}\abs{t-s}$ 
-    for some constant lying between $tx$ and $sx$. Hence 
+    The claim follows by induction. 
+
+    Now notice that for given $n$, if $Z_{n,i}\sim N(0, \sigma_{n,i}^2)$ 
+    are independent with $\sigma_{n,i}^2 = \E\sbrc{X_{n,i}^2}$, then 
+    $\sum_{i\leq n} Z_{n,i}\dto Z\sim N(0, \sigma^2)$. Let the 
+    characteristic functions for $Z_{n,i}$ be $\psi_{n,i}$. Note that 
+    for complex numbers $z_i$ and $w_i$ with $\abs{z_i}, \abs{w_i}\leq 1$, 
+    we have 
     \begin{equation*}
-        \abs{\frac{\cos(tx)-\cos(sx)}{t-s}}\frac{1}{\sqrt{2\pi}}\exp\pth{-\frac{x^2}{2}}\leq \abs{x}\frac{1}{\sqrt{2\pi}}\exp\pth{-\frac{x^2}{2}}
+        \abs{\prod_{i\leq n}z_i - \prod_{i\leq n}w_i} \leq \sum_{i\leq n} \abs{z_i - w_i}.
     \end{equation*}
-    which is integrable. It follows by LDCT that taking $t\to s$
+    If $n = 2$, $\abs{z_1z_2 - w_1w_2} \leq \abs{z_1z_2 - z_1w_2} + \abs{z_1w_2 - w_1w_2} 
+    \leq \abs{z_2-w_2} + \abs{z_1 - w_1}$. The general case follows by 
+    induction. It follows that if $\varphi_{n,i}$ are characteristic functions 
+    for $X_{n,i}$,  
     \begin{equation*}
         \begin{split}
-            \varphi_Z'(s) &= -\int\sin(sx)x \frac{1}{\sqrt{2\pi}}\exp\pth{-\frac{x^2}{2}}dx 
-            = \int \sin(sx)d\pth{\frac{1}{\sqrt{2\pi}}\exp\pth{-\frac{x^2}{2}}} \\ 
-            &= -s\int\cos(sx)\frac{1}{\sqrt{2\pi}}\exp\pth{-\frac{x^2}{2}}dx = -s\varphi_Z(s). 
+            \abs{\prod_{i\leq n}\varphi_{n,i}(t) - \prod_{i\leq n}\psi_{n,i}(t)} 
+            &\leq \sum_{i\leq n} \abs{\varphi_{n,i}(t) - \psi_{n,i}(t)} \\
+            &\leq \sum_{i\leq n} \abs{\varphi_{n,i}(t) - 1 + \frac{\sigma_{n,i}^2t^2}{2}} + \sum_{i\leq n} \abs{\psi_{n,i}(t) - 1 + \frac{\sigma_{n,i}^2t^2}{2}} \\ 
+            &\leq \sum_{i\leq n} \E\sbrc{\abs{e^{itX_{n,i}} - 1 + \frac{X_{n,i}^2t^2}{2}}} + \sum_{i\leq n} \E\sbrc{\abs{e^{itZ_{n,i}} - 1 + \frac{Z_{n,i}^2t^2}{2}}}. 
         \end{split}
     \end{equation*}
-    Solving the ODE with initial condition $\varphi_Z(0) = 1$ gives 
+    Now by the claim we have for all $\epsilon>0$, 
     \begin{equation*}
-        \varphi_Z(t) = \exp\pth{-\frac{t^2}{2}}. 
+        \begin{split}
+            \E\sbrc{\abs{e^{itX_{n,i}} - 1 + \frac{X_{n,i}^2t^2}{2}}} 
+            &\leq \E\sbrc{\min\set{\frac{2\abs{tX_{n,i}}^2}{2!}, \frac{\abs{tX_{n,i}}^{3}}{3!}}} \\
+            &\leq \abs{t}^2\E\sbrc{\abs{X_{n,i}}^2\one\set{\abs{X_{n,i}}>\epsilon}} + \frac{\abs{t}^3}{6}\E\sbrc{\abs{X_{n,i}}^3\one\set{\abs{X_{n,i}}\leq \epsilon}} \\ 
+            &\leq \abs{t}^2\E\sbrc{\abs{X_{n,i}}^2\one\set{\abs{X_{n,i}}>\epsilon}} + \frac{\epsilon\abs{t}^3}{6}\E\sbrc{\abs{X_{n,i}}^2\one\set{\abs{X_{n,i}}\leq \epsilon}} \\ 
+            &\leq \abs{t}^2\E\sbrc{\abs{X_{n,i}}^2\one\set{\abs{X_{n,i}}>\epsilon}} + \frac{\epsilon\abs{t}^3\sigma_{n,i}^2}{6}
+        \end{split}
     \end{equation*}
-    In general, if $X\sim N(\mu,\sigma^2)$, $X = \mu + \sigma Z$ and 
+    Let $A = \E\sbrc{\abs{Y}^3}$ where $Y$ is standard normal and 
+    $\sigma_n^2 = \sum_{i\leq n}\sigma_{n,i}^2$. The claim applies 
+    to $Z_{n,i}$ gives 
     \begin{equation*}
-        \varphi_X(t) = \exp\pth{i\mu t - \frac{\sigma^2t^2}{2}}. 
+        \begin{split}
+            \sum_{i\leq n}\E\sbrc{\abs{e^{itZ_{n,i}} - 1 + \frac{Z_{n,i}^2t^2}{2}}} 
+            &\leq \frac{\abs{t}^3}{6}\sum_{i\leq n}\E\sbrc{\abs{Z_{n,i}}^3} 
+            = \frac{\abs{t}^3}{6}\sum_{i\leq n}\sigma_{n,i}^3\E\sbrc{\abs{Y}^3} \\
+            &\leq \frac{\abs{t}^3}{6}\E\sbrc{\abs{Y}^3}\sigma_n\sup_{i\leq n}\sigma_{n,i}
+        \end{split}
+    \end{equation*} 
+    Hence 
+    \begin{equation*}
+        \begin{split}
+            \abs{\prod_{i\leq n}\varphi_{n,i}(t) - \prod_{i\leq n}\psi_{n,i}(t)} 
+            &\leq \sum_{i\leq n} \abs{t}^2\E\sbrc{\abs{X_{n,i}}^2\one\set{\abs{X_{n,i}}>\epsilon}} + \frac{\epsilon\abs{t}^3\sigma_{n,i}^2}{6}
+            + \frac{\abs{t}^3}{6}\E\sbrc{\abs{Y}^3}\sigma_n^2\sup_{i\leq n}\sigma_{n,i}\\
+            &\to \frac{\epsilon\abs{t}^3}{6}\sigma^2 + \frac{\abs{t}^3}{6}\E\sbrc{\abs{Y}^3}\sigma^2\epsilon
+        \end{split}
+    \end{equation*}
+    as $n\to\infty$ since 
+    \begin{equation*}
+        \begin{split}
+            \sup_{i\leq n}\sigma_{n,i} &= \pth{\sup_{i\leq n}\sigma_{n,i}^2}^{1/2} 
+            = \pth{\sup_{i\leq n} \E\sbrc{X_{n,i}^2\one\set{\abs{X_{n,i}}>\epsilon}} + \E\sbrc{X_{n,i}^2\one\set{\abs{X_{n,i}}\leq \epsilon}}}^{1/2} \\ 
+            &\leq \pth{\epsilon^2 + \sum_{i\leq n} \E\sbrc{X_{n,i}^2\one\set{\abs{X_{n,i}}>\epsilon}}}^{1/2}\to\epsilon
+        \end{split}
+    \end{equation*}
+    as $n\to\infty$. Since $\epsilon$ is arbitrary, we conclude that $\abs{\prod_{i\leq n}\varphi_{n,i}(t) - \prod_{i\leq n}\psi_{n,i}(t)} \to 0$ 
+    and $S_n\dto N(0,\sigma^2)$. 
+\end{proof}
+
+\begin{corollary}[Central Limit Theorem \rom{3}, Lyapunov]
+    Let $X_j$ be independent with $\E\sbrc{X_j} = 0$ and $\alpha_n^2 = \sum_{j\leq n}\Var(X_j)$. 
+    Suppose that there is $\delta>0$ such that $\E\sbrc{\abs{X_j}^{2+\delta}}<\infty$ and 
+    \begin{equation*}
+        \lim_{n\to\infty} \frac{1}{\alpha_n^{2+\delta}}\sum_{j\leq n}\E\sbrc{\abs{X_j}^{2+\delta}} = 0. 
+    \end{equation*}
+    Then 
+    \begin{equation*}
+        \frac{1}{\alpha_n}\sum_{j\leq n} X_j\dto N(0,1). 
+    \end{equation*}
+\end{corollary}
+\begin{proof}
+    Put $Y_{n,j} = \alpha_n^{-1}X_j$. Note that 
+    \begin{equation*}
+        \Var\sbrc{\sum_{j\leq n}Y_{n,j}} = \frac{1}{\alpha_n^2}\cdot\alpha_n^2 = 1
+    \end{equation*}
+    and for $\epsilon>0$, 
+    \begin{equation*}
+        \sum_{j\leq n}\E\sbrc{Y_{n,j}^2\one\set{\abs{Y_{n,j}}>\epsilon}} 
+        = \frac{1}{\alpha_n^2}\sum_{j\leq n}\E\sbrc{X_{n,j}^2\one\set{\abs{X_{n,j}}^{\delta}>(\alpha_n\epsilon)^{\delta}}} 
+        \leq \frac{1}{\alpha_n^{2+\delta}\epsilon^{\delta}}\sum_{j\leq n}\E\sbrc{\abs{X_{n,j}}^{2+\delta}} \to 0
+    \end{equation*}
+    as $n\to\infty$. Hence by the Lindeberg-Feller theorem, $\alpha_n^{-1}\sum_{j\leq n} X_j\dto N(0,1)$. 
+\end{proof}
+
+\begin{example}
+    Let $X_j\sim \Ber(p_j)$ be independent random variables and $S_n = \sum_{j\leq n}X_j$. Then 
+    \begin{equation*}
+        \frac{S_n - \E\sbrc{S_n}}{\sqrt{\Var(S_n)}} \dto N(0,1)
+    \end{equation*}
+    if $\Var(S_n)\to \infty$. To see this, write $Y_j = X_j - p_j$ and  
+    $\sigma_j^2 = \Var(Y_j) = \E\sbrc{Y_j^2} = p_j(1-p_j)$. Let $\delta>0$ be given. 
+    Since $\abs{Y_j}\leq 1$, $\E\sbrc{\abs{Y_j}^{2+\delta}}\leq \E\sbrc{Y_j^2} = \sigma_j^2$ 
+    and 
+    \begin{equation*}
+        \frac{1}{\Var(S_n)^{2+\delta}}\sum_{j\leq n}\E\sbrc{\abs{Y_j}^{2+\delta}} 
+        \leq \frac{1}{\Var(S_n)^{2+\delta}}\sum_{j\leq n}\sigma_j^2 = \Var(S_n)^{-\delta}\to 0. 
+    \end{equation*}
+    By the Lyapunov theorem, we conclude that 
+    \begin{equation*}
+        \frac{S_n - \E\sbrc{S_n}}{\sqrt{\Var(S_n)}} \dto N(0,1). 
     \end{equation*}
 \end{example}
 
-\begin{theorem}[Inversion Formula]\label{thm:inversion}
-    Let $\mu$ be a probability measure on $\R$ with characteristic function $\varphi$. Then 
-    \begin{equation*}
-        \lim_{T\to\infty}\frac{1}{2\pi}\int_{-T}^T\frac{e^{-ita}-e^{-itb}}{it}\varphi(t)dt = \mu(a,b) + \frac{1}{2}\mu\set{a,b}.
-    \end{equation*} 
-\end{theorem}
-\begin{proof}
-    Put 
-    \begin{equation*}
-        g(T, \lambda) = \int_{-T}^T\frac{\sin(\lambda t)}{t}dt = \int_0^T\frac{\sin(\lambda t)}{t}dt.
-    \end{equation*}
-    Note that $g(T, \lambda)\to 2\sgn(\lambda)\frac{\pi}{2} = \pi\sgn(\lambda)$. Now 
-    \begin{equation*}
-        \begin{split}
-            f(T) &= \frac{1}{2\pi}\int_{-T}^T\frac{e^{-ita} - e^{-itb}}{it}\varphi(t)dt \\
-            &= \frac{1}{2\pi}\int_{-T}^T\int_a^b e^{-ity}\varphi(t)dydt \\ 
-            &= \frac{1}{2\pi}\int_{-T}^T\int_a^b \int e^{-it(y-x)}d\mu(x)dydt \\
-            &= \frac{1}{2\pi}\int\int_{-T}^T\int_a^b e^{-it(y-x)}dydtd\mu(x) \\ 
-            &= \frac{1}{2\pi}\int\int_{-T}^T\frac{\sin(t(b-x))-\sin(t(a-x))}{t}dtd\mu(x) \\ 
-            &\quad + \frac{1}{2\pi}\int\int_{-T}^T\frac{\sbrc{\cos(t(b-x)) - \cos(t(a-x))}}{t}dtd\mu(x),
-        \end{split}
-    \end{equation*}
-    where the fourth equality uses Fubini's theorem, which is valid since $[-T,T]\times [a,b]\times\R$ is 
-    of finite measure ($\mu(\R) = 1$) and $\abs{e^{-it(y-x)}}\leq 1$. Notice that 
-    \begin{equation*}
-        t\mapsto \frac{\sbrc{\cos(t(b-x)) - \cos(t(a-x))}}{t} 
-    \end{equation*} 
-    is a bounded odd function. Hence 
-    \begin{equation*}
-        \begin{split}
-            f(T) &= \frac{1}{2\pi}\int\int_{-T}^T\frac{\sin(t(b-x))-\sin(t(a-x))}{t}dtd\mu(x) \\ 
-            &= \frac{1}{2\pi}\int g(T, b-x) - g(T, a-x)d\mu(x). 
-        \end{split}
-    \end{equation*}
-    Since $g(T, \lambda) \to \pi\sgn(\lambda)$, 
-    \begin{equation*}
-        g(T, b-x) - g(T, a-x) \to 
-        \begin{cases}
-            2\pi &\text{if } x\in (a,b) \\ 
-            \pi  &\text{if } x\in\set{a,b} \\ 
-            0    &\text{otherwise}
-        \end{cases}
-    \end{equation*}
-    as $T\to\infty$. By the bounded convergence theorem, 
-    \begin{equation*}
-        f(T) \to \frac{1}{2\pi}\pth{2\pi\mu(a,b) + \pi\mu\set{a,b}} = \mu(a,b) + \frac{1}{2}\mu\set{a,b}
-    \end{equation*}
-    as $T\to\infty$. 
-\end{proof}
-\begin{remark}
-    The theorem establishes that the characteristic function is unique, i.e., 
-    if $\varphi_X = \varphi_Y$, then $X \deq Y$. 
-\end{remark}
-
-\begin{corollary}
-    Let $X$ be a random variable on $\R$ with characteristic function $\varphi_X$. 
-    Then $X$ is symmetric if and only if $\varphi_X$ is real. 
-\end{corollary}
-\begin{proof}
-    Suppose that $X$ is symmetric. Then $\varphi_X(t) = \varphi_{-X}(t) = \varphi_X(-t) = \overline{\varphi_X(t)}$. 
-    Hence $\varphi_X(t)$ is real. Conversely, if $\varphi_X$ is real,  
-    $\varphi_X(t) = \overline{\varphi_X(t)} = \varphi_X(-t) = \varphi_{-X}(t)$.
-    By the uniqueness of characteristic functions, $X\deq -X$ and $X$ is symmetric. 
-\end{proof}
-
-\begin{lemma}\label{lem:tail_char}
-    Let $\mu$ be a probability measure on $\R$ with characteristic 
-    function $\varphi$. Then for $r>0$, we have 
-    \begin{equation*}
-        \mu\Set{x}{\abs{x}\geq r}\leq \frac{r}{2}\int_{-2/r}^{2/r}1-\varphi(t)dt
-    \end{equation*}
-\end{lemma}
-\begin{proof}
-    By Fubini's theorem, since $(t,x)\mapsto\abs{1-e^{itx}}$ is integrable on $[-2/r,2/r]\times\R$,
-    \begin{equation*}
-        \begin{split}
-            \int_{-2/r}^{2/r}1-\varphi(t)dt 
-            &= \int_{-2/r}^{2/r}\int 1-e^{itx}d\mu(x)dt  
-            = \int\int_{-2/r}^{2/r}1-e^{itx}dtd\mu(x) \\ 
-            &= \frac{4}{r}\int 1-\frac{\sin(2x/r)}{2x/r}d\mu(x)
-            \geq \frac{2}{r}\mu\Set{x}{\abs{\frac{2x}{r}}\geq 2}
-        \end{split}
-    \end{equation*}
-    since $\sin(y)\leq y/2$ for all $y\geq 2$. Rearrange the inequality 
-    \begin{equation*}
-        \mu\Set{x}{\abs{x}\geq r}\leq \frac{r}{2}\int_{-2/r}^{2/r}1-\varphi(t)dt. 
-    \end{equation*}
-\end{proof}
-
-\begin{proposition}\label{prop:tight_equiconti}
-    Let $\set{\mu_\alpha}$ be a set of probability measures on $\R$ and 
-    $\set{\varphi_\alpha}$ be their characteristic function. Then $\set{\mu_\alpha}$ 
-    is tight if and only if $\set{\varphi_\alpha}$ is equicontinuous at zero. 
-\end{proposition}
-\begin{proof}
-    Suppose that $\set{\varphi_\alpha}$ is equicontinuous at zero. Note that 
-    $\varphi_\alpha(0) = 1$ for all $\alpha$. For every $\epsilon>0$, there is 
-    $r>0$ such that $1-\varphi_\alpha(t)<\epsilon$ for all $t\in[-2/r, 2/r]$. 
-    Then \cref{lem:tail_char} gives
-    \begin{equation*}
-        \mu_\alpha\Set{x}{\abs{x}\geq r}\leq \frac{r}{2}\int_{-2/r}^{2/r}1-\varphi_\alpha(t)dt
-        \leq \frac{r}{2}\cdot 2\cdot\frac{2}{r}\epsilon = 2\epsilon. 
-    \end{equation*}
-    Since $\epsilon$ is arbitrary, $\set{\mu_\alpha}$ is tight. 
-
-    Conversely, assume that $\set{\mu_\alpha}$ is tight. Let $X_\alpha\sim\mu_\alpha$ 
-    be the corresponding random variables. For any $t\in\R$, 
-    \begin{equation*}
-        \begin{split}
-            \abs{\mu_\alpha(t)-\mu_\alpha(0)} &= \abs{\E\sbrc{e^{itX_\alpha} - 1}} 
-            \leq \E\sbrc{\abs{1-e^{itX_\alpha}}} 
-            \leq \E\sbrc{\min\set{2, \abs{tX_\alpha}}},
-        \end{split}
-    \end{equation*} 
-    where the last inequality is due to $\abs{1-e^{itX_\alpha}}\leq 2$ and 
-    \begin{equation*}
-        \abs{1-e^{itX_\alpha}} = \abs{-i\int_0^{tX_\alpha}e^{is}ds}\leq \int_0^{\abs{tX_\alpha}}\abs{e^{is}}ds 
-        = \abs{tX_\alpha}.
-    \end{equation*}
-    Since $\set{X_\alpha}$ is tight, for every $\epsilon>0$ there is $M>0$ 
-    such that $\P\pth{\abs{X_\alpha}\geq M}<\epsilon$. Hence
-    \begin{equation*}
-        \abs{\mu_\alpha(t)-\mu_\alpha(0)}\leq \E\sbrc{\min\set{2,\abs{tX_\alpha}}} 
-        \leq 2\P\pth{\abs{X_\alpha}\geq M} + 2M\abs{t} \leq 2(\epsilon + M\abs{t}).  
-    \end{equation*}
-    Take $\abs{t}\to 0$ and since $\epsilon$ is arbitrary, the equicontinuity 
-    follows. 
-\end{proof}
-
-\begin{theorem}[Levy's Continuity Theorem]
-    Suppose $\mu_n$ are random variables on $\R$ with characteristic 
-    function $\varphi_n(t)$. Then 
-    \begin{thmenum}
-        \item If $\mu_n\dto \mu$, then $\varphi_n(t)\to\varphi(t)$ for 
-        all $t\in \R$ where $\varphi$ is the characteristic function of $\mu$. 
-        \item If $\varphi_n(t)\to\varphi(t)$ and $\varphi(t)$ is 
-        continuous at $0$, then $\set{\mu_n}$ is tight and $\mu_n\dto \mu$ 
-        where $\mu$ has characteristic function $\varphi$. 
-    \end{thmenum}
-\end{theorem}
-\begin{proof}
-    For (a), suppose that $\mu_n\dto\mu$. Then for every 
-    $f\in C_b(\R)$, 
-    \begin{equation*}
-        \int fd\mu_n\to\int fd\mu. 
-    \end{equation*}
-    In particular, taking $f:x\mapsto \cos(tx)$ and 
-    $f:x\mapsto \sin(tx)$ shows that 
-    \begin{equation*}
-        \varphi_n(t) = \int \cos(tx)d\mu_n + i\int\sin(tx)d\mu_n 
-        \to \int \cos(tx)d\mu + i\int\sin(tx)d\mu = \varphi(t).
-    \end{equation*}
-
-    For (b), by \cref{lem:tail_char} and bounded convergence theorem, 
-    \begin{equation*}
-        \limsup_{n\to\infty}\mu_n\Set{x}{\abs{x}\geq r}\leq \lim_{n\to\infty}\frac{r}{2}\int_{-2/r}^{2/r}1-\varphi_n(t)dt 
-        = \frac{r}{2}\int_{-2/r}^{2/r}1-\varphi(t)dt.
-    \end{equation*}
-    Since $\varphi(t)$ is continuous at $0$, 
-    \begin{equation*}
-        \frac{r}{2}\int_{-2/r}^{2/r}1-\varphi(t)dt \to 0
-    \end{equation*}
-    as $r\to\infty$. This implies that $\set{\mu_n}$ is tight. 
-
-    Now, suppose that $\mu_n$ does not converge weakly. Then we can find $\epsilon\geq 0$,  
-    $f\in C_b$ and a subsequence $\mu_{n_k}$ such that
-    \begin{equation*}
-        \abs{\int fd\mu_{n_k}-\int fd\mu}\geq \epsilon
-    \end{equation*}
-    for every $k$. By Prokhorov's theorem, we can extract a further subsequence 
-    converging weakly, which is a contradiction. Hence $\mu_n\dto\mu$. 
-\end{proof}
-
 \begin{theorem}
-    Suppose that $X$ is a random variable on $\R$ with $\E\sbrc{\abs{X}^n}<\infty$ 
-    and has characteristic function $\varphi(t)$. Then $\varphi\in C^n(\R)$ and 
-    \begin{equation*}
-        \varphi^{(n)}(t) = \E\sbrc{(iX)^ne^{itX}}.
-    \end{equation*}
+    For given $n$, $X_{n,j}\sim\Ber(p_{n,j})$ with $1\leq j\leq n$ are independent. 
+    Let $S_n = \sum_{j\leq n}X_{n,j}$. If 
+    \begin{thmenum}
+        \item $\sum_{j\leq n} p_{n,j}\to \lambda\in(0,\infty)$ 
+        \item $\max_{j\leq n} p_{n,j}\to 0$, 
+    \end{thmenum}
+    then $S_n\dto \Poisson(\lambda)$. 
 \end{theorem}
-\begin{proof}
-    We prove the result for $n=1$. The other orders follow inductively. 
-    For $t\in\R$,
-    \begin{equation*}
-        \frac{\varphi(t+h)-\varphi(t)}{h} = \E\sbrc{e^{itX}\frac{e^{ihX}-1}{h}}.
-    \end{equation*}
-    Note that 
-    \begin{equation*}
-        \abs{e^{itx}\frac{e^{ihx}-1}{h}}\leq \abs{\frac{\cos(hx)-1}{h}} + \abs{\frac{\sin(hx)}{h}}\leq 2\abs{x}.
-    \end{equation*}
-    Since $\E\sbrc{2\abs{X}}<\infty$, LDCT gives 
-    \begin{equation*}
-        \varphi'(t) = \lim_{h\to 0}\E\sbrc{e^{itX}\frac{e^{ihX}-1}{h}} = \E\sbrc{e^{itX}(iX)}. 
-    \end{equation*}
-\end{proof}
-
-\begin{theorem}[P\'olya's Criterion]
-    Let $\varphi$ be a real symmetric continuous function such that $\varphi\geq 0$, 
-    $\varphi(0) = 1$ and $\varphi$ is non-increasing and convex on $(0, \infty)$ with 
-    \begin{equation*}
-        \lim_{t\to 0}\varphi(t) = 1
-    \end{equation*}
-    Then there is a probability measure $\mu$ such that $\varphi$ is the 
-    characteristic function of $\mu$. 
-\end{theorem}
-\begin{proof}
-    
-\end{proof}
