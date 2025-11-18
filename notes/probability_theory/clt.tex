@@ -168,3 +168,53 @@
     \end{thmenum}
     then $S_n\dto \Poisson(\lambda)$. 
 \end{theorem}
+\begin{proof}
+    Let $\varphi_{n,j}(t) = 1 + p_{n,j}(e^{it} - 1)$ be the characteristic functions 
+    for $X_{n,j}$. Then 
+    \begin{equation*}
+        \begin{split}
+            \log(\varphi_{S_n}(t)) &= \sum_{j=1}^n\log(\varphi_{n,j}(t))
+            = \sum_{j=1}^n\log(1 + p_{n,j}(e^{it} - 1)) \\
+            &= \sum_{j=1}^np_{n,j}(e^{it} - 1) + o(p_{n,j}) 
+            \to \lambda(e^{it}-1), 
+        \end{split}
+    \end{equation*}  
+    where we use the fact that $\log(1+x) = x + o(x)$ as $x\to 0$ and condition (b) implies 
+    that the Taylor expansion is valid. Hence $\varphi_{S_n}(t)\to \exp(\lambda(e^{it}-1))$ 
+    and $S_n\dto \Poisson(\lambda)$. 
+\end{proof}
+
+\begin{example}
+    The independence assumption of the random variables can sometimes be relaxed. 
+    Consider the random permutations of $\set{1,\ldots,n}$. We are interested in 
+    finding the distribution of the number of fixed points for the random 
+    permutations. Define $X_{n,j} = \one\set{\pi(j) = j}$ where $\pi$ is a 
+    random permutation and $S_n = \sum_{j\leq n}X_{n,j}$. Put $A_{n,j} = \set{X_{n,j}=1}$. 
+    Then 
+    \begin{equation*}
+        \P(S_n>0) = \P(\cup_{j=1}^nA_{n,j}) 
+        = \sum_j\P(A_{n,j}) - \sum_{k\leq j} \P(A_{n,j}\cap\P(A_{n,k})) + \cdots + (-1)^{n+1}\P(A_{n,1}\cap\cdots\cap A_{n,n}).
+    \end{equation*}
+    Note that 
+    \begin{equation*}
+        \P(A_{n,i_1}\cap\cdots\cap A_{n,i_r}) = \frac{(n-r)!}{n!}.
+    \end{equation*}
+    Hence 
+    \begin{equation*}
+        \P(S_n>0) = n\cdot\frac{(n-1)!}{n!} - \binom{n}{2}\frac{(n-2)!}{n!} + \cdots + (-1)^{n+1}\frac{1}{n!} 
+        = 1 - \frac{1}{2!} + \frac{1}{3!} - \cdots + (-1)^{n+1}\frac{1}{n!}.
+    \end{equation*}
+    Thus $\P(S_n = 0) = 1 - 1 + \frac{1}{2!} \cdots + (-1)^{n}\frac{1}{n!} \to e^{-1}$ as 
+    $n\to\infty$. Fix $k$ entries. The remaining $n-k$ entries with no fixed points 
+    has combinatorics $a_{n-k}$. Thus 
+    \begin{equation*}
+        \P(S_n = k) = \binom{n}{k}\frac{a_{n-k}}{n!}, 
+        \quad\text{and}\quad 
+        \P(S_{n-k} = 0) = \frac{a_{n-k}}{(n-k)!}.  
+    \end{equation*}
+    So 
+    \begin{equation*}
+        \P(S_n = k) = \binom{n}{k}\frac{(n-k)!\P(S_{n-k} = 0)}{n!}\to \frac{1}{k!}e^{-1}
+    \end{equation*}
+    for given $k$. We see that $S_n\dto \Poisson(1)$. 
+\end{example}
