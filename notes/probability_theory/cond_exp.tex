@@ -1,0 +1,156 @@
+\begin{definition}
+    Let $(\Omega, \F, \P)$ be a probability space and $X\in\L^1(\Omega)$. 
+    The \textbf{conditional expectation} of $X$ with respect to a $\sigma$-algebra 
+    $\G\subset\F$ is a $\G$-measurable random variable $Z$ such that 
+    \begin{equation*}
+        \int_{A} Zd\P = \int_A Xd\P
+    \end{equation*}
+    for every $A\in\G$. 
+\end{definition}
+\begin{remark}
+    Define 
+    \begin{equation*}
+        \nu(A) = \int_A Xd\P.
+    \end{equation*}
+    It is clear that $\nu\ll \P$ --- in particular on $\G$ --- and hence the Radon-Nikodym theorem implies 
+    that there is a almost surely unique random variable $Z\in\L^1(\Omega, \G, \P)$ such 
+    that $\nu(A) = \int_A Zd\P$. Hence the conditional expectation is well-defined. 
+    We may denote the conditional expectation of $X$ with respect to $\G$ as $\E\sbrc{X|\G}$. 
+    For random variable $Y$, we write $\E\sbrc{X|Y} = \E\sbrc{X|\sigma(Y)}$.  
+\end{remark}
+
+\begin{proposition}\label{prop:cond_exp_prop}
+    Let $(\Omega, \F, P)$ be a probability space and $\G\subset\F$ is 
+    a $\sigma$-algebra. The followings are true: 
+    \begin{thmenum}
+        \item $\E\sbrc{X|\F} = X$. 
+        \item If $\sigma(X)$ is independent of $\G\subset\F$, then $\E\sbrc{X|\G} = \E\sbrc{X}$. 
+        \item For $c\in\R$, $\E\sbrc{cX + Y|\G} = c\E\sbrc{X|\G} + \E\sbrc{Y|\G}$. 
+        \item If $X\leq Y$ almost surely, then $\E\sbrc{X|\G}\leq \E\sbrc{Y|\G}$ almot surely. 
+        \item $\E\sbrc{\abs{\E\sbrc{X|\G}}}\leq \E\sbrc{\abs{X}}$. 
+        \item If $f$ is convex, $f(\E\sbrc{X|\G})\leq \E\sbrc{f(X)|\G}$.
+    \end{thmenum}
+\end{proposition}
+\begin{proof}
+    For (a), note that $X$ is $\F$-measurable and for every $A\in\F$, $\E\sbrc{X\one_A} = \E\sbrc{X\one_A}$. 
+    Hence $X$ satisfies the required condition for it to be the conditional expectation. 
+    $\E\sbrc{X|\F} = X$ by the uniqueness of the conditional expectation. 
+
+    For (b), since the constant is $\G$-measurable and 
+    $\E\sbrc{X\one_A} = \E\sbrc{X}\E\sbrc{\one_A} = \E\sbrc{\E\sbrc{X}\one_A}$ for every $A\in\G$, 
+    we have $\E\sbrc{X|\G} = \E\sbrc{X}$. 
+
+    For (c), it is clear that $c\E\sbrc{X|\G}+\E\sbrc{Y|\G}$ is measurable. 
+    Also, for every $A\in\G$, 
+    \begin{equation*}
+        \begin{split}
+            \E\sbrc{(cX+Y)\one_A} &= c\E\sbrc{X\one_A} + \E\sbrc{Y\one_A} 
+            = c\E\sbrc{\E\sbrc{X|\G}\one_A} + \E\sbrc{\E\sbrc{Y|\G}\one_A} \\
+            &= \E\sbrc{(c\E\sbrc{X|\G} + \E\sbrc{Y|\G})\one_A}.
+        \end{split}
+    \end{equation*}
+    Hence $\E\sbrc{cX+Y|\G} = c\E\sbrc{X|\G} + \E\sbrc{Y|\G}$. 
+
+    For (d), let $A = \set{\E\sbrc{Y|\G}-\E\sbrc{X|\G}>0} = \set{\E\sbrc{Y-X|\G}>0}$. 
+    By the definition of conditional expectation, since $A\in\G$, 
+    \begin{equation*}
+        \E\sbrc{(\E\sbrc{Y|\G}-\E\sbrc{X|\G})\one_A} = \E\sbrc{\E\sbrc{Y-X|\G}\one_A} = \E\sbrc{(Y-X)\one_A}\geq 0
+    \end{equation*}
+    due to the assumption that $X\leq Y$ almost surely. If $\P(A)>0$, 
+    we also have 
+    \begin{equation*}
+        \E\sbrc{(\E\sbrc{Y|\G}-\E\sbrc{X|\G})\one_A} < 0,
+    \end{equation*}
+    which is a contradiction. Thus $\P(A) = 0$ and we conclude that 
+    $\E\sbrc{X|\G}\leq \E\sbrc{Y|\G}$ almost surely. 
+
+    For (e), we may take $A = \set{\E\sbrc{X|\G}\geq 0}$. Then 
+    \begin{equation*}
+        \E\sbrc{\abs{\E\sbrc{X|\G}}} = \E\sbrc{\E\sbrc{X|\G}\one_A} - \E\sbrc{\E\sbrc{X|\G}\one_{A^c}} 
+        = \E\sbrc{X\one_A} - \E\sbrc{X\one_{A^c}} \leq \E\sbrc{\abs{X}},
+    \end{equation*}
+    proving (e).
+
+    For (f), note that by the convexity, there are $a,b$ such that 
+    $f(x)\geq ax+b$ and $f(x_0) = x_0$ for some $x_0$. Taking 
+    $x_0 = \E\sbrc{X|\G}$, 
+    \begin{equation*}
+        f(\E\sbrc{X|\G}) = a\E\sbrc{X|\G}+b = \E\sbrc{aX+b|\G} 
+        \leq \E\sbrc{f(X)|\G}
+    \end{equation*}
+    by (c) and (d). 
+\end{proof}
+
+\begin{proposition}\label{prop:cond_exp_limit}
+    Let $(\Omega, \F,\P)$ be a probability space, $X_n, X\in\L^1(\Omega)$ 
+    and $\G\subset\F$ be a $\sigma$-algebra. Then the followings are true: 
+    \begin{thmenum}
+        \item If $X_n\nearrow X$ and $X_n\geq 0$, then $\E\sbrc{X_n|\G}\nearrow\E\sbrc{X|\G}$ almost surely. 
+        \item If $X_n\to X$ almost surely and $\abs{X_n}\leq Y\in\L^1(\Omega)$, then $\E\sbrc{X_n|\G}\to\E\sbrc{X|\G}$ 
+        almost surely.  
+        \item $\E\sbrc{\liminf_{n\to\infty} X_n|\G}\leq \liminf_{n\to\infty}\E\sbrc{X_n|\G}$ almost surely. 
+    \end{thmenum}
+\end{proposition}
+\begin{proof}
+    For (b), by assumption and LDCT we have $X_n\to X$ in $\L^1$. 
+    The \cref{prop:cond_exp_prop} (e) implies that $\E{\abs{\E\sbrc{X_n-X|\G}}}\leq \E\sbrc{\abs{X_n-X}}\to 0$. 
+    Hence (b) follows. 
+
+    Now for (a), \cref{prop:cond_exp_prop} (d) implies that $\E\sbrc{X_n|\G}$ is 
+    incresing. Since $X_n\leq \abs{X}\in\L^1$, (b) shows that $\E\sbrc{X_n|\G}\to\E\sbrc{X|\G}$. 
+
+    Again, by \cref{prop:cond_exp_prop} (d), $\E\sbrc{\inf_{k\geq n}X_k|\G}\leq \E\sbrc{X_m|\G}$ 
+    for every $m\geq n$. Thus 
+    \begin{equation*}
+        \E\sbrc{\inf_{k\geq n}X_k|\G}\leq \inf_{m\geq n}\E\sbrc{X_m|\G}.
+    \end{equation*} 
+    Since $\inf_{k\geq n}X_k\nearrow \liminf_{n\to\infty}X$, we may take $n\to\infty$ and 
+    the result from (a) gives 
+    \begin{equation*}
+        \E\sbrc{\liminf_{n\to\infty}X_n|\G}\leq \liminf_{n\to\infty}\E\sbrc{X_n|\G}
+    \end{equation*}
+    as desired.  
+\end{proof}
+
+\begin{proposition}\label{prop:pull_out}
+    If $\sigma(X)\subset\G$ and $\E\sbrc{\abs{Y}}, \E\sbrc{\abs{XY}}<\infty$, then $\E\sbrc{XY|\G} = X\E\sbrc{Y|\G}$. 
+\end{proposition}
+\begin{proof}
+    Suppose first that $X = \one_G$ where $G\in\G$. Then for any $A\in\G$, 
+    \begin{equation*}
+        \E\sbrc{X\E\sbrc{Y|\G}\one_A} = \E\sbrc{\one_G\one_A\E\sbrc{Y|\G}} 
+        = \E\sbrc{\one_{G}Y\one_{A}} = \E\sbrc{\E\sbrc{\one_GY|\G}\one_A} = \E\sbrc{\E\sbrc{XY|\G}\one_A}
+    \end{equation*}
+    since $G\cap A\in\G$. By the linearity this extends to the case where $X$ is simple. 
+    For $X\geq 0$, there are simple functions $X_n\nearrow X$ almost surely and hence 
+    $X_nY\to XY$ with $\abs{X_nY}\leq \abs{XY}\in\L^1$. By \cref{prop:cond_exp_limit} (b), 
+    $\E\sbrc{X_nY|\G}\to\E\sbrc{XY|\G}$ almost surely. Also, 
+    $\abs{\E\sbrc{X_nY|\G}\one_A}\leq \E\sbrc{\abs{X_nY}|\G}\one_A\leq \E\sbrc{\abs{XY}}\one_A\in\L^1$. 
+    \begin{equation*}
+        \E\sbrc{X\E\sbrc{Y|\G}\one_A} = \lim_{n\to\infty}\E\sbrc{X_n\E\sbrc{Y|\G}\one_A} 
+        = \lim_{n\to\infty}\E\sbrc{\E\sbrc{X_nY|\G}\one_A} 
+        = \E\sbrc{\E\sbrc{XY|\G}\one_A}
+    \end{equation*}
+    where the first equality follows by $\abs{X_n\E\sbrc{Y|\G}\one_A}\leq \abs{XY\one_A}\in\L^1$ and then 
+    applying \cref{prop:cond_exp_prop} (f) with $f(x) = \abs{x}$, $X_n\E\sbrc{Y|\G}\one_A\to X\E\sbrc{Y|\G}\one_A$ 
+    and LDCT. The general case follows from the decomposition $X = X^+-X^-$ and $X_n = X_n^+-X_n^-$. 
+\end{proof}
+
+\begin{proposition}[Law of Iterated Expectation, Tower Property]
+    Let $(\Omega, \F, \P)$ be a probability space and $\H\subset\G\subset\F$ 
+    are $\sigma$-algebras. Then 
+    \begin{thmenum}
+        \item $\E\sbrc{\E\sbrc{X|\H}|\G} = \E\sbrc{X|\H}$. 
+        \item $\E\sbrc{\E\sbrc{X|\G}|\H} = \E\sbrc{X|\H}$.
+    \end{thmenum}
+\end{proposition}
+\begin{proof}
+    For (a), since $\E\sbrc{X|\H}$ is $\G$-measurable, \cref{prop:pull_out} implies 
+    that $\E\sbrc{\E\sbrc{X|\H}|\G} = \E\sbrc{X|\H}\E\sbrc{1|\G} = \E\sbrc{X|\H}$. 
+
+    For (b), first not that both sides are $\H$-measurable. For $A\in\H\subset\G$, 
+    \begin{equation*}
+        \E\sbrc{\E\sbrc{\E\sbrc{X|\G}|\H}\one_A} = \E\sbrc{\E\sbrc{X|\G}\one_A} = \E\sbrc{X\one_A} = \E\sbrc{\E\sbrc{X|\H}\one_A}.
+    \end{equation*}
+    The conclusion follows. 
+\end{proof}

@@ -83,15 +83,14 @@
             &\leq \abs{t}^2\E\sbrc{\abs{X_{n,i}}^2\one\set{\abs{X_{n,i}}>\epsilon}} + \frac{\epsilon\abs{t}^3\sigma_{n,i}^2}{6}
         \end{split}
     \end{equation*}
-    Let $A = \E\sbrc{\abs{Y}^3}$ where $Y$ is standard normal and 
-    $\sigma_n^2 = \sum_{i\leq n}\sigma_{n,i}^2$. The claim applies 
+    Let $\sigma_n^2 = \sum_{i\leq n}\sigma_{n,i}^2$. The claim applies 
     to $Z_{n,i}$ gives 
     \begin{equation*}
         \begin{split}
             \sum_{i\leq n}\E\sbrc{\abs{e^{itZ_{n,i}} - 1 + \frac{Z_{n,i}^2t^2}{2}}} 
             &\leq \frac{\abs{t}^3}{6}\sum_{i\leq n}\E\sbrc{\abs{Z_{n,i}}^3} 
             = \frac{\abs{t}^3}{6}\sum_{i\leq n}\sigma_{n,i}^3\E\sbrc{\abs{Y}^3} \\
-            &\leq \frac{\abs{t}^3}{6}\E\sbrc{\abs{Y}^3}\sigma_n\sup_{i\leq n}\sigma_{n,i}
+            &\leq \frac{\abs{t}^3}{6}\E\sbrc{\abs{Y}^3}\sigma_n^2\sup_{i\leq n}\sigma_{n,i}
         \end{split}
     \end{equation*} 
     Hence 
