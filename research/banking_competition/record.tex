@@ -20,13 +20,6 @@
     \item \cite{egan2025}. 
 \end{itemize}
 
-\subsection{Computation with Aggregate Distribution as State}
-\begin{itemize}
-    \item \cite{krusell1998}.
-    \item \cite{maliar2021}.
-    \item \cite{gu2024}.
-\end{itemize}
-
 \section{Monopolistic Bank with Liquidity Motive} 
 \subsection{Household}
 Time is continuous, starting from $t = 0$ and going on forever. 
@@ -88,39 +81,57 @@ Now,
     dc_t
 \end{equation*}
 
-\section{Monopolistic Bank with Full Information}
-\subsection{Households}
-Time is continuous, starting from $t = 0$ and going on forever. 
-The households can buy deposit from the bank to save. There is a unit 
-measure of households solving the problem: 
-\begin{equation*}
-    V_t = \max \E_t\sbrc{\int_t^\infty e^{-\rho(s-t)}\frac{c_s^{1-\gamma}}{1-\gamma}dt}
-\end{equation*}
-subject to the budget constraint 
-\begin{equation*}
-    dD_t = D_td\tilde{r}_t - c_tdt
-\end{equation*}
-where $D_t$ is the deposit, $d\tilde{r}_t$ is the realized deposit 
-rate.  
-
-\subsection{Bank}
-The bank issues deposits and equities to finance the investment. 
-There are two types of investment: a risk free investment 
-$b_t$ and a risky investment $k_t$. 
-\begin{align}
-    db_t &= (\mu_b - i_{b,t})b_tdt \\ 
-    dk_t &= \mu_kk_tdt - k_t\kappa dZ_t + i_{k,t}k_tdZ_{\lambda, t}
-\end{align}
-The bank's problem is 
-\begin{equation*}
+\section{Monopolistic Bank with Information Frictions}
+The bank can choose to keep operation or exit and taking $E_0$. 
+In the continuation region, the bank solves the HJB 
+\begin{equation}\label{eq:bank_hjb}
     \begin{split}
-        \rho_b E_t(k_t)dt &= \max_{dr_t, \theta_{\lambda}} - D(dr_t)dr_t + \mu_bD(dr_t)dt - 
-        (\mu_b - i_{b,t})
-        b_tdt + \phi dt \int k_tx + (E_t(k_t(1-x), b_t) - E_t(k_t, b_t))dF_{\phi}(x) \\ 
-        &\quad \lambda dt(-i_{k,t}k_t + E_t(i_{k,t}k_t, b_t) - E_t(k_t, b_t)) - D(dr_t)dr_t
+        \rho_BE(k,a) &= \max_{r} - rD(r,a) + E_arD(r,a) + \phi(\alpha k + E((1-\alpha)k,a) - E(k,a)) \\
+        &\quad + E_k\mu k_t + \eta \int\max\set{E((1-\kappa)k,a) - E(k,a),E_0 - E(k,a)}dF_{\kappa} \\
+        &\quad + \lambda \int \max_{k\leq k'\leq \min\set{k+\bar{I},D}}E(k',a) - E(k,a)dF_I(\bar{I}). 
     \end{split}
-\end{equation*} 
-
+\end{equation}
+$E_k> 0$ so $k' = \min\set{k+\bar{I},D}$. 
+\begin{equation}\label{eq:bank_hjb2}
+    \begin{split}
+        (\rho_B + \phi + \lambda + \eta)E(k,a) &= \max_{r} - rD(r,a) + E_arD(r,a) + \phi(\alpha k + E((1-\alpha)k,a))\\
+        &\quad + E_k\mu k_t + \eta \int\max\set{E((1-\kappa)k,a),E_0}dF_\kappa \\
+        &\quad + \lambda ((1 - F_I(D-k))E(D,a) + \int_0^{D-k}E(k+\bar{I},a)dF_I(\bar{I})). 
+    \end{split}
+\end{equation}
+Given household asset holdings $a$, the unit measure of households solve 
+\begin{equation}\label{eq:hh_prob}
+    \max_{\theta_t\in[0,1]} \E_t\sbrc{\frac{da_t}{a_t}} - \frac{\gamma}{2}\Var_t\sbrc{\frac{da_t}{a_t}}
+\end{equation}
+subject to $da_t = \theta_ta_td\tilde{r}_t$. The solution is given by 
+\begin{equation}
+    \theta_t = \frac{\E_t\sbrc{d\tilde{r}_t}}{\gamma\Var_t\sbrc{d\tilde{r}_t}}, 
+    \quad\Rightarrow\quad 
+    D(r,a) = \frac{\E\sbrc{d\tilde{r}_t}}{\gamma\Var\sbrc{d\tilde{r}_t}}a.
+\end{equation}
+Let $k^*(a)$ be the continuation boundary. We have $E(k^*(a),a) = E_0$. 
+Suppose that the when the bank default, the risky asset is illiquid and 
+all the deposit disappears. Hence 
+\begin{equation}
+    da_t = \theta_ta_trdt - \theta_{t^-}a_{t^-}dN_t
+\end{equation}
+where the rate of $N_t$ is $\eta P((1-\kappa)k\leq k^*(a)) = \eta (1 - F_\kappa(1 - k^*/k)) = \eta\delta$. 
+\begin{equation}
+    \theta_t = \begin{cases}
+        1, & \frac{1}{\gamma}\sbrc{\frac{r}{\eta\delta}-1} > 1 \\
+        \frac{1}{\gamma}\sbrc{\frac{r}{\eta\delta}-1}, & \text{o.w.} \\
+        0, & \frac{1}{\gamma}\sbrc{\frac{r}{\eta\delta}-1} < 0.
+    \end{cases}
+\end{equation}
+Take the parametric assumption that $F_I$ is $Exp(\beta)$ and $F_\kappa$ is 
+$U(0,1)$. The optimal deposit rate solves 
+\begin{equation}
+    \begin{split}
+       &(E_a - 1)(D + rD_r) - \lambda\beta\exp(-\beta(D-k))D_rE(D,a) \\
+       &\quad + \lambda\exp(-\beta(D-k))E_k(D,a)D_r + E(D,a)\beta\exp(-\beta(D-k)) = 0.     
+    \end{split}
+\end{equation} 
+We solve the interior case and truncate when needed. 
 
 
 \bibliographystyle{apacite}

@@ -154,3 +154,90 @@
     \end{equation*}
     The conclusion follows. 
 \end{proof}
+
+\begin{corollary}\label{cor:cond_exp_self_adj}
+    For random variables $X,Y\in\L^1$, we have 
+    \begin{equation*}
+        \E\sbrc{\E\sbrc{X|\G}Y} = \E\sbrc{X\E\sbrc{Y|\G}} = \E\sbrc{\E\sbrc{X|\G}\E\sbrc{Y|\G}}.
+    \end{equation*}
+\end{corollary}
+\begin{proof}
+    By the tower property, 
+    \begin{equation*}
+        \E\sbrc{\E\sbrc{X|\G}Y} = \E\sbrc{\E\sbrc{\E\sbrc{X|\G}Y|\G}} = \E\sbrc{\E\sbrc{X|\G}\E\sbrc{Y|\G}}. 
+    \end{equation*}
+    Similarly, 
+    \begin{equation*}
+        \E\sbrc{X\E\sbrc{Y|\G}} = \E\sbrc{\E\sbrc{X\E\sbrc{Y|\G}|\G}} = \E\sbrc{\E\sbrc{X|\G}\E\sbrc{Y|\G}}.
+    \end{equation*}
+\end{proof}
+\begin{remark}
+    If we view $\E\sbrc{XY} = \inp{X}{Y}$, then \cref{cor:cond_exp_self_adj} is 
+    effectively saying that the conditional expectation operator is self-adjoint. 
+\end{remark}
+
+\begin{proposition}
+    Let $(\Omega, \F, \P)$ be a probability space and $\G\subset\F$ be a $\sigma$-algebra. 
+    Consider the minimization problem 
+    \begin{equation*}
+        \inf_{Z\in\L^2(\G)}\E\sbrc{(X-Z)^2}
+    \end{equation*}
+    where $X\in\L^2(\F)$. Then the minimum is attained in $\L^2(\G)$ and the 
+    minimizer is given by $Z = \E\sbrc{X|\G}$.
+\end{proposition}
+\begin{proof}
+    First notice that $\L^2(\G)$ is a closed convex subset of $\L^2(\F)$. Hence 
+    the minimum is attained by a unique minimizer. Now rewrite the expression as 
+    \begin{equation*}
+        \E\sbrc{(X-Z)^2} = \E\sbrc{(X-\E\sbrc{X|\G})^2} + \E\sbrc{(Z-\E\sbrc{X|\G})^2} - 2\E\sbrc{(X-\E\sbrc{X|\G})(Z-\E\sbrc{X|\G})}.
+    \end{equation*}
+    By the tower property, the third term becomes 
+    \begin{equation*}
+        \begin{split}
+            \E\sbrc{(X-\E\sbrc{X|\G})(Z-\E\sbrc{X|\G})} &= \E\sbrc{\E\sbrc{(X-\E\sbrc{X|\G})(Z-\E\sbrc{X|\G})|\G}} \\ 
+            &= \E\sbrc{(\E\sbrc{X|\G}-\E\sbrc{X|\G})(Z-\E\sbrc{X|\G})} = 0.
+        \end{split} 
+    \end{equation*}
+    To minimize the expression, it suffices to minimize the second term, which 
+    gives the solution $Z = \E\sbrc{X|\G}$. 
+\end{proof}
+\begin{remark}
+    The proposition gives a characterization of conditional expectations. In fact, 
+    we can conversely view the conditional expectation as an projection operator 
+    $\E\sbrc{\cdot|\G}:\L^2(\F)\to\L^2(\G)$. Since $\L^2$ is dense in $\L^1$ under 
+    $\norm{\cdot}_1$, the projection operater extends to 
+    $\E\sbrc{\cdot|\G}:\L^1(\F)\to\L^1(\G)$. For $X\in\L^1(\F)$, we may choose 
+    $X_n\to X$ in $\L^1$ where $X_n\in\L^2$ and define 
+    $\E\sbrc{X|\G} = \lim_{n\to\infty}\E\sbrc{X_n|\G}$. 
+\end{remark}
+
+\begin{definition}
+    Let $X, Y\in\L^2$ be random variables. For any $\sigma$-algebra $\G\subset\F$, the 
+    \textbf{conditional covariance} is defined as 
+    \begin{equation*}
+        \Cov\sbrc{X, Y|\G} = \E\sbrc{(X-\E\sbrc{X|\G})(Y-\E\sbrc{Y|\G})|\G} 
+        = \E\sbrc{XY|\G} - \E\sbrc{X|\G}\E\sbrc{Y|\G}. 
+    \end{equation*}
+    The \textbf{conditional variance} is defined as $\Var\sbrc{X|\G} = \Cov\sbrc{X,X|\G} = \E\sbrc{X^2|\G} - \E\sbrc{X|\G}^2$.   
+\end{definition}
+
+\begin{lemma}[Law of Total Variance]
+    Let $(\Omega, \F, \P)$ be a probability space and $\G\subset\F$ be a $\sigma$-algebra. 
+    For any random variables $X,Y\in\L^2$, 
+    \begin{thmenum}
+        \item $\Var\sbrc{X} = \E\sbrc{\Var\sbrc{X|\G}} + \Var\sbrc{\E\sbrc{X|\G}}$.
+        \item $\Cov\sbrc{X,Y} = \E\sbrc{\Cov\sbrc{X,Y|\G}} + \Cov\sbrc{\E\sbrc{X|\G}, \E\sbrc{Y|\G}}$. 
+    \end{thmenum} 
+\end{lemma}
+\begin{proof}
+    We prove only (b). (a) follows immediately by replacing $Y$ with $X$. 
+    By the tower property, 
+    \begin{equation*}
+        \begin{split}
+            \Cov\sbrc{X,Y} &= \E\sbrc{XY} - \E\sbrc{X}\E\sbrc{Y} 
+            = \E\sbrc{\E\sbrc{XY|\G}} - \E\sbrc{\E\sbrc{X|\G}}\E\sbrc{\E\sbrc{Y|\G}} \\ 
+            &= \E\sbrc{\Cov\sbrc{XY|\G}} + \E\sbrc{(\E\sbrc{X|\G})(\E\sbrc{Y|\G})} - \E\sbrc{\E\sbrc{X|\G}}\E\sbrc{\E\sbrc{Y|\G}} \\ 
+            &= \E\sbrc{\Cov\sbrc{X,Y|\G}} + \Cov\sbrc{\E\sbrc{X|\G}}. 
+        \end{split}
+    \end{equation*}
+\end{proof}
