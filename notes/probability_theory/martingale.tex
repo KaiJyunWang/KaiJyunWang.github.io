@@ -32,7 +32,7 @@
         \item $X_t = \E\sbrc{X_s|\F_t}$ for all $s>t$. 
     \end{thmenum}
     We say that $X_t$ is a \textbf{supermartingale} if $X_t\geq \E\sbrc{X_s|\F_t}$ and 
-    \textbf{submartungale} if $X_t\leq \E\sbrc{X_s|\F_t}$ for all $s>t$. 
+    \textbf{submartingale} if $X_t\leq \E\sbrc{X_s|\F_t}$ for all $s>t$. 
 \end{definition}
 \begin{remark}
     $X_t$ is a martingale if and only if $X_t$ is both a submartingale and a supermartingale.
@@ -115,8 +115,8 @@
     Hence $\varphi(X_t)$ is a submartingale. 
 \end{proof}
 
-\begin{lemma}
-    Let $X_t$ be a stochastic process and $\varphi$ is a increasing function such that 
+\begin{lemma}\label{lem:mart_convex}
+    Let $X_t$ be a stochastic process and $\varphi$ is an increasing function such that 
     $\E\sbrc{\abs{\varphi(X_t)}}<\infty$. 
     \begin{thmenum}
         \item If $X_t$ is a $\F_t$-submartingale and $\varphi$ is convex, then 
@@ -210,6 +210,180 @@
     also applies to the strategy of the form $H_n' = H_{n\wedge \tau}$.   
 \end{remark}
 
+\begin{definition}
+    Let $X_t$ be a stochastic process with index set $T$ and $a<b$ be constants. 
+    Given $\omega$, the \textbf{$[a,b]$-crossing time} $N_a^b(\omega)$ is defined as the supremum 
+    over $n\in\Z_+$ such that there is $s_1<t_1<s_2<t_2<\cdots<s_n<t_n$, $s_i, t_i\in T$ 
+    with $X_{s_1}(\omega)\leq a$ and $X_{t_1}(\omega)\geq b$.
+\end{definition}
+
+\begin{lemma}[Doob's Upcrossing Lemma]
+    Let $X_n$ be a submartingale on $\Z_+$ and $N_a^b(n)$ be the crossing time up to $n\in\Z_+$. 
+    Then 
+    \begin{equation*}
+        \E\sbrc{N_a^b(n)}\leq \frac{1}{b-a}\E\sbrc{(X_n-a)^+}
+    \end{equation*}
+    for all $n\in\Z_+$. 
+\end{lemma}
+\begin{proof}
+    Let $Y_n = a+(X_n-a)^+$. By \cref{lem:mart_convex}, $Y_n$ is also a submartingale 
+    since $x\mapsto a+(x-a)^+$ is a convex increasing function. Notice that the 
+    crossing time up to time $n$ for $Y_n$ is also $N_a^b(n)$. Now define the 
+    stopping times $0 = \tau_0 \leq \sigma_1 < \tau_1 < \cdots$ by 
+    \begin{equation*}
+        \sigma_k = \inf\Set{n\geq\tau_{k-1}}{Y_n = a}, \quad\text{and}\quad 
+        \tau_k = \inf\Set{n\geq \sigma_k}{Y_n \geq b}. 
+    \end{equation*}
+    Next, we consider the predictable process 
+    \begin{equation*}
+        H_n = \sum_{k\geq 1}\one\set{\sigma_k< n\leq \tau_k}.
+    \end{equation*}
+    By \cref{thm:no_arbitrage}, $((1-H)\cdot Y)_n$ is a submartingale and thus 
+    \begin{equation*}
+        \E\sbrc{((1-H)\cdot Y)_n} \geq \E\sbrc{((1-H)\cdot Y)_0} = 0.
+    \end{equation*}
+    Notice that $(H\cdot Y)_n\geq (b-a)N_a^b(n)$. We have 
+    \begin{equation*}
+        \E\sbrc{(X_n-a)^+} = \E\sbrc{(H\cdot Y)_n} + \E\sbrc{((1-H)\cdot Y)_n} 
+        \geq (b-a)\E\sbrc{N_a^b(n)}.
+    \end{equation*}
+    Rearranging the inequality gives the desired result. 
+\end{proof}
+
 \begin{theorem}[Martingale Convergence Theorem]
-    
+    Let $X_n$ be a $\F_n$-submartingale. Suppose that $\sup_n\E\sbrc{X_n^+}<\infty$. 
+    Then there is $X\in\L^1$ such that $X_n\to X$ almost surely. 
 \end{theorem}
+\begin{proof}
+    For $a, b\in\Q$, consider the event $A_{a,b} = \set{\liminf_nX_n < a < b < \limsup_n X_n}$. 
+    Put $S$ be the union of all $A_{a,b}$ over $a,b\in\Q$. For given $a<b$, consider the 
+    crossing time $N_a^b$ on $\Z_+$ and $N_a^b(n)$ which is up to time $n$. 
+    Clearly $N_a^b(n)\nearrow N_a^b$. By LMCT and Doob's upcrossing lemma,
+    \begin{equation*}
+        \E\sbrc{N_a^b} = \lim_{n\to\infty}\E\sbrc{N_a^b(n)} \leq \limsup_{n\to\infty}\frac{1}{b-a}\E\sbrc{(X_n-a)^+}\leq C\sup_n\E\sbrc{X_n^+}
+    \end{equation*}
+    for some constant $C$. Hence $\P(N_a^b<\infty) = 0$. This implies that $X_n$ crosses 
+    $[a,b]$ only finite times almost surely. Thus $\P(A_{a,b}) = 0$ and $\P(S) = 0$. 
+    We see that 
+    \begin{equation*}
+        \P(\liminf_n X_n<\limsup_n X_n) = 0.
+    \end{equation*}
+    Thus the limit of $X_n$ exists, possibly in extended sense, almost surely. 
+    Denote the limit of $X_n$ as $X$. It now remains to show that $X\in\L^1$. 
+    \begin{equation*}
+        \E\sbrc{X^+} = \E\sbrc{\lim_{n\to\infty}X_n^+}
+        \leq \liminf_{n\to\infty}\E\sbrc{X_n^+}\leq\sup_{n}\E\sbrc{X_n^+} < \infty
+    \end{equation*}
+    by Fatou's lemma. Also, $X_n^- = X_n^+ - X_n$. 
+    \begin{equation*}
+        \E\sbrc{X_n^-} = \E\sbrc{X_n^+} - \E\sbrc{X_n} \leq \E\sbrc{X_n^+} - \E\sbrc{X_0} < \infty. 
+    \end{equation*}
+    Hence $X\in\L^1$. The proof is complete. 
+\end{proof}
+\begin{remark}
+    The theorem also holds for supermartingale. If $X_n$ is a $\F_n$-supermartingale 
+    and $\sup_n\E\sbrc{X_n^-}<\infty$. Then there is $X\in\L^1$ such that $X_n\to X$ 
+    almost surely. 
+\end{remark}
+
+\begin{corollary}
+    If $X_n\geq 0$ is a supermartingale, then there is $X\in\L^1$ such that 
+    $X_n\to X$ almost surely and $\E\sbrc{X}\leq \E\sbrc{X_0}$. 
+\end{corollary}
+\begin{proof}
+    Since $\sup_n\E\sbrc{X_n^-} = 0$, the martingale convergence theorem implies 
+    that there is $X\in\L^1$ such that $X_n\to X$ almost surely. By Fatou's 
+    lemma, 
+    \begin{equation*}
+        \E\sbrc{X} = \E\sbrc{\liminf_{n\to\infty} X_n} 
+        \leq \liminf_{n\to\infty}\E\sbrc{X_n}\leq \liminf_{n\to\infty}\E\sbrc{X_0} = \E\sbrc{X_0}. 
+    \end{equation*}
+    The proof is complete.  
+\end{proof}
+\begin{remark}
+    The hard bound on $X_n$ is neccessary. Consider $\xi_i$ with 
+    $\P(\xi_i = \pm 1) = 1/2$. Let $X_n = \sum_{i\leq n}\xi_i$ and 
+    $X_0 = 1$. Consider the stopping time $\tau = \inf\Set{n}{X_n = 0}$.  
+    Then $\P(\tau < \infty) = 1$. Since $X_{n\wedge \tau}$ is a martingale, 
+    $\E\sbrc{X_{n\wedge\tau}} = X_0 = 1$. Also, the martingale convergence 
+    theorem shows that there is $X$ where $X_{n\wedge\tau}\to X$ as $n\to\infty$. 
+    Since $\tau<\infty$ almost surely, we have $X = 0$ almost surely and 
+    $\E\sbrc{X} = 0$. 
+\end{remark}
+
+\begin{example}[P\'olya's Urn]
+    Let $X_0,Y_0\in \N$. Define 
+    \begin{equation*}
+        (X_n, Y_n) = \begin{cases}
+            (X_{n-1}+1, Y_{n-1}),& \text{prob.} = \frac{X_{n-1}}{X_{n-1} + Y_{n-1}}, \\
+            (X_{n-1}, Y_{n-1}+1),& \text{prob.} = \frac{Y_{n-1}}{X_{n-1} + Y_{n-1}}.
+        \end{cases}
+    \end{equation*}
+    Let $Z_n = X_n/(X_n + Y_n)$. Notice that 
+    \begin{equation*}
+        \begin{split}
+            \E\sbrc{Z_{n+1}|\F_n} &= Z_n\cdot \frac{X_n+1}{X_n+1+Y_n} + (1 - Z_n)\cdot \frac{X_n}{X_n+Y_n+1} 
+            = \frac{X_n}{X_n+Y_n}\cdot\frac{1}{X_n+1+Y_n} + \frac{X_n}{X_n+Y_n+1} \\ 
+            &= \frac{X_n}{X_n+Y_n} = Z_n. 
+        \end{split}
+    \end{equation*}
+    Hence $Z_n$ is a martingale. Since $Z_n$ is clearly bounded, the martingale 
+    convergence theorem implies that there is some $Z\in\L^1$ such that 
+    $Z_n\to Z$ almost surely. In fact, one can show that $Z\sim\text{Beta}(X_0, Y_0)$. 
+\end{example}
+
+\begin{theorem}[Optional Stopping Theorem]
+    Let $\tau$ be a stopping time and $X_n$ be a martingale. Then $\E\sbrc{\abs{X_\tau}}<\infty$ 
+    and $\E\sbrc{X_\tau} = \E\sbrc{X_0}$ if one of the followings holds: 
+    \begin{thmenum}
+        \item There is some $N$ such that $\tau\leq N$ almost surely. 
+        \item There is some $M$ such that $\abs{X_{\tau\wedge n}}\leq M$ and $\P(\tau<\infty) = 1$. 
+        \item $\E\sbrc{\tau}<\infty$ and $\abs{X_{n+1}-X_n}\leq M$ almost surely for some $M$. 
+    \end{thmenum}
+\end{theorem}
+\begin{proof}
+    For (a), we have that 
+    \begin{equation*}
+        \abs{X_{n\wedge \tau} - X_0} \leq \sum_{k=1}^{n\wedge\tau} \abs{X_{k}-X_{k-1}}\leq \sum_{k=1}^N \abs{X_{k}-X_{k-1}}\in\L^1
+    \end{equation*}
+    for every $n$. Hence by the LDCT, since $\tau<\infty$ almost surely and $X_{n\wedge\tau}\to X_{\tau}$, 
+    \begin{equation*}
+        \E\sbrc{X_{\tau}} = \E\sbrc{\lim_{n\to\infty}X_{n\wedge\tau}} = \lim_{n\to\infty}\E\sbrc{X_{n\wedge\tau}} = \E\sbrc{X_0}
+    \end{equation*}
+    by the fact that $X_{n\wedge\tau}$ is a martingale by \cref{thm:no_arbitrage}. 
+
+    For (b), by the bounded convergence theorem and that $\tau<\infty$ almost surely, 
+    \begin{equation*}
+        \E\sbrc{X_{\tau}} = \E\sbrc{\lim_{n\to\infty}X_{n\wedge\tau}} = \lim_{n\to\infty}\E\sbrc{X_{n\wedge\tau}} = \E\sbrc{X_0}. 
+    \end{equation*}
+
+    For (c), notice that 
+    \begin{equation*}
+        \abs{X_{n\wedge\tau} - X_0} \leq \sum_{k=1}^{n\wedge\tau}\abs{X_{k}-X_{k-1}}\leq M\tau\in\L^1
+    \end{equation*}
+    since $\tau\in\L^1$. Thus $\abs{X_{n\wedge\tau}}\leq M\tau\in\L^1$. LDCT implies that 
+    \begin{equation*}
+            \E\sbrc{X_{\tau}} = \E\sbrc{\lim_{n\to\infty}X_{n\wedge\tau}} = \lim_{n\to\infty}\E\sbrc{X_{n\wedge\tau}} = \E\sbrc{X_0}.
+    \end{equation*}
+\end{proof}
+
+\begin{corollary}[Wald's Identity]
+    Let $X_i$ be independent and identically distributed with $\E\sbrc{X_i} = \mu < \infty$. 
+    $\abs{X_i}\leq K$ almost surely. Let $S_n = \sum_{i\leq n}X_i$, $S_0 = 0$ and $\tau$ be a 
+    stopping time with $\E\sbrc{\tau}<\infty$. Then $\E\sbrc{S_{\tau}} = \mu\E\sbrc{\tau}$. 
+\end{corollary}
+\begin{proof}
+    Consider $M_n = S_n - n\mu$. Notice that 
+    \begin{equation*}
+        \E\sbrc{M_{n+1}|\F_n} = \E\sbrc{X_{n+1} - \mu|\F_n} + S_n - n\mu = M_n.
+    \end{equation*}
+    Thus $M_n$ is a martingale. Also, 
+    \begin{equation*}
+        \abs{M_{n+1}-M_n} = \abs{X_{n+1}-\mu}\leq K+\abs{\mu}
+    \end{equation*}
+    almost surely. By the optional stopping theorem (c), 
+    \begin{equation*}
+        \E\sbrc{S_{\tau} - \tau\mu} = \E\sbrc{M_\tau} = \E\sbrc{M_0} = 0.
+    \end{equation*}
+    Hence $\E\sbrc{S_{\tau}} = \mu\E\sbrc{\tau}$. 
+\end{proof}
