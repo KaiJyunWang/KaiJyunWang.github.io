@@ -205,9 +205,17 @@
     Hence $\tau_1\wedge\tau_2$ and $\tau_1\vee\tau_2$ are stopping times. 
 \end{proof}
 \begin{remark}
-    In particular, since any constant $n$ is also a stopping time, $n\wedge\tau$ is a 
+    Since any constant $n$ is also a stopping time, $n\wedge\tau$ is a 
     stopping time provided that $\tau$ is. The conclusion from \cref{thm:no_arbitrage} 
-    also applies to the strategy of the form $H_n' = H_{n\wedge \tau}$.   
+    also applies to the strategy of the form $H_n' = H_{n\wedge \tau}$. In particular, 
+    taking the predictable process 
+    \begin{equation*}
+        H_n = \begin{cases}
+            1 & \tau \leq n \\ 
+            0 & \tau > n
+        \end{cases}
+    \end{equation*}
+    shows that $X_{n\wedge\tau}$ is a martingale provided that $X_n$ is.
 \end{remark}
 
 \begin{definition}
@@ -387,3 +395,49 @@
     \end{equation*}
     Hence $\E\sbrc{S_{\tau}} = \mu\E\sbrc{\tau}$. 
 \end{proof}
+
+\begin{example}
+    Consider a random walk $X_n = \sum_{i\leq n}\xi_i$ where $\P(\xi_i = \pm 1) = 1/2$ 
+    are independent and $X_0 = x\in\Z$. Define the hitting time $\tau = \inf\Set{k}{X_k = a,b}$ 
+    where $a<x<b$, $a,b\in\Z$. We first show that 
+    \begin{equation*}
+        \P(X_\tau = a) = \frac{b-x}{b-a}. 
+    \end{equation*} 
+    Since $X_n$ is a martingale, $X_{n\wedge\tau}$ is again a martingale by 
+    \cref{thm:no_arbitrage}. Thus 
+    \begin{equation*}
+        \begin{split}
+            x &= \E\sbrc{X_{n\wedge\tau}} = \E\sbrc{X_\tau\one\set{n\geq \tau}} + \E\sbrc{X_n\one\set{n<\tau}} \\
+            &= a\P(X_\tau = a, \tau\leq n) + b\P(X_\tau = b, \tau\leq n) + \E\sbrc{X_n\one\set{n<\tau}}.
+        \end{split}
+    \end{equation*}
+    Notice that $\abs{X_n}\one\set{n<\tau}\leq \abs{a}\vee\abs{b}$ and $\abs{X_n}\one\set{n<\tau}\to 0$ 
+    since $\tau<\infty$ almost surely. Letting $n\to\infty$ gives 
+    \begin{equation*}
+        x = a\P(X_\tau = a) + b\P(X_\tau = b) = a\P(X_\tau = a) + b(1 - \P(X_\tau = a)), \quad\Rightarrow\quad 
+        \P(X_\tau = a) = \frac{b-x}{b-a}. 
+    \end{equation*}
+    Next, we show that 
+    \begin{equation*}
+        \E\sbrc{\tau} = (b-x)(x-a). 
+    \end{equation*}
+    Consider $M_n = X_n^2 - n$. Then clearly the integrability and measurability holds. Also, 
+    \begin{equation*}
+        \E\sbrc{M_{n+1}|\F_n} = \E\sbrc{X_n^2 + 2X_n\xi_{n+1} + \xi_{n+1}^2 - (n+1)|\F_n} = M_n. 
+    \end{equation*}
+    Hence $M_n$ is a martingale. Again, by \cref{thm:no_arbitrage}, $M_{n\wedge\tau}$ 
+    is still a martingale. 
+    \begin{equation*}
+        \begin{split}
+            x^2 &= \E\sbrc{M_{n\wedge\tau}} = \E\sbrc{X_\tau^2\one\set{\tau\leq n}} + \E\sbrc{X_n^2\one\set{n< \tau}} - \E\sbrc{n\wedge\tau} \\ 
+            &= a^2\P(X_\tau = a, \tau\leq n) + b^2\P(X_\tau = b, \tau\leq n) + \E\sbrc{X_n^2\one\set{n< \tau}} - \E\sbrc{n\wedge\tau}.
+        \end{split}
+    \end{equation*}
+    Notice that $\tau<\infty$ almost surely and thus $n\wedge\tau\nearrow\tau$. 
+    Also, $X_n^2\one\set{n<\tau}<(a^2\vee b^2)$ and $X_n^2\one\set{n<\tau}\to 0$ as $n\to\infty$. 
+    By the LMCT and LDCT, taking $n\to\infty$, 
+    \begin{equation*}
+        x^2 = a^2\P(X_\tau = a) + b^2\P(X_\tau = b) - \E\sbrc{\tau} = a^2\frac{b-x}{b-a} + b^2\frac{x-a}{b-a} - \E\sbrc{\tau}.
+    \end{equation*}
+    Hence $\E\sbrc{\tau} = (b-x)(x-a)$. 
+\end{example}
