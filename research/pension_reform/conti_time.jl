@@ -2,9 +2,9 @@ using Interpolations, LinearAlgebra, Statistics, Distributions
 using CairoMakie, FastGaussQuadrature, Parameters, NLsolve
 using Printf
 
-function set_parameters(; ρ = 0.01, r = 0.01, αb = 1.0, κ = 1.0, y = 0.1, γ = 3.0, 
-                        αe = 0.94, μ = (t -> t), 
-                        a_grid = range(0, 5, 1000), 
+function set_parameters(; ρ = 0.01, r = 0.05, αb = 10.0, κ = 2.0, y = 0.1, γ = 3.0, 
+                        αe = 0.94, 
+                        a_grid = range(0, 5, 200), 
                         θ1 = 1e-4, θ2 = 0.1, θ3 = 1e-6, 
                         h = (t -> θ1 * exp(θ2 * t) + θ3), 
                         b = (a -> αb * (κ + a)^(1 - γ) / (1 - γ)))
@@ -29,8 +29,8 @@ function T(V, t, dt; p)
     bV_a = vcat(y^(-γ), (V[2:end] - V[1:end-1])/da) 
     fμ_a = r * a_grid .+ y .- fV_a.^(-1/γ)
     bμ_a = r * a_grid .+ y .- bV_a.^(-1/γ) 
-    If = fμ_a .> 0
-    Ib = bμ_a .< 0 
+    If = (fμ_a .> 0) 
+    Ib = (bμ_a .< 0)
     upwind_V_a = If .* fV_a .+ Ib .* bV_a .+ (1 .- If .- Ib) .* (r * a_grid .+ y).^(-γ)
     v = u.(upwind_V_a.^(-1/γ)) .+ h(t) * b.(a_grid) 
     A = Tridiagonal(min.(0, bμ_a[2:end]), max.(0, fμ_a) - min.(0, bμ_a), -max.(0,fμ_a[1:end-1]))
@@ -73,20 +73,20 @@ function compute_dt_size(V, t_plus_dt; p, tol)
 end
 
 # solution algorithm using adaptive step size
-function solve(p; init_dt = 0.01, dt_range = (1e-3, 1), tol = 1.0)
+function solve(p; init_dt = 0.02, dt_range = (1e-3, 1), tol = 1.0)
     @unpack ρ, r, αb, κ, y, γ, a_grid, h, b, max_a, da, u, max_t = p 
 
     # solve for time-homogeneous solution at h(t) = h(max_t) for t ≥ max_t. 
-    sol = fixedpoint(v -> T(v, max_t, init_dt; p = p), b.(a_grid))
+    # sol = fixedpoint(v -> T(v, max_t, init_dt; p = p), b.(a_grid))
 
     V = zeros(1, length(a_grid))
     t_grid = [max_t]
-    V[end, :] = sol.zero
+    V[end, :] = b.(a_grid)#sol.zero
     i = 1
     t = max_t 
     while t > 0 
         # compute dt size, safety shrink factor 0.99
-        dt = clamp(0.99 * compute_dt_size(V[end-i+1, :], t; p = p, tol = tol), dt_range[1], dt_range[2])
+        dt = 0.2#clamp(0.99 * compute_dt_size(V[end-i+1, :], t; p = p, tol = tol), dt_range[1], dt_range[2])
         t = t - dt
         prepend!(t_grid, [t])
         V = [T(V[end-i+1, :], t, dt; p = p)'; V]
@@ -110,11 +110,14 @@ end
 p = set_parameters()
 V, c, t_grid = solve(p)
 
+surface(t_grid, p.a_grid, V, axis = (type = Axis3, title = "Value function", xlabel = "t", ylabel = "a", zlabel = "v"), colormap = :deep)
+surface(t_grid, p.a_grid, c, axis = (type = Axis3, title = "Consumption function", xlabel = "t", ylabel = "a", zlabel = "c"), colormap = :darkterrain)
+
 begin
     f = Figure()
     ax = Axis(f[1,1])
     for (i, t) in enumerate(t_grid)
-        if i % 100 == 1
+        if i % 20 == 1
             lines!(ax, p.a_grid, V[i, :], color = RGBf(t / p.max_t, 0.0, 1 - t / p.max_t))
         end
     end
@@ -125,7 +128,7 @@ begin
     f = Figure()
     ax = Axis(f[1,1])
     for (i, t) in enumerate(t_grid)
-        if i % 100 == 1
+        if i % 20 == 1
             lines!(ax, p.a_grid, c[i, :], color = RGBf(t / p.max_t, 0.0, 1 - t / p.max_t))
         end
     end

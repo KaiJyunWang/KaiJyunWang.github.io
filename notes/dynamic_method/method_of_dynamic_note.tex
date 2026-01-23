@@ -20,20 +20,11 @@
 
 \maketitle
 
-\section*{Foreword}
-This document aims at providing mathematical details for fundamental 
-methods used to solve dynamic programming problems. Three methods 
-are covered: value function iteration (VFI), envelope condition method 
-(ECM), and policy function iteration (PFI). For implementation in 
-Julia, please refer to Sargent's fantastic 
-\href{https://julia.quantecon.org/dynamic_programming/optgrowth.html}
-{website}. This document serves as a supplement to the website.
-
 \tableofcontents
 
 \section{Optimal Growth Model}
 In this capter, we introduce an optimal growth model. The model is 
-going to be our working example for VFI. 
+going to be our working example for the methods. 
 
 Consider an agent who seeks to maximize his lifetime expected utility. 
 The agent's problem is to choose his future path of consumption $c_t$ 
@@ -309,8 +300,8 @@ to solve dynamic programming problems. One may observe that in the
 finite-horizon case, the value function iteration is equivalent to 
 the backward induction. 
 
-\section{Envelope Condition Method}
-In this section, we introduce the envelope condition method. We 
+\section{Time Iteration}
+In this section, we introduce the time iteration method. We 
 begin by adding a few assumptions to the optimal growth model.
 
 \begin{assumption}
@@ -511,7 +502,7 @@ The above result not only shows the convergence of the
 operator $K$ but also tells us that the convergent rate 
 is the same as the Bellman operator $T$. 
 
-However, in practice, the envelope condition method tends 
+However, in practice, the time iteration tends 
 to be more efficient than the value function iteration. 
 One of the reason is that the curvature of the policy 
 function tends to be smaller than the value function. 
@@ -617,23 +608,5 @@ by the following theorem.
     $0$ as $k\to\infty$. $v_{\sigma_k}$ thus converges to $v^*$. 
     The optimal policy is then the limit of $\sigma_k$.
 \end{pf}
-
-\section{Future Methods}
-The above methods are the fundamental methods in solving dynamic 
-problems in economics. However, they all have a common disadvantage. 
-That is, they all suffer from the curse of dimensionality. In 
-application, one needs to evaluate the value function on every 
-grid point, which is computationally expensive. For example, 
-if one has a $n$-dimensional state space and each dimension is 
-gridded with $m$ points, then the total number of grid points 
-is $m^n$. This means that for a single iteration, one needs to 
-evaluate the value or policy on $m^n$ points. Recently, there are 
-some papers that try to solve the curse of dimensionality by 
-randomness. The main idea is to draw the points randomly in an 
-area in the state space and then simulate the value or policy 
-on these points. For example, one may refer to \cite{maliar2021}.
-
-\bibliographystyle{apacite}
-\bibliography{dynamic_method}
 
 \end{document}

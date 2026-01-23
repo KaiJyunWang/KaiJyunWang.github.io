@@ -441,3 +441,107 @@
     \end{equation*}
     Hence $\E\sbrc{\tau} = (b-x)(x-a)$. 
 \end{example}
+
+\begin{theorem}[Doob's Decomposition]
+    Let $X_n$ be an integrable and $\F_n$-adapted process. Then there is an 
+    almost surely unique decomposition $X_n = M_n + A_n$ where $M_n$ is an 
+    $\F_n$-martingale and $A_n$ is $\F_n$-predictable with $A_0 = 0$. In 
+    particular, if $X_n$ is a submartingale, then $A_n$ is non-decreasing 
+    almost surely.  
+\end{theorem}
+\begin{proof}
+    Put $A_n = \sum_{k\leq n}\E\sbrc{X_k|\F_{k-1}}-X_{k-1}$ with $A_0 = 0$ 
+    and $M_n = X_n - A_n$. Notice that $A_n$ is $\F_{n-1}$ measurable and hence 
+    $\F_n$ predictable. Also, $M_n$ is integrable and $\F_n$-adapted. We verify 
+    the martingale condition: 
+    \begin{equation*}
+        \begin{split}
+            \E\sbrc{X_n|\F_{n-1}} &= \E\sbrc{M_n|\F_{n-1}} + A_n 
+            = \E\sbrc{M_n|\F_{n-1}} + A_{n-1} + \E\sbrc{X_n|\F_{n-1}} - X_{n-1} \\ 
+            &= \E\sbrc{M_n|\F_{n-1}} - M_{n-1} + \E\sbrc{X_n|\F_{n-1}}.
+        \end{split}
+    \end{equation*} 
+    Rearranging the equation shows that $M_{n-1} = \E\sbrc{M_n|\F_{n-1}}$. Thus 
+    $M_n$ is indeed a martingale. 
+
+    To see the uniqueness, suppose that $X_n = M_n' + A_n'$ is another decomposition. 
+    Then 
+    \begin{equation*}
+        \E\sbrc{X_n|\F_{n-1}} = M_{n-1} + A_n = X_{n-1} + A_n - A_{n-1} 
+        = X_{n-1} + A_n' - A_{n-1}'. 
+    \end{equation*}
+    Since $A_0 = A_0' = 0$ and $A_n-A_{n-1} = A_n'-A_{n-1}'$ for all $n$, it follows 
+    that $A_n$ are unique and also the $M_n$.   
+
+    Now suppose that $X_n$ is a submartingale, 
+    \begin{equation*}
+        A_{n-1} + M_{n-1} = X_{n-1}\leq \E\sbrc{X_n|\F_{n-1}} 
+        = M_{n-1} + A_n.
+    \end{equation*}
+    Hence $A_{n-1}\leq A_n$ almost surely for all $n$. 
+\end{proof}
+
+\begin{example}
+    Let $X_n$ be independent with $\E\sbrc{X_i} = 0$ and $\sigma_i^2 = \E\sbrc{X_i^2} < \infty$. 
+    Let $S_n = \sum_{i\leq n}X_i$ be a martingale. Then $S_n^2$ is a submartingale. 
+    Consider the Doob's decomposition $S_n^2 = M_n + A_n$. We claim that 
+    $M_n = S_n^2 - \sum_{i\leq n}\sigma_i^2$ and $A_n = \sum_{i\leq n}\sigma_i^2$ 
+    is the Doob's decomposition for $S_n^2$. First, the integrability and adaptedness 
+    of $M_n$ are clear. 
+    \begin{equation*}
+        \E\sbrc{M_{n+1}|\F_n} = S_n^2 + 2S_n\E\sbrc{X_{n+1}|\F_n} + \E\sbrc{X_{n+1}^2|\F_n} - \sum_{i\leq n+1}\sigma_i^2 
+        = S_n^2 - \sum_{i\leq n}\sigma_i^2 = M_n.
+    \end{equation*}
+    Thus $M_n$ is a martingale. Also, $A_n$ is increasing almost surely and predictable. 
+    We conclude that $M_n$ and $A_n$ are the desired decomposition.  
+\end{example}
+
+\begin{theorem}\label{thm:martingale_limits}
+    $X_n$ is a martingale with $\abs{X_{n+1}-X_n}\leq M$. Let 
+    \begin{equation*}
+        C = \set{\lim_{n\to\infty}X_n \text{ exists and is finite}}, \quad 
+        D = \set{\liminf_{n\to\infty}X_n = -\infty,\text{ and } \limsup_{n\to\infty}X_n = \infty}.
+    \end{equation*}
+    Then $\P(C\cup D) = 1$. 
+\end{theorem}
+\begin{proof}
+    Without loss of generality, we assume that $X_0 = 0$. For fixed $k>0$, define 
+    the stopping time $\tau = \inf\Set{n}{X_n\leq k}$. Since the increments of 
+    $X_n$ are bounded, we have $X_{n\wedge\tau} \geq -k-M$. Since $X_{n\wedge\tau}$ is 
+    a martingale, by the martingale convergence theorem $X_{n\wedge\tau}\to X$ for some 
+    $X\in\L^1$ almost surely. On $\set{\tau = \infty}$, $\lim_{n\to\infty}X_n 
+    = \lim_{n\to\infty}X_{n\wedge\tau} = X$ is finite. Now taking $k\to\infty$, 
+    then on the event $\set{\liminf_{n\to\infty}X_n>-\infty}$, $\lim_{n\to\infty}X_n$ exists 
+    and is finite almost surely. The same argument for $-X_n$ shows that on 
+    $\set{\limsup_{n\to\infty}<\infty}$, $\lim_{n\to\infty}X_n$ exists and is finite. 
+    Combining the results, 
+    \begin{equation*}
+        D^c = \set{\liminf_{n\to\infty}X_n>-\infty}\cup\set{\limsup_{n\to\infty}<\infty}\subset C
+    \end{equation*} 
+    with some exception of measure zero. Hence $\P(C\cup D) = 1$.
+\end{proof}
+
+\begin{theorem}[Borel-Cantelli \rom{3}]
+    Let $\F_n$ be a filtration with $\F_0 = \set{\varnothing,\Omega}$ and $A_n\in\F_n$. Then 
+    \begin{equation*}
+        \set{A_n\text{ i.o.}} = \set{\sum_n \P(A_n|\F_{n-1}) = \infty}
+    \end{equation*}
+    up to some measure zero sets.
+\end{theorem}
+\begin{proof}
+    Let $X_0 = 0$ and $X_n = \sum_{k\leq n}\one_{A_k}-\P(A_k|\F_{k-1})$. Notice that 
+    $X_n$ is bounded and $\F_n$-adapted. Also, 
+    \begin{equation*}
+        \E\sbrc{X_{n+1}|\F_n} = X_n + \E\sbrc{\one_{A_{n+1}}|\F_n} - \P(A_{n+1}|\F_n) = X_n.
+    \end{equation*}
+    Thus $X_n$ is a martingale with bounded increments. By \cref{thm:martingale_limits}, 
+    \begin{equation*}
+        C = \set{\lim_{n\to\infty}X_n \text{ exists and is finite}}, \quad\text{and}\quad  
+        D = \set{\liminf_{n\to\infty}X_n = -\infty,\text{ and } \limsup_{n\to\infty}X_n = \infty}
+    \end{equation*}
+    satisfy that $\P(C\cup D) = 1$. Notice that $\set{\sum_n\one_{A_n} = \infty} = \set{A_n\text{ i.o.}}$. 
+    On $C$, $\sum_n\one_{A_n} = \infty$ if and only if $\sum_n \P(A_n|\F_{n-1}) = \infty$. 
+    On $D$, we have $\sum_n\one_{A_n} = \infty$ and $\sum_n\P(A_n|\F_{n-1}) = 0$. 
+    Since $\P(C\cup D) = 1$, we conclude that $\set{A_n \text{i.o.}} = \set{\sum_n \P(A_n|\F_{n-1}) = \infty}$ 
+    up to some measure zero sets.
+\end{proof}
