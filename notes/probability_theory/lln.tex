@@ -191,11 +191,12 @@
     This is a contradiction. Hence $X_n\to X$ in probability. 
 \end{proof}
 
-\begin{corollary}
+\begin{corollary}\label{cor:conv_in_prob_conv_thms}
     Suppose $X_n\pto X$. Then the followings are true: 
     \begin{thmenum}
         \item If $f$ is continuous, then $f(X_n)\pto f(X)$. 
         \item If $\abs{X_n}\leq Y$ for some $Y\in\L^1$, then $\E\sbrc{X_n}\to\E\sbrc{X}$. 
+        \item If $X_n\in\L^1$ with $X_n\geq 0$, then $\E\sbrc{X}\leq \liminf_{n\to\infty}\E\sbrc{X_n}$. 
     \end{thmenum}
 \end{corollary}
 \begin{proof}
@@ -208,6 +209,16 @@
     has a furhter subsequence $X_{n(k_j)}\to X$ almost surely and 
     LDCT gives $\E\sbrc{X_{n(k_j)}}\to \E\sbrc{X}$. This implies 
     that $\E\sbrc{X_n}\to \E\sbrc{X}$ as well. 
+
+    For (c), note that there is a subsequence $X_{n_k}$ such that $\E\sbrc{X_{n_k}}\to 
+    \liminf_{n\to\infty}\E\sbrc{X_n}$. Now, by \cref{thm:prob_conv_subseq_as}, 
+    there is a further subsequence of $X_{n_k}$ such that $X_{n_{k(j)}}\to X$ almost 
+    surely. By the Fatou's lemma, 
+    \begin{equation*}
+        \E\sbrc{X} = \E\sbrc{\liminf_{j\to\infty} X_{n_{k(j)}}} 
+        \leq \liminf_{j\to\infty}\E\sbrc{X_{n_{k(j)}}} 
+        = \lim_{k\to\infty}\E\sbrc{X_{n_k}} = \liminf_{n\to\infty}\E\sbrc{X_n}. 
+    \end{equation*}
 \end{proof}
 
 \begin{definition}

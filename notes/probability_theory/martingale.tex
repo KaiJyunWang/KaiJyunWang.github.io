@@ -258,7 +258,7 @@
     Rearranging the inequality gives the desired result. 
 \end{proof}
 
-\begin{theorem}[Martingale Convergence Theorem]
+\begin{theorem}[Martingale Convergence Theorem \rom{1}]
     Let $X_n$ be a $\F_n$-submartingale. Suppose that $\sup_n\E\sbrc{X_n^+}<\infty$. 
     Then there is $X\in\L^1$ such that $X_n\to X$ almost surely. 
 \end{theorem}
@@ -524,9 +524,8 @@
 \begin{theorem}[Borel-Cantelli \rom{3}]
     Let $\F_n$ be a filtration with $\F_0 = \set{\varnothing,\Omega}$ and $A_n\in\F_n$. Then 
     \begin{equation*}
-        \set{A_n\text{ i.o.}} = \set{\sum_n \P(A_n|\F_{n-1}) = \infty}
+        \P\set{A_n\text{ i.o.}} = \P\set{\sum_n \P(A_n|\F_{n-1}) = \infty}.
     \end{equation*}
-    up to some measure zero sets.
 \end{theorem}
 \begin{proof}
     Let $X_0 = 0$ and $X_n = \sum_{k\leq n}\one_{A_k}-\P(A_k|\F_{k-1})$. Notice that 
@@ -541,7 +540,147 @@
     \end{equation*}
     satisfy that $\P(C\cup D) = 1$. Notice that $\set{\sum_n\one_{A_n} = \infty} = \set{A_n\text{ i.o.}}$. 
     On $C$, $\sum_n\one_{A_n} = \infty$ if and only if $\sum_n \P(A_n|\F_{n-1}) = \infty$. 
-    On $D$, we have $\sum_n\one_{A_n} = \infty$ and $\sum_n\P(A_n|\F_{n-1}) = 0$. 
-    Since $\P(C\cup D) = 1$, we conclude that $\set{A_n \text{i.o.}} = \set{\sum_n \P(A_n|\F_{n-1}) = \infty}$ 
-    up to some measure zero sets.
+    On $D$, we have $\sum_n\one_{A_n} = \infty$ and $\sum_n\P(A_n|\F_{n-1}) = \infty$. 
+    Since $\P(C\cup D) = 1$, we conclude that $\set{A_n \text{ i.o.}} = \set{\sum_n \P(A_n|\F_{n-1}) = \infty}$ 
+    up to some measure zero sets and the result follows.
+\end{proof}
+
+\begin{lemma}\label{lem:stop_submart_inequality}
+    Let $X_n$ be a submartingale and $\tau$ be a stopping time with $\tau\leq T$. 
+    Then 
+    \begin{equation*}
+        \E\sbrc{X_0}\leq \E\sbrc{X_\tau}\leq \E\sbrc{X_T}. 
+    \end{equation*}
+\end{lemma}
+\begin{proof}
+    Note that $X_{n\wedge\tau}$ is again a submartingale. Then 
+    \begin{equation*}
+        \E\sbrc{X_0} = \E\sbrc{X_{0\wedge\tau}} \leq \E\sbrc{\E\sbrc{X_{T\wedge\tau}|\F_0}}
+        = \E\sbrc{X_\tau}. 
+    \end{equation*}
+    Also, for fixed $0\leq k\leq T$, 
+    \begin{equation*}
+        \E\sbrc{X_\tau\one\set{\tau = k}} = \E\sbrc{X_k\one\set{\tau = k}} 
+        \leq \E\sbrc{\E\sbrc{X_T|\F_k}\one\set{\tau = k}} 
+        = \E\sbrc{X_T\one\set{\tau = k}}.
+    \end{equation*}
+    Summing over $0\leq k\leq T$ gives $\E\sbrc{X_\tau} \leq \E\sbrc{X_T}$. 
+\end{proof}
+
+\begin{theorem}[Doob's Submatingale Inequality]
+    Let $X_n$ be a submartingale and $\lambda>0$. Define $X_n^* = \max_{0\leq k\leq n}X_k^+$. 
+    Then 
+    \begin{equation*}
+        \P\set{X_n^*\geq \lambda} \leq \frac{1}{\lambda}\E\sbrc{X_n\one\set{X_n^*\geq \lambda}} 
+        \leq \frac{1}{\lambda}\E\sbrc{X_n^+}. 
+    \end{equation*}
+\end{theorem}
+\begin{proof}
+    Let $A = \set{X_n^*\geq \lambda}$ and $\tau = \inf\Set{k}{X_k\geq \lambda}\wedge n$. 
+    On $A$, $X_\tau\geq \lambda$ and hence 
+    \begin{equation*}
+        \P\set{X_n^*\geq \lambda} = \E\sbrc{\one_A} \leq \frac{1}{\lambda}\E\sbrc{X_\tau\one_A}. 
+    \end{equation*}
+    Notice that by \cref{lem:stop_submart_inequality}, $\E\sbrc{X_\tau}\leq\E\sbrc{X_n}$. 
+    Also, $X_\tau\one_{A^c} = X_n\one\tau_{A^c}$. Thus $\E\sbrc{X_\tau\one_A}\leq \E\sbrc{X_n\one_A}$. 
+    The first inequality holds. The second inequality is trivial since 
+    $X_n\one_A\leq X_n^+\one_A\leq X_n^+$. The proof is complete. 
+\end{proof}
+
+\begin{corollary}
+    Let $M_n$ be a martingale and $\E\sbrc{\abs{M_n}^p}<\infty$ for some $p\geq 1$. 
+    For any $\lambda > 0$, 
+    \begin{equation*}
+        \P\set{\max_{0\leq k\leq n}\abs{M_k}\geq \lambda} \leq \frac{1}{\lambda^p}\E\sbrc{\abs{M_n}^p}. 
+    \end{equation*}
+\end{corollary}
+\begin{proof}
+    For $p\geq 1$, $x\mapsto \abs{x}^p$ is convex and thus $\abs{M_n}^p$ is a submartingale. 
+    By the Doob's submartingale inequality, 
+    \begin{equation*}
+        \P\set{\max_{0\leq k\leq n}\abs{M_k}\geq \lambda} 
+        = \P\set{\max_{0\leq k\leq n}\abs{M_k}^p\geq \lambda^p} 
+        \leq \frac{1}{\lambda^p}\E\sbrc{\abs{M_k}^p}.
+    \end{equation*}
+\end{proof}
+
+\begin{theorem}[$\L^p$ Maximal Inequality]
+    Let $X_n$ be a submartingale and $X_n^* = \max_{0\leq k\leq n}X_k^+$. For $1<p<\infty$, 
+    we have 
+    \begin{equation*}
+        \E\sbrc{\abs{X_n^*}^p} \leq \pth{\frac{p}{p-1}}^p\E\sbrc{X_n^+}^p.
+    \end{equation*}
+    Furthermore, if $X_n$ is a martingale, then 
+    \begin{equation*}
+        \E\sbrc{\pth{\max_{0\leq k\leq n}\abs{X_k}}^p} \leq \pth{\frac{p}{p-1}}^p\E\sbrc{\abs{X_n}^p}. 
+    \end{equation*}
+\end{theorem}
+\begin{proof}
+    Suppose first that $X_n^*\in\L^p$. By \cref{lem:expectation_tail_prob}, Doob's submartingale 
+    inequality, Fubini theorem and H\"older's inequality, 
+    \begin{equation*}
+        \begin{split}
+            \E\sbrc{(X_n^*)^p} &= \int_0^\infty p\lambda^{p-1}\P(X_n^*\geq \lambda)d\lambda 
+            \leq \int_0^\infty p\lambda^{p-1}\frac{1}{\lambda}\E\sbrc{X_n\one\set{X_n^*\geq\lambda}}d\lambda \\ 
+            &\leq \int_0^\infty p\lambda^{p-2}\E\sbrc{X_n^+\one\set{X_n^*\geq\lambda}}d\lambda 
+            = p\E\sbrc{X_n^+\int_0^{X_n^*}\lambda^{p-2}d\lambda} \\
+            &= \frac{p}{p-1}\E\sbrc{X_n^+(X_n^*)^{p-1}} 
+            \leq \frac{p}{p-1}\E\sbrc{\abs{X_n^+}^p}^{1/p}\E\sbrc{\abs{X_n^*}^p}^{(p-1)/p}.
+        \end{split}
+    \end{equation*}
+    Rearranging the inequality gives 
+    \begin{equation*}
+        \E\sbrc{\abs{X_n^*}^p} \leq \pth{\frac{p}{p-1}}^p\E\sbrc{(X_n^+)^p}.
+    \end{equation*}
+    For general $X_n$, consider $Y_n\in\L^p$ such that $Y_n\nearrow X_n$. 
+    Since $Y_n^*\in\L^p$ as well, the result extends to $X_n$ by the monotone 
+    convergence theorem. For the second part, apply the previous result to the 
+    submartingale $\abs{X_n}$. Then 
+    \begin{equation*}
+        \E\sbrc{\pth{\max_{0\leq k\leq n}X_k}^p}
+        \leq \pth{\frac{p}{p-1}}^p\E\sbrc{\abs{X_n}^p}. 
+    \end{equation*}
+    This finishes the proof. 
+\end{proof}
+
+\begin{example}
+    Let $S_n$ be a symmetric simple random walk on $\Z$ with $S_0 = 1$. Let 
+    $\tau = \inf\Set{k}{S_k = 0}$ be the hitting time. Put $X_n = S_{n\wedge\tau}$. 
+    Then 
+    \begin{equation*}
+        \P\set{\sup_{k\geq 0} X_k \geq M} = \frac{1}{M}.
+    \end{equation*}
+    To see this, note that by the martingale convergence theorem, $X_k$ converges 
+    to some $X\in\L^1$ almost surely since $X_k$ is bounded. By the optional stopping 
+    theorem, for the hitting time $N = \inf\Set{k}{X_k = M\text{ or }X_k = 0}$,
+    \begin{equation*}
+        1 = \E\sbrc{S_0} = \E\sbrc{X_0} = \E\sbrc{X_N} = M\P(X_N = M) = M\P\set{\sup_{k\geq 0} X_k \geq M}.
+    \end{equation*}  
+    Rearranging the equality shows the desired equation. Now, by the LMCT, 
+    \begin{equation*}
+        \lim_{n\to\infty} \E\sbrc{\max_{k\leq n}\abs{X_k}} \geq \lim_{n\to\infty} \E\sbrc{\max_{k\leq n}X_k} 
+        = \E\sbrc{\sup_{k\geq 0} X_k} 
+        = \sum_{M\geq 1} \P\set{\sup_{k\geq 0} X_k\geq M} = \sum_{M\geq 1}\frac{1}{M} = \infty. 
+    \end{equation*} 
+    However, $\E\sbrc{X_n} = \E\sbrc{S_{n\wedge\tau}} = \E\sbrc{S_0} = 1$. 
+    We see that the $\L^p$ inequality fails for $p = 1$. 
+\end{example}
+
+\begin{theorem}[Martingale Convergence Theorem \rom{2}]
+    Let $X_n$ be a martingale and $\sup_n\E\sbrc{\abs{X_n}^p}<\infty$ for some 
+    $p>1$. Then $X_n\to X$ almost surely and in $\L^p$.  
+\end{theorem}
+\begin{proof}
+    First, note that $\abs{X_n}^p$ is a submartingale. The almost sure convergence 
+    follows immediately from the martingale convergence theorem \rom{1}. Next, since 
+    $\abs{X_n - X}^p\leq 2\sup_n\abs{X_n}^p$ and by LMCT and the $\L^p$ martingale 
+    inequality, 
+    \begin{equation*}
+        \E\sbrc{\sup_n\abs{X_n}^p} 
+        = \lim_{n\to\infty}\E\sbrc{\max_{0\leq k\leq n}\abs{X_k}^p} 
+        \leq \lim_{n\to\infty}\pth{\frac{p}{p-1}}^p\E\sbrc{\abs{X_n}^p} 
+        \leq \pth{\frac{p}{p-1}}^p\sup_n\E\sbrc{\abs{X_n}^p}<\infty.
+    \end{equation*}
+    We see that $2\sup_n\abs{X_n}^p$ is integrable and hence by LDCT, $X_n\to X$ 
+    in $\L^p$. 
 \end{proof}

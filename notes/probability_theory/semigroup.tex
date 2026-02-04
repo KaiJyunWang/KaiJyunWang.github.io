@@ -1,0 +1,64 @@
+\begin{definition}
+    Let $(S,\S)$ be a measurable space. A \textbf{probability kernel} is a 
+    function $\mu:(s, A)\mapsto[0,1]$ such that 
+    \begin{thmenum}
+        \item For every fixed $s\in S$, $A\mapsto \mu(s, A)$ is a probability 
+        measure on $S$. 
+        \item For every fixed $A\in\S$, $s\mapsto \mu(s, A)$ is measurable. 
+    \end{thmenum}
+\end{definition}
+
+\begin{definition}
+    Let $(S, \S)$ be a measurable space and $\mu$ be a probability kernel on 
+    $S$. The \textbf{transition operator} $T$ associated with $\mu$ is an operator 
+    acting on  
+    \begin{equation*}
+        M = \Set{f:S\to\R}{\text{$f$ is measurable and non-negative or bounded}}, 
+    \end{equation*}
+    and defined by 
+    \begin{equation*}
+        Tf(x) = \int\mu(x, dy)f(y).
+    \end{equation*}
+\end{definition}
+\begin{remark}
+    For every $f\in M$, $Tf$ is again measurable. Indeed, for any characteristic 
+    function $\one_A$, $A\in\S$, $(T\one_A)^{-1}(B) = \Set{x\in S}{\mu(x,A) = B}\in\S$ 
+    for all $B\in\S$ by the measurability of $x\mapsto\mu(x, A)$. The result extends 
+    by linearity and approximation to all functions in $M$. 
+\end{remark}
+
+\begin{definition}
+    Let $\set{T_t}_{t\geq 0}$ be a family of parametrized operator. $T_t$ is called 
+    a \textbf{semigroup} if 
+    \begin{thmenum}
+        \item For $s,t\geq 0$, $T_s T_t = T_{s+t}$. 
+        \item $T_0 = I$. 
+    \end{thmenum}
+\end{definition}
+
+\begin{proposition}\label{prop:chapman-kolmogorov}
+    For each $t\geq 0$, consider the probability kernel $\mu_t$ and the associated 
+    transition operator $T_t$. Then $T_tT_s = T_{t+s}$ if and only if $\mu_t\mu_s 
+    = \mu_{t+s}$.
+\end{proposition}
+\begin{proof}
+    Let $B\in\S$. Then 
+    \begin{equation*}
+        T_tT_s\one_B(x) = \int\mu_t(x, dy)(T_s\one_B)(y) 
+        = \int \mu_t(x, dy)\mu_s(y, B) 
+        = (\mu_t\mu_s)(x, B).
+    \end{equation*}
+    Now the result holds for every measurable characteristic functions. 
+    The result extends by the linearity and the monotone convergence. 
+\end{proof}
+
+\begin{definition}
+    Let $S$ be a locally compact and separable metric space and 
+    $(C_0, \norm{\cdot}_\infty)$ collect all the functions on $S$ that are continuous and 
+    vanishes at the infinities. A semigroup on $C_0$ is called a 
+    \textbf{Feller semigroup} if 
+    \begin{thmenum}
+        \item $T_tC_0\subset C_0$, and 
+        \item $T_tf(x)\to f(x)$ as $t\to 0$ for $f\in C_0$ and $x\in S$. 
+    \end{thmenum}
+\end{definition}

@@ -1,0 +1,344 @@
+\begin{definition}
+    A collection of random variable $\set{X_i}_{i\in\I}$ is uniformly integrable if 
+    \begin{equation*}
+        \lim_{M\to\infty}\sup_{i\in\I}\E\sbrc{\abs{X_i}\one\set{\abs{X_i}>M}} = 0.
+    \end{equation*}
+\end{definition}
+\begin{remark}
+    The uniform integrability implies that $\sup_i\E\sbrc{\abs{X_i}}<\infty$. 
+    To see this, note that we can find $M$ such that 
+    \begin{equation*}
+        \sup_{i}\E\sbrc{\abs{X_i}\one\set{\abs{X_i}>M}} < \epsilon.
+    \end{equation*}
+    Then 
+    \begin{equation*}
+        \sup_{i}\E\sbrc{\abs{X_i}} = \sup_i\E\sbrc{\abs{X_i}\one\set{\abs{X_i}>M}} 
+        + \E\sbrc{\abs{X_i}\one\set{\abs{X_i}\leq M}} \leq \epsilon + M <\infty. 
+    \end{equation*}
+\end{remark}
+
+\begin{proposition}\label{prop:unif_int_sum}
+    If $\set{X_i}$ and $\set{Y_i}$ are two collections of random variables, then 
+    $\set{X_i + Y_i}$ is also uniformly integrable. 
+\end{proposition}
+\begin{proof}
+    Note that 
+    \begin{equation*}
+        \begin{split}
+            \abs{X_i + Y_i}\one\set{\abs{X_i+Y_i}>M} &\leq 2\max\set{\abs{X_i},\abs{Y_i}}\one\set{2\max\set{\abs{X_i},\abs{Y_i}}>M} \\
+            &\leq 2\pth{\abs{X_i}\one\set{\abs{X_i}>M/2} + \abs{Y_i}\one\set{\abs{Y_i}>M/2}}.
+        \end{split}
+    \end{equation*}
+    Then 
+    \begin{equation*}
+        \begin{split}
+            &\lim_{M\to\infty}\sup_i\E\sbrc{\abs{X_i + Y_i}\one\set{\abs{X_i+Y_i}>M}} \\
+            &\quad\leq  \lim_{M\to\infty}2\pth{\sup_i\E\sbrc{\abs{X_i}\one\set{\abs{X_i}>M/2}} + \sup_i\E\sbrc{\abs{Y_i}\one\set{\abs{Y_i}>M/2}}} 
+            = 0. 
+        \end{split}
+    \end{equation*}
+\end{proof}
+
+\begin{proposition}
+    If $\sup_i\E\sbrc{\abs{X_i}^p}<\infty$ for $p>1$, then $\set{X_i}$ is uniformly integrable. 
+\end{proposition}
+\begin{proof}
+    Let $C = \sup_i\E\sbrc{\abs{X_i}^p}^{1/p}<\infty$. Notice that by the H\"older's inequality, 
+    \begin{equation*}
+        \E\sbrc{\abs{X_i}\one\set{\abs{X_i}>M}} \leq \E\sbrc{\abs{X_i}^p}^{1/p}\E\sbrc{\one\set{\abs{X_i}>M}}^{1/q} 
+        \leq C\P\set{\abs{X_i}>M}^{1/q}. 
+    \end{equation*}
+    Suppose that for every $M$ we can find a subsequence such that $\P\set{\abs{X_{i_k}}>M}\geq\delta>0$. Then 
+    $C\geq \E\sbrc{\abs{X_{i_k}}^p}\geq \E\sbrc{\abs{X_{i_k}}^p\one\set{\abs{X_{i_k}}>M}}\geq M^p\delta\to\infty$ 
+    as $M\to\infty$, which is a contradiction. Hence $\sup_i\P\set{\abs{X_i}>M}\to 0$ as $M\to\infty$ and 
+    \begin{equation*}
+        \sup_i\E\sbrc{\abs{X_i}\one\set{\abs{X_i}>M}}\leq C\P\set{\abs{X_i}>M}^{1/q} \to 0
+    \end{equation*}
+    as $M\to\infty$. We conclude that $\set{X_i}$ is uniformly integrable. 
+\end{proof}
+
+\begin{example}
+    If we only have $\sup_i\E\sbrc{\abs{X_i}}<\infty$, then the result does not hold 
+    in general. For instance, consider $X_n$ such that $\P(X_n = 0) = 1-1/n$ and 
+    $\P(X_n = n) = 1/n$. Then $\E\sbrc{X_n} = 1<\infty$ but 
+    \begin{equation*}
+        \lim_{M\to\infty}\sup_n\E\sbrc{\abs{X_n}\one\set{\abs{X_n}>M}} = 1 \neq 0. 
+    \end{equation*}
+\end{example}
+
+\begin{theorem}\label{thm:unif_int_characterization}
+    $\set{X_i}$ is uniformly integrable if and only if $\sup_{i}\E\sbrc{\abs{X_i}}<\infty$ and 
+    for all $\epsilon>0$, there is $\delta>0$ such that $\P(A)\leq \delta$ implies that 
+    $\E\sbrc{\abs{X_i}\one_A}<\epsilon$. 
+\end{theorem}
+\begin{proof}
+    Assume that $\set{X_i}$ is uniformly integrable. Then $\sup_{i}\E\sbrc{\abs{X_i}}<\infty$. 
+    For every $\epsilon>0$, we can find $M$ such that $\E\sbrc{\abs{X_i}\one\set{\abs{X_i}>M}}<\epsilon/2$. 
+    Pick $\delta = \epsilon/(2M)$. We have 
+    \begin{equation*}
+        \begin{split}
+            \E\sbrc{\abs{X_i}\one_A} &= \E\sbrc{\abs{X_i}\one\set{\abs{X_i}>M}\one_A} + \E\sbrc{\abs{X_i}\one\set{\abs{X_i}\leq M}\one_A} \\
+            &\leq \E\sbrc{\abs{X_i}\one\set{\abs{X_i}>M}} + M\P(A) \leq \frac{\epsilon}{2} + M\frac{\epsilon}{2M} = \epsilon. 
+        \end{split}
+    \end{equation*}
+    
+    For the converse, notice that by the Markov inequality,
+    \begin{equation*}
+        \P\set{\abs{X_i}>M}\leq \frac{1}{M}\E\sbrc{\abs{X_i}} \leq\frac{1}{M}\sup_i\E\sbrc{\abs{X_i}}.
+    \end{equation*} 
+    For any $\epsilon>0$, there is some $\delta>0$ such that if $\P(A)\leq \delta$, 
+    $\E\sbrc{\abs{X_i}\one_A}<\epsilon$. Put $A_M = \set{\abs{X_i}>M}$. For any 
+    $M > M_0 = \delta^{-1}\sup_i\E\sbrc{\abs{X_i}}$, $\P(A_M)\leq \delta$ and hence 
+    $\E\sbrc{\abs{X_i}\one_{A_M}}<\epsilon$. Since the choice of $M_0$ is uniform in $i$, 
+    $\set{X_i}$ is uniformly integrable.  
+\end{proof}
+
+\begin{lemma}\label{lem:L1_conv_unif_int_conv_prob}
+    $X_n\to 0$ in $\L^1$ if and only if $X_n\pto 0$ and $\set{X_n}$ is uniformly 
+    integrable. 
+\end{lemma}
+\begin{proof}
+    Assume that $X_n\to 0$ in $\L^1$. Then $X_n\pto 0$. By \cref{thm:unif_int_characterization}, 
+    it suffices to check that $\sup_n\E\sbrc{\abs{X_n}}<\infty$ and for all $\epsilon>0$, 
+    there is $\delta>0$ such that $\P(A)\leq \delta$ implies $\E\sbrc{\abs{X_n}\one_A}<\epsilon$. 
+    Note that $\set{X_n}$ is convergent in $\L^1$ and hence must be $\L^1$ bounded. We have 
+    $\sup_n\E\sbrc{\abs{X_n}}<\infty$. For every $\epsilon>0$, 
+\end{proof}
+
+\begin{theorem}\label{thm:L1_conv_unif_int}
+    Let $X_n\pto X$ and $\E\sbrc{\abs{X_n}}<\infty$. Then the followings are equivalent:
+    \begin{thmenum}
+        \item $\set{X_n}$ is uniformly integrable. 
+        \item $X_n\to X$ in $\L^1$. 
+        \item $\E\sbrc{\abs{X_n}}\to\E\sbrc{\abs{X}}$. 
+    \end{thmenum}
+\end{theorem}
+\begin{proof}
+    We first prove that (a) implies (b). By the unifom integrability, $\sup_n\E\sbrc{\abs{X_n}}<\infty$. 
+    By the Fatou's lemma (\cref{cor:conv_in_prob_conv_thms}), 
+    \begin{equation*}
+        \E\sbrc{\abs{X}} \leq \liminf_{n\to\infty}\E\sbrc{\abs{X_n}}\leq \sup_n\E\sbrc{\abs{X_n}}<\infty.
+    \end{equation*}
+    Hence $X$ itself is uniformly integrable. By \cref{prop:unif_int_sum}, $\set{X_n-X}$ is 
+    uniformly integrable. Let $Y_n = \abs{X_n-X}\pto 0$. It now suffices to prove that $\E\sbrc{Y_n}\to 0$. 
+    Notice that for $M>0$, 
+    \begin{equation*}
+        \begin{split}
+            \E\sbrc{\abs{Y_n}} 
+            &= \E\sbrc{\abs{Y_n}\one\set{\abs{Y_n}\leq M}} + \E\sbrc{\abs{Y_n}\one\set{\abs{Y_n}>M}} \\ 
+            &\leq \E\sbrc{\abs{Y_n}\one\set{\abs{Y_n}\leq M}} + \sup_n\E\sbrc{\abs{Y_n}\one\set{\abs{Y_n}>M}}
+        \end{split}
+    \end{equation*}
+    Taking $n\to\infty$, the first term converges to $0$ by \cref{cor:conv_in_prob_conv_thms} since
+    $\abs{Y_n}\one\set{\abs{Y_n}\leq M}\leq M\in\L^1$. We see that 
+    \begin{equation*}
+        \limsup_{n\to\infty}\E\sbrc{\abs{Y_n}}\leq \sup_n\E\sbrc{\abs{Y_n}\one\set{\abs{Y_n}>M}}.
+    \end{equation*} 
+    Taking $M\to\infty$, the uniform integrability implies that the right hand side 
+    converges to $0$. We conclude that $\E\sbrc{\abs{Y_n}}\to $ and $X_n\to X$ in $\L^1$. 
+
+    Now assume (b) holds. 
+    \begin{equation*}
+        \abs{\E\sbrc{\abs{X_n}} - \E\sbrc{\abs{X}}}\leq \E\sbrc{\abs{X_n-X}}\to 0
+    \end{equation*}
+    by the assumption. 
+    
+    Suppose that (c) holds. Note that for $M>0$, 
+    \begin{equation*}
+        \E\sbrc{\abs{X_n}\one\set{\abs{X_n}>M}} = \E\sbrc{\abs{X_n}} - \E\sbrc{\abs{X_n}\one\set{\abs{X_n}\leq M}} 
+        \to \E\sbrc{\abs{X}} - \E\sbrc{\abs{X}\one\set{\abs{X}\leq M}}
+    \end{equation*}
+    as $n\to\infty$ by \cref{cor:conv_in_prob_conv_thms} with $\abs{X_n}\one\set{\abs{X_n}\leq M}\to\abs{X}\one\set{\abs{X}\leq M}$ 
+    and that $\abs{X_n}\one\set{\abs{X_n}\leq M}\leq M\in\L^1$. Notice that the right hand side 
+    convegres to $0$ as $M\to\infty$ by LMCT. Hence, for $\epsilon>0$, we can find 
+    $M_0$ so that if $M>M_0$, there is some $n_0(M_0)$ such that $\E\sbrc{\abs{X_n}\one\set{\abs{X_n}>M}}< \epsilon$ 
+    for all $n> n_0$. Note that $\set{X_n}_{n\leq n_0}$ is uniformly integrable. We conclude that 
+    $\set{X_n}$ is uniformly integrable. 
+\end{proof}
+
+\begin{theorem}\label{thm:cond_exp_unif_int}
+    If $X\in\L^1$, then $\Set{\E\sbrc{X|\G}}{\G\subset\F\text{ is a $\sigma$-algebra}}$ is uniformly integrable. 
+\end{theorem}
+\begin{proof}
+    To prove the theorem, we use the characterization \cref{thm:unif_int_characterization}. Note that 
+    for $\G\subset\F$, 
+    \begin{equation*}
+        \E\sbrc{\abs{\E\sbrc{X|\G}}} \leq \E\sbrc{\E\sbrc{\abs{X}|\G}} 
+        = \E\sbrc{\abs{X}} < \infty. 
+    \end{equation*}
+    Hence $\sup_{\G\subset\F}\E\sbrc{\abs{\E\sbrc{X|\G}}}<\infty$. Also, for $M>0$, 
+    \begin{equation*}
+        \begin{split}
+            \E\sbrc{\abs{\E\sbrc{X|\G}}\one\set{\abs{\E\sbrc{X|\G}}>M}} 
+            &\leq \E\sbrc{\E\sbrc{\abs{X}|\G}\one\set{\E\sbrc{\abs{X}|\G}>M}} \\
+            &= \E\sbrc{\abs{X}\one\set{\E\sbrc{\abs{X}|\G}>M}}.
+        \end{split} 
+    \end{equation*}
+    Since $\set{X}$ is uniformly integrable, for any $\epsilon>0$, there is $\delta>0$ 
+    such that $\P(A)\leq \delta$ implies that $\E\sbrc{\abs{X}\one_A}<\epsilon$. 
+    For $M$ sufficiently large such that 
+    \begin{equation*}
+        \P\set{\E\sbrc{\abs{X}|\G}>M}\leq \frac{1}{M}\E\sbrc{\E\sbrc{\abs{X}|\G}} = \frac{1}{M}\E\sbrc{\abs{X}}\leq \delta, 
+    \end{equation*}
+    we have 
+    \begin{equation*}
+        \E\sbrc{\abs{\E\sbrc{X|\G}}\one\set{\abs{\E\sbrc{X|\G}}>M}} 
+        \leq\E\sbrc{\abs{X}\one\set{\E\sbrc{\abs{X}|\G}>M}}<\epsilon. 
+    \end{equation*}
+    Since the chocie of $M$ does not depend on $\G$, we see that $\Set{\E\sbrc{X|\G}}{\G\subset\F\text{ is a $\sigma$-algebra}}$ 
+    is indeed uniformly integrable. 
+\end{proof}
+
+\begin{theorem}\label{thm:martingale_L1_unif_int}
+    Let $X_n$ be a submartingale. Then the followings are equivalent.
+    \begin{thmenum}
+        \item $X_n$ is uniformly integrable. 
+        \item $X_n$ converges almost surely and in $\L^1$. 
+        \item $X_n$ converges in $\L^1$. 
+    \end{thmenum}
+    If, furthermore, $X_n$ is a martingale, then (a), (b) and (c) are also equivalent 
+    to that there is an $X\in\L^1$ such that $X_n = \E\sbrc{X|\F_n}$. 
+\end{theorem}
+\begin{proof}
+    Assume (a). By the uniform integrability we have $\sup_n\E\sbrc{\abs{X_n}}<\infty$. 
+    By the martingale convergence theorem, $X_n$ converges almost surely. By 
+    \cref{thm:L1_conv_unif_int}, $X_n$ converges in $\L^1$. Hence (b) holds. 
+
+    (b) to (c) is trivial. 
+    
+    Assume (c). Since $X_n$ converges in $\L^1$, it also converges in probability. 
+    Also, $\E\sbrc{\abs{X_n}}<\infty$ by the submartingale property. By 
+    \cref{thm:L1_conv_unif_int}, $X_n$ is uniform integrable. (a) holds. 
+    
+    Now suppose that $X_n$ is a martingale. If there is an $X$ such that 
+    $X_n = \E\sbrc{X|\F_n}$. Then by \cref{thm:cond_exp_unif_int}, $\set{X_n}$ 
+    is uniformly integrable. Conversely, assume (c). Write $X_n\to X$ in $\L^1$. 
+    Let $A\in\F_n$. By the martingale property, $\E\sbrc{X_m|\F_n} = X_n$ for all 
+    $m>n$ and $\E\sbrc{X_m\one_A} = \E\sbrc{X_n\one_A}$. Also, since 
+    \begin{equation*}
+        \E\sbrc{\abs{X_m\one_A-X\one_A}}\leq \E\sbrc{\abs{X_m-X}}\to 0, 
+    \end{equation*}
+    $\E\sbrc{X_m\one_A}\to \E\sbrc{X\one_A}$. We see that $\E\sbrc{X_n\one_A} = \E\sbrc{X\one_A}$ 
+    and $X_n = \E\sbrc{X|\F_n}$. 
+\end{proof}
+
+\begin{theorem}[Levy's Upward Theorem]
+    Let $X\in\L^1$ and $\F_n\nearrow\F$. Then $\E\sbrc{X|\F_n}\to\E\sbrc{X|\F}$ almost 
+    surely and in $\L^1$. 
+\end{theorem}
+\begin{proof}
+    Let $Y_n = \E\sbrc{X|\F_n}$. By \cref{thm:martingale_L1_unif_int}, $Y_n$ converges 
+    almost surely and in $\L^1$, say to $Y$, which we can pick to be $\F$-measurable. It 
+    now suffices to verify that $Y = \E\sbrc{X|\F}$. To see this, let $\mathcal{P}$ be the 
+    union of $\F_n$. Since $\F_n$ form a filtration, $\mathcal{P}$ is a $\pi$-system. 
+    Consider 
+    \begin{equation*}
+        \L = \Set{A\in\F}{\E\sbrc{Y\one_A} = \E\sbrc{X\one_A}}.
+    \end{equation*}
+    We claim that $\L$ is a $\lambda$-system. First, 
+    \begin{equation*}
+        \E\sbrc{Y\one_\Omega} = \E\sbrc{Y} = \E\sbrc{\lim_{n\to\infty}\E\sbrc{X|\F_n}} 
+        = \lim_{n\to\infty}\E\sbrc{\E\sbrc{X|\F_n}} = \E\sbrc{X} = \E\sbrc{X\one_{\Omega}}.
+    \end{equation*}
+    Hence $\Omega\in\L$. Next, if $A,B\in\L$ and $A\subset B$, then 
+    \begin{equation*}
+        \E\sbrc{Y\one_{B-A}} = \E\sbrc{Y\one_{B}} - \E\sbrc{Y\one_{A}} 
+        = \E\sbrc{X\one_B} - \E\sbrc{X\one_A}  = \E\sbrc{X\one_{B-A}}. 
+    \end{equation*}
+    Hence $B-A\in\L$. Finally, if $A_n\in\L$ and $A_n\nearrow A$, then by the LMCT, 
+    \begin{equation*}
+        \begin{split}
+            \E\sbrc{Y\one_A} &= \E\sbrc{Y^+\one_A} - \E\sbrc{Y^-\one_A} 
+            = \lim_{n\to\infty}\E\sbrc{Y^+\one_{A_n}} - \lim_{n\to\infty}\E\sbrc{Y^-\one_{A_n}} \\
+            &= \lim_{n\to\infty}\E\sbrc{X^+\one_{A_n}} - \lim_{n\to\infty}\E\sbrc{X^-\one_{A_n}}  
+            = \E\sbrc{X^+\one_A} - \E\sbrc{X^-\one_A}  = \E\sbrc{X\one_A}
+        \end{split}
+    \end{equation*}
+    We conclude that $A\in\L$ and hence $\L$ is a $\lambda$-system. For any $A\in\mathcal{P}$, 
+    $A\in\F_n$ for some $n$. 
+    \begin{equation*}
+        \E\sbrc{Y\one_A} = \E\sbrc{\lim_{n\to\infty}Y_n\one_A}
+        = \E\sbrc{\lim_{n\to\infty}\E\sbrc{X\one_A|\F_n}} = \lim_{n\to\infty}\E\sbrc{\E\sbrc{X\one_A|\F_n}}
+        = \E\sbrc{X\one_A}.
+    \end{equation*} 
+    Thus $A\in\L$ and $\mathcal{P}\subset\L$. By the $\pi$-$\lambda$ theorem, for all $A\in\F$, 
+    $\E\sbrc{X\one_A} = \E\sbrc{Y\one_A}$. This shows that $Y = \E\sbrc{X|\F}$.
+\end{proof}
+
+\begin{corollary}[Levy's Zero-One Law]
+    If $\F_n\nearrow\F$ and $A\in\F$, then $\P(A|\F_n)\to\one_A$ almost surely. 
+\end{corollary}
+\begin{proof}
+    By Levy's upward theorem, $\P(A|\F_n) = \E\sbrc{\one_A|\F_n}\to \E\sbrc{\one_A|\F} 
+    = \one_A$ almost surely. 
+\end{proof}
+
+\begin{corollary}
+    Suppose that $X_n\to X$ almost surely with $X_n\in\L^1$. If $\abs{X_n}\leq Y$ 
+    for some $Y\in\L^1$ and $\F_n\nearrow\F$, $\E\sbrc{X_n|\F_n}\to\E\sbrc{X|\F}$ 
+    almost surely. 
+\end{corollary}
+\begin{proof}
+    Notice that 
+    \begin{equation*}
+        \abs{\E\sbrc{X_n|\F_n} - \E\sbrc{X|\F}}\leq \abs{\E\sbrc{X_n|\F_n} - \E\sbrc{X|\F_n}} + \abs{\E\sbrc{X|\F_n} - \E\sbrc{X|\F}}.
+    \end{equation*}
+    It now sufices to prove that the two terms on the right hand side converges 
+    almost surely to $0$. For the first term, let $Z_N = \sup_{m,n\geq N}\abs{X_m-X_n}\leq 2Y$. 
+    Note that $Z_N\to 0$ almost surely. For fixed $N$, 
+    \begin{equation*}
+        \limsup_{n\to\infty}\E\sbrc{\abs{X_n-X}|\F_n} \leq \lim_{n\to\infty}\E\sbrc{Z_N|\F_n} = \E\sbrc{Z_N|\F} 
+    \end{equation*}
+    almost surely by Levy's upward theorem. Taking $N\to\infty$ shows that 
+    \begin{equation*}
+        \abs{\E\sbrc{X_n|\F_n} - \E\sbrc{X|\F_n}}\leq \E\sbrc{\abs{X_n-X}|\F_n}\to 0.
+    \end{equation*}
+    almost surely since $\E\sbrc{Z_N|\F} \to 0$ by LDCT. For the second term, directly 
+    applying Levy's upward theorem gives 
+    \begin{equation*}
+        \abs{\E\sbrc{X|\F_n} - \E\sbrc{X|\F}}\to 0
+    \end{equation*}
+    almost surely. Hence the conclusion follows. 
+\end{proof}
+
+\begin{theorem}[Optional Stopping Theorem \rom{2}]
+    Let $X_n$ be a uniformly integrable martingale and $\sigma\leq\tau$ almost 
+    surely are stopping times. Then $\E\sbrc{X_\tau}<\infty$ and 
+    \begin{equation*}
+        X_\sigma = \E\sbrc{X_\tau|\F_\sigma}.
+    \end{equation*} 
+    In particular, $\tau$ can be taken as $\infty$. 
+\end{theorem}
+\begin{proof}
+    Since $X_n$ is a uniformly integrable martingale, there is $X_\infty\in\L^1$ 
+    such that $X_n = \E\sbrc{X_\infty|\F_n}$ by \cref{thm:martingale_L1_unif_int}. 
+    We may take $X_\infty$ to be $\F_\infty$-measurable. We first show that 
+    \begin{equation*}
+        X_\tau = \E\sbrc{X_\infty|\F_\tau}. 
+    \end{equation*}
+    Define $Y_n = \E\sbrc{X_\infty^+|\F_n}$ and $Z_n = \E\sbrc{X_\infty^-|\F_n}$ and 
+    $Y_\infty = X_\infty^+$, $Z_\infty = X_\infty^-$. Clearly, $X_n = Y_n - Z_n$. 
+    For $A\in\F_\tau$, 
+    \begin{equation*}
+        \E\sbrc{Y_\infty\one_{A\cap\set{\tau = \infty}}} = \E\sbrc{Y_\tau\one_{A\cap\set{\tau = \infty}}}
+    \end{equation*}
+    since $Y_n = \E\sbrc{Y_\infty|\F_n}\to Y_\infty$ almost surely by Levy's 
+    upward theorem. Now, since $A\cap\set{\tau = k}\in\F_\tau$, 
+    \begin{equation*}
+        \begin{split}
+            \E\sbrc{Y_\infty\one_{A\cap\set{\tau < \infty}}} 
+            &= \sum_{k\geq 0}\E\sbrc{Y_\infty\one_{A\cap\set{\tau = k}}} 
+            = \sum_{k\geq 0}\E\sbrc{Y_k\one_{A\cap\set{\tau = k}}} \\
+            &= \sum_{k\geq 0}\E\sbrc{Y_\tau\one_{A\cap\set{\tau = k}}}
+            = \E\sbrc{Y_\tau\one_{A\cap\set{\tau < \infty}}}.
+        \end{split}
+    \end{equation*}
+    Thus, $\E\sbrc{Y_\tau\one_A} = \E\sbrc{Y_\infty\one_A}$ and $\E\sbrc{Y_\infty|\F_\tau} = Y_\tau$ 
+    almost surely. Similarly, $\E\sbrc{Z_\infty|\F_\tau} = Z_\tau$ and 
+    hence $\E\sbrc{X_\infty|\F_\tau} = X_\tau$. Now for $\sigma\leq \tau$, 
+    \begin{equation*}
+        \E\sbrc{X_\tau|\F_\sigma} = \E\sbrc{\E\sbrc{X_\infty|\F_\tau}|\F_\sigma} 
+        = \E\sbrc{X_\infty|\F_\sigma} = X_\sigma. 
+    \end{equation*}
+    The proof is complete. 
+\end{proof}

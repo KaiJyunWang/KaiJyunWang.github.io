@@ -1,0 +1,16 @@
+\begin{definition}
+    Consider the filtration $\cdots\subset\F_{-1}\subset\F_0$. A process $X_n$ is 
+    called an \textbf{$\F_n$-backward martingale} if it is $\F_n$-adapted and 
+    $\E\sbrc{X_{n+1}|\F_n} = X_n$ for all $n< 0$. 
+\end{definition}
+\begin{remark}
+    Alternatively, we can define $Y_n = X_{-n}$ and $\G_n = \F_{-n}$. 
+    Then the underlying process $X_n$ is a $\F_n$-backward martingale if 
+    and only if $Y_n$ is $\G_n$-adapted and $\E\sbrc{Y_n|\G_{n+1}} = Y_{n+1}$. 
+\end{remark}
+
+\begin{theorem}
+    Let $X_n$ be a backward martingale. Then $X_n\to X_{-\infty}$ as $n\to -\infty$ 
+    for some $X_{-\infty}\in\L^1$ almost surely and in $\L^1$. Furthermore, 
+    $X_{-\infty} = \E\sbrc{X_0|\cap_{n\leq 0}\F_n}$.
+\end{theorem}
