@@ -9,8 +9,226 @@
     and only if $Y_n$ is $\G_n$-adapted and $\E\sbrc{Y_n|\G_{n+1}} = Y_{n+1}$. 
 \end{remark}
 
-\begin{theorem}
+\begin{theorem}\label{thm:back_martingale_conv}
     Let $X_n$ be a backward martingale. Then $X_n\to X_{-\infty}$ as $n\to -\infty$ 
     for some $X_{-\infty}\in\L^1$ almost surely and in $\L^1$. Furthermore, 
     $X_{-\infty} = \E\sbrc{X_0|\cap_{n\leq 0}\F_n}$.
 \end{theorem}
+\begin{proof}
+    Fix $n<0$. Let $N_a^b[n,0]$ be the number of upcrossing of $X_{n},\ldots,X_0$. 
+    By the upcrossing lemma, we have $(b-a)\E\sbrc{N_a^b[n,0]}\leq \E\sbrc{(X_0-a)^+}<\infty$.  
+    Since $N_a^b[n,0]\nearrow N_a^b[-\infty,0]$ as $n\to -\infty$, by the LMCT we have  
+    $(b-a)\E\sbrc{N_a^b[-\infty,0]}\leq\E\sbrc{(X_0-a)^+}<\infty$. This holds 
+    for all $a,b\in\Q$. Take $A_{a,b} = \set{\liminf_{n\to-\infty}X_n<a<b<\limsup_{n\to -\infty}X_n}$ 
+    and $S$ be the union of $A_{a,b}$ over all $a,b\in\Q$. Since $N_a^b[-\infty,0]$ 
+    is almost surely finite, we see that $\P(A_{a,b}) = 0$ and hence $\P(S) = 0$. 
+    $X_n\to X_{-\infty}$ as $n\to-\infty$. $X_n = \E\sbrc{X_0|\F_n}$ by the martingale 
+    property. By \cref{thm:martingale_L1_unif_int}, the convergence of $X_n\to X_{-\infty}$ 
+    is almost surely and in $\L^1$. 
+
+    Lastly, we show that $X_{-\infty} = \E\sbrc{X_0|\cap_{n\leq 0}\F_n}$. Let 
+    $\F_{-\infty} = \cap_{n\leq 0}\F_n$. First, it is clear that $X_{-\infty}$ is 
+    $\F_{-\infty}$-measurable. For $A\in\cap_{n\leq 0}\F_n$, 
+    \begin{equation*}
+        \E\sbrc{X_{-\infty}\one_A} = \E\sbrc{\lim_{n\to-\infty}X_n\one_A} 
+        = \lim_{n\to-\infty}\E\sbrc{X_n\one_A} = \lim_{n\to\infty}\E\sbrc{\E\sbrc{X_0|\F_n}\one_A} 
+        = \E\sbrc{X_0\one_A}.
+    \end{equation*}
+    Hence $X_{-\infty} = \E\sbrc{X_0|\F_{-\infty}}$. 
+\end{proof}
+
+\begin{corollary}\label{cor:downward_conv}
+    Let $\G_n\searrow \G$ and $X\in\L^1$. Then $\E\sbrc{X|\G_n}\to\E\sbrc{X|\G}$ 
+    almost surely and in $\L^1$. 
+\end{corollary}
+\begin{proof}
+    Take $\F_n = \G_{-n}$ and $Y_n = \E\sbrc{X|\F_{-n}}$. Then $Y_n$ is a backward martingale 
+    with respect to $\F_n$. It follows by \cref{thm:back_martingale_conv} that $Y_n$ 
+    converges almost surely to $\E\sbrc{Y_0|\cap_{n\leq 0}\F_{-n}} 
+    = \E\sbrc{\E\sbrc{X|\G_0}|\G} = \E\sbrc{X|\G}$ both almost surely and in $\L^1$. 
+\end{proof}
+
+\begin{definition}
+    Let $f:\R^k\to\R$ and $X_1,\ldots X_n$ be samples. The \textbf{U-statistics} 
+    is defined by 
+    \begin{equation*}
+        A_n(f) = \frac{1}{\abs{I_{k,n}}}\sum_{\sigma\in I_{k,n}}f(X_{\sigma_1},\ldots,X_{\sigma_k})
+    \end{equation*}
+    where $I_{k,n}$ collects all distinct combinations of $k$ indices among $\set{1,\ldots,n}$ and 
+    $\abs{I_{k,n}} = n\cdots(n-k+1)$ is the number of the combinations. 
+\end{definition}
+\begin{remark}
+    If $f$ is symmetric, i.e., $f(X_{\sigma_1},\ldots,X_{\sigma_k}) = f(X_{\sigma_1'},\ldots,X_{\sigma_k'})$ 
+    for all permutations $\sigma,\sigma'$ to the set $\set{i_1,\ldots,i_k}$, then 
+    \begin{equation*}
+        A_n(f) = \frac{1}{\binom{n}{k}}\sum_{\sigma\in J_{k,n}}f(X_{\sigma_1},\ldots,X_{\sigma_k})
+    \end{equation*}
+    where $J_{k,n}$ is the subset of $I_{k,n}$ consisting of all the increasing 
+    sequence. 
+\end{remark}
+
+\begin{definition}
+    Consider the product space $\Omega = \R^\N$. $X_n(\omega) = \omega_n$ for all 
+    $\omega\in\Omega$ are independent and identically distributed. Consider all events 
+    such that $\pi^{-1}A \coloneq \Set{\omega}{\pi\omega\in A} = A$ for any $\pi$ permuting 
+    the first $n$-coordinate. Denote the collection of all such events by $\mathcal{E}_n$. 
+    The \textbf{exchangeable $\sigma$-algebra} is defined by $\mathcal{E} = \cap_n\mathcal{E}_n$. 
+\end{definition}
+\begin{remark}
+    $A_n(f)$ is $\mathcal{E}_n$-measurable and thus 
+    \begin{equation*}
+        A_n(f) = \E\sbrc{A_n(f)|\mathcal{E}_n} = \frac{1}{\abs{I_{k,n}}}\sum_{\sigma\in I_{k,n}}\E\sbrc{f(X_{\sigma_1},\ldots,X_{\sigma_k})|\mathcal{E}_n} 
+        = \E\sbrc{f(X_1,\ldots,X_k)|\mathcal{E}_n}. 
+    \end{equation*} 
+\end{remark}
+
+\begin{lemma}\label{lem:cond_exp_indep}
+    Let $X\in\L^2$. If $\E\sbrc{X|\G}$ is $\F$-measurable and $X$ is independent 
+    of $\F$, then $\E\sbrc{X|\G} = \E\sbrc{X}$. 
+\end{lemma}
+\begin{proof}
+    Let $Y = \E\sbrc{X|\G}$. By the independence, $\E\sbrc{XY} = \E\sbrc{X}\E\sbrc{Y} = \E\sbrc{Y}^2$
+    due to $\E\sbrc{Y} = \E\sbrc{\E\sbrc{X|\G}} = \E\sbrc{X}$. Then 
+    \begin{equation*}
+        \begin{split}
+            \Var\sbrc{Y} &= \E\sbrc{Y^2} - \E\sbrc{Y}^2 = \E\sbrc{Y^2-XY} + \E\sbrc{XY} - \E\sbrc{Y}^2 \\
+            &= \E\sbrc{\E\sbrc{\E\sbrc{X|\G}(X - \E\sbrc{X|\G})|\G}} = 0. 
+        \end{split}
+    \end{equation*}
+    We see that $\E\sbrc{X|\G}$ is a constant and hence $\E\sbrc{X|\G} = \E\sbrc{\E\sbrc{X|\G}} 
+    = \E\sbrc{X}$. 
+\end{proof}
+
+\begin{lemma}\label{lem:u_statistics}
+    If $f$ is bounded and measurable, then $A_n(f)\to\E\sbrc{f(X_1,\ldots,X_k)}$ 
+    almost surely.  
+\end{lemma}
+\begin{proof}
+    Note that $\mathcal{E}_n\searrow\mathcal{E}$. Hence by \cref{cor:downward_conv}, 
+    \begin{equation*}
+        A_n(f) = \E\sbrc{f(X_1,\ldots, X_k)|\mathcal{E}_n}\to\E\sbrc{f(X_1,\ldots, X_k)|\mathcal{E}} 
+    \end{equation*}
+    almost surely. It now suffices to show that $\E\sbrc{f(X_1,\ldots,X_k)|\mathcal{E}} 
+    = \E\sbrc{f(X_1,\ldots,X_k)}$. Notice that there are $k(n-1)\cdots(n-1-(k-1)+1) = k(n-1)\cdots(n-k+1)$ 
+    terms involving $X_1$ in $A_n(f)$. Hence 
+    \begin{equation*}
+        \frac{1}{\abs{I_{k,n}}}\sum_{\sigma\in I_{k,n}, 1\in\sigma}f(X_{\sigma_1},\ldots,X_{\sigma_k}) 
+        \leq \frac{k(n-1)\cdots(n-k+1)}{n\cdots(n-k+1)}\sup f \to 0
+    \end{equation*}
+    as $n\to\infty$. Hence $\E\sbrc{f(X_1,\ldots,X_k)|\mathcal{E}}$ is $\sigma(X_2,\ldots)$-measurable. 
+    Repeating the procedure, we see that $\E\sbrc{f(X_1,\ldots,X_k)|\mathcal{E}}$ is 
+    $\sigma(X_{k+1},\ldots)$-measurable. By \cref{lem:cond_exp_indep}, since 
+    $f(X_1,\ldots, X_k)$ is independent of $\sigma(X_{k+1},\ldots)$, 
+    \begin{equation*}
+        \E\sbrc{f(X_1,\ldots,X_k)|\mathcal{E}} = \E\sbrc{f(X_1,\ldots,X_k)}.
+    \end{equation*}
+    The proof is complete. 
+\end{proof}
+
+\begin{theorem}[Hewitt-Savage Zero-One Law]
+    If $X_n$ is independent and identically distributed, then $\mathcal{E}$ is trivial. 
+\end{theorem}
+\begin{proof}
+    By \cref{lem:u_statistics}, we see that 
+    \begin{equation*}
+        \E\sbrc{f(X_1,\ldots,X_k)|\mathcal{E}} = \E\sbrc{f(X_1,\ldots,X_k)}
+    \end{equation*}
+    for all bounded $f$. This implies that $\mathcal{E}$ is independent of 
+    $\G_k = \sigma(X_1,\ldots,X_k)$. Let $\G = \cup_k\G_k$. Clearly $\G$ is a 
+    $\pi$-system. By \cref{thm:pi-system_independence}, $\sigma(\G)$ is 
+    independent of $\mathcal{E}$. In other words, $\mathcal{E}$ and 
+    $\sigma(X_1,\ldots)$ are independent. Also notice that $\mathcal{E}
+    \subset\sigma(\G)$. Then for all $A\in\mathcal{E}$, $\P(A) = \P(A\cap A) 
+    = \P(A)^2$ and thus $\P(A)\in\set{0,1}$. 
+\end{proof}
+
+\begin{definition}
+    A sequence of random variables $X_n$ is \textbf{exchangeable} if the joint 
+    distribution is invariant under finite permutation. 
+\end{definition}
+\begin{example}
+    Consider $X_n$ being drawn from $\Ber(1/2)$ or $\Ber(1/3)$ with probability $1/2$. Then 
+    $X_n$ is exchangeable but not independent and identically distributed. 
+\end{example}
+
+\begin{proposition}
+    Suppose that $X_n\in\L^2$ are exchangeable. Then $\Cov\sbrc{X_1,X_2}\geq 0$.  
+\end{proposition}
+\begin{proof}
+    By the exchangeability, $\mu = \E\sbrc{X_i}$, $\sigma^2 = \Var\sbrc{X_i}$ 
+    and $\rho = \Cov\sbrc{X_i,X_j}$ for $i\neq j$. For any $n$, 
+    \begin{equation*}
+        0 \leq \Var\sbrc{X_1,\ldots,X_n} = n\sigma^2 + n(n-1)\rho.
+    \end{equation*}
+    Hence $\rho \geq \sigma^2/(n-1)$. This holds for all $n$ and thus $\rho\geq 0$. 
+\end{proof}
+
+\begin{theorem}[de Finetti]
+    If $X_n$ is exchangeable, then conditional on $\mathcal{E}$, $X_n$ are independent 
+    and identically distributed. Equivalently, for bounded $f_1,\ldots,f_k$, 
+    \begin{equation*}
+        \E\sbrc{f_1(X_1)\cdots f_k(X_k)|\mathcal{E}} = \prod_{i=1}^{k}\E\sbrc{f_i(X_1)|\mathcal{E}}.
+    \end{equation*}
+\end{theorem}
+\begin{proof}
+    When $k = 1$, the result is trivial. Suppose that the reuslt holds for $k$. 
+    Let 
+    \begin{equation*}
+        f(X_1,\ldots, X_{k+1}) = \prod_{i=1}^{k+1}f_i(X_i)
+    \end{equation*} 
+    where $f_i$ are bounded. Set $g(X_1,\ldots,X_k) = \prod_{i=1}^kf_i(X_i)$. 
+    By \cref{lem:u_statistics}, we again see that 
+    \begin{equation*}
+        A_n(f) = \E\sbrc{g(X_1,\ldots,X_k)f_{k+1}(X_{k+1})|\mathcal{E}_n}\to \E\sbrc{g(X_1,\ldots,X_k)f_{k+1}(X_{k+1})|\mathcal{E}} 
+    \end{equation*}
+    almost surely. Also, 
+    \begin{equation*}
+        \begin{split}
+            A_n(g)A_n(f_{k+1}) &= \pth{\frac{1}{n\cdots(n-k+1)}\sum_{\sigma\in I_{k,n}}g(X_{\sigma_1},\ldots,X_{\sigma_k})}\pth{\frac{1}{n}\sum_{i=1}^nf_{k+1}(X_i)} \\ 
+            &= \frac{1}{n}\frac{1}{n\cdots(n-k+1)}\sum_{\sigma\in I_{k+1,n}}g(X_{\sigma_1},\ldots,X_{\sigma_k})f_{k+1}(X_{\sigma_{k+1}}) \\ 
+            &\quad + \frac{1}{n}\frac{1}{n\cdots(n-k+1)}\sum_{\sigma\in I_{k,n}}\sum_{j=1}^kg(X_{\sigma_1},\ldots,X_{\sigma_{k}})f_{k+1}(X_{\sigma_j}) \\
+            &= \frac{n-k}{n}A_n(f) + \frac{1}{n}\sum_{j=1}^kA_n(g(x_1,\ldots,x_k)f_{k+1}(x_j)).
+        \end{split}
+    \end{equation*}
+    Hence 
+    \begin{equation*}
+        A_n(f) = \frac{n}{n-k}A_n(g)A_n(f_{k+1}) - \frac{1}{n-k}\sum_{j=1}^kA_n(g(x_1,\ldots,x_k)f_{k+1}(x_j)).
+    \end{equation*}
+    Then, 
+    \begin{equation*}
+        A_n(f) = \E\sbrc{A_n(f)|\mathcal{E}_n}\to \E\sbrc{g(X_1,\ldots X_k)|\mathcal{E}}\E\sbrc{f_{k+1}(X_{k+1})|\mathcal{E}}.
+    \end{equation*}
+    It follows that 
+    \begin{equation*}
+        \E\sbrc{g(X_1,\ldots,X_k)f_{k+1}(X_{k+1})|\mathcal{E}} = \E\sbrc{g(X_1,\ldots X_k)|\mathcal{E}}\E\sbrc{f_{k+1}(X_{k+1})|\mathcal{E}} 
+        = \prod_{i=1}^{k+1}\E\sbrc{f_i(X_1)|\mathcal{E}}
+    \end{equation*}
+    By induction, the result holds for any $k$ and the proof is complete. 
+\end{proof}
+\begin{remark}
+    $X_n$ is exchangeable if and only if it is independent and identically distributed 
+    conditional on $\mathcal{E}$. Also, if $\mathcal{E}$ is trivial, then $X_n$ are 
+    independent and identically distributed. 
+\end{remark}
+
+\begin{corollary}
+    If $X_n$ is a sequence of exchangeable random variables taking value in $\set{0,1}$, 
+    then there is a random variable $\xi$ taking value in $[0,1]$ such that 
+    \begin{equation*}
+        \P(X_1 = \cdots = X_k = 1, X_{k+1} = \cdots = X_n = 0) = \E\sbrc{\xi^k(1 - \xi)^{n-k}}. 
+    \end{equation*}
+\end{corollary}
+\begin{proof}
+    Define 
+    \begin{equation*}
+        \xi = \lim_{n\to\infty}\frac{1}{n}\sum_{i\leq n}X_i. 
+    \end{equation*}
+    Note that $\xi$ is $\mathcal{E}$-measurable. By de Finetti's theorem, 
+    \begin{equation*}
+        \P(X_1 = \cdots = X_k = 1, X_{k+1} = \cdots = X_n = 0|\mathcal{E}) = \xi^k(1 - \xi)^{n-k}. 
+    \end{equation*}
+    Hence 
+    \begin{equation*}
+        \P(X_1 = \cdots = X_k = 1, X_{k+1} = \cdots = X_n = 0) = \E\sbrc{\xi^k(1 - \xi)^{n-k}}. 
+    \end{equation*}
+\end{proof}
