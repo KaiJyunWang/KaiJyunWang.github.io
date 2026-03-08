@@ -1,0 +1,571 @@
+\begin{definition}
+    Let $P$ be a transition operator. A non-trivial measure $\mu$ is 
+    \textbf{invariant} or \textbf{stationary} if $P'\mu = \mu$. If $\mu$ 
+    is a distribution, then we say that $\mu$ is a \textbf{stationary distribution}. 
+\end{definition}
+\begin{remark}
+    Equivalently, the Markov process $X_t$ associated with $P$ has invariant 
+    finite-dimensional distribution under shifts, $(X_{t_1},\ldots,X_{t_n}) 
+    \deq (X_{t_1+s},\ldots,X_{t_n+s})$ for all $s\geq 0$. 
+\end{remark}
+
+\begin{definition}
+    A Markov matrix $P$ is said to be \textbf{bistochastic} if $P'$ is also 
+    a stochastic matrix.  
+\end{definition}
+\begin{remark}
+    Constant measures are always stationary for a bistochastic matrix 
+    since if $\mu(x) = c$ for all $x\in S$, $P'\mu = c = \mu$. 
+\end{remark}
+
+\begin{definition}
+    A measure $\mu$ is said to be \textbf{reversible} for a Markov kernel $p$ 
+    if $\mu(x)p(x,y) = \mu(y)p(y,x)$ for all $x,y\in S$. 
+\end{definition}
+\begin{remark}
+    If $\mu$ is reversible for $p$, then $\mu$ is also stationary since 
+    \begin{equation*}
+        (P'\mu)(y) = \sum_{x\in S}\mu(x)p(x,y) = \sum_{x\in S}\mu(y)p(y,x) 
+        = \mu(y).
+    \end{equation*}
+\end{remark}
+
+\begin{example}
+    Let $G$ be a locally finite graph, i.e., for each vertex $x$, 
+    $\deg(x)<\infty$. A symmetric random walk on $G$ is given by the 
+    kernel 
+    \begin{equation*}
+        p(x,y) = \frac{1}{\deg(x)}
+    \end{equation*} 
+    if $y$ is connected to $x$ and $0$ otherwise. Notice that 
+    $\mu(x) = \deg(x)$ is stationary.  
+\end{example}
+
+\begin{theorem}
+    Let $S$ be a countable space. If $\pi$ is a stationary distribution, 
+    then $y\in\supp{\pi}$ is recurrent. 
+\end{theorem}
+\begin{proof}
+    Note that 
+    \begin{equation*}
+        \E_\pi\sbrc{N(y)} = \sum_{k=1}^\infty \P_\pi(X_n = y) = \sum_{k=1}^\infty \pi(y) = \infty.
+    \end{equation*}
+    On the other hand, 
+    \begin{equation*}
+        \E_\pi\sbrc{N(y)} = \sum_{x\in S} \pi(x)\E_x\sbrc{N(y)} 
+        = \sum_{x\in S}\pi(x)\frac{\rho_{xy}}{1-\rho_{yy}}\leq \frac{1}{1-\rho_{yy}}. 
+    \end{equation*}
+    Hence $\rho_{yy}=1$ and $y$ is recurrent. 
+\end{proof}
+
+\begin{theorem}\label{thm:stationary_exist}
+    Let $S$ be countable. Suppose that $x$ is recurrent, 
+    then the measure 
+    \begin{equation*}
+        \mu_x(y) = \E_x\sbrc{\sum_{k=0}^{\tau_x-1}\one\set{X_k = y}} = \sum_{k=1}^\infty \P_x(X_k=y,\tau_x>k)
+    \end{equation*}
+    where $\tau_x = \inf\Set{k>0}{X_k = x}$, is stationary. 
+\end{theorem}
+\begin{proof}
+    Note that if $x$ is absorbing, then the theorem is trivial. Assume that 
+    $x$ is not absorbing. Notice that $\supp{\mu_x} = C[x]$. For all $y\in C[x]$, 
+    $\mu_x(y)<\infty$ since $\tau_x$ is finite almost surely. We now verify that 
+    $P'\mu_x = \mu_x$. Note that 
+    \begin{equation*}
+        \sum_{y\in S} \mu_x(y)p(y,z) = \sum_{n=0}^\infty\sum_{y\in S} \P_x(X_n = y, \tau_x>n)p(y,z).
+    \end{equation*}
+    If $z\neq x$, 
+    \begin{equation*}
+        \P_x(X_n = y, \tau_x>n)p(y,z) = \P_x(X_n = y, X_{n+1} = z,\tau_x>{n+1})
+    \end{equation*}
+    and 
+    \begin{equation*}
+        \sum_{y\in S} \mu_x(y)p(y,z) = \sum_{n=0}^\infty\P_x(X_{n+1} = z, \tau_x>n+1) = \mu_x(z)
+    \end{equation*}
+    If $z = x$, 
+    \begin{equation*}
+        \sum_{y\in S}\P_x(X_n = y, \tau_x>n)p(y,z) = \P_x(\tau_x = n+1).
+    \end{equation*}
+    Hence 
+    \begin{equation*}
+        \sum_{y\in S}\mu_x(y)p(y,x) = \sum_{n=0}^\infty\P_x(\tau_x = n+1) = 1
+    \end{equation*}
+    and it is clear that $\mu_x(x) = 1$. Hence $\mu_x$ is 
+    stationary. 
+\end{proof}
+\begin{remark}
+    Notice that 
+    \begin{equation*}
+        \sum_{y\in S}\mu_x(y) = \E_x\sbrc{\tau_x}. 
+    \end{equation*}
+    If $\E_x\sbrc{\tau_x}<\infty$, then we can normalize 
+    $\mu_x$ to be a stationary distribution. 
+\end{remark}
+
+\begin{definition}
+    Let $x$ be recurrent. If $\E_x\sbrc{\tau_x}<\infty$, 
+    then $x$ is \textbf{positive recurrent}; if 
+    $\E_x\sbrc{\tau_x}=\infty$, then $x$ is \textbf{null 
+    recurrent}. 
+\end{definition}
+
+\begin{theorem}\label{thm:stationary_unique}
+    If $p$ is irreducible and recurrent, then for every 
+    stationary measure $\mu$, $\mu = c\mu_x$ for some 
+    $c>0$. 
+\end{theorem}
+\begin{proof}
+    From \cref{thm:stationary_exist}, the stationary 
+    measure exists. Suppose that $\mu$ is a stationary measure. 
+    For $y\in S$, we show that $\mu(y) = \mu(x)\mu_x(y)$. 
+    Note that if $y = x$, then the result is trivial. 
+    If $y\neq x$, then 
+    \begin{equation*}
+        \begin{split}
+            \mu(y) &= \sum_{z\in S}\mu(z)p(z,y) 
+            = \mu(x)p(x,y) + \sum_{z\neq x}\mu(z)p(z,y) \\
+            &= \mu(x)p(x,y) + \mu(x)\sum_{z\neq x}p(x,z)p(z,y) + \sum_{z,w\neq x}\mu(w)p(w,z)p(z,y) \\
+            &\hspace{0.5em}\vdots \\ 
+            &= \mu(x)\sum_{m=1}^n\P_x(X_k\neq x\text{ for $1\leq k\leq m$}, X_m = y) 
+            + \sum_{a\neq x}\mu(a)\P_a(X_k\neq x\text{ for $1\leq k\leq n$}, X_n = y) \\
+            &\geq \mu(x)\sum_{m=1}^n\P_x(X_k\neq x\text{ for $1\leq k\leq m$}, X_m = y). 
+        \end{split}
+    \end{equation*}
+    Take $n\to\infty$, 
+    \begin{equation*}
+        \mu(y)\geq \mu(x)\sum_{m=1}^\infty\P_x(X_k\neq x\text{ for $1\leq k\leq m$}, X_m = y) 
+        = \mu(x)\mu_x(y)
+    \end{equation*}
+    by definition. Notice that 
+    \begin{equation*}
+        \mu(x)\geq \mu(x)\sum_{m=1}^\infty\P_x(X_k\neq x\text{ for $1\leq k\leq m$}, X_m = y) 
+        = \mu(x)\mu_x(x) = \mu(x). 
+    \end{equation*}
+    This implies that the inequality are in fact equality and 
+    thus $\mu(y) = \mu(x)\mu_x(y)$ for all $y$ such that 
+    $x\rightsquigarrow y$. By the irreducibility, all $y$ 
+    satisfies that $x\rightsquigarrow y$. The conclusion 
+    follows. 
+\end{proof}
+
+\begin{theorem}\label{thm:stationary_dist_formula}
+    If $p$ is irreducible and admits a stationary distribution $\pi$, 
+    then 
+    \begin{equation*}
+        \pi(x) = \frac{1}{\E_x\sbrc{\tau_x}}. 
+    \end{equation*}
+\end{theorem}
+\begin{proof}
+    By \cref{thm:stationary_unique}, $\pi(y) = c_x\mu_x(y)$ 
+    for some constant $c_x$. To normalize the stationary 
+    measure $\mu_x$, 
+    \begin{equation*}
+        c_x = \frac{1}{\E_x\sbrc{\tau_x}}. 
+    \end{equation*}
+    Hence 
+    \begin{equation*}
+        \pi(x) = c_x\mu_x(x) = c_x = \frac{1}{\E_x\sbrc{\tau_x}}. 
+    \end{equation*}
+\end{proof}
+
+\begin{theorem}\label{thm:stationary_recurrent}
+    Let $S$ be a countable space. If $p$ is irreducible, then the 
+    followings are true. 
+    \begin{thmenum}
+        \item There is a stationary distribution $\mu$. 
+        \item There is a positive recurrent state. 
+        \item All states are positive recurrent. 
+    \end{thmenum}
+\end{theorem}
+\begin{proof}
+    Assume (a). Since $p$ is irreducible, $\supp(\mu) = S$. 
+    From \cref{thm:stationary_dist_formula}, $\E_x\sbrc{\tau_x}<\infty$ 
+    for all $x\in S$. This proves (c). 
+
+    Assume (b). Suppose that $x$ is positive recurrent. Then by 
+    \cref{thm:stationary_exist}, there is a stationary measure $\mu_x$ 
+    and in particular we can normalize it to a stationary distribution. 
+    This proves (a). 
+
+    (c) to (b) is trivial. The proof is complete. 
+\end{proof}
+\begin{remark}
+    If $S$ is finite and $p$ is irreducible, then there is a unique stationary 
+    distribution. To see this, notice that $S$ is closed and 
+    by \cref{prop:recurrent_closed}, there is a recurrent state $x$. We 
+    now show that $x$ is positive recurrent. By the assumption, there is 
+    $n\in\N$ and $\epsilon>0$ such that $p^n(y,x)>\epsilon$ for all $y$. 
+    Thus 
+    \begin{equation*}
+        \E_x\sbrc{\tau_x} = \sum_{k=1}^\infty \P_x(\tau_x\geq k) 
+        \leq n\P_x(\tau_x\geq 1) + n\P_x(\tau_x\geq n+1) + \cdots 
+        \leq n\pth{1 + (1-\epsilon) + \cdots} = \frac{n}{\epsilon}<\infty. 
+    \end{equation*}
+    Hence $x$ is positive recurrent. It follows that every state is 
+    positive recurrent and there is a unique stationary distribution. 
+\end{remark}
+
+\begin{example}
+    Consider random walk on $\Z$ with $S_n = \sum_{i\leq n} \xi_i$ and 
+    $\P(\xi_i = 1) = p$ and $\P(\xi_i = -1) = 1-p$. If $p\neq 1/2$, then 
+    there are multiple stationary measures that are not linearly dependent. 
+    $\mu(x) = c$ for $c>0$ is one of the class of the staionary measure. 
+    Also, $\mu(x) = \pth{\frac{p}{1-p}}^x$ is another class of stationary 
+    measures. To see this, obserbe that the aboves are solutions to the 
+    following equation. 
+    \begin{equation*}
+        \mu(x) = p\mu(x-1) + (1-p)\mu(x+1).
+    \end{equation*}
+
+    If $p = 1/2$, then every state is null recurrent. To see this, notice 
+    that $\mu(x) = (\mu(x-1) + \mu(x))/2$ has unique solution $\mu(x) = c$. 
+    There is no stationary distribution and hence no state is positive 
+    recurrent. 
+\end{example}
+
+\begin{theorem}\label{thm:visit_conv}
+    Suppose that $y$ is recurrent. Let $N_n(y)$ be the number of visits to 
+    $y$ before $n$. Then 
+    \begin{equation*}
+        \frac{1}{n}N_n(y)\to \frac{\one\set{\tau_y<\infty}}{\E_y\sbrc{\tau_y}}.
+    \end{equation*}
+    almost surely. 
+\end{theorem}
+\begin{proof}
+    Notice that $N_n(y) = \sum_{i\leq n}\one\set{X_i = y}$. Suppose that 
+    we start at $y$. Let $\tau_y^{(k)}$ be the $k$-th return time of $y$ with 
+    $\tau_y^{(0)} = 0$. Now $\tau_y^{(k)}-\tau_y^{(k-1)}$ are independent and 
+    identically distributed. The strong law of large number gives 
+    \begin{equation*}
+        \frac{1}{k}\tau_y^{(k)}\to \E_y\sbrc{\tau_y^{(1)}} = \E_y\sbrc{\tau_y}
+    \end{equation*}
+    almost surely. Observe that 
+    \begin{equation*}
+        \tau_y^{N_n(y)} \leq n < \tau_y^{N_n(y)+1}. 
+    \end{equation*}
+    Then 
+    \begin{equation*}
+        \frac{\tau_y^{N_n(y)}}{N_n(y)}\leq \frac{n}{N_n(y)}< \frac{\tau_y^{N_n(y)+1}}{N_n(y)+1}\frac{N_n(y)+1}{N_n(y)}.
+    \end{equation*}
+    Since $y$ is recurrent, $N_n(y)\to \infty$ almost surely when $n\to\infty$. 
+    Then 
+    \begin{equation*}
+        \frac{\tau_y^{N_n(y)}}{N_n(y)}\to \E_y\sbrc{\tau_y}, \quad 
+        \frac{\tau_y^{N_n(y)+1}}{N_n(y)+1}\frac{N_n(y)+1}{N_n(y)} \to \E_y\sbrc{\tau_y}
+    \end{equation*}
+    almost surely. This implies that 
+    \begin{equation*}
+        \frac{n}{N_n(y)}\to \E_y\sbrc{\tau_y}
+    \end{equation*}
+    almost surely. 
+    
+    Now for general case where we start at $x\neq y$, on 
+    $\set{\tau_y<\infty}$, the strong Markov property applies and 
+    $\tau_y^{(k)}-\tau_y^{(k-1)}$ are independent and identically distributed. 
+    The strong law of large number again gives 
+    \begin{equation*}
+        \frac{1}{k}\tau_y^{(k)} = \frac{\tau_y^{(1)}}{k} + \frac{\sum_{k=2}^\infty\tau_y^{(k)}-\tau_y^{(k-1)}}{k}\to \E_y\sbrc{\tau_y}
+    \end{equation*}
+    almost surely. Similarly, we see that $\frac{n}{N_n(y)}\to \E_y\sbrc{\tau_y}$ 
+    on $\set{\tau_y<\infty}$. Notice that on $\set{\tau_y=\infty}$, $N_n(y) = 0$. 
+    Combining two cases finishes the proof. 
+\end{proof}
+\begin{remark}
+    Since $N_n(y)/n\leq 1$, LDCT implies that 
+    \begin{equation*}
+        \frac{1}{n}\E_x\sbrc{N_n(y)}\to \frac{\P_x(\tau_y<\infty)}{\E_y\sbrc{\tau_y}}.
+    \end{equation*}
+    Then if the Markov chain is irreducible with stationary measure $\pi$, 
+    \begin{equation*}
+        \frac{1}{n}\E_x\sbrc{N_n(y)} = \frac{1}{n}\sum_{k=1}^n P^k(x,y)\to \pi(y)
+    \end{equation*}
+    as $n\to\infty$. That is, the sequence $P^k(x,y)$ always converges 
+    in Cesaro's sense to the stationary distribution. This also holds 
+    to transient $y$, since $\sum_{k=1}^\infty P^k(x,y) = \E_x\sbrc{N(y)}<\infty$ 
+    in that case and $\pi(y) = 0$. 
+\end{remark}
+
+\begin{definition}
+    Let $x$ be recurrent. Let $I_x = \Set{n\geq 1}{P^n(x,x)>0}$. The 
+    \textbf{period} is defined by $d_x = \gcd(I_x)$. 
+\end{definition}
+\begin{remark}
+    For $a,b\in I_x$, $a+b\in I_x$. To see this, note that if 
+    $P^a(x,x), P^b(x,x)>0$, then $P^{a+b}(x,x)\geq P^a(x,x)P^b(x,x)>0$. 
+\end{remark}
+
+\begin{lemma}
+    If $x\leftrightsquigarrow y$ and $x,y$ are recurrent, then $d_x = d_y$.
+\end{lemma}
+\begin{proof}
+    By assumption, there are $m,n\in\N$ such that $P^m(x,y),P^n(y,x)>0$. Thus 
+    $P^{m+n}(x,x)\geq P^m(x,y)P^n(y,x)>0$. Then $m+n\in I_x$ and $d_x|m+n$. 
+    If $k\in I_y$, then $P^k(y,y)>0$ and $P^{m+k+n}(x,x)\geq P^m(x,y)P^k(y,y)P^n(y,x)>0$. 
+    Hence $d_x|m+k+n$. It follows that for all $k\in I_y$, $d_x|k$. Then 
+    $d_x|d_y$. By a symmetric argument, $d_y|d_x$ and thus $d_x = d_y$. 
+\end{proof}
+
+\begin{definition}
+    Let $P$ be irreducible and recurrent. If $d_x = 1$, we say that $P$ 
+    is \textbf{aperiodic}. 
+\end{definition}
+\begin{remark}
+    If $a,a+1\in I_x$, then $P$ is aperiodic. If $P(x,x)>0$ for some 
+    $x$, then $P$ is also aperiodic. 
+\end{remark}
+
+\begin{proposition}
+    If $P$ is irreducible and recurrent with period $d\geq 2$, then there 
+    is a partition of space $C_i$, $i=1,\ldots,d$ such that $P(x,y)>0$ 
+    if and only if $x\in C_i$ and $y\in C_{i+1}$ with $C_{d+1} = C_1$. 
+\end{proposition}
+\begin{proof}
+    Note that we can start by $x$ and collect all $y$ such that $x\rightsquigarrow y$ 
+    into $C_2$. Set $C_3 = \Set{z}{y\rightsquigarrow z, y\in C_2}$. 
+    Repeat this process until $C_{s+1} = C_1$ contains $x$. Since the period 
+    is $s$, we know that $s = d$. It then follows by the construction 
+    that $P(x,y)>0$ if and only if $x\in C_i$ and $y\in C_{i+1}$ with $C_{d+1} = C_1$. 
+\end{proof}
+
+\begin{lemma}
+    Let $P$ be irreducible, recurrent and aperiodic. Then there exists $n_0$ 
+    such that $P^n(x,x)>0$ for all $n\geq n_0$. 
+\end{lemma}
+\begin{proof}
+    Observe that if $k,k+1\in I_x$, then $2k,2k+1,2k+2\in I_x$, $3k,3k+1,3k+2,3k+3,3k+4\in I_x$. 
+    So on and so forth, at least we would find that for all $n\geq k^2$, 
+    $n\in I_x$. The statement follows if we can find two consecutive integers 
+    in $I_x$. By assumption, $\gcd(I_x) = 1$ and we can find $a_1,\ldots,a_m\in I_x$ 
+    such that $t_1a_1 + \cdots + t_ma_m = 1$ for some $t_i\in\Z$ for $i\in 1,\ldots m$. 
+    If $t_i\geq 0$ for all $i$, we can replace $t_1$ and $t_2$ with 
+    $t_1' = t_1 + sa_2$ and $t_2' = t_2 - sa_1$. For sufficiently large $s$, 
+    $t_2'$ would be negative. Hence we may suppose that there are positive 
+    and negative integers in $t_i$. Then $t_1^+a_1 + \cdots + t_m^+a_m 
+    = t_1^-a_1 + \cdots + t_m^-a_m + 1$. $t_1^+a_1 + \cdots + t_m^+a_m$ and 
+    $t_1^-a_1 + \cdots + t_m^-a_m$ are consecutive integers in $I_x$. 
+    The proof is complete. 
+\end{proof}
+
+\begin{definition}
+    Let $(S,\S)$ be a measurable space. The space $\M(S)$ collecting all 
+    locally finite measure on $S$ equipped with the \textbf{total variation 
+    norm} $\norm{\mu}_{TV} = \sup_{A\in \S}\abs{\mu(A)}$ is a Banach space. 
+    The space $\mathcal{P}(S)$ collects the probability measures among 
+    $\M(S)$. 
+\end{definition}
+
+\begin{theorem}
+    Let $S$ be a countable space. If $P$ is irreducible and aperiodic with 
+    stationary distribution $\pi$, then for all $\mu,\nu\in \mathcal{P}(S)$, 
+    \begin{equation*}
+        \norm{\mu P^n - \pi}_{TV}\to 0
+    \end{equation*} 
+    as $n\to\infty$. 
+\end{theorem}
+\begin{proof}
+    We rely on the coupling technique to proved the theorem. Let $X_n$ and 
+    $Y_n$ be the Markov chains with transition operator $P$, starting 
+    from $\mu$ and $\pi$, respectively. Consider $Z_n = (X_n,Y_n)$ with 
+    $Z_0\sim \mu\otimes\pi$. $Z_n$ evolutes according to the transition 
+    operator 
+    \begin{equation*}
+        Q((x,y), (x',y')) = \begin{cases}
+            P(x,x')P(y,y') & x\neq y \\ 
+            P(x,x') & x = y,\quad x' = y' \\ 
+            0 & \text{otherwise}
+        \end{cases}.
+    \end{equation*} 
+    Observe that $Z_n$ has marginals same as $X_n$ and $Y_n$. Let 
+    $\tau = \inf\Set{n}{X_n = Y_n}$ be the first time $X_n$ and $Y_n$ 
+    agrees. 
+    \begin{equation*}
+        \begin{split}
+            \norm{\mu P^n - \pi}_{TV} &= \sum_{y\in S}\abs{P_\mu(X_n = y) - P_\pi(Y_n = y)} 
+            \leq \sum_{y\in S} \abs{P_\mu(X_n = y, Y_n\neq y) - P_\pi(Y_n = y, X_n\neq y)} \\
+            &\leq 2P(X_n\neq Y_n) = 2P(\tau > n). 
+        \end{split}
+    \end{equation*}
+    Consider the transition operator on $S^2$, $\tilde{Q}((x,y), (x',y')) = P(x,x')P(y,y')$. 
+    Since $\tilde{Q}$ is irreducible and $\pi\otimes\pi$ is a stationary 
+    distribution. It follows from \cref{thm:stationary_recurrent} that 
+    $\tilde{Q}$ is recurrent. Hence $\tau < \infty$ almost surely. 
+    Taking $n\to\infty$ shows $\norm{\mu P^n - \pi}_{TV} \to 0$. 
+\end{proof}
+
+\begin{theorem}[Markov Chain Strong Law of Large Number]
+    Suppose that $P$ is irreducible with stationary distribution $\pi$ and 
+    $f:S\to\R$ with $\pi\abs{f}<\infty$. Then 
+    \begin{equation*}
+        \frac{1}{n}\sum_{k=1}^nf(X_k)\to \pi f 
+    \end{equation*} 
+    almost surely.
+\end{theorem}
+\begin{proof}
+    Without loss of generality, we may assume that $f\geq 0$. Fix $x\in S$ 
+    and let $\tau_m$ be the time of $m$-th visits of $x$. Thus 
+    \begin{equation*}
+        \frac{1}{n}\sum_{k=1}^n f(X_k) 
+        = \frac{1}{n}\sum_{k=1}^{\tau_1}f(X_k) + \frac{1}{n}\sum_{k=1}^{N_n-1}\sum_{k=\tau_s+1}^{\tau_{s+1}}f(X_k) + \frac{1}{n}\sum_{k=\tau_{N_n}+1}^nf(X_k)
+    \end{equation*} 
+    where $N_n$ is the number of visits to $x$ up to $n$. For the first 
+    term, since $\tau_1<\infty$ almost surely, 
+    \begin{equation*}
+        \frac{1}{n}\sum_{k=1}^{\tau_1}f(X_k)\to 0
+    \end{equation*}
+    almost surely as $n\to\infty$. For the third term, 
+    \begin{equation*}
+        \frac{1}{n}\sum_{k=\tau_{N_n}+1}^nf(X_k)\leq \frac{1}{n}\sum_{k=\tau_{N_n}+1}^{\tau_{N_n+1}}f(X_k)\to 0
+    \end{equation*}
+    almost surely as $n\to\infty$ since $P$ is recurrent and $\tau_{N_n+1}-\tau_{N_n}<\infty$ 
+    almost surely. For the second term, 
+    \begin{equation*}
+        \begin{split}
+            \frac{1}{n}\sum_{k=1}^{N_n-1}\sum_{k=\tau_s+1}^{\tau_{s+1}}f(X_k) 
+            &= \frac{N_n-1}{n}\cdot \frac{1}{N_n-1}\sum_{k=1}^{N_n-1}\sum_{k=\tau_s+1}^{\tau_{s+1}}f(X_k) 
+            \to \pi(x)\E_x\sbrc{\sum_{k=1}^{\tau_2}f(X_k)} \\
+            &= \pi(x)\E_x\sbrc{\sum_{y\in S}f(y)\#(\text{visits to y up to $\tau_2$})} \\
+            &= \pi(x)\sum_{y\in S}\mu_x(y)f(y) = \pi(x)\sum_{y\in S}\pi(x)\frac{\pi(y)}{\pi(x)}f(y) = \pi f. 
+        \end{split}
+    \end{equation*}
+    The convergence is due to $(N_n-1)/n\to \E_x\sbrc{\tau_x}^{-1} = \pi(x)$ almost surely 
+    by \cref{thm:visit_conv}, and $\sum_{k=\tau_s+1}^{\tau_{s+1}}f(X_k)$ are 
+    independent and identically distributed by the Markov property, which 
+    implies that 
+    \begin{equation*}
+        \frac{1}{N_n-1}\sum_{k=1}^{N_n-1}\sum_{k=\tau_s+1}^{\tau_{s+1}}f(X_k) 
+        \to \E_x\sbrc{\sum_{k=1}^{\tau_2}f(X_k)}
+    \end{equation*}
+    almost surely by the strong law of large number.
+\end{proof}
+
+\begin{lemma}\label{lem:transition_adjoint}
+    Let $S$ be a countable space and $P$ is irreducible and admits a stationary 
+    distribution. Consider the adjoint of $P$, $P^*$, on $\L^2(\pi)$. Then 
+    the followings are true. 
+    \begin{thmenum}
+        \item $P^*(x,y) = \pi(y)P(y,x)/\pi(x)$. 
+        \item $P^*$ is an irreducible transition operator with staionary distribution 
+        $\pi$. 
+    \end{thmenum}
+\end{lemma}
+\begin{proof}
+    By definition, $\inp{Pf}{g}_\pi = \inp{f}{P^*g}_\pi$ for all $f,g\in\L^2(\pi)$. 
+    Hence 
+    \begin{equation*}
+        \sum_{x\in S}\sum_{y\in S}P(x,y)f(y)g(x)\pi(x) = \sum_{x\in S}\sum_{y\in S}P^*(x,y)g(y)f(x)\pi(x). 
+    \end{equation*}
+    Plugging in $P^*(x,y) = \pi(y)P(y,x)/\pi(x)$ solves the above equation. 
+    (a) follows by the uniqueness of adjoint. Now 
+    \begin{equation*}
+        \sum_{y\in S}P^*(x,y) = \sum_{y\in S}\pi(y)P(y,x)/\pi(x) = 1.
+    \end{equation*} 
+    Since $P$ is irreducible, $P^*$ is also irreducible. Finally, 
+    \begin{equation*}
+        \sum_{x\in S}\pi(x)P^*(x,y) = \sum_{x\in S}\pi(x)\pi(y)P(y,x)/\pi(x) = \pi(y). 
+    \end{equation*}
+    This shows (b). 
+\end{proof}
+
+\begin{theorem}\label{thm:poisson_eq}
+    Let $S$ be a countable space and $P$ is irreducible and admits a stationary 
+    distribution $\pi$. Then for all $f\in\L^2(\pi)$ with $\pi f = 0$, the solution 
+    to the \textbf{Poisson equation} 
+    \begin{equation*}
+        (I-P)g = f
+    \end{equation*}
+    exists. Furthermore, if $g_1,g_2$ are both solutions, then there is some 
+    constant $c$ such that $g_1 = g_2+c$. 
+\end{theorem}
+\begin{proof}
+    By \cref{lem:transition_adjoint}, $P^*$ is again irreducible with stationary 
+    idstirbution $\pi$. We claim that the only solution in $\L^2(\pi)$ to the equation 
+    $(I-P^*)h = 0$ is constant. To see this, suppose that $h\in\L^2(\pi)$ is 
+    a solution. Then $P^*h = h$. By the Jensen's inequality, 
+    \begin{equation*}
+        ((P^*h)(x))^2 = \pth{\sum_{y\in S} P^*(x,y)h(y)}^2\leq \sum_{y\in S}P^*(x,y)h^2(y) 
+        = (P(h^2))(x). 
+    \end{equation*} 
+    This implies that $(P^*h)^2 \leq P^*(h^2)$. Also, since $P^*h = h$, $(P^*h)^2 = h^2$ 
+    and hence $h^2\leq P^*(h^2)$. But $\pi(h^2) \leq \pi P^*(h^2) = \pi (h^2)$. 
+    This implies that $P^*(h^2) = h^2 = (P^*h)^2$ $\pi$-almost surely and hence 
+    everywhere since $P^*$ is irreducible. 
+    
+    Now suppose that $h(x)\neq h(y)$. Let $X_n$ be the Markov chain governed 
+    by $P^*$ and $M_n = h(X_n)$. If $\F_n$ is the filtration generated by $X_n$, 
+    \begin{equation*}
+        \E\sbrc{M_{n+1}|\F_n} = \E\sbrc{h(X_{n+1})|X_n} = (P^*h)(X_n) = h(X_n) 
+        = M_n.
+    \end{equation*} 
+    $M_n$ is a martingale. By the martingale convergence theorem in $\L^2$, 
+    $M_n\to M$ almost surely for some random variable $M$. By the assumption, 
+    $P^*$ is irreducible and positive recurrent. This implies that $X_n$ will 
+    visit $x$ and $y$ infinitely many time and $M_n$ cannot converges to $M$, 
+    a contradiction. 
+
+    From above, we see that $\ker(I-P^*)$ is spanned by $\one$. Also, since $P^*$ 
+    is bounded, it is also closed. By the clsoed range theorem, $R(I-P) 
+    = (\ker(I-P)^*)^\perp = \ker(I-P^*)^\perp$. Since $\ker(I-P^*)$ is spanned 
+    by $\one$, $R(I-P)$ consists of all $f\in \L^2(\pi)$ such that $\inp{f}{\one}_{\pi} 
+    = \pi f = 0$. This gives the existence of the solution to the Poisson 
+    equation. 
+
+    Finally, suppose that $g_1,g_2$ are two solutions to the equation. Using 
+    the same argument as above, we see that $\ker(I-P)$ is spanned by $1$ as 
+    well. Since $(I-P)(g_1-g_2) = f - f = 0$, $g_1-g_2\in \ker(I-P)$ and 
+    $g_1 = g_2 + c$ for some constant $c$. 
+\end{proof}
+
+\begin{theorem}[Markov Chain Central Limit Theorem]
+    Let $X_n$ be an irreducible Markov chain governed by $P$ with 
+    stationary distribution $\pi$ and $f\in\L^2(\pi)$ such that 
+    $\pi f = 0$. Then 
+    \begin{equation*}
+        \frac{1}{\sqrt{n}}\sum_{k=0}^{n-1} f(X_k) \dto N(0, \sigma_f^2)
+    \end{equation*}
+    with $\sigma_f^2 = \Var_\pi(f(X_0)) + 2\sum_{k=1}^{\infty}\Cov_\pi(f(X_0), f(X_k))$. 
+\end{theorem}
+\begin{proof}
+    By assumption, there is $g\in \L^2(\pi)$ such that $(I-P)g = f$. Replacing 
+    $f$ by $g$, 
+    \begin{equation*}
+        \begin{split}
+            \frac{1}{\sqrt{n}}\sum_{k=0}^{n-1} f(X_k) &= \frac{1}{\sqrt{n}}\sum_{k=0}^{n-1}((I-P)g)(X_{k}) \\
+            &= \frac{1}{\sqrt{n}}\sum_{k=0}^{n-1}(g(X_k) - g(X_{k+1})) - \frac{1}{\sqrt{n}}\sum_{k=0}^{n-1}(Pg)(X_{k}) - g(X_{k+1}) \\ 
+            &= \frac{1}{\sqrt{n}}(g(X_0) - g(X_n)) + \sum_{k=0}^{n-1}\frac{g(X_{k+1}) - (Pg)(X_{k})}{\sqrt{n}}. 
+        \end{split}
+    \end{equation*}
+    Let 
+    \begin{equation*}
+        Z_{n,k} = \frac{g(X_{k}) - (Pg)(X_{k-1})}{\sqrt{n}}. 
+    \end{equation*}
+    Then if $\F_n$ is the filtration generated by $X_n$, 
+    \begin{equation*}
+        \E\sbrc{Z_{n,{k+1}}|\F_k} = \frac{1}{\sqrt{n}}\E\sbrc{g(X_{k+1}) - (Pg)(X_k)|X_k} 
+        = \frac{1}{\sqrt{n}}\pth{(Pg)(X_k) - (Pg)(X_k)} = 0. 
+    \end{equation*}
+    We see that $Z_{n,k}$ are martingale differences. Now 
+    \begin{equation*}
+        \E\sbrc{\max_{1\leq k\leq n}\abs{Z_{n,k}}} = \frac{1}{\sqrt{n}}\E\sbrc{\max_{1\leq k\leq n}\abs{g(X_{k}) - (Pg)(X_{k-1})}}\to 0
+    \end{equation*}
+    since all states are positive recurrent and $g\in\L^2(\pi)$. Also, 
+    \begin{equation*}
+        \sum_{k=1}^nZ_{n,k}^2 = \frac{1}{n}\sum_{k=1}^n(g(X_k) - (Pg)(X_{k-1}))^2 
+        \to \sigma^2\coloneq \E_\pi\sbrc{(g(X_1) - Pg(X_0))^2}
+    \end{equation*}
+    almost surely by the Markov chain strong law of large number. Hence 
+    by the martingale central limit theorem and that $\frac{1}{\sqrt{n}}(g(X_0)-g(X_n))\pto 0$,  
+    \begin{equation*}
+        \frac{1}{\sqrt{n}}\sum_{k=0}^{n-1} f(X_k) \dto N(0, \sigma^2)
+    \end{equation*}
+    Note that $g = \sum_{k=0}^\infty P^kf$. The variance is, by the tower property,  
+    \begin{equation*}
+        \begin{split}
+            \sigma^2 &= \E_\pi\sbrc{g(X_1)^2 + (Pg(X_0))^2 - 2g(X_1)Pg(X_0)} \\
+            &= \E_\pi\sbrc{g(X_0)^2} - \E_\pi\sbrc{(Pg(X_0))^2}\\ 
+            &= \E_\pi\sbrc{f(X_0)(g(X_0) + Pg(X_0))} 
+            = \E_\pi\sbrc{f(X_0)(2g(X_0) - f(X_0))} \\ 
+            &= 2\sum_{k=0}^\infty\E_\pi\sbrc{(P^kf(X_0))f(X_0)} - \Var_\pi\sbrc{f(X_0)} 
+            = 2\sum_{k=1}^\infty\Cov\sbrc{f(X_0), f(X_k)} + \Var\sbrc{f(X_0)}. 
+        \end{split}
+    \end{equation*}
+\end{proof}

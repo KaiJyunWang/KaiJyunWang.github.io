@@ -342,3 +342,124 @@
     \end{equation*}
     The proof is complete. 
 \end{proof}
+
+\begin{lemma}\label{lem:unif_int_prod_conv}
+    For $n\geq 1$, let $X_n$ and $Y_n$ be random variables such that 
+    \begin{thmenum}
+        \item $X_n\pto c$, 
+        \item $\set{Y_n},\set{X_nY_n}$ are uniformly integrable, 
+        \item $\E\sbrc{Y_n}\to 1$. 
+    \end{thmenum}
+    Then $\E\sbrc{X_nY_n}\to c$. 
+\end{lemma}
+\begin{proof}
+    It is equivalent to show that $\E\sbrc{(X_n-c)Y_n}\to 0$. Since 
+    $X_nY_n$ and $cY_n$ are unifomly integrable, $(X_n-c)Y_n$ is 
+    also uniformly integrable. Now by \cref{lem:L1_conv_unif_int_conv_prob}, 
+    it suffices to show that $(X_n-c)Y_n\pto 0$. Indeed, let $\epsilon>0$. 
+    If $\abs{X_n-c}\abs{Y_n}>\epsilon$, either $\abs{X_n-c}>\epsilon/M$ 
+    or $\abs{Y_n}>M$. Hence 
+    \begin{equation*}
+        \P(\abs{X_n-c}\abs{Y_n}>\epsilon)\leq \P(\abs{X_n-c}>\epsilon/M) + \P(\abs{Y_n}>M)
+        \to 0
+    \end{equation*}
+    as $M\to\infty$ since $X_n\pto c$ and $Y_n$ is unifomly integrable. 
+\end{proof}
+
+\begin{theorem}[Martingale Central Limit Theorem]
+    Let $X_{n,k}$, $1\leq k\leq m_n$ be an array of martingale differences, 
+    i.e., $\E\sbrc{X_{n,k+1}|\F_{n,k}} = 0$. Let $S_n = \sum_{k\leq m_n}X_{n,k}$. 
+    Suppose that 
+    \begin{equation*}
+        \E\sbrc{\max_{k\leq m_n}\abs{X_{n,k}}}\to 0\quad\text{and}\quad 
+        \sum_{k=1}^{m_n}X_{n,k}^2\pto \sigma^2. 
+    \end{equation*}
+    Then $S_n\dto N(0,\sigma^2)$. 
+\end{theorem}
+\begin{proof}
+    Without loss of generality, it suffices to prove the case where $\sigma = 1$. 
+    Consider 
+    \begin{equation*}
+        Y_{n,1} = X_{n,1}\quad\text{and}\quad 
+        Y_{n,k} = X_{n,k}\one\set{\sum_{j\leq k-1}X_{n,j}^2\leq 2}
+    \end{equation*}
+    for $k = 2,\ldots,m_n$. Now 
+    \begin{equation*}
+        \E\sbrc{Y_{n,k}|\F_{n,k-1}} = \E\sbrc{X_{n,k}|\F_{n,k-1}}\one\set{\sum_{j\leq k-1}X_{n,j}^2\leq 2} = 0.
+    \end{equation*}
+    $Y_{n,k}$ is also an array of martingale differences. Put 
+    \begin{equation*}
+        \tau_n = \inf\Set{k}{\sum_{j\leq k}X_{n,j}^2 > 2}\wedge m_n.
+    \end{equation*}
+    We have 
+    \begin{equation*}
+        \P(X_{n,k}\neq Y_{n,k}\text{ for some $k\leq m_n$}) = \P(\tau_n\leq m_n-1) 
+        \leq \P\pth{\sum_{j\leq m_n}X_{n,j}^2 > 2}\to 0
+    \end{equation*}
+    by the assumption that $\sum_{k=1}^{m_n}X_{n,k}^2\pto 1$. Let $T_n = \sum_{k\leq m_n}Y_{n,k}$. 
+    We have seen that $\abs{S_n-T_n}\pto 0$. It now suffices to show that 
+    $T_n\dto N(0,1)$. 
+    
+    Observe that 
+    \begin{equation*}
+        \log(1+ix) = \int_0^x\frac{i}{1+it}dt = \int_0^x t+i-\frac{t^2}{t-i}dt 
+    \end{equation*} 
+    since 
+    \begin{equation*}
+        \frac{i}{1+it} = \frac{1}{t-i} = \frac{t+i}{t^2+1} = t+i + (t+i)\pth{\frac{1}{1+t^2}-1} 
+        = t+i - \frac{(t+i)t^2}{1+t^2} = t+i-\frac{t^2}{t-i}.
+    \end{equation*}
+    Then 
+    \begin{equation*}
+        \abs{\log(1+ix)-(ix + x^2/2)}\leq \int_0^x\abs{\frac{t^2}{t-i}}dt 
+        = \int_0^x\frac{t^2}{\sqrt{1+t^2}}dt 
+        \leq \int_0^xt^2dt = \frac{\abs{x}^3}{3}
+    \end{equation*}
+    and 
+    \begin{equation*}
+        e^{ix} = (1+ix)e^{-\frac{x^2}{2}+r(x)}
+    \end{equation*}
+    with $\abs{r(x)}\leq \abs{x}^3$. 
+
+    Now, 
+    \begin{equation*}
+        \E\sbrc{\exp\pth{itT_n}} = \E\sbrc{\pth{\prod_{k=1}^{m_n}(1+itY_{n,k})}\exp\pth{-\frac{t^2}{2}\sum_{k=1}^{m_n}Y_{n,k}^2 + \sum_{k=1}^{m_n}r(tY_{n,k})}}.
+    \end{equation*}
+    For any fixed $t$, 
+    \begin{equation*}
+        \abs{\sum_{k=1}^{m_n}r(tY_{n,k})}\leq \sum_{k=1}^{m_n}\abs{t}^3\abs{Y_{n,k}}^3
+        \leq \abs{t}^3\sum_{k=1}^{m_n}\abs{X_{n,k}}^3
+        \leq \abs{t}^3\max_{1\leq k\leq m_n}\abs{X_{n,k}}\sum_{k=1}^{m_n}\abs{X_{n,k}}^2\pto 0 
+    \end{equation*}
+    by the assumption (The condition $\E\sbrc{\max_{k}\abs{X_{n,k}}}\to 0$ is 
+    the $\L^1$ convergence and this implies $\max_{1\leq k\leq m_n}\abs{X_{n,k}}\pto 0$). 
+    Since $\P(X_{n,k}\neq Y_{n,k}\text{ for some $k\leq m_n$})\to 0$ as $n\to\infty$, 
+    we obtain that 
+    \begin{equation*}
+        \exp\pth{-\frac{t^2}{2}\sum_{k=1}^{m_n}Y_{n,k}^2 + \sum_{k=1}^{m_n}r(tY_{n,k})}\pto \exp\pth{-\frac{t^2}{2}}.
+    \end{equation*}
+    Also, 
+    \begin{equation*}
+        \begin{split}
+            \E\sbrc{\prod_{k=1}^{m_n}(1+itY_{n,k})} &= \E\sbrc{\prod_{k=1}^{m_n-1}(1+itY_{n,k})\E\sbrc{(1+itY_{n,m_n})|\F_{n,m_n-1}}} \\
+            &= \E\sbrc{\prod_{k=1}^{m_n-1}(1+itY_{n,k})} = \cdots = 1. 
+        \end{split}
+    \end{equation*}
+    Notice that 
+    \begin{equation*}
+        \abs{\pth{\prod_{k=1}^{m_n}(1+itY_{n,k})}\exp\pth{-\frac{t^2}{2}\sum_{k=1}^{m_n}Y_{n,k}^2 + \sum_{k=1}^{m_n}r(tY_{n,k})}} = \abs{\exp(itT_n)} = 1. 
+    \end{equation*}
+    It remains to show that $\prod_{k=1}^{m_n}(1+itY_{n,k})$ is unifom integrable. 
+    Note that $\abs{1+ix}^2 = 1+x^2\leq e^{x^2}$. We have 
+    \begin{equation*}
+        \begin{split}
+            \prod_{k=1}^{m_n}\abs{1+itY_{n,k}} &= \abs{1+itX_{n,\tau_n}}\prod_{k=1}^{\tau_n-1}\abs{1+itX_{n,k}} 
+            \leq \exp\pth{\frac{t^2}{2}\sum_{k=1}^{\tau_n-1}X_{n,k}^2}\abs{1+itX_{n,\tau_n}} \\
+            &\leq e^{t^2}(1+\abs{t}\max_{k\leq m_n}\abs{X_{n,k}}).
+        \end{split}
+    \end{equation*}
+    Since $\max_{k\leq m_n}\abs{X_{n,k}}\to 0$ in $\L^1$, we see that 
+    $\prod_{k=1}^{m_n}\abs{1+itY_{n,k}}$ is indeed unifomly integrable. 
+    It follows by \cref{lem:unif_int_prod_conv} that $\E\sbrc{\exp\pth{itT_n}} 
+    \to e^{-t^2/2}$. The proof is complete. 
+\end{proof}

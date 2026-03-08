@@ -1,0 +1,268 @@
+\begin{definition}
+    Suppose that $S$ is countable. Let $x,y\in S$ and $P$ be the transition 
+    operator of a Markov chain on $S$. We say that $y$ is \textbf{accessible} from $x$ 
+    if there exists $n\in\Z_+$ such that $P^{n}(x,y) > 0$. We denote by 
+    $x\rightsquigarrow y$. The probability of visiting in finite time 
+    $\P_x(\tau_y<\infty)$ is denoted by $\rho_{xy}$. 
+\end{definition}
+
+\begin{definition}
+    Suppose that $S$ is countable. Let $x,y\in S$ with a Markov chain on $S$. We say that $x$ 
+    \textbf{communicates} with $y$ if $x\rightsquigarrow y$ and $y\rightsquigarrow x$. We 
+    denote by $x\leftrightsquigarrow y$. 
+\end{definition}
+
+\begin{proposition}
+    Let $S$ be a countable space. Then $\leftrightsquigarrow$ is a equivalence 
+    relation on $S$. 
+\end{proposition}
+\begin{proof}
+    $x\leftrightsquigarrow x$ and $x\leftrightsquigarrow y$ implying $y\leftrightsquigarrow x$ 
+    are trivial. If $x\leftrightsquigarrow y$ and $y\leftrightsquigarrow z$, 
+    then 
+    \begin{equation*}
+        P^{m+n}(x,z) = P^m(x,y)P^n(y,z) > 0
+    \end{equation*}
+    for some $m,n\in\Z_+$ by the Chapman-Kolmogorov equation. We conclude that 
+    $\leftrightsquigarrow$ is indeed an equivalence relation. 
+\end{proof}
+
+\begin{definition}
+    Let $S$ be a countable space. The \textbf{communicating class} of $x$ is the 
+    equivalence class defined by $\leftrightsquigarrow$, denoted by $C[x]$. 
+\end{definition}
+
+\begin{definition}
+    Let $S$ be a countable space. $x\in S$ is \textbf{absorbing} if $p(x, x) = 1$. 
+\end{definition}
+
+\begin{theorem}\label{thm:multiple_hitting}
+    Let $S$ be a countable space and $\tau^{(0)}_y = 0$. Consider the $k$-th hitting 
+    time defined recursively by 
+    \begin{equation*}
+        \tau^{(k)}_y = \inf\Set{n>\tau^{(k-1)}_y}{X_n = y}.
+    \end{equation*}
+    Then 
+    \begin{equation*}
+        \P_x(\tau^{(k)}_y<\infty) = \rho_{xy}\rho_{yy}^{k-1}. 
+    \end{equation*}
+\end{theorem}
+\begin{proof}
+    We prove the statement by induction on $k$. If $k=1$, the result is trivial. 
+    Suppose that the statement holds for $k-1$. Let 
+    \begin{equation*}
+        Y = \one\set{\text{there is }n>0\text{ such that $X_n = y$}},\text{ and }
+        \tau = \tau_y^{(k-1)}. 
+    \end{equation*} 
+    By the strong Markov property and the induction hypothesis, 
+    \begin{equation*}
+        \begin{split}
+            \P_x(\tau^{(k)}_y<\infty) &= \E_x\sbrc{\one\set{\tau^{(k)}_y<\infty}} 
+            = \E_x\sbrc{Y\circ\theta^\tau\one\set{\tau<\infty}} 
+            = \E_x\sbrc{\E_{X_\tau}\sbrc{Y}\one\set{\tau<\infty}} \\
+            &= \E_x\sbrc{\E_y\sbrc{Y}\one\set{\tau<\infty}} 
+            = \E_x\sbrc{\one\set{\tau<\infty}}\E_y\sbrc{\one\set{\tau^{(1)}_y<\infty}} \\
+            &= \P_x(\tau^{(k-1)}_y<\infty)\P_y\sbrc{\tau^{(1)}_y<\infty} 
+            = \rho_{xy}\rho_{yy}^{k-1}.
+        \end{split}
+    \end{equation*}
+    The proof is complete. 
+\end{proof}
+
+\begin{definition}
+    Let $S$ be a countable space and $x\in S$. We say that $x\in S$ is 
+    \textbf{recurrent} if $\rho_{xx} = 1$ and \textbf{transient} if 
+    $\rho_{xx}<1$.  
+\end{definition}
+
+\begin{proposition}
+    Let $S$ be a countable space, $x\in S$ and $\tau_x$ be the hitting time of $x$. 
+    Then the followings are true: 
+    \begin{thmenum}
+        \item If $x$ is recurrent, then $\P_x(X_n = x\text{ i.o.}) = 1$. 
+        \item If $x$ is transient, then 
+        \begin{equation*}
+            \sum_{n\geq 0}\one\set{X_n = x}\sim 1 + \text{Geom}(1-\rho_{xx}). 
+        \end{equation*}
+    \end{thmenum}
+\end{proposition}
+\begin{proof}
+    For (a), by \cref{thm:multiple_hitting}, 
+    \begin{equation*}
+        \P_x(X_n = x\text{ i.o.}) = \lim_{k\to\infty}\P_x(\tau_x^{(k)}<\infty) = \rho_{xx}^k = 1.
+    \end{equation*}
+    
+    For (b), using \cref{thm:multiple_hitting} again, 
+    \begin{equation*}
+        \begin{split}
+            \P_x\pth{\sum_{n\geq 0}\one\set{X_n = x} = k+1} &= \P_x\pth{\sum_{n\geq 1}\one\set{X_n = x} = k} 
+            = \P_x(\tau_x^{(k)}<\infty, \tau_x^{(k+1)}=\infty) \\ 
+            &= \rho_{xx}^k(1-\rho_{xx}<\infty)
+        \end{split}
+    \end{equation*}
+    where the last equality utilizes the strong Markov property. Hence 
+    \begin{equation*}
+        \sum_{n\geq 0}\one\set{X_n = x} \sim 1 + \text{Geom}(1-\rho_{xx}). 
+    \end{equation*}
+\end{proof}
+\begin{remark}
+    The expected number of hitting is also available. Let $x,y\in S$ and the number of 
+    hitting $y$ be 
+    \begin{equation*}
+        N(y) = \sum_{n=1}^\infty\one\set{X_n=y}. 
+    \end{equation*}
+    Then using the formula from \cref{thm:multiple_hitting}, 
+    \begin{equation*}
+        \begin{split}
+            \E_x\sbrc{N(y)} &= \E_x\sbrc{\sum_{k=1}^{N(y)}1} = \E_x\sbrc{\sum_{k=1}^{\infty}\one\set{N(y)\geq k}} 
+            = \sum_{k=1}^\infty\P_x(N(y)\geq k) = \sum_{k=1}^\infty\P_x(\tau_y^{(k)}<\infty) \\
+            &= \sum_{k=1}^\infty\rho_{xy}\rho_{yy}^{k-1} 
+            = \frac{\rho_{xy}}{1-\rho_{yy}}.
+        \end{split}
+    \end{equation*}
+    As a direct consequence, we have the following observations: 
+    \begin{thmenum}
+        \item If $\rho_{xy}>0$ and $y$ is recurrent, then $\E_x\sbrc{N(y)} = \infty$. 
+        \item If $\rho_{xy}>0$ and $y$ is transient, then $\E_x\sbrc{N(y)} < \infty$. 
+        \item If $\rho_{xy}=0$, then $\E_x\sbrc{N(y)} = 0$. 
+    \end{thmenum}
+    Taking $x = y$, we see that $y$ is recurrent if and only if $\E_y\sbrc{N(y)} 
+    = \sum_{k=1}^\infty P^k(y,y) = \infty$ where $P$ is the transition operator. 
+\end{remark}
+
+\begin{example}
+    Consider a random walk $S_n$ on $\Z$ with increments $\xi_i$ such that 
+    $\P(\xi_i = 1) = p$ and $\P(\xi_i = -1) = 1-p$. Let $S_0 = x$. Now, 
+    \begin{equation*}
+        \begin{split}
+            \E_x\sbrc{N(x)} &= \sum_{k=1}^\infty P^k(x,x) = \sum_{k=1}^\infty P^{2k}(x,x) 
+            = \sum_{k=1}^\infty \binom{2k}{k}p^k(1-p)^k \\
+            &= \sum_{k=1}^\infty \frac{\sqrt{4\pi k}\pth{\frac{2k}{e}}^{2k}(1+O(1/k))}{4\pi k \pth{\frac{k}{e}}^{2k}(1+O(1/k))}p^k(1-p)^k 
+            = \sum_{k=1}^\infty \frac{1+O(1/k)}{\sqrt{4\pi k}}4^kp^k(1-p)^k
+        \end{split}
+    \end{equation*} 
+    by the Stirling formula. If $p = 1/2$, then the above sum diverges. We 
+    see that $x$ is recurrent. If $p\neq 1/2$, then the above sum converges 
+    and $x$ is transient. 
+\end{example}
+
+\begin{example}
+    Consider $\xi_i = (\pm 1,\ldots, \pm 1)\in\Z^d$ with equal probabilities on 
+    $(\xi_i)_j = \pm 1$ for $j=1,\ldots d$ and each coordinate is independent. 
+    Then $S_n = \sum_{i\leq n} \xi_i$ is a symmetric random walk on $\Z^d$. 
+    Let $S_n = 0$. Using the Stirling formula again, 
+    \begin{equation*}
+        \sum_{k=1}^\infty P^{2k}(0,0) = \sum_{k=1}^\infty\sbrc{\binom{2k}{k}4^{-k}}^d 
+        = \sum_{k=1}^\infty\sbrc{\frac{1+O(1/k)}{\sqrt{4\pi k}}}^d. 
+    \end{equation*}
+    For $d = 1,2$, the sum diverges and for $d\geq 3$ the sum converges. 
+    Hence $0$ is transient for $d\geq 3$ and is recurrent for $d = 1,2$. 
+\end{example}
+
+\begin{theorem}\label{thm:recurrent_class}
+    Let $S$ be a countable space. If $x\in S$ is recurrent and $x\rightsquigarrow y$, 
+    then $y$ is recurrent and $x\leftrightsquigarrow y$ with $\rho_{xy} 
+    = \rho_{yx} = 1$. 
+\end{theorem}
+\begin{proof}
+    Observe that we can choose a path from $x$ to $y$, $x_0 = x,\ldots,x_k = y$ 
+    with $x_i\neq x$ for all $i = 1,\ldots k$ that happens with positive probability. 
+    If $\rho_{yx}<1$, then 
+    \begin{equation*}
+        \P_x(\tau_{x}=\infty) \geq p(x_0,x_1)\cdots p(x_{k-1},x_k)(1 - \rho_{yx}) > 0.
+    \end{equation*}
+    Then $\rho_{xx} < 1$, which is a contradiction. Hence $\rho_{yx} = 1$ 
+    and $x\leftrightsquigarrow y$. Also, there are $m_{xy},m_{xx},m_{yx}\in \Z_+$ 
+    such that $P^{m_{xy}}(x,y),P^{m}(x,x),P^{m_{yx}}(y,x)>0$. By the 
+    Chapman-Kolmogorov equation, 
+    \begin{equation*}
+        P^{m_{xy}+m+m_{yx}}(y,y)\geq P^{m_{xy}}(x,y)P^{m}(x,x)P^{m_{yx}}(y,x)
+    \end{equation*}
+    Summing over all possible $m$, 
+    \begin{equation*}
+        \sum_{m=0}^\infty P^{m}(y,y)\geq \sum_{m=0}^\infty P^{m_{xy}}(x,y)P^{m}(x,x)P^{m_{yx}}(y,x) 
+        = P^{m_{xy}}P^{m_{yx}}(y,x) \sum_{m=0}^\infty P^{m}(x,x) = \infty
+    \end{equation*}
+    since $x$ is recurrent. Hence $y$ is recurrent as well. Switching the 
+    roles of $x$ and $y$ gives $\rho_{xy} = 1$. 
+\end{proof}
+
+\begin{definition}
+    A non-empty subset $C\subset S$ is \textbf{closed} if $\rho_{xy} = 0$ 
+    for all $x\in C$ and $y\in C^c$. 
+\end{definition}
+
+\begin{definition}
+    A non-empty subset $C\subset S$ is \textbf{irreducible} if for all $x,y\in C$, 
+    $\rho_{xy}>0$ and $\rho_{yx}>0$. 
+\end{definition}
+\begin{remark}
+    If $C$ is irreducible and $x\in C$ is recurrent, then all $y\in C$ 
+    are recurrent by \cref{thm:recurrent_class}. 
+\end{remark}
+
+\begin{proposition}
+    Let $S$ be a countable space. If $x\in S$ is recurrent, then $C[x]$ is closed. 
+\end{proposition}
+\begin{proof}
+    Let $y\in C[x]$ and $z\notin C[x]$. If $\rho_{yz} > 0$, then $y\rightsquigarrow z$. 
+    Since $y$ is recurrent, this implies that $z$ is recurrent and $\rho_{yz} = \rho_{zy} = 1$ 
+    by \cref{thm:recurrent_class}. Then $z\in C[x]$, a contradiction. 
+    Hence $\rho_{yz} = 0$ and $C[x]$ is closed. 
+\end{proof}
+
+\begin{proposition}\label{prop:recurrent_closed}
+    Let $S$ be a countable space. If $C\subset S$ is closed and finite, then 
+    $C$ has a recurrent state.  
+\end{proposition}
+\begin{proof}
+    Suppose that all states in $C$ are transient. Then for $x,y\in C$, 
+    \begin{equation*}
+        \E_x\sbrc{N(y)} = \frac{\rho_{xy}}{1-\rho_{yy}} < \infty. 
+    \end{equation*}
+    This implies that 
+    \begin{equation*}
+        \infty > \sum_{y\in C}\E_x\sbrc{N(y)} = \sum_{y\in C}\sum_{k=1}^\infty P^k(x,y) 
+        = \sum_{k=1}^\infty\sum_{y\in C} P^k(x,y) = \sum_{k=1}^\infty 1 = \infty, 
+    \end{equation*}
+    which is absurd. Hence there is at least one recurrent state. 
+\end{proof}
+
+\begin{theorem}[Canonical Decomposition]
+    Let $S$ be a countable space. Then $S = T\cup C_1\cup\cdots\cup C_n$ where 
+    $T$ is the set of transient states and $C_1,\ldots,C_n$ are 
+    closed and irreducible recurrent states. 
+\end{theorem}
+\begin{proof}
+    Let $C = S-T$. If $C = \varnothing$, then we are done. Suppose 
+    that $C$ is non-empty. By \cref{prop:recurrent_closed}, 
+    $C$ is closed. We need to prove that if $C[x],C[y]\subset C$ and
+    $C[x]\cap C[y]\neq \varnothing$, then $C[x] = C[y]$. 
+    To see this, note that if $z\in C[x]\cap C[y]$, then 
+    for any $x\in C[x]$ and $y\in C[y]$, $x\leftrightsquigarrow z 
+    \leftrightsquigarrow y$. This implies that $x\in C[y]$ 
+    and $y\in C[x]$. Hence $C[x] = C[y]$. The proof is complete. 
+\end{proof}
+
+\begin{example}[Branching Process]
+    Let $Z_{t,k}$ be a independent and identically distributed on $\Z_+$ 
+    with $\P(Z_{t,k} = i) = p_i$. $X_{t+1} = \sum_{k=1}^{X_t}Z_{t,k}$ with 
+    $X_0 = 1$. Suppose $\mu = \E\sbrc{Z_{t,k}}<\infty$ and $\pi = \P(X_t\to 0)$ 
+    is the probability of dying out. Now $\P_k(X_t\to 0) = \pi^k$ since $k$ 
+    branches are independent. Then 
+    \begin{equation*}
+        \pi = \P_1(X_t\to 0) = \sum_{k=0}^\infty \P_1(X_t \to 0, X_1 = k) 
+        = \sum_{k=0}^\infty p_k\pi^k = \E\sbrc{\pi^Z}
+    \end{equation*}
+    where $\P(Z = k) = p_k$. Now set $g(x) = \E\sbrc{x^Z} = \sum_{k=0}^\infty p_kx^k$.
+    Observe that $g$ is increasing and convex on $[0,1]$. $\pi$ is a solution 
+    to the fixed point of $g$. We claim that $\pi$ is the smallest fixed point 
+    of $g$. Notice that $\E\sbrc{x^{X_t}} = g^t(x)$ where $g^t$ is understood 
+    as acting $g$ $t$-times. Since $0$ is absorbing, $g^t(0) = \P_1(X_t = 0)$ 
+    is increasing in $t$ and $\P_1(X_t = 0\text{ for some $t$}) = \pi$. 
+    If $x\in [0,1]$ is a fixed point,  
+    \begin{equation*}
+        \pi = \lim_{t\to\infty}g^t(0)\leq \lim_{t\to\infty}g^t(x) = x. 
+    \end{equation*}
+    This proves that $\pi$ is the smallest fixed point. 
+\end{example}

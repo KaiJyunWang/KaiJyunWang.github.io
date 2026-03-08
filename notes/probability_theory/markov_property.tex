@@ -1,0 +1,327 @@
+\begin{definition}
+    Let $(S, \S)$ be a measurable space. A \textbf{transition kernel} 
+    (or \textbf{Markov kernel}) is a function $p:(S,\S)\to[0,1]$ such that 
+    \begin{thmenum}
+        \item For all $x\in S$, $B\mapsto p(x, B)$ is a probability measure. 
+        \item For all $B\in\S$, $x\mapsto p(x, B)$ is $\S$-measurable. 
+    \end{thmenum}
+\end{definition}
+\begin{remark}
+    If $S$ is countable, then it is equivalent to define the Markov kernel 
+    as $p:S^2\to [0,1]$ with $\sum_{y\in S}p(x,y) = 1$. 
+\end{remark}
+
+\begin{definition}
+    A process $X_n$ on $(S,\S)$ is a \textbf{Markov chain} 
+    with Markov kernels $p_n$ with respect to a filtration $\F_n$ if 
+    \begin{equation*}
+        \P(X_{n+1}\in B|\F_n) = p_n(X_n, B)
+    \end{equation*}
+    for all $B\in\S$. 
+\end{definition}
+
+\begin{definition}
+    Let $X_n$ be a Markov chain on $S$ with kernel $p$. The \textbf{transition 
+    operator} $P$ is given by 
+    \begin{equation*}
+        (Pf)(x) = \int p(x,dy)f(y).
+    \end{equation*} 
+    The right multiplication is defined by 
+    \begin{equation*}
+        (P'\mu)(B) = (\mu P)(B) = \int \mu(dx)p(x,B).
+    \end{equation*}
+\end{definition}
+\begin{remark}
+    One can think the right multiplication as the evolution of the 
+    probability measure over time. In the case where $S$ is 
+    countable, the operator has a matrix represntation with 
+    rows summing up to $1$. Another observation is that when $S$ is 
+    countable, we can associate $P$ with a matrix (possibly with infinitely 
+    many entries) with row summing up to $1$. 
+\end{remark}
+\begin{remark}
+    One can regard the measures as dual of the functions. Thus we also 
+    use $\mu f$ to denote the expectation of $f$ under $\mu$. 
+\end{remark}
+
+\begin{definition}
+    A Markov chain $X_n$ is said to be \textbf{time-homogeneous} if the 
+    transition kernels are invariant, i.e., $p_n = p$. 
+\end{definition}
+\begin{remark}
+    In the rest of the note, unless explicitly pointed out, we will 
+    assume that the Markov chains are time-homogeneous. 
+\end{remark}
+\begin{remark}
+    Every time-inhomogeneous Markov chain can be integrated into a time-homogeneous 
+    one by considering $(X_n,n)$ on $(S,\S)\times (T,\T)$. 
+\end{remark}
+
+\begin{definition}
+    A space $(S,\S)$ is said to be \textbf{Borel} if it is isomorphic in terms of 
+    measurability to $(\R,\B)$. In other words, there is a bijection $\phi:(S,\S)\to (\R,\B)$ 
+    such that $\phi$ and $\phi^{-1}$ are measurable. 
+\end{definition}
+\begin{remark}
+    Since there is also a measurable bijection between $\R$ and $[0,1]$. It is equivalent 
+    that $S$ is Borel and that there is a measurable bijection between $S$ and $[0,1]$. 
+\end{remark}
+
+\begin{theorem}
+    Let $X_n$ be a Markov process taking value in a Borel space $(S,\S)$ with 
+    the Markov kernel $p$. Let $\mu$ be the initial distribution of $X_0$. Then 
+    the finite-dimensional distribution defined by 
+    \begin{equation*}
+        \P_{\mu}(X_j\in B_j|0\leq j\leq n) = \int_{B_0}\mu(dx_0)\int_{B_1}p(x_0,dx_1)\cdots\int_{B_n}p(x_{n-1},dx_n)
+    \end{equation*}
+    extends uniquely to a distribution on $S^{\Z_+}$. 
+\end{theorem}
+\begin{proof}
+    Note that the space is Borel. Thus it suffices to show the result when 
+    $(S,\S) = (\R,\B)$. For every $n$, let $A = (\prod_{j=1}^n B_j)\times\R 
+    \subset S^{n+1}$. Then 
+    \begin{equation*}
+        \begin{split}
+            \P_{\mu}(X_j\in A_j, X_{n+1}\in \R|0\leq j\leq n) 
+            &= \int_{B_0}\mu(dx_0)\int_{B_1}p(x_0,dx_1)\cdots\int_{B_n}p(x_{n-1},dx_n)\int_{\R}p(x_n,dx_{n+1}) \\
+            &= \int_{B_0}\mu(dx_0)\int_{B_1}p(x_0,dx_1)\cdots\int_{B_n}p(x_{n-1},dx_n) \\
+            &= \P_{\mu}(X_j\in A_j|0\leq j\leq n).
+        \end{split}
+    \end{equation*}
+    Hence the probability measures are consistent. By the Kolmogorov extension 
+    theorem, the finite-dimensional distributions extends uniquely to a 
+    distribution defined on $S^{\Z_+}$. 
+\end{proof}
+\begin{remark}
+    The notation $\P_\mu$ denotes the case where the initial distribution is $\mu$. 
+    When the initial distribution is a fixed constant $X_0 = x$, we also write 
+    $\P_{\delta_x} = \P_x$. Notice also that 
+    \begin{equation*}
+        \P_\mu(B) = \int_S \mu(dx)\P_x(B). 
+    \end{equation*} 
+    We also define the expectation $\E_\mu$ in the way 
+    \begin{equation*}
+        \E_\mu\sbrc{f(\set{X_n})} = \int fd\P_\mu
+    \end{equation*}
+    where $f:S^{\Z_+}\to \R$ is measurable.  
+\end{remark}
+
+\begin{proposition}
+    Let $X_n$ be a process on a Borel space $S$. Then the followings are equivalent:
+    \begin{thmenum}
+        \item $X_n$ is a Markov chain with kernels $p$ on $S$. 
+        \item There is a measurable function $f:S\times [0,1]\to S$ and random variables 
+        $\xi_n\iidsim U[0,1]$ independent of $X_0$ such that $X_{n+1} = f(X_n, \xi_{n+1})$ 
+        almost surely. 
+    \end{thmenum}  
+\end{proposition}
+\begin{proof}
+    Suppose (b) holds. Then 
+    \begin{equation*}
+        \P(X_{n+1}\in B|\F_n) = \P(f(X_n, \xi_{n+1}\in B)|\F_n) 
+        = p(X_n, B)
+    \end{equation*}
+    where $p(x, B) = \P(f(x, \xi)\in B)$ is the kernel. Thus $X_n$ is a Markov 
+    chain. 
+
+    Conversely, suppose that $X_n$ is a Markov chain with kernel $p$. Since $S$ 
+    is Borel, it suffices to prove the case where $S = [0,1]$. Define
+    \begin{equation*}
+        f(x, \xi) = \sup\Set{y\in [0,1]}{p(x, [0, y])< \xi}.
+    \end{equation*}
+    Observe that $f$ is measurable in $[0,1]^2$. Now take $\xi\sim U[0,1]$. 
+    \begin{equation*}
+        \P(f(x, \xi)\leq z) = \P(\xi\leq p(x, [0,z])) = p(x, [0,z]). 
+    \end{equation*}
+    Hence $f(x, \xi)$ has the probability measure $p(x,\cdot)$. Then by the Markov 
+    property, 
+    \begin{equation*}
+        \P(X_{n+1}\in B|\F_n) = p(X_n, B) = \P(f(X_n, \xi_{n+1})\in B|X_n) 
+    \end{equation*}
+    for all $B$. This implies that $X_{n+1} = f(X_n, \xi_{n+1})$ in distribution. 
+    Now iterating by $\tilde{X}_n = f(\tilde{X}_{n-1},\xi_n)$ from $X_0$ to get $\set{\tilde{X}_n}$. 
+    We may find the replication of $\set{\tilde{X}_n}$ on the space of $\set{X_n}$ 
+    such that they equals almost surely. The proof is complete. 
+\end{proof}
+
+\begin{proposition}
+    Let $X_n$ be a Markov chain with kernel $p$ in $(S,\S)$ with respect to the natural 
+    filtration $\F_n = \sigma(X_0,\ldots,X_n)$ and $\mu$ be a distribution on 
+    $S$. Then $X_n$ is a Markov chain under $\P_\mu$. That is, for all $B\in\S$, 
+    \begin{equation*}
+        \P_\mu(X_{n+1}\in B|\F_n) = p(X_n, B).
+    \end{equation*}
+\end{proposition}
+\begin{proof}
+    To prove the result, we need to show that 
+    \begin{equation*}
+        \E\sbrc{\one\set{X_{n+1}\in B}\one_A} = \E\sbrc{p(X_n, B)\one_A}
+    \end{equation*}
+    for all $A\in\F_n$. If $A = \set{X_0\in B_0,\ldots,X_n\in B_n}$, then
+    \begin{equation*}
+        \begin{split}
+            \E\sbrc{\one\set{X_{n+1}\in B}\one_A} 
+            &= \int_{B_0}\mu(dx_0)\int_{B_1}p(x_0,dx_1)\cdots\int_{B_n}p(x_{n-1},dx_n)\int_S p(x_n,dx_{n+1})\one_B(x_{n+1}) \\ 
+            &= \int_{B_0}\mu(dx_0)\int_{B_1}p(x_0,dx_1)\cdots\int_{B_n}p(x_{n-1},dx_n) p(x_n,B)
+        \end{split}
+    \end{equation*}
+
+    We claim that for every bounded measurable $f:S\to\R$, we have 
+    \begin{equation*}
+        \E\sbrc{\one_Af(X_n)} = \int_{B_0}\mu(dx_0)\int_{B_1}p(x_0,dx_1)\cdots\int_{B_n}p(x_{n-1},dx_n)f(x_n). 
+    \end{equation*}
+    Suppose first that $f = \one_B$ where $B\in\S$. Then 
+    \begin{equation*}
+        \begin{split}
+            \E\sbrc{\one_A\one_B(X_n)} &= \E\sbrc{\one\set{X_0\in B_0,\ldots,X_{n-1}\in B_{n-1},X_n\in B_n\cap B}}  \\ 
+            &= \int_{B_0}\mu(dx_0)\int_{B_1}p(x_0,dx_1)\cdots\int_{B_n\cap B}p(x_{n-1},dx_n) \\ 
+            &= \int_{B_0}\mu(dx_0)\int_{B_1}p(x_0,dx_1)\cdots\int_{B_n}p(x_{n-1},dx_n)\one_B(x_n).
+        \end{split}
+    \end{equation*}
+    By linearity, this extends to the simple functions. For a general bounded measurable $f$. 
+    Write $f = f^+ - f^-$ and approximate each part by simple function. By the 
+    monotone convergence theorem, the claim follows. As a result, 
+    \begin{equation*}
+        \E\sbrc{\one\set{X_{n+1}\in B}\one_A} = \E\sbrc{p(X_n, B)\one_A}
+    \end{equation*}
+    for every $A$ of the form $\set{X_0\in B_0,\ldots,X_n\in B_n}$. 
+
+    Next, observe that all $A\in\F_n$ of the form $\set{X_0\in B_0,\ldots,X_n\in B_n}$  
+    forms a $\pi$-system and all $A\in\F_n$ such that $\E\sbrc{\one\set{X_{n+1}\in B}\one_A} = \E\sbrc{p(X_n, B)\one_A}$ 
+    forms a $\lambda$-system. It follows by the Dynkin's $\pi$-$\lambda$ theorem 
+    that $\E\sbrc{\one\set{X_{n+1}\in B}\one_A} = \E\sbrc{p(X_n, B)\one_A}$ holds 
+    for all $A\in\F_n$ since the events of the form $\set{X_0\in B_0,\ldots,X_n\in B_n}$ 
+    generates $\F_n$. The proof is complete. 
+\end{proof}
+\begin{remark}
+    As a result, we also have 
+    \begin{equation*}
+        \E\sbrc{f(X_{n+1})|\F_n} = \int_S p(X_n, dy)f(y)
+    \end{equation*}
+    for all bounded measurable $f:S\to\R$. To see this, note that when $f$ is 
+    a characteristic function, the statement collapse to the proposition. 
+    By linearity, the statement holds for all simple $f$. For all bounded 
+    measurable $f$, write $f = f^+ - f^-$ and approximate each term using 
+    simple functions. We see that the statement follows by the monotone 
+    convergence theorem. 
+\end{remark}
+\begin{remark}
+    This also implies that 
+    \begin{equation*}
+        \E_\mu\sbrc{\prod_{i=0}^mf_i(X_i)} = \int \mu(dx_0)f_0(x_0)\int p(x_0,dx_1)f_1(x_1)\cdots\int p(x_{m-1},dx_m)f(x_m).
+    \end{equation*}
+    To see this, note that 
+    \begin{equation*}
+        \E\sbrc{f_m(X_m)|\F_{m-1}} = \int p(x_{m-1},dx_m)f(x_m)
+    \end{equation*}
+    and 
+    \begin{equation*}
+        \E_\mu\sbrc{\prod_{i=0}^mf_i(X_i)} = \int \mu(dx_0)\E\sbrc{f_0\E\sbrc{\cdots|\F_1}|\F_0}.
+    \end{equation*}
+    The result follows by induction. 
+\end{remark}
+
+\begin{definition}
+    Let $\Omega = S^{\Z_+}$ and $\omega = (\omega_1,\ldots)\in\Omega$. The \textbf{shift operator} 
+    is given by $\theta:\theta\mapsto(\omega_2,\ldots)$. 
+\end{definition}
+
+\begin{theorem}\label{thm:markov_property}
+    Let $X_n$ be a Markov chain on $S$, $\Omega = S^{\Z_+}$ and $Y:\Omega\to\R$ be bounded 
+    and measurable. Then 
+    \begin{equation*}
+        \E_\mu\sbrc{Y\circ\theta^n|\F_n} = \E_{X_n}\sbrc{Y}. 
+    \end{equation*}  
+\end{theorem}
+\begin{proof}
+    We suppose first that $Y = \prod_{0\leq i\leq m}f_i(X_i)$. Let $A = \prod_{i=0}^nA_i$ 
+    where $A_i\subset S$ is measurable. Then 
+    \begin{equation*}
+        \begin{split}
+            \E_{\mu}\sbrc{\prod_{0\leq i\leq m}f_i(X_{m+i})\one_A} 
+            &= \int_{A_0}\mu(dx_0)\int_{A_1} p(x_0,dx_1) \cdots\int_{A_n}p(x_{n-1},dx_n)f_0(x_n) \\
+            &\quad \cdot\int p(x_n,dx_{n+1})f_1(x_{n+1})\cdots\int p(x_{n+m-1},dx_{n+m})f_m(x_{n+m}) \\ 
+            &= \E_\mu\sbrc{\E_{X_n}\sbrc{\prod_{0\leq i\leq m}f_i(X_{i})}\one_A}
+        \end{split}
+    \end{equation*}
+    Observe that the sets $A$ satisfying the equation above forms a $\lambda$-system 
+    and that the sets of the form $A = \prod_{i=0}^nA_i$ forms a $\pi$-system. It follows 
+    that the above equation holds for all $A\in\F_n$ by Dynkin's $\pi$-$\lambda$ 
+    theorem. 
+
+    Next, observe that all the bounded measurable $Y$ can be approximated by the 
+    linear combination of the functions of the form $\set{\prod_{0\leq i\leq m}f_i(x_i)}_m$. 
+    The equation thus holds for general $Y$. The proof is complete. 
+\end{proof}
+
+\begin{corollary}
+    Let $X_n$ be a Markov chain and $\F_n$ be the filtration generated by $X_n$. 
+    If $Z\in\L^1$ and is $\sigma(X_n,\ldots)$-measurable, then 
+    \begin{equation*}
+        \E\sbrc{Z|\F_n} = \E\sbrc{Z|X_n}. 
+    \end{equation*} 
+\end{corollary}
+\begin{proof}
+    By the assumption, we can write $Z = Y\circ\theta^n$. Then \cref{thm:markov_property} 
+    implies that $\E\sbrc{Z|\F_n} = \E\sbrc{Y\circ \theta^n|\F_n} = \E_{X_n}\sbrc{Y} = \E\sbrc{Z|X_n}$. 
+\end{proof}
+
+\begin{corollary}[Chapman-Kolmogorov Equation]
+    Let $X_n$ be a Markov chain. Then 
+    \begin{equation*}
+        \P_\mu(X_{m+n}\in B) = \E_\mu\sbrc{\P_{X_m}(X_n\in B)}. 
+    \end{equation*}
+\end{corollary}
+\begin{proof}
+    Note that 
+    \begin{equation*}
+        \P_x(X_{m+n}\in B) = \E_x\sbrc{\P_x(X_{m+n}\in B|\F_m)} = \E_x\sbrc{\P_{X_m}(X_n\in B)}.
+    \end{equation*}
+    Then
+    \begin{equation*}
+        \P_\mu(X_{m+n}\in B) = \int \P_x(X_{m+n}\in B)\mu(dx) = \int \E_x\sbrc{\P_{X_m}(X_n\in B)}\mu(dx) = \E_\mu\sbrc{\P_{X_m}(X_n\in B)}.
+    \end{equation*}
+\end{proof}
+
+\begin{proposition}
+    Let $\F_n$ be a filtration and $\tau$ be a stopping time. 
+    Then 
+    \begin{equation*}
+        \F_\tau = \Set{A}{A\cap\set{\tau = n}\in\F_n}
+    \end{equation*}
+    is a $\sigma$-algebra. 
+\end{proposition}
+\begin{proof}
+    It is clear that $\varnothing\in\F_\tau$ and for 
+    $A\in\F_\tau$, $A^c\cap\set{\tau = n} 
+    = (A\cup\set{\tau = n}^c)^c\in\F_n$. For $A_i\nearrow A$ 
+    with $A_i\in\F_n$, 
+    \begin{equation*}
+        A\cap\set{\tau = n} = \cup_i(A_i\cap\set{\tau = n})\in\F_n.
+    \end{equation*}
+    We conclude that $\F_\tau$ is a $\sigma$-algebra. 
+\end{proof}
+
+\begin{theorem}[Strong Markov Property]
+    Let $X$ be a Markov process and $\tau$ be a stopping time. 
+    Then for all $Y_n:S^{\Z_+}\to\R$ with $\abs{Y_n}\leq K$, 
+    \begin{equation*}
+        \E_\mu\sbrc{Y_\tau\circ\theta^\tau|\F_\tau} = \E_{X_\tau}\sbrc{Y_\tau}
+    \end{equation*}
+    on $\set{\tau<\infty}$. 
+\end{theorem}
+\begin{proof}
+    Note that on $\set{\tau<\infty}$, 
+    \begin{equation*}
+        Y_\tau\circ\theta^\tau = \sum_{n=0}^\infty Y_n\circ\theta^n\one\set{\tau = n}. 
+    \end{equation*}
+    For $A\in\F_\tau$, by Fubini's theorem, 
+    \begin{equation*}
+        \E_\mu\sbrc{Y_\tau\circ\theta^\tau\one_A} 
+        = \sum_{n=0}^\infty\E\sbrc{Y_n\circ\theta^n\one\set{\tau = n}\one_A} 
+        = \sum_{n=0}^\infty\E\sbrc{\E_{X_n}\sbrc{Y_n}\one\set{\tau = n}\one_A} 
+        = \E\sbrc{\E_{X_\tau}\sbrc{Y_\tau}\one_A}.
+    \end{equation*}
+    Hence $\E_\mu\sbrc{Y_\tau\circ\theta^\tau|\F_\tau} = \E_{X_\tau}\sbrc{Y_\tau}$ 
+    on $\set{\tau<\infty}$. 
+\end{proof}
