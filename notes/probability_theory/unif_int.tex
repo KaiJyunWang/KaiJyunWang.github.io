@@ -98,11 +98,27 @@
     integrable. 
 \end{lemma}
 \begin{proof}
-    Assume that $X_n\to 0$ in $\L^1$. Then $X_n\pto 0$. By \cref{thm:unif_int_characterization}, 
-    it suffices to check that $\sup_n\E\sbrc{\abs{X_n}}<\infty$ and for all $\epsilon>0$, 
-    there is $\delta>0$ such that $\P(A)\leq \delta$ implies $\E\sbrc{\abs{X_n}\one_A}<\epsilon$. 
-    Note that $\set{X_n}$ is convergent in $\L^1$ and hence must be $\L^1$ bounded. We have 
-    $\sup_n\E\sbrc{\abs{X_n}}<\infty$. For every $\epsilon>0$, 
+    Assume that $X_n\to 0$ in $\L^1$. Then $X_n\pto 0$. Note that $\set{X_n}$ is 
+    convergent in $\L^1$ and hence must be $\L^1$ bounded. We have 
+    $\sup_n\E\sbrc{\abs{X_n}}<\infty$. For every $\epsilon>0$, we can find $N$ 
+    such that for $n> N$, $\E\sbrc{\abs{X_n}}<\epsilon$. Pick $M$ such that 
+    $\E\sbrc{\abs{X_n}\one\set{\abs{X_n}\geq M}}<\epsilon$ for all $n\leq N$. 
+    Hence $X_n$ is uniformly integrable. 
+
+    Conversely, for fixed $M$ and $\epsilon$, write 
+    \begin{equation*}
+        \E\sbrc{\abs{X_n}} = \E\sbrc{\abs{X_n}\one\set{\abs{X_n}\geq M}} 
+        + \E\sbrc{\abs{X_n}\one\set{\epsilon\leq\abs{X_n} < M}} 
+        + \E\sbrc{\abs{X_n}\one\set{\abs{X_n}<\epsilon}}.  
+    \end{equation*}
+    The first term converges to $0$ by the uniform integrability. For the 
+    second term, 
+    \begin{equation*}
+        \E\sbrc{\abs{X_n}\one\set{\epsilon\leq\abs{X_n} < M}}\leq M\P(\abs{X_n}\geq \epsilon)\to 0
+    \end{equation*}
+    by the convergence in probability. The last term is bounded by $\epsilon$. 
+    Hence $\E\sbrc{\abs{X_n}}\to \epsilon$ as $n\to\infty$. Since $\epsilon$ 
+    can be arbitrarily small, $X_n\to 0$ in $\L^1$. 
 \end{proof}
 
 \begin{theorem}\label{thm:L1_conv_unif_int}
