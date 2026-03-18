@@ -714,10 +714,7 @@
             = x^2\P\pth{\max_{1\leq k\leq n}\abs{S_k}\geq x}. 
         \end{split} 
     \end{equation*}
-    Hence 
-    \begin{equation*}
-        \P\pth{\max_{1\leq k\leq n}\abs{S_k}\geq x} \leq \frac{1}{x^2}\E\sbrc{S_n^2}. 
-    \end{equation*}
+    Rearranging the inequality gives the desired result. 
 \end{proof}
 
 \begin{definition}
@@ -788,4 +785,92 @@
         \lim_{n\to\infty}\frac{1}{n}S_n = \sup\Set{t}{F(t)= 0}
     \end{equation*}
     almost surely, proving that the limit is almost surely a constant. 
+\end{proof}
+
+\begin{theorem}[Uniform Law of Large Number]
+    Let $Z_i\iidsim\mu_Z$ and $\Theta\subset\R^n$ be  
+    compact. Suppose that $g(Z,\theta)$ is continuous in $\theta\in\Theta$ 
+    $Z$-almost surely and there is $F(z)\in\L^1(\mu_Z)$ such that 
+    $\abs{g(Z,\theta)}\leq F(Z)$ for all $\theta\in\Theta$. Then 
+    \begin{thmenum}
+        \item The mapping $\theta\mapsto\E\sbrc{g(Z,\theta)}$ is 
+        continuous. 
+        \item \begin{equation*}
+            \sup_{\theta\in\Theta}\abs{\frac{1}{n}\sum_{i=1}^ng(Z_i,\theta) - \E\sbrc{g(Z,\theta)}}\to 0
+        \end{equation*}
+        almost surely. 
+    \end{thmenum} 
+\end{theorem}
+\begin{proof}
+    For almost every $Z$, $g(Z,\theta)$ is continuous in $\theta$. 
+    Hence for every $\epsilon>0$, there is a $\delta$ such that 
+    $\abs{g(Z,\theta') - g(Z,\theta)}<\epsilon$ if $\abs{\theta' - \theta}<\delta$. 
+    Now 
+    \begin{equation*}
+        \abs{\E\sbrc{g(Z,\theta')} - \E\sbrc{g(Z,\theta)}} 
+        \leq \E\sbrc{\abs{g(Z,\theta') - g(Z,\theta)}} < \epsilon. 
+    \end{equation*}
+    This proves (a). 
+
+    For (b), we claim that $\frac{1}{n}\sum_{i=1}^nF(Z_i)<C(\set{Z_i})$ for 
+    almost every $\set{Z_i}$. Suppose not, then there is a set 
+    of $\set{Z_i}$ with positive probability such that there 
+    is a subsequence $n_j$ with 
+    \begin{equation*}
+        \frac{1}{n_j}\sum_{i=1}^{n_j}F(Z_i)\to\infty.
+    \end{equation*}
+    Then this implies that 
+    \begin{equation*}
+        \E\sbrc{F(Z)} = \E\sbrc{\frac{1}{n_j}\sum_{i=1}^{n_j}F(Z_i)}\to\infty, 
+    \end{equation*}
+    a contradiction. Also, for almost every $\set{Z_i}$, 
+    \begin{equation*}
+        \abs{\frac{1}{n}\sum_{i=1}^ng(Z_i,\theta)}\leq \frac{1}{n}\sum_{i=1}^nF(Z_i) < C(\set{Z_i})
+    \end{equation*}
+    is bounded uniformly in $\theta$. 
+    
+    Next, we claim that for almost every $\set{Z_i}$, 
+    $n^{-1}\sum_{i=1}^ng(Z_i,\theta)$ is equicontinuous. To see this, 
+    notice that $g(Z_i,\theta)$ is uniformly continuous. Thus the 
+    modulus of continuity 
+    \begin{equation*}
+        \omega(Z_i,\delta) = \sup_{\abs{\theta - \theta'}\leq\delta}\abs{g(Z_i,\theta) - g(Z_i,\theta')}\to 0
+    \end{equation*}
+    as $\delta\to 0$. Also, $\omega(Z_i,\delta)\leq 2F(Z_i)$. By the LDCT, 
+    \begin{equation*}
+        \lim_{\delta\to 0}\E\sbrc{\omega(Z_i,\delta)} = \E\sbrc{\lim_{\delta\to 0}\omega(Z_i)} = 0. 
+    \end{equation*}
+    Now 
+    \begin{equation*}
+        \sup_{\abs{\theta - \theta'}\leq \delta}\abs{\frac{1}{n}\sum_{i=1}^ng(Z_i,\theta) - \frac{1}{n}\sum_{i=1}^ng(Z_i,\theta')} 
+        \leq \frac{1}{n}\sum_{i=1}^n\omega(Z_i,\delta)\to\E\sbrc{\omega(Z_i,\delta)}
+    \end{equation*}
+    by the strong law of large number. Hence for all $\epsilon>0$, 
+    we can select $\delta$ such that $\E\sbrc{\omega(Z_i,\delta)}<\epsilon$ 
+    and $N$ such that for all $n\geq N$, 
+    \begin{equation*}
+        \abs{\sup_{\abs{\theta - \theta'}\leq \delta}\abs{\frac{1}{n}\sum_{i=1}^ng(Z_i,\theta) - \frac{1}{n}\sum_{i=1}^ng(Z_i,\theta')} - \E\sbrc{\omega(Z_i,\delta)}} < \epsilon. 
+    \end{equation*}
+    The $\delta$ is fixed for all $n\geq N$ and since $g(Z_i,\theta)$ are unifomly 
+    continuous for $i = 1,\ldots,N$, we see that $\frac{1}{n}\sum_{i=1}^ng(Z_i,\theta)$ 
+    is equicontinuous for almost every $\set{Z_i}$. 
+
+    Suppose that $n^{-1}\sum_{i=1}^ng(Z_i,\theta)$ does not converges 
+    uniformly to $\E\sbrc{g(Z,\theta)}$. Then there is a subsequence 
+    $n_j$ such that 
+    \begin{equation*}
+        \sup_{\theta\in\Theta}\abs{n_j^{-1}\sum_{i=1}^{n_j}g(Z_i,\theta) - \E\sbrc{g(Z,\theta)}} > \epsilon. 
+    \end{equation*}
+    for all $n_j$. By the Arzela-Ascoli theorem, there is a further 
+    subsequence that converges uniformly. By the strong law of large number, 
+    for given $\theta$, 
+    \begin{equation*}
+        n^{-1}\sum_{i=1}^ng(Z_i,\theta)\to \E\sbrc{g(Z,\theta)}
+    \end{equation*}
+    almost surely. Hence the further subsequence converges to $\E\sbrc{g(Z,\theta)}$, 
+    posing a contradiction. Thus 
+    \begin{equation*}
+        n^{-1}\sum_{i=1}^ng(Z_i,\theta) \to \E\sbrc{g(Z,\theta)}
+    \end{equation*}
+    almost surely.
 \end{proof}
