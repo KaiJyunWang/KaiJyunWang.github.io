@@ -46,7 +46,7 @@
 
     Lastly, we verify the inequality. By the construction, 
     we know that $\cup_{j=1}^N B_j\subset \cup_{j=1}^k\tilde{B}_{i_j}$
-    and thus
+    and 
     \begin{equation*}
         \mu\pth{\bigcup_{j=1}^N B_j} \leq \mu\pth{\bigcup_{j=1}^k\tilde{B}_{i_j}} 
         \leq \sum_{j=1}^{k} \mu(\tilde{B}_{i_j})
@@ -165,3 +165,164 @@
     balls $B$ since the proof only requires $B$ to be a ball 
     near $x$. 
 \end{remark} 
+
+\begin{definition}
+    A metric space $(X,d)$ is \textbf{separable} if there exists a countable 
+    dense subset.
+\end{definition}
+
+\begin{lemma}[Vitali Covering Lemma \rom{2}]
+    Let $\F$ be a collection of balls in $\R^d$ such that 
+    \begin{equation*}
+        R = \sup\Set{r(B)}{B\in\F}<\infty, 
+    \end{equation*}
+    where $r(B)$ indicates the radius of the ball $B$. Then there is a 
+    countable subcollection $\G\subset\F$ such that the balls in $\G$ 
+    are pairwisely disjoint and  
+    \begin{equation*}
+        \bigcup_{B\in\F} B\subset \bigcup_{C\in\G} 5C. 
+    \end{equation*}
+    Furthermore, every $B\in\F$ intersects with some $C\in\G$. 
+\end{lemma}
+\begin{proof}
+    Consider 
+    \begin{equation*}
+        \F_n = \Set{B\in\F}{2^{-n-1}R<r(B)\leq 2^{-n}R}.
+    \end{equation*}
+    Define $\G_n\subset\F_n$ inductively as follows. Set $\S_0 = \F_0$ 
+    and $\G_0$ be the maximal disjoint subcollection of $\S_0$. The 
+    existence of $\G_0$ is given by Zorn's lemma. Having $\G_j$, $j = 0,\ldots,n$ 
+    being constructed, we set 
+    \begin{equation*}
+        \S_{n+1} = \Set{B\in\F_{n+1}}{B\cap C = \varnothing, \text{ for all } C\in\cap_{j=0}^n\G_j}
+    \end{equation*}
+    and $\G_{n+1}$ be the maximal disjoint subcollection of $\S_{n+1}$. 
+    Now we shall examine that $\G = \cup_{n=0}^\infty\G_n$ satisfies the 
+    requirement of the lemma. 
+
+    First, by construction we know that $\G_n$ contains only pairwisely disjoint 
+    balls and the sets in $\G_n$ are disjoint from those in $\G_{0},\ldots,\G_{n-1}$.
+    Hence $\G$ is disjoint. Since $\R^d$ is separable, $\G$ is countable. 
+    For every $B\in\F$, there is $n$ such that $B\in\F_n$. There are two 
+    cases: $B\in\S_{n}$ or $B\notin\S_n$. If $B\in\S_n$, by the maximality 
+    of $\G_n$, $B\cap C$ for some $C\in\G_{n}$. If $B\notin \S_{n}$, 
+    then $B$ intersects with some ball in $\G_0\cup\cdots\cup\G_{n-1}$. 
+    For both cases, $B$ intersects a ball $C$ in $\G_0\cup\cdots\cup\G_{n}$. 
+    By the construction we know that $r(C)>2^{-n-1}R$. Let $x$ be the center 
+    of $C$. Since $r(B)\leq 2^{-n}R$, for $y\in B$ there is $z\in B\cap C$ and 
+    \begin{equation*}
+        d(y,x)\leq d(y,z) + d(z,x)\leq 2^{-n+1}R + r(C)<4r(C) + r(C) = 5r(C). 
+    \end{equation*} 
+    Thus $B\subset 5C$. The lemma follows. 
+\end{proof}
+
+\begin{definition}
+    Let $E\subset\R^d$. A \textbf{Vitali covering} $\S$ for $E$ is 
+    a collection of sets such that for every $x\in E$ and $\delta>0$, 
+    there is $S\in \S$ such that $x\in S$ and $0<\diam{S}<\delta$.   
+\end{definition}
+
+\begin{theorem}[Vitali Covering Theorem]
+    Let $\lambda$ be the Lebesgue measure on $\R^d$ and $E\subset\R^d$ be measurable 
+    with $\lambda(E)<\infty$. Suppose that $\S$ is a Vitali covering of balls 
+    for $E$, Then 
+    \begin{thmenum}
+        \item For $\epsilon>0$, there is a finite disjoint $\set{B_1,\ldots,B_N}\subset\S$ 
+        such that $\lambda\pth{E - \cup_{j=1}^N B_j} <\epsilon$. 
+        \item There is a countable disjoint subcollection $\set{B_j}\subset\S$ 
+        such that $\lambda(E - \cup_jB_j) = 0$. 
+    \end{thmenum} 
+\end{theorem}
+\begin{proof}
+    Let $\epsilon>0$. Since $E$ is measurable, there is an open set 
+    $V$ containing $E$ such that $\lambda(V-E)<\epsilon$. Using the 
+    Vitali covering property, there is a subcollection $\F\subset\S$ 
+    such that $B\subset V$ and $\diam{B}<1/2$ for all $B\in\F$, with 
+    $\F$ still covering $E$. It now follows by the Vitali covering 
+    lemma that there is a countable further disjoint subcollection 
+    $\set{B_j}\subset\F$ such that 
+    \begin{equation*}
+        E\subset\bigcup_{B\in\F}B\subset \bigcup_{j}5B_j.
+    \end{equation*}
+    Notice that since $B_j$ are disjoint, 
+    \begin{equation*}
+        \sum_{j}\lambda(B_j) = \lambda\pth{\bigcup_{j}B_j}\leq \lambda(V)\leq \lambda(E)+\epsilon. 
+    \end{equation*}
+    Hence there is $N$ such that $\sum_{j\geq N+1}\lambda(B_j)<5^{-d}\epsilon$. 
+    Now if $x\in E-\cup_{j\leq N}B_j$, we can find a ball $B$ small enough 
+    so that $B\cap B_j = \varnothing$ for all $j=1,\ldots,N$. It follows by 
+    the Vitali covering lemma that $B$ must intersects with some $B_j$ 
+    where $j\geq N+1$. Hence $x\in \cup_{j\geq N+1}5B_j$ and 
+    $E-\cup_{j\leq N}B_j\subset\cup_{j\geq N+1}5B_j$. We see that 
+    \begin{equation*}
+        \lambda\pth{E-\bigcup_{j\leq N}B_j}\leq \lambda\pth{\bigcup_{j\geq N+1}5B_j} 
+        \leq 5^d\sum_{j\geq N+1}\lambda(B_j) < \epsilon. 
+    \end{equation*}
+    Since $\epsilon$ is arbitrary, we see that there is a countable 
+    collection such that $\lambda\pth{E - \cup_j B_j} = 0$.
+\end{proof}
+
+\begin{theorem}[Lebesgue]
+    Let $f:[a,b]\to\R$ be a monotone measurable function. Then $f$ is differentiable 
+    almost everywhere. 
+\end{theorem}
+\begin{proof}
+    Without loss of generality, we assume that $f$ is increasing. Define 
+    \begin{equation*}
+        D^+ f(x) = \limsup_{h\to 0^+}\frac{f(x+h)-f(x)}{h}, \quad 
+        D_+ f(x) = \liminf_{h\to 0^+}\frac{f(x+h)-f(x)}{h}
+    \end{equation*}
+    \begin{equation*}
+        D^- f(x) = \limsup_{h\to 0^-}\frac{f(x+h)-f(x)}{h}, \quad 
+        D_- f(x) = \liminf_{h\to 0^-}\frac{f(x+h)-f(x)}{h}.
+    \end{equation*}
+    Note that $f$ is differentiable at $x$ if and only if the above 
+    four quantities agree and are finite. We first claim that 
+    $E = \Set{x\in [a,b]}{D^+ f(x)=\infty}$ has measure zero. Indeed, 
+    for $n\in\N$. Consider $E_n = \Set{x\in [a,b]}{D^+ f(x)\geq n}\searrow E$. 
+    Consider the Vitali cover $\S = \Set{(x,x+h)}{f(x+h)-f(x)\geq nh}$ for $E_n$.  
+    By Vitali covering theorem, we can extract countable disjoint sets 
+    $\set{(x_i,x_i+h_i)}$ from $\S$ such that 
+    $\lambda(E_n - \cup_i(x_i,x_i+h_i)) = 0$. Now 
+    \begin{equation*}
+        \lambda(\cup_i (x_i,x_i+h_i)) = \sum_ih_i
+        \leq \frac{1}{n}\sum_i f(x_i+h_i)-f(x_i) 
+        \leq \frac{f(b)-f(a)}{n}\to 0  
+    \end{equation*}  
+    as $n\to\infty$. Hence $\lambda(E_n)\to\lambda(E) = 0$. By a 
+    similar argument applying on $g(x) = -f(-x)$, we see that 
+    $D^- f$ is finite almost everywhere. Note that $D_+ f\leq D^+ f$ 
+    and $D_- f\leq D^- f$. All four quantities are finite almost 
+    everywhere.
+
+    Next, we show that $D_-f\geq D^+f$ almost everywhere. Let $0<\alpha<\beta$. 
+    Consider the set $E_{\alpha, \beta} = \Set{x\in [a,b]}{D_-f(x)<\alpha<\beta<D^+f(x)}$. 
+    Similar to the previous claim, we consider the Vitali covering 
+    $\S_1 = \Set{(x-h,x)}{f(x)-f(x-h)< \alpha h}$. Following the same 
+    argument by extracting a finite subcover $\set{(x_i-h_i,x_i)}$ gives that 
+    $\alpha(\lambda(E_{\alpha,\beta})+\epsilon)> \sum_i f(x_i)-f(x_i-h_i)$. Now take 
+    $F = E_{\alpha,\beta}\cap(\cup_i (x_i-h_i,x_i))$. Consider the 
+    Vitali covering 
+    \begin{equation*}
+        \S_2 = \Set{(y,y+k)}{f(y+k) - f(y)>\beta k, (y,y+k)\subset \cup_i (x_i-h_i,x_i)}.
+    \end{equation*}
+    By the Vitali covering theorem, there is a disjoint countable 
+    subcover $\set{(y_j, y_j+k_j)}$ for $F$ such that 
+    $\lambda(F-\cup_j(y_j, y_j+k_j)) \leq \epsilon$. From the construction, 
+    we have that 
+    \begin{equation*}
+        \sum_j f(y_j+k_j) - f(y_j) > \beta \sum_j k_j > \beta(\lambda(E_{\alpha,\beta})-2\epsilon).
+    \end{equation*}
+    Since each $(y_j, y_j+k_j)\subset (x_i-h_i,x_i)$ for some $i$, 
+    \begin{equation*}
+        \beta\lambda(E_{\alpha,\beta})-2\beta\epsilon < \sum_j f(y_j+k_j) - f(y_j) \leq \sum_i f(x_i)-f(x_i-h_i)<\alpha\lambda(E_{\alpha, \beta})+\alpha\epsilon.
+    \end{equation*}
+    Since $\epsilon$ is arbitrary, we conclude that $\lambda(E_{\alpha,\beta}) = 0$. 
+    By taking the union over all $\alpha<\beta$, $\alpha, \beta\in\Q_+$, 
+    we see that $D_-f\geq D^+f$ almost everywhere. By a similar argument, 
+    one can also show that $D_+f\geq D^- f$ almost everywhere. Hence 
+    \begin{equation*}
+        D_-f\leq D^-f\leq D_+f\leq D^+f\leq D_-f
+    \end{equation*}
+    and all four quantities equal almost everywhere. The proof is complete. 
+\end{proof}

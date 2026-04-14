@@ -630,11 +630,8 @@
 \begin{proof}
     We first claim that for $\epsilon>0$, we may find a finite partition 
     $\set{t_j}$ such that $-\infty = t_0 <\cdots<t_j = \infty$ and 
-    \begin{equation*}
-        F(t_{j+1}^-) - F(t_j) \leq \epsilon
-    \end{equation*}
-    for all $j$. To see the existence of such partition, put 
-    $t_0 = -\infty$ and let 
+    $F(t_{j+1}^-) - F(t_j) \leq \epsilon$ for all $j$. To see the existence of 
+    such partition, put $t_0 = -\infty$ and let 
     \begin{equation*}
         t_{j+1} = \sup\Set{t\in\R}{F(t)\leq F(t_j)+\epsilon}. 
     \end{equation*}
@@ -722,9 +719,15 @@
     is \textbf{$\P$-trivial} if for all $A\in\G$, $\P(A)\in\set{0,1}$. 
 \end{definition}
 
+\begin{definition}
+    Let $\F_n$ be a sequence of $\sigma$-algebras. The \textbf{tail $\sigma$-alegra} 
+    $\T$ is defined as $\T = \cap_{n}\sigma(\F_n,\ldots)$. 
+\end{definition}
+
 \begin{theorem}[Kolmogorov Zero-One Law]
-    Let $\F_i$ be independent $\sigma$-algebras, $\G_n = \sigma(\F_n,\ldots)$ and 
-    $\G_{\infty} = \cap_{n=1}^\infty\G_n$. Then $\G_\infty$ is $\P$-trivial. 
+    Let $\F_i$ be independent $\sigma$-algebras, $\G_n = \sigma(\F_n,\ldots)$ and the 
+    tail $\sigma$-algebra $\G_{\infty} = \cap_{n=1}^\infty\G_n$. Then $\G_\infty$ is 
+    $\P$-trivial. 
 \end{theorem}
 \begin{proof}
     Observe that a $\sigma$-algebra $\G$ satisfies that for $A\in\G$, $\P(A)\in\set{0,1}$ 
