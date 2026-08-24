@@ -1,0 +1,187 @@
+\begin{definition}
+    A standard Brownian motion is a stochastic process $B_t(\omega)$ with $t\geq 0$ 
+    such that 
+    \begin{thmenum}
+        \item $B_0 = 0$. 
+        \item For $t_1<\cdots<t_n$, $B_{t_i}-B_{t_{i-1}}$ are independent. 
+        \item $B_{t+s}-B_t\sim N(0,s)$ for $s>0$. 
+        \item $t\mapsto B(t,\omega)$ is continuous almost surely.
+    \end{thmenum}
+\end{definition}
+\begin{remark}
+    The uniqueness fail when we drop the condition (d). For example, 
+    one may consider $\tilde{B}_t = B_t\one\set{U\neq t}$ where $U\sim \text{Unif}[0,1]$ is 
+    independent of $B_t$. It is clear that condition (a) to (c) are satisfied 
+    for $\tilde{B}_t$. 
+\end{remark}
+
+\begin{theorem}[Kolmogorov's Continuity Theorem]
+    Let $X_t$ be a stochastic process on $T$. Suppose that there 
+    are $\alpha,\beta,K>0$ such that 
+    \begin{equation*}
+        \E\sbrc{\abs{X_t-X_s}^\beta}\leq K\abs{t-s}^{1+\alpha}
+    \end{equation*}
+    for all $t,s$. Then there is a version of $X_t$ such that 
+    $X_t$ is locally $\gamma$-H\"older continuous for every 
+    $0<\gamma<\alpha/\beta$
+\end{theorem}
+\begin{proof}
+    Without loss of generality, consider $T = [0,1]$. Consider the 
+    restriction of $X_t$ on $D_n = \Set{2^{-n}i}{0\leq i\leq 2^n}$. 
+    Put 
+    \begin{equation*}
+        \epsilon_n = \max\Set{\abs{X_t-X_s}}{\abs{t-s}=2^{-n},\: t,s\in D_n}. 
+    \end{equation*}  
+    Notice that there are $2^{n}+1$ pairs of such $s$ and $t$. Thus 
+    \begin{equation*}
+        \E\sbrc{\sum_n (2^{\gamma n}\epsilon_n)^\beta} 
+        = \sum_n 2^{\gamma\beta n}\E\sbrc{\epsilon_n^\beta}
+        \lesssim \sum_n 2^{\gamma\beta n}\cdot 2^n 2^{-(1+\alpha)n} = \sum_n 2^{(\gamma\beta - \alpha)n}<\infty.
+    \end{equation*}
+    Hence $\epsilon_n\lesssim 2^{-\gamma n}$ almost surely. For 
+    any $t,s\in \cup_n D_n$ with $\abs{t-s}\leq 2^{-m}$, if $r\in [2^{-m-1},2^{-m}]$, 
+    \begin{equation*}
+        \sup_{\substack{t,s\in \cup_n D_n \\ \abs{t-s}\leq r}}\abs{X_t-X_s} 
+        \lesssim \sum_{n\geq m}\epsilon_n\lesssim \sum_{n\geq m}2^{-\gamma n} 
+        \lesssim 2^{-\gamma m}\lesssim r^\gamma. 
+    \end{equation*} 
+    The first inequality comes from the fact that we can always take one 
+    step in $D_n$ for each $n\geq m$ so that $t$ and $s$ are linked in 
+    finite steps. This shows that $X_t$ is $\gamma$-H\"older continuous 
+    on $\cup_n D_n$. It follows that $X|_{\cup_nD_n}$ can be extend to a 
+    $\gamma$-H\"older continuous process $Y_t$. It remains to show that 
+    $Y_t = X_t$ almost surely. Indeed, for any $t\in T$, pick $t_i\in \cup_nD_n$ 
+    such that $t_i\to t$. Then $X_{t_i} = Y_{t_i}$ for all $i$ and $Y_{t_i}\to Y_t$ 
+    almost surely by the continuity. By the Chebyshev's inequality, 
+    \begin{equation*}
+        \P\pth{\abs{X_{t_i}-X_t}> \epsilon} = \P\pth{\abs{X_{t_i}-X_t}^\beta> \epsilon^\beta}
+        \leq \frac{1}{\epsilon^\beta}\E\sbrc{\abs{X_{t_i}-X_t}^\beta}\leq \frac{1}{\epsilon^\beta}\abs{t_i-t}^\beta\to 0
+    \end{equation*}
+    for any $\epsilon>0$. Hence $X_{t_i}\pto X_t$. It follows that 
+    $X_t = Y_t$ almost surely. The proof is complete. 
+\end{proof}
+
+\begin{corollary}
+    $B_t$ is well-defined and is locally $\gamma$-H\"older 
+    continuous almost surely for every $0<\gamma<1/2$. 
+\end{corollary}
+\begin{proof}
+    It is enough to show that the Brownian motion is well-defined 
+    on $[0,1]$. Let $D_n = \Set{2^{-n}i}{0\leq i\leq 2^n}$.  
+    Define $B_t$ on $D_n$ recursively. On $D_0$, $B_0 = 0$ and 
+    $B_1\sim N(0,1)$. Suppose that $B_t$ has been constructed 
+    on $D_{n}$. For $d\in D_{n+1}-D_n$, define 
+    \begin{equation*}
+        B(d) = B(d-2^{-n-1}) + 2^{-(n+1)/2}Z_d + \frac{B(d+2^{-n-1})-B(d-2^{-n-1})}{2}
+    \end{equation*}
+    where $Z_d$ are independent standard normal from increments 
+    $B(d+2^{-n-1})-B(d-2^{-n-1})$ on $D_n$. Then 
+    \begin{equation*}
+        B(d+2^{-n-1}) - B(d) = -2^{-(n+1)/2}Z_d + \frac{B(d+2^{-n-1})-B(d-2^{-n-1})}{2}
+    \end{equation*}
+    and one can observe that $\Cov\sbrc{B(d+2^{-n-1}) - B(d), B(d) - B(d-2^{-n-1})} = 0$. 
+    Hence the contructed process has independent increments on $D_{n+1}$. 
+    Repeat the procedure, we obtain a process defined on $\cup_n D_n$ 
+    by the Kolmogorov's extension theorem. Now observe that 
+    \begin{equation*}
+        \E\sbrc{\abs{B_t-B_s}^4} = 3\abs{t-s}^2.
+    \end{equation*}
+    By the Kolmogorov's continuity theorem, there is a locally $\gamma$-H\"older 
+    continuous almost surely version of $B_t$ for every $0<\gamma<1/2$. 
+\end{proof}
+
+\begin{theorem}[Garsia-Rodemich-Rumsey Inequality]
+    Let be $f:[0,1]\to\R$ continuous and $\psi,p:[0,\infty)\to[0,\infty)$ 
+    are continuous and strictly increasing with $p(0) = \psi(0) = 0$ and 
+    $\psi(x)\to\infty$ as $x\to\infty$. If 
+    \begin{equation*}
+        \int_{[0,1]^2}\psi\pth{\frac{\abs{f(x)-f(y)}}{p(\abs{x-y})}}dxdy \leq A < \infty, 
+    \end{equation*}
+    then for all $x,y\in [0,1]$, 
+    \begin{equation*}
+        \abs{f(x)-f(y)}\leq 8\int_0^{\abs{x-y}}\psi^{-1}\pth{\frac{4A}{u^2}}dp(u). 
+    \end{equation*}
+\end{theorem}
+\begin{proof}
+    We shall first prove the case $x = 1$ and $y = 0$. 
+    Let 
+    \begin{equation*}
+        I(x) = \int_0^1 \psi\pth{\frac{\abs{f(x)-f(y)}}{p(\abs{x-y})}}dy. 
+    \end{equation*}
+    For $x_0\in (0,1)$, $I(x_0)\leq A$. Observe that we can pick $x_n\searrow 0$ 
+    and $d_n = p^{-1}(p(x_n)/2)$ such that $x_{n+1}\leq d_n$, with 
+    \begin{equation*}
+        I(x_{n+1}) \leq \frac{2A}{d_n}, \quad\text{and}\quad 
+        \psi\pth{\frac{\abs{f(x_{n+1})-f(x_n)}}{p(\abs{x_{n+1}-x_n})}}\leq \frac{2I(x_n)}{d_n}. 
+    \end{equation*} 
+    Since $d_{n+1}\leq d_n$, $I(x_{n+1})\leq \frac{2A}{d_{n+1}}$. 
+    Hence, 
+    \begin{equation*}
+        \abs{f(x_{n+1})-f(x_{n})}\leq p(\abs{x_{n+1}-x_n})\psi^{-1}\pth{\frac{2I(x_n)}{d_n}} 
+        \leq p(\abs{x_{n+1}-x_n})\psi^{-1}\pth{\frac{4A}{d_n^2}}.  
+    \end{equation*} 
+    Also, 
+    \begin{equation*}
+        p(\abs{x_{n+1}-x_n}) \leq p(x_n) = 2p(d_n). 
+    \end{equation*}
+    Notice that by construction, $2p(d_{n+1})\leq p(d_n)$ and 
+    thus $2p(d_n)\leq 4(p(d_{n})-p(d_{n+1}))$. This shows that   
+    \begin{equation*}
+        p(\abs{x_{n+1}-x_n})\leq 4(p(d_{n})-p(d_{n+1})). 
+    \end{equation*}
+    Now 
+    \begin{equation*}
+        \begin{split}
+            \abs{f(x_0)-f(0)}&\leq 4\sum_{n=0}^\infty \sbrc{p(d_{n})-p(d_{n+1})}\psi^{-1}\pth{\frac{4A}{d_n^2}} 
+            \leq 4\sum_{n=0}^\infty \int_{d_n}^{d_{n+1}}\psi^{-1}\pth{\frac{4A}{u^2}}dp(u) \\
+            &\leq 4\int_{0}^{1}\psi^{-1}\pth{\frac{4A}{u^2}}dp(u).
+        \end{split}
+    \end{equation*}
+    By a similar argument applying to $f(1-x)$, 
+    \begin{equation*}
+        \abs{f(x_0)-f(1)} \leq 4\int_{0}^{1}\psi^{-1}\pth{\frac{4A}{u^2}}dp(u). 
+    \end{equation*}
+    Hence 
+    \begin{equation*}
+        \abs{f(1)-f(0)} \leq 8\int_{0}^{1}\psi^{-1}\pth{\frac{4A}{u^2}}dp(u).
+    \end{equation*}
+    For the general case, we can consider $\tilde{f}(t) = f(x+t(y-x))$ and 
+    $\tilde{p}(u) = p(u\abs{x-y})$. Then 
+    \begin{equation*}
+        \abs{f(x)-f(y)} = \abs{\tilde{f}(0)-\tilde{f}(1)} \leq 8\int_{0}^{1}\psi^{-1}\pth{\frac{4A}{u^2\abs{x-y}^2}}dp(u\abs{x-y})
+        = 8\int_{0}^{1}\psi^{-1}\pth{\frac{4A}{u^2}}dp(u). 
+    \end{equation*}
+    The proof is complete. 
+\end{proof}
+
+\begin{proposition}
+    Let $B_t$ be a Brownian motion. Then 
+    \begin{equation*}
+        \abs{B_{t+h}-B_t} \leq C(\omega)\sqrt{-h\log(h)}
+    \end{equation*} 
+    for $h$ small enough. 
+\end{proposition}
+\begin{proof}
+    Let $\psi(x) = e^{\alpha x^2}-1$ where $\alpha\in (0,1/2)$. 
+    Set $p(u) =\sqrt{u}$. Then by the Fubini theorem
+    \begin{equation*}
+        \begin{split}
+            \E\sbrc{\int_{[0,1]^2}\psi\pth{\frac{\abs{B_s-B_t}}{p(\abs{s-t})}}dsdt} 
+            &= \int_{[0,1]^2}\E\sbrc{\psi\pth{\frac{\abs{B_s-B_t}}{p(\abs{s-t})}}}dsdt 
+            = \int_{[0,1]^2}\E\sbrc{e^{\alpha Z^2}-1}dsdt \\
+            &= \int_{-\infty}^\infty \frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}+\alpha x^2}dx-1< \infty
+        \end{split}
+    \end{equation*}
+    where $Z = \frac{B_s-B_t}{\sqrt{\abs{t-s}}}\sim N(0,1)$. 
+    Hence 
+    \begin{equation*}
+        \int_{[0,1]^2}\psi\pth{\frac{\abs{B_s-B_t}}{p(\abs{s-t})}}dsdt \leq A(\omega)<\infty
+    \end{equation*}
+    almost surely. Note that $\psi^{-1}(y) = \sqrt{\log(1+y)/\alpha}$. 
+    Apply the Garsia-Rodemich-Rumsey inequality. 
+    \begin{equation*}
+        \abs{B_{t+h}-B_t} \leq 8\frac{1}{\sqrt{\alpha}}\int_0^{h}\sqrt{\log\pth{1+\frac{4A}{u^2}}}\frac{1}{2\sqrt{u}}du
+        \lesssim C(\omega)\sqrt{-h\log(h)}
+    \end{equation*}
+    for $h$ small. 
+\end{proof}
