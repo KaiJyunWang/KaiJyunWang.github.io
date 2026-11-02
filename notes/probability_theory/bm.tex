@@ -185,3 +185,19 @@
     \end{equation*}
     for $h$ small. 
 \end{proof}
+
+\begin{theorem}[L\'evy]
+    Let $B_t$ be a standrad Brownian motion on $[0,1]$. Then 
+    \begin{equation*}
+        \limsup_{h\to 0}\sup_{0\leq t\leq 1-h}\frac{\abs{B_{t+h} - B_t}}{\sqrt{-2h\log(h)}} = 1
+    \end{equation*}
+    almost surely. 
+\end{theorem}
+\begin{proof}
+    We first establish the upper bound. Consider the dyadic points of the form 
+    $t_{n,k} = k2^{-n}$ with $k=0,\ldots,n$. By the property of Brownian motion 
+    we have 
+    \begin{equation*}
+        \P\pth{\abs{B_{t_{n,k+1}} - B_{t_{n,k}}}\geq x} \leq 2e^{-2^n\frac{x^2}{2}}
+    \end{equation*} 
+\end{proof}
