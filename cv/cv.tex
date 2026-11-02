@@ -1,201 +1,103 @@
-\documentclass[letterpaper,11pt]{article}
+﻿\documentclass{article}
 
-\usepackage{palatino}
+% Match the example's page layout and Palatino typography.
+\usepackage[a4paper,left=0.6in,right=0.6in,top=0.5in,bottom=2cm]{geometry}
 \usepackage[T1]{fontenc}
-\usepackage{latexsym}
-\usepackage[empty]{fullpage}
-\usepackage{titlesec}
+\usepackage[sc,osf]{mathpazo}
+\usepackage{xcolor}
 \usepackage{marvosym}
-\usepackage[usenames,dvipsnames]{color}
-\usepackage{verbatim}
 \usepackage{enumitem}
-\usepackage[hidelinks]{hyperref}
-\usepackage{fancyhdr}
-\usepackage[english]{babel}
-\usepackage{tabularx}
-\usepackage{fontawesome5}
-%\input{glyphtounicode}
+\usepackage{titlesec}
+\usepackage{hyperref}
 
-
-%----------FONT OPTIONS----------
-% sans-serif
-% \usepackage[sfdefault]{FiraSans}
-% \usepackage[sfdefault]{roboto}
-% \usepackage[sfdefault]{noto-sans}
-% \usepackage[default]{sourcesanspro}
-
-% serif
-% \usepackage{CormorantGaramond}
-% \usepackage{charter}
-
-% href color
-\hypersetup{%
-unicode,
-breaklinks,%
-colorlinks=true,%
-urlcolor=[rgb]{0.1,0.1,0.5},%
-linkcolor=[rgb]{0.5,0.0,0.0},%
-citecolor=[rgb]{0,0.2,0.445},%
-filecolor=[rgb]{0,0,0.4},
-anchorcolor=[rgb]={0.0,0.1,0.2}%
+\def\name{Kai-Jyun Wang}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  urlcolor=blue,
+  pdfauthor={\name},
+  pdftitle={\name: Curriculum Vitae},
+  pdfsubject={Curriculum Vitae},
+  pdfpagemode=UseNone
 }
-
-
-\pagestyle{fancy}
-\fancyhf{} % clear all header and footer fields
-\fancyfoot{}
-\renewcommand{\headrulewidth}{0pt}
-\renewcommand{\footrulewidth}{0pt}
-
-% Adjust margins
-\addtolength{\oddsidemargin}{-0.5in}
-\addtolength{\evensidemargin}{-0.5in}
-\addtolength{\textwidth}{1in}
-\addtolength{\topmargin}{-.5in}
-\addtolength{\textheight}{1.0in}
-
 \urlstyle{same}
-
+\setlength{\parindent}{0pt}
 \raggedbottom
-\raggedright
-\setlength{\tabcolsep}{0in}
 
+\titleformat{\section}{\rmfamily\mdseries\Large}{}{0pt}{}[\vspace{-4pt}\titlerule]
+\titlespacing*{\section}{0pt}{1em}{0.7em}
+\setlist[itemize]{label=-,leftmargin=1.5em,itemsep=0.5em,topsep=0.5em,parsep=0pt,partopsep=0pt}
 
-% Sections formatting
-\titleformat{\section}{
-  \vspace{-4pt}\scshape\raggedright\large
-}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
-
-% Ensure that generate pdf is machine readable/ATS parsable
-\pdfgentounicode=1
-
-%-------------------------
-% Custom commands
-\newcommand{\resumeItem}[1]{
-  \item\small{
-    {#1 \vspace{-2pt}}
-  }
+% Institution and location above the role, with dates aligned right.
+\newcommand{\cventry}[3]{%
+  \noindent #1\hfill\mbox{\slshape #2}\\
+  {\slshape\textbf{#3}}\par
 }
-
-\newcommand{\resumeSubheading}[4]{
-  \vspace{-2pt}\item
-    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
-      \textbf{#1} & \textit{\small #2} \\
-      \textit{\small #3} & {\small #4} \\
-    \end{tabular*}\vspace{-7pt}
-}
-
-\newcommand{\resumeSubSubheading}[2]{
-    \item
-    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
-      \textit{\small#1} & \textit{\small #2} \\
-    \end{tabular*}\vspace{-7pt}
-}
-
-\newcommand{\resumeProjectHeading}[2]{
-    \item
-    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
-      \small#1 & #2 \\
-    \end{tabular*}\vspace{-7pt}
-}
-
-\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
-
-\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
-
-\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
-\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
-\newcommand{\resumeItemListStart}{\begin{itemize}}
-\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
-
-%-------------------------------------------
-%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 \begin{document}
 
 \begin{center}
-    \textbf{\Huge Kai-Jyun Wang} 
+  {\huge \name}
 \end{center}
-
+\vspace{-1em}
 \begin{center}
-    \small \href{mailto:b11303072@ntu.edu.tw}{b11303072@ntu.etu.tw} $|$
-    \href{https://kaijyunwang.github.io/}{kaijyunwang.github.io} $|$
-    \href{https://github.com/KaiJyunWang}{\faGithubSquare\, KaiJyunWang} 
+  \Letter\ \href{mailto:kevinwang.501kw@gmail.com}{\texttt{kevinwang.501kw@gmail.com}}
+  \hfill
+  \href{https://kaijyunwang.github.io/}{kaijyunwang.github.io}
+  \hfill
+  GitHub: \href{https://github.com/KaiJyunWang}{KaiJyunWang}
 \end{center}
+\vspace{-1em}
+
+\section*{\textsc{Education}}
+\cventry{\textbf{National Taiwan University}, Taipei, Taiwan}{Sep. 2022 -- Jun. 2026}{B.A.\ in Economics}
+\begin{itemize}
+  \item Overall GPA 4.07/4.30 \quad (GPA 4.12/4.30 in all economics courses) 
+  \item Ph.D. Courses: Macro-Labor Economics, Empirical Game Theory Analysis, Computation in Macroeconomics, Continuous-time Models in Asset Pricing and Macroeconomics
+  \item Math Courses: Real Analysis (Graduate-Level), Introduction to Mathematical Analysis, Linear Algebra
+\end{itemize}
+\vspace{0.5em}
+\cventry{\textbf{University of Wisconsin--Madison}, Madison, WI, USA}{Sep. 2025 -- May 2026}{Exchange Student}
+\begin{itemize}
+  \item GPA: 3.88/4.00
+  \item Ph.D. Courses: Econometric Theory, Macroeconomic Theory
+  \item Math Courses: Theory of Probability (Graduate-Level)
+\end{itemize}
 
 
-%-----------RESEARCH INTERESTS-----------
-\section{Research Interests}
-    \hspace{0.5em} Dynamic Structural Model, Macroeconomics, Labor Economics
+\section*{\textsc{Research Experience}}
+\cventry{\textbf{C2L2 Lab}, National Taiwan University, Taipei, Taiwan}{Feb. 2023 -- present}{Research Assistant}
+\begin{itemize}
+  \item Developed and numerically solved dynamic structural models.
+  \item Estimated structural model parameters and conducted counterfactual analyses and simulations.
+\end{itemize}
 
+\section*{\textsc{Work In Progress}}
 
-%-----------EDUCATION-----------
-\section{Education}
-  \resumeSubHeadingListStart
-    \resumeSubheading
-      {National Taiwan University}{June 2026 (Expected)}
-      {B.A.\ in Economics}{Taipei, Taiwan}
-      \resumeItemListStart
-        \resumeItem{GPA: 4.06/4.3}
-        \resumeItem{Courses: Linear Algebra, Real Analysis, Game Theory, Labor Economics}
-      \resumeItemListEnd
-  \resumeSubHeadingListEnd
+\section*{\textsc{Selected Projects}}
+\textbf{Understanding the Effect of Pension Reform: A Structural Approach}
+\hfill {\slshape Feb. 2024 -- present}
+\begin{itemize}
+  \item 
+\end{itemize}
 
+\section*{\textsc{Teaching Experience}}
+\cventry{\textbf{Economics Department}, National Taiwan University, Taipei, Taiwan}{}{Teaching Assistant}
+\begin{itemize}
+  \item Graduate labor economics, taught in English  \hfill \mbox{\slshape Fall 2024}
+\end{itemize}
 
-%-----------Experience-----------
-\section{Experience}
-  \resumeSubHeadingListStart
+\section*{\textsc{Skills}}
+\begin{tabular}{@{}ll@{}}
+  \textbf{Language\quad} & Mandarin (native), English (fluent), German (learning)\\
+  \textbf{Programming Languages\quad} & Julia, R, Python\\
+  \textbf{Others\quad} & \LaTeX, Git, GitHub, Linux
+\end{tabular}
 
-    \resumeSubheading
-      {C2L2 Lab, National Taiwan University}{Feb. 2023 -- present}
-      {Part-time Research Assistant}{Taipei, Taiwan}
-      \resumeItemListStart
-        \resumeItem{Developed and numerically solved dynamic structural models.} 
-        \resumeItem{Estimated structural model parameters and conducted counterfactural analyses and simulations.}
-    
-      \resumeItemListEnd
-      
-    \resumeSubheading
-      {Economics Department, National Taiwan University}{Sep. 2024 -- Dec. 2024}
-      {Teaching Assistant}{Taipei, Taiwan}
-      \resumeItemListStart
-        \resumeItem{Set up problem sets and graded asignments for the labor economics course.} 
-        \resumeItem{Offered office hours and provided additional support to students.}
-      \resumeItemListEnd
-
-  \resumeSubHeadingListEnd
-
-%-----------Projects-----------
-\section{Projects}
-  \resumeSubHeadingListStart
-
-    \resumeSubheading
-      {Understanding the Effect of Pension Reform: A Structural Approach}{Feb. 2024 -- present}
-      {Methods \& Tools: Deep Learning, SMM}{Taipei, Taiwan}
-      \resumeItemListStart
-        \resumeItem{Constructed a life-cycle model to study the effect of pension reform.} 
-        \resumeItem{Employed the deep learning algorithm to solve the dynamic structural model.} 
-        \resumeItem{Estimated the model parameters with administrative data using the simulated method of moments.} 
-        \resumeItem{Investigated the effect of potential reforms and the distrust to the government.}
-    
-      \resumeItemListEnd
-
-  \resumeSubHeadingListEnd
-
-%-----------Skills-----------
-\section{Skills}
- \begin{itemize}[leftmargin=0.15in, label={}]
-    \small{\item{
-    \vspace{1mm}
-     \textbf{Language}{: Mandarin (native), English (fluent), German (learning)} \\
-     \vspace{1mm}
-     \textbf{Programming Languages}{: Julia, R} \\
-     \vspace{1mm}
-     \textbf{Others}{: LaTeX, Git \& Github} \\
-
-    }}
- \end{itemize}
-
+\section*{\textsc{References}}
+Dr. Kuan-Ming Chen \\
+Associate Professor \\
+Department of Economics, National Taiwan University \\
+\href{mailto:kuanmingchen@ntu.edu.tw}{\tt \textcolor{blue}{kuanmingchen@ntu.edu.tw}}
 
 \end{document}
