@@ -1,103 +1,162 @@
-﻿\documentclass{article}
+% !TeX program = lualatex
+\documentclass[10pt,a4paper]{article}
 
-% Match the example's page layout and Palatino typography.
-\usepackage[a4paper,left=0.6in,right=0.6in,top=0.5in,bottom=2cm]{geometry}
-\usepackage[T1]{fontenc}
-\usepackage[sc,osf]{mathpazo}
-\usepackage{xcolor}
-\usepackage{marvosym}
-\usepackage{enumitem}
+% Page layout settings
+\usepackage[margin=1in]{geometry}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\cfoot{\footnotesize Page \thepage\ of \pageref{LastPage}}
+\fancypagestyle{plain}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \cfoot{\footnotesize Page \thepage\ of \pageref{LastPage}}
+}
+
+\usepackage{fontspec}
+\defaultfontfeatures{Ligatures=TeX}
+% Use the package when available, or the Font Awesome font installed locally.
+\IfFileExists{fontawesome5.sty}{
+  \usepackage{fontawesome5}
+}{
+  \newfontfamily\iconfont{FontAwesome}
+  \newcommand{\faEnvelope}{{\iconfont\symbol{"F0E0}}}
+  \newcommand{\faGithub}{{\iconfont\symbol{"F09B}}}
+}
+\setmainfont{TeX Gyre Pagella} % Body: Palatino-style serif
+\setsansfont{TeX Gyre Pagella} % Name and headings: Palatino-style sans-serif
+\setmonofont{Latin Modern Mono} % Email and GitHub URLs
+
+
+\usepackage{tabularx}
+\usepackage{comment}
+
+% Section settings
 \usepackage{titlesec}
-\usepackage{hyperref}
+% Section title formatting
+\titleformat{\section}[hang]{\large\bfseries\sffamily\scshape}{\thesection}{0em}{}[\vspace{0.2em}\titlerule]
+\titleformat{\subsection}[hang]{\sffamily\scshape}{\thesubsection}{0em}{}
+\titlespacing*{\section}{0pt}{1.3em}{0.65em}
+\titlespacing*{\subsection}{0pt}{1.2em}{0.6em}
+\setcounter{secnumdepth}{0}
 
-\def\name{Kai-Jyun Wang}
+\usepackage{enumitem}
+\setlist{nosep}
+\newlist{cvdesc}{description}{1}
+\setlist[cvdesc]{labelindent=0pt,leftmargin=1.5cm,itemsep=0.3em,font=\sffamily\bfseries,after=\vspace{0.8em}}
+\newlist{cvitemize}{itemize}{1}
+\setlist[cvitemize]{label=\textbullet,leftmargin=1.5em,topsep=0.45em,itemsep=0.35em}
+
+\newcommand{\cventry}[5]{\noindent
+  \begin{tabularx}{\textwidth}{@{}Xr@{}}
+    \textbf{\sffamily #1}\if\relax\detokenize{#2}\relax\else\hspace{0.75em}\textsf{#2}\fi & \sffamily #3 \\
+  \end{tabularx}
+  \if\relax\detokenize{#4}\relax\else
+    \noindent\textsf{#4}
+  \fi
+  \if\relax\detokenize{#5}\relax\else
+    \begin{cvitemize}
+      #5
+    \end{cvitemize}
+  \fi
+  %\vspace{0.5em}
+}
+
+% Color palette
+\usepackage{xcolor}
+\definecolor{greenblue}{RGB}{35, 100, 170}
+\definecolor{asparagus}{RGB}{107, 170, 117}
+\definecolor{darkred}{RGB}{150, 40, 40}
+\definecolor{gray75}{gray}{0.75}
+
+\usepackage{hyperref}
 \hypersetup{
   colorlinks=true,
-  linkcolor=black,
-  urlcolor=blue,
-  pdfauthor={\name},
-  pdftitle={\name: Curriculum Vitae},
+  linkcolor=darkred,
+  filecolor=magenta,
+  urlcolor=black,
+  pdftitle={Kai-Jyun Wang's CV},
+  pdfauthor={Kai-Jyun Wang},
   pdfsubject={Curriculum Vitae},
-  pdfpagemode=UseNone
+  pdfkeywords={Economics, CV, Resume},
 }
-\urlstyle{same}
-\setlength{\parindent}{0pt}
-\raggedbottom
 
-\titleformat{\section}{\rmfamily\mdseries\Large}{}{0pt}{}[\vspace{-4pt}\titlerule]
-\titlespacing*{\section}{0pt}{1em}{0.7em}
-\setlist[itemize]{label=-,leftmargin=1.5em,itemsep=0.5em,topsep=0.5em,parsep=0pt,partopsep=0pt}
-
-% Institution and location above the role, with dates aligned right.
-\newcommand{\cventry}[3]{%
-  \noindent #1\hfill\mbox{\slshape #2}\\
-  {\slshape\textbf{#3}}\par
+\newcommand{\makeheader}{
+  \noindent
+  \parbox[t]{0.35\textwidth}{%
+    \sffamily\Large Kai-Jyun Wang
+  }%
+  \hfill
+  \parbox[t]{0.63\textwidth}{%
+    \raggedleft
+    \small
+    \faEnvelope\hspace{0.5em}\href{mailto:kevinwang.501kw@gmail.com}{\texttt{kevinwang.501kw@gmail.com}}\\
+    \faGithub\hspace{0.5em}\href{https://github.com/KaiJyunWang}{\texttt{https://github.com/KaiJyunWang}}
+  }%
+  \par\vskip2em%
 }
 
 \begin{document}
+\makeheader
 
-\begin{center}
-  {\huge \name}
-\end{center}
-\vspace{-1em}
-\begin{center}
-  \Letter\ \href{mailto:kevinwang.501kw@gmail.com}{\texttt{kevinwang.501kw@gmail.com}}
-  \hfill
-  \href{https://kaijyunwang.github.io/}{kaijyunwang.github.io}
-  \hfill
-  GitHub: \href{https://github.com/KaiJyunWang}{KaiJyunWang}
-\end{center}
-\vspace{-1em}
+\section{Education}
 
-\section*{\textsc{Education}}
-\cventry{\textbf{National Taiwan University}, Taipei, Taiwan}{Sep. 2022 -- Jun. 2026}{B.A.\ in Economics}
-\begin{itemize}
-  \item Overall GPA 4.07/4.30 \quad (GPA 4.12/4.30 in all economics courses) 
+\cventry{National Taiwan University}{}{Fall 2022 -- Spring 2026}{B.A.\ in Economics (Overall GPA: 4.07/4.30; Economics GPA: 4.12/4.30)}{
   \item Ph.D. Courses: Macro-Labor Economics, Empirical Game Theory Analysis, Computation in Macroeconomics, Continuous-time Models in Asset Pricing and Macroeconomics
   \item Math Courses: Real Analysis (Graduate-Level), Introduction to Mathematical Analysis, Linear Algebra
-\end{itemize}
-\vspace{0.5em}
-\cventry{\textbf{University of Wisconsin--Madison}, Madison, WI, USA}{Sep. 2025 -- May 2026}{Exchange Student}
-\begin{itemize}
-  \item GPA: 3.88/4.00
-  \item Ph.D. Courses: Econometric Theory, Macroeconomic Theory
+}
+
+\cventry{University of Wisconsin--Madison}{}{Fall 2025 -- Spring 2026}{Exchange Student (GPA: 3.88/4.00)}{
+  \item Ph.D. Courses: Econometric Theory, Macroeconomic Theory, International Macroeconomics
   \item Math Courses: Theory of Probability (Graduate-Level)
-\end{itemize}
+}
 
+\section{Research Experience}
 
-\section*{\textsc{Research Experience}}
-\cventry{\textbf{C2L2 Lab}, National Taiwan University, Taipei, Taiwan}{Feb. 2023 -- present}{Research Assistant}
-\begin{itemize}
-  \item Developed and numerically solved dynamic structural models.
-  \item Estimated structural model parameters and conducted counterfactual analyses and simulations.
-\end{itemize}
+\cventry{Research Assistant}{to Prof. Kuan-Ming Chen}{2023 -- present}{}{
+  \item Cleaned and processed administrative tax data with 23 million individuals and 1.7 million firms
+  in 15 years.
+  \item Deployed DuckDB and Arrow to overcome the memory limitations of R, reducing
+  data processing time from days to an hour.
+}
 
-\section*{\textsc{Work In Progress}}
+\section{Work In Progress}
 
-\section*{\textsc{Selected Projects}}
-\textbf{Understanding the Effect of Pension Reform: A Structural Approach}
-\hfill {\slshape Feb. 2024 -- present}
-\begin{itemize}
-  \item 
-\end{itemize}
+\cventry{Pension Run}{}{2024 -- present}{}{
+  \item Constructed a dynamic bank run model to explain the annuity puzzle in Taiwan.
+  \item Calibrated the model using time series data.
+  \item Conducted simulations to analyze the cost of late reforms.
+}
 
-\section*{\textsc{Teaching Experience}}
-\cventry{\textbf{Economics Department}, National Taiwan University, Taipei, Taiwan}{}{Teaching Assistant}
-\begin{itemize}
-  \item Graduate labor economics, taught in English  \hfill \mbox{\slshape Fall 2024}
-\end{itemize}
+\cventry{\href{https://github.com/KaiJyunWang/PolicyPDEs.jl}{PolicyPDEs.jl}}{}{2025 -- present}{}{
+  \item Designed a Julia package for solving economic partial differential equations using semi-implicit policy iteration.
+}
 
-\section*{\textsc{Skills}}
-\begin{tabular}{@{}ll@{}}
-  \textbf{Language\quad} & Mandarin (native), English (fluent), German (learning)\\
-  \textbf{Programming Languages\quad} & Julia, R, Python\\
-  \textbf{Others\quad} & \LaTeX, Git, GitHub, Linux
-\end{tabular}
+\section{Teaching Experience}
 
-\section*{\textsc{References}}
+\cventry{Labor Economics}{Teaching Assistant}{Fall 2024}{Course Instructor: Prof.\ Kuan-Ming Chen}{
+  \item Developed problem sets and graded exams.
+}
+
+\section{Skills}
+
+\begin{cvdesc}
+  \item[Languages:] Mandarin (native), English (fluent), German (learning)
+  \item[Programming Languages:] Julia, R, Python
+  \item[Others:] \LaTeX, Git, GitHub, Linux
+\end{cvdesc}
+
+\begin{comment}
+
+\section{References}
+
 Dr. Kuan-Ming Chen \\
 Associate Professor \\
 Department of Economics, National Taiwan University \\
-\href{mailto:kuanmingchen@ntu.edu.tw}{\tt \textcolor{blue}{kuanmingchen@ntu.edu.tw}}
+\href{mailto:kuanmingchen@ntu.edu.tw}{\texttt{kuanmingchen@ntu.edu.tw}}
+
+\end{comment}
 
 \end{document}
