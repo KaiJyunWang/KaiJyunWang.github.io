@@ -60,42 +60,85 @@ p {
     text-decoration: underline;
 }
 
-/* For narrow screen */
-
-@media only screen and (max-width: 600px) {
-    * {
-        font-family: Helvetica, Arial, sans-serif;
-    }
-    h1 {
-        text-align: center;
-        left: 0;
-        right: 0;
-        height: 50px;
-    }
-    h1::after {
-        content: "";
-        display: block;
-        width: 80%; /* Adjust this value to control the line width */
-        max-width: 600px; /* Adjust this value to control the maximum line width */
-        height: 1px;
-        background-color: white;
-        margin: 0 auto;
-        margin-top: 0; /* Optional: to add some space between the text and the line */
-    }
+/* Tablets and narrow windows */
+@media (max-width: 1100px) {
     header {
-        height: 215px;
+        height: auto;
+        width: auto;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem 1.5rem;
+        padding: 0.75rem 4vw;
     }
+
+    h1 {
+        position: static;
+        line-height: 1.2;
+    }
+
     header ul {
-        position: relative;
-        top: 85px;
-        right: 0;
+        position: static;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0 1rem;
+        list-style: none;
+        line-height: 1.4;
     }
+
     header li {
-        display: block;
-        text-align: center;
-        line-height: 30px;
-    } 
-    p {
-        margin-right: 4vw;
+        margin: 0;
     }
-} 
+
+    header a {
+        display: block;
+        padding: 0.625rem 0.25rem;
+    }
+
+    .container {
+        display: flow-root;
+        padding: 0 4vw 2rem;
+        overflow-wrap: anywhere;
+    }
+
+    h2,
+    h3 {
+        margin: 1.5rem 0 0;
+    }
+
+    p {
+        margin: 1rem 0 0;
+    }
+
+    #home img {
+        /* Override the float spacing set inline on the home page. */
+        width: 32%;
+        height: auto;
+        margin: 0 0 1rem 1.5rem !important;
+    }
+}
+
+/* Phones */
+@media (max-width: 600px) {
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    header ul {
+        justify-content: center;
+    }
+
+    #home img {
+        /* Override the inline float and margins to center the portrait. */
+        float: none !important;
+        display: block;
+        width: min(100%, 15rem);
+        margin: 1rem auto !important;
+    }
+}
